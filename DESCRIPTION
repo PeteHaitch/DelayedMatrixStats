@@ -1,0 +1,23 @@
+Package: DelayedMatrixStats
+Type: Package
+Title: Functions that Apply to Rows and Columns of 'DelayedMatrix' Objects
+Version: 0.0.0.9000
+Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
+    email = "peter.hickey@gmail.com"))
+Author: Peter Hickey <peter.hickey@gmail.com>
+Maintainer: Peter Hickey <peter.hickey@gmail.com>
+Description: A port of the 'matrixStats' API for use with DelayedMatrix objects 
+  from the 'DelayedArray' package. High-performing functions operating on rows 
+  and columns of DelayedMatrix objects, e.g. col / rowMedians(), 
+  col / rowRanks(), and col / rowSds(). Functions optimized per data type and 
+  for subsetted calculations such that both memory usage and processing time is 
+  minimized.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
+Imports: 
+  methods,
+  matrixStats,
+  DelayedArray
