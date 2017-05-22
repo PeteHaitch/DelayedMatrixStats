@@ -17,7 +17,14 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
-Imports: 
-  methods,
-  matrixStats,
+Depends:
   DelayedArray
+Imports:
+  methods,
+  BiocGenerics,
+  matrixStats,
+  Matrix,
+  S4Vectors
+Suggests: 
+  testthat,
+  HDF5Array
