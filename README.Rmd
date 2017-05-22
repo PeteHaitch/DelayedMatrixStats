@@ -1,15 +1,18 @@
 ---
-title: "DelayedMatrixStats"
-output:
-  github_document:
-    toc: true
-    toc_depth: 2
+output: github_document
 ---
 
-```{r, include = FALSE, setup}
-knitr::opts_chunk$set(echo = FALSE, comment = "#>", collapse = TRUE,
-                      message = FALSE, results = "hide", warning = FALSE)
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
 ```
+
+# DelayedMatrixStats
 
 **DelayedMatrixStats** is a port of the 
 [**matrixStats**](https://CRAN.R-project.org/package=matrixStats) API to work 
@@ -28,3 +31,21 @@ The **DelayedArray** package already implements a clever strategy called
 be optimized with additional information about `x`. For example, if `x` is an 
 *RleArray*, then `colSums(x)` can be very efficiently implemented by calling 
 `sum,Rle-method()` on `x[, j]` for each `j`.
+## Installation
+
+You can install DelayedMatrixStats from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("PeteHaitch/DelayedMatrixStats")
+```
+
+## Example
+
+**TODO**
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+## basic example code
+```
