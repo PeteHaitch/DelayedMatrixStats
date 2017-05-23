@@ -125,7 +125,6 @@ setMethod("rowSums2", "DelayedMatrix",
                    ...) {
             if (!.is_simple_seed(seed(x)) || x@is_transposed) {
               message("The rest")
-              # TODO: Need to check logic
               # Subset and defer to rowSums
               if (!is.null(rows)) {
                 x <- x[rows, ]
@@ -144,7 +143,7 @@ setMethod("rowSums2", "DelayedMatrix",
               message("Not transposed")
               x <- .from_DelayedArray_to_simple_seed_class(x, FALSE)
             }
-            rowSums2(x, rows, cols, na.rm, dim., ...)
+            .rowSums2(x, rows, cols, na.rm, dim., ...)
           }
 )
 
