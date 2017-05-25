@@ -11,21 +11,23 @@
 #       basic operations like "[", although it does support
 #       subset_simple_seed_as_seed_class() and
 #       DelayedArray:::subset_seed_as_array(), which may be sufficient
-# TODO: DataFrame doesn't support basic maths ops like `+` and `*`, which
-#       greatly limits the ability to write specialized methods for
-#       DelayedArray with a DataFrame seed
 .is_simple_seed <- function(seed) {
-  simple_seed_classes <- c("matrix", "Matrix", "data.frame", "RleArraySeed")
+  simple_seed_classes <- c("matrix", "Matrix", "data.frame", "DataFrame",
+                           "RleArraySeed")
   any(vapply(simple_seed_classes, function(class) is(seed, class), logical(1)))
 }
 
 # NOTE: A basic wrapper around DelayedArray:::.execute_delayed_ops() that also
 #       handles seed instance of class RleArraySeed
+# TODO: Make generic and implement methods
+#' @importFrom S4Vectors endoapply
 .execute_delayed_ops <- function(seed, delayed_ops) {
   if (is(seed, "RleArraySeed")) {
     seed@rle <- DelayedArray:::.execute_delayed_ops(seed@rle, delayed_ops)
+  } else if (is(seed, "DataFrame")) {
+    seed <- endoapply(seed, DelayedArray:::.execute_delayed_ops, delayed_ops)
   } else {
-    seed <- DelayedArray:::.execute_delayed_ops(seed@rle, delayed_ops)
+    seed <- DelayedArray:::.execute_delayed_ops(seed, delayed_ops)
   }
   seed
 }
@@ -38,8 +40,6 @@
 # Like DelayedArray:::.from_DelayedArray_to_array but returning an object of
 # the same class as class(seed(x))
 # NOTE: Only works for simple, in-memory seeds
-# TODO: Doesn't yet work when x is a RleArray instance; can execute delayed ops
-#       on a RleArray but not on an RleArraySeed
 #' @importFrom S4Vectors isTRUEorFALSE
 .from_DelayedArray_to_simple_seed_class <- function(x, drop = FALSE) {
   if (!.is_simple_seed(seed(x))) {

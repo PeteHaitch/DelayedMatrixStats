@@ -85,6 +85,8 @@ list_of_matrix <- lapply(modes, function(mode) {
   }
 })
 
+list_of_matrix_base_case <- lapply(list_of_matrix, "[[", "base_case")
+
 ### ----------------------------------------------------------------------------
 ### List of matrix-like objects for seeds of a DelayedArray
 ###
@@ -145,3 +147,8 @@ list_of_DelayedMatrix <- setNames(
     names(seeds))
   }),
   names(list_of_seeds))
+
+list_of_DelayedMatrix_base_case <- lapply(list_of_DelayedMatrix, function(x) {
+  lapply(x, "[[", "base_case")
+})
+
