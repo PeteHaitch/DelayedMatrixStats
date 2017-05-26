@@ -22,10 +22,86 @@ devtools::install_github("PeteHaitch/DelayedMatrixStats")
 Example
 -------
 
-**TODO**
-
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-## basic example code
+## TODO
 ```
+
+API coverage
+------------
+
+-   \[ \] `colAlls()`
+-   \[ \] `colAnyMissings()`
+-   \[ \] `colAnyNAs()`
+-   \[ \] `colAnys()`
+-   \[ \] `colAvgsPerRowSet()`
+-   \[ \] `colCollapse()`
+-   \[ \] `colCounts()`
+-   \[ \] `colCummaxs()`
+-   \[ \] `colCummins()`
+-   \[ \] `colCumprods()`
+-   \[ \] `colCumsums()`
+-   \[ \] `colDiffs()`
+-   \[ \] `colIQRDiffs()`
+-   \[ \] `colIQRs()`
+-   \[ \] `colLogSumExps()`
+-   \[ \] `colMadDiffs()`
+-   \[ \] `colMads()`
+-   \[ \] `colMaxs()`
+-   \[ \] `colMeans2()`
+-   \[ \] `colMedians()`
+-   \[ \] `colMins()`
+-   \[ \] `colOrderStats()`
+-   \[ \] `colProds()`
+-   \[ \] `colQuantiles()`
+-   \[ \] `colRanges()`
+-   \[ \] `colRanks()`
+-   \[ \] `colSdDiffs()`
+-   \[ \] `colSds()`
+-   \[ \] `colSums2()`
+-   \[ \] `colTabulates()`
+-   \[ \] `colVarDiffs()`
+-   \[ \] `colVars()`
+-   \[ \] `colWeightedMads()`
+-   \[ \] `colWeightedMeans()`
+-   \[ \] `colWeightedMedians()`
+-   \[ \] `colWeightedSds()`
+-   \[ \] `colWeightedVars()`
+-   \[ \] `rowAlls()`
+-   \[ \] `rowAnyMissings()`
+-   \[ \] `rowAnyNAs()`
+-   \[ \] `rowAnys()`
+-   \[ \] `rowAvgsPerColSet()`
+-   \[ \] `rowCollapse()`
+-   \[ \] `rowCounts()`
+-   \[ \] `rowCummaxs()`
+-   \[ \] `rowCummins()`
+-   \[ \] `rowCumprods()`
+-   \[ \] `rowCumsums()`
+-   \[ \] `rowDiffs()`
+-   \[ \] `rowIQRDiffs()`
+-   \[ \] `rowIQRs()`
+-   \[ \] `rowLogSumExps()`
+-   \[ \] `rowMadDiffs()`
+-   \[ \] `rowMads()`
+-   \[ \] `rowMaxs()`
+-   \[ \] `rowMeans2()`
+-   \[ \] `rowMedians()`
+-   \[ \] `rowMins()`
+-   \[ \] `rowOrderStats()`
+-   \[ \] `rowProds()`
+-   \[ \] `rowQuantiles()`
+-   \[ \] `rowRanges()`
+-   \[ \] `rowRanks()`
+-   \[ \] `rowSdDiffs()`
+-   \[ \] `rowSds()`
+-   \[x\] `rowSums2()`
+-   \[ \] `rowTabulates()`
+-   \[ \] `rowVarDiffs()`
+-   \[ \] `rowVars()`
+-   \[ \] `rowWeightedMads()`
+-   \[ \] `rowWeightedMeans()`
+-   \[ \] `rowWeightedMedians()`
+-   \[ \] `rowWeightedSds()`
+-   \[ \] `rowWeightedVars()`

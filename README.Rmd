@@ -1,5 +1,7 @@
 ---
 output: github_document
+editor_options: 
+chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -43,10 +45,33 @@ devtools::install_github("PeteHaitch/DelayedMatrixStats")
 
 ## Example
 
-**TODO**
-
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-## basic example code
+## TODO
+```
+
+## API coverage
+
+```{r, echo = FALSE, comment="", results = "asis"}
+matrixStats <- sort(grep("^(col|row)", 
+                         getNamespaceExports("matrixStats"), 
+                         value = TRUE))
+# TODO: A better way of parsing DelayedMatrixStats NAMESPACE to get exported 
+#       functions
+DelayedMatrixStats <- readLines("NAMESPACE")
+DelayedMatrixStats <- gsub("exportMethods|\\(|\\)", 
+                           "",
+                           grep("^exportMethods", 
+                                DelayedMatrixStats, 
+                                value = TRUE))
+api <- do.call(c, lapply(matrixStats, function(fun) {
+  if (fun %in% DelayedMatrixStats) {
+    checkbox <- "- [x]"
+  } else {
+    checkbox <- "- [ ]"
+  }
+  paste0(checkbox, " `", fun, "()`")
+}))
+writeLines(api, sep = "\n")
 ```
