@@ -12,9 +12,10 @@ setMethod(".rowSums2", "matrix",
           }
 )
 
-# NOTE: No different from rowSums2,ANY-method except that it explicitly calls
+# NOTE: No different from .rowSums2,ANY-method except that it explicitly calls
 #       Matrix::rowSums() to resolve what I think is a namespace collision with
 #       BiocGenerics::rowSums()
+# TODO: Profile (this probably generates a copy when rows or cols is non NULL)
 #' @importFrom methods setMethod
 setMethod(".rowSums2", "Matrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
@@ -31,26 +32,11 @@ setMethod(".rowSums2", "Matrix",
           }
 )
 
-setMethod(".rowSums2", "data.frame",
-          function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                   ...) {
-            message("ANY")
-            if (!is.null(rows)) {
-              x <- x[rows, , drop = FALSE]
-            }
-            if (!is.null(cols)) {
-              x <- x[, cols, drop = FALSE]
-            }
-            # NOTE: Return value of matrixStats::rowSums2() has no names
-            unname(rowSums(x, na.rm))
-          }
-)
-
 # NOTE: This feels a little circular since it takes an ANY (those for which we
 #       don't have an explicit .rowSums2() method) as a seed, contructs an
 #       DelayedMatrix from that seed, subsets the DelayedMatrix, and then calls
 #       rowSums,DelayedMatrix-method. All of this is to avoid writing an
-#       explicit rowSums method for these classes of seeds, for which it is
+#       explicit .rowSums2() method for these classes of seeds, for which it is
 #       likely to be difficult to write an implementation that is more
 #       efficient or simpler than the "block processing" strategy used by
 #       rowSums,DelayedMatrix-method
@@ -60,6 +46,9 @@ setMethod(".rowSums2", "ANY",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    ...) {
             message("ANY")
+            if (length(x) == 0L) {
+              return(numeric(0L))
+            }
             x <- DelayedArray::DelayedArray(x)
             if (!is.null(rows)) {
               x <- x[rows, , drop = FALSE]
@@ -67,6 +56,7 @@ setMethod(".rowSums2", "ANY",
             if (!is.null(cols)) {
               x <- x[, cols, drop = FALSE]
             }
+            # NOTE: Return value of matrixStats::rowSums2() has no names
             unname(rowSums(x, na.rm))
           }
 )
@@ -93,7 +83,8 @@ setMethod("rowSums2", "DelayedMatrix",
                 x <- x[, cols]
               }
               # TODO: Check dims.?
-              return(rowSums(x, na.rm))
+              # NOTE: Return value of matrixStats::rowSums2() has no names
+              return(unname(rowSums(x, na.rm)))
 
             }
             if (DelayedArray:::is_pristine(x)) {

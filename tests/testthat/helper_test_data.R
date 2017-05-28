@@ -94,43 +94,55 @@ list_of_matrix_base_case <- lapply(list_of_matrix, "[[", "base_case")
 # TODO: Add SeedBinder to seed_types
 
 seed_types <- c("matrix", "Matrix", "data.frame", "DataFrame", "RleArraySeed",
-                "HDF5ArraySeed")
+                "HDF5ArraySeed", "SeedBinder")
 names(seed_types) <- seed_types
 
 list_of_seeds <- lapply(seed_types, function(seed_type) {
   modes <- names(list_of_matrix)
   switch(seed_type,
          matrix = list_of_matrix,
-         Matrix = setNames(lapply(modes, function(mode) {
-           lapply(list_of_matrix[[mode]], Matrix::Matrix)
-         }),
-         modes),
-         data.frame = setNames(lapply(modes, function(mode) {
-           # NOTE: Drop empty data.frame, which doesn't work work as a seed
-           tmp <- list_of_matrix[[mode]]
-           tmp <- tmp[-match("empty", names(tmp))]
-           lapply(tmp, as.data.frame)
-         }),
-         modes),
-         DataFrame = setNames(lapply(modes, function(mode) {
-           # NOTE: Drop empty DataFrame, which doesn't work work as a seed
-           tmp <- list_of_matrix[[mode]]
-           tmp <- tmp[-match("empty", names(tmp))]
-           lapply(tmp, as, "DataFrame")
-         }),
-         modes),
-         RleArraySeed = setNames(lapply(modes, function(mode) {
-           lapply(list_of_matrix[[mode]], function(x) {
-             DelayedArray:::RleArraySeed(Rle(x), dim(x), dimnames(x))
-           })
-         }),
-         modes),
-         HDF5ArraySeed = setNames(lapply(modes, function(mode) {
-           lapply(list_of_matrix[[mode]], function(x) {
-             seed(realize(x, "HDF5Array"))
-           })
-         }),
-         modes)
+         Matrix = setNames(
+           object = lapply(modes, function(mode) {
+             lapply(list_of_matrix[[mode]], Matrix::Matrix)
+           }),
+           nm = modes),
+         data.frame = setNames(
+           object = lapply(modes, function(mode) {
+             # NOTE: Drop empty data.frame, which doesn't work work as a seed
+             tmp <- list_of_matrix[[mode]]
+             tmp <- tmp[-match("empty", names(tmp))]
+             lapply(tmp, as.data.frame)
+           }),
+           nm = modes),
+         DataFrame = setNames(
+           object = lapply(modes, function(mode) {
+             # NOTE: Drop empty DataFrame, which doesn't work work as a seed
+             tmp <- list_of_matrix[[mode]]
+             tmp <- tmp[-match("empty", names(tmp))]
+             lapply(tmp, as, "DataFrame")
+           }),
+           nm = modes),
+         RleArraySeed = setNames(
+           object = lapply(modes, function(mode) {
+             lapply(list_of_matrix[[mode]], function(x) {
+               DelayedArray:::RleArraySeed(Rle(x), dim(x), dimnames(x))
+             })
+           }),
+           nm = modes),
+         HDF5ArraySeed = setNames(
+           object = lapply(modes, function(mode) {
+             lapply(list_of_matrix[[mode]], function(x) {
+               seed(realize(x, "HDF5Array"))
+             })
+           }),
+           nm = modes),
+         SeedBinder = setNames(
+           object = lapply(modes, function(mode) {
+             lapply(list_of_matrix[[mode]], function(x) {
+               DelayedArray:::.new_SeedBinder(list(x), along = 1L)
+             })
+           }),
+         nm = modes)
   )
 })
 

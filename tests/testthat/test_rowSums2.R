@@ -5,14 +5,14 @@
 context("rowSums2")
 
 test_that(".rowSums2() conforms to matrixStats API", {
-  lapply(setdiff(seed_types, "matrix"), function(seed_type) {
+  lapply(seed_types, function(seed_type) {
     # NOTE: Only test those for which object exists (e.g. there is no 'empty'
     #       data.frame seed, so want to skip that)
     objects <- unlist(x = list_of_seeds[[seed_type]], recursive = FALSE)
     expecteds <- unlist(x = list_of_seeds[["matrix"]], recursive = FALSE)
     expecteds <- expecteds[match(names(objects), names(expecteds))]
     mapply(function(object, expected) {
-      expect_identical(.rowSums2(object), .rowSums2(expected))
+      expect_equal(.rowSums2(object), .rowSums2(expected))
     }, object = objects, expected = expecteds)
   })
 })
@@ -28,7 +28,7 @@ test_that("Identical output", {
     objects <- unlist(list_of_objects, recursive = FALSE)
     expecteds <- expecteds[match(names(objects), names(expecteds))]
     mapply(function(object, expected) {
-      expect_identical(rowSums2(object), expected)
+      expect_equal(rowSums2(object), expected)
     }, object = objects, expected = expecteds)
   })
 })
@@ -42,7 +42,7 @@ test_that("Identical output with subsetting and delayed ops", {
   lapply(list_of_DelayedMatrix_base_case, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     mapply(function(object, expected) {
-      expect_identical(rowSums2(f(object[i, j])), expected)
+      expect_equal(rowSums2(f(object[i, j])), expected)
     }, object = objects, expected = expecteds)
   })
 })
@@ -55,7 +55,7 @@ test_that("Identical output with nrow and nrow", {
   lapply(list_of_DelayedMatrix_base_case, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     mapply(function(object, expected) {
-      expect_identical(rowSums2(object, i, j), expected)
+      expect_equal(rowSums2(object, i, j), expected)
     }, object = objects, expected = expecteds)
   })
 })
