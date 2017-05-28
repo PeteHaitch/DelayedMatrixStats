@@ -6,7 +6,9 @@
 ### .is_simple_seed
 ###
 
-# TODO: Figure out a minimal definition of a simple seed
+# TODO: Figure out a minimal definition of a "simple seed"; Hervé defines a
+#       "seed contract" as dim(), dimnames(), and subset_seed_as_array()
+#       https://github.com/Bioconductor-mirror/DelayedArray/blob/18685ee33442b9b8e499a75bd46451c56383f18b/R/cbind-methods.R#L49
 # TODO: Is an RleArraySeed a simple seed? It's in memory, but doesn't support
 #       basic operations like "[", although it does support
 #       subset_simple_seed_as_seed_class() and
@@ -36,7 +38,7 @@
 ### .from_DelayedArray_to_simple_seed_class
 ###
 
-# UP TO HERE: Midway through writing this
+# TODO: Midway through writing this
 # Like DelayedArray:::.from_DelayedArray_to_array but returning an object of
 # the same class as class(seed(x))
 # NOTE: Only works for simple, in-memory seeds
@@ -59,8 +61,8 @@
   ans <- .execute_delayed_ops(ans, x@delayed_ops)
   # TODO: Need a dimnames,RleArraySeed-method
   if (!is(ans, "RleArraySeed")) {
-  dimnames(ans) <-
-    DelayedArray:::.get_DelayedArray_dimnames_before_transpose(x)
+    dimnames(ans) <-
+      DelayedArray:::.get_DelayedArray_dimnames_before_transpose(x)
   }
   if (drop) {
     ans <- DelayedArray:::.reduce_array_dimensions(ans)
@@ -77,6 +79,75 @@
     ans <- t(ans)
   }
   ans
+}
+
+### -------------------------------------------------------------------------
+### get_Nindex_as_IRangesList
+###
+
+# Convert a Nindex of a matrix-like object to an IRangesList. Each element of
+# the IRangesList corresponds to a column of the matrix-like object and the
+# IRanges elements correspond to rows of the matrix-like object
+# NOTE: This is typically used to construct the ranges in a RleViews object
+#       on a RleArraySeed. This RleViews object then provides efficient ways
+#       to compute summaries of the RleArraySeed via Views summary functions
+#' @importFrom IRanges IRanges IRangesList PartitioningByEnd
+#' @importFrom methods as
+#' @importFrom S4Vectors new2
+get_Nindex_as_IRangesList <- function(Nindex, dim) {
+  stopifnot(is.list(Nindex), is.integer(dim), length(Nindex) ==
+              length(dim), length(Nindex) == 2L)
+  rows <- Nindex[[1]]
+  cols <- Nindex[[2]]
+  nrow <- dim[[1]]
+  ncol <- dim[[2]]
+  if (ncol == 0) {
+    return(IRanges::IRangesList())
+  }
+  # TODO: Sanity check rows and cols are compatible with dim(seed)
+
+  # Convert rows and cols to IRangesList
+  # Four cases
+  if (is.null(rows) && is.null(cols)) {
+    # Case 1: NULL rows and NULL cols
+    ir <- IRanges::IRanges(start = seq.int(1, nrow * ncol, nrow),
+                           end = seq.int(nrow, nrow * ncol, nrow))
+    partitioning <- IRanges::PartitioningByEnd(seq_len(ncol))
+  } else if (is.null(rows) && !is.null(cols)) {
+    # Case 2: NULL rows and non-NULL cols
+    ir <- IRanges::IRanges(start = (cols - 1L) * nrow + 1L,
+                           end = cols * nrow)
+    partitioning <- IRanges::PartitioningByEnd(seq_along(cols))
+  } else if (!is.null(rows)) {
+    ir0 <- as(rows, "IRanges")
+    if (is.null(cols)) {
+      # Case 3: Non-NULL rows and NULL cols
+      start <- vapply(seq.int(1, ncol), function(jj) {
+        start(ir0) + (jj - 1L) * nrow
+      }, integer(length(ir0)))
+      end <- vapply(seq.int(1, ncol), function(jj) {
+        end(ir0) + (jj - 1L) * nrow
+      }, integer(length(ir0)))
+      ir <- IRanges::IRanges(start, end)
+      partitioning <- IRanges::PartitioningByEnd(
+        seq.int(length(ir0), length(ir0) * ncol, length(ir0)))
+    } else if (!is.null(cols)) {
+      # Case 4: Non-NULL rows and non_NULL cols
+      start <- vapply(as.integer(cols), function(jj) {
+        start(ir0) + (jj - 1L) * nrow
+      }, integer(length(ir0)))
+      end <- vapply(as.integer(cols), function(jj) {
+        end(ir0) + (jj - 1L) * nrow
+      }, integer(length(ir0)))
+      ir <- IRanges::IRanges(start, end)
+      partitioning <- IRanges::PartitioningByEnd(
+        seq.int(length(ir0), length(ir0) * length(cols), length(ir0)))
+    }
+  }
+  # TODO: Better way to instantiate the result?
+  new2("CompressedIRangesList",
+      unlistData = ir,
+      partitioning = partitioning)
 }
 
 ### =============================================================================

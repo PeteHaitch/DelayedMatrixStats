@@ -3,17 +3,15 @@
 ###
 
 ### -------------------------------------------------------------------------
-### subset_simple_seed
+### .colSums2
 ###
 
-# Like DelayedArray:::subset_seed_as_array except the return value has the same
-# class as seed.
-# NOTE: This only works for simple, in-memory seeds, e.g. matrix, Matrix,
-#       and data frame. It does not work with SeedBinder or HDF5ArraySeed, for
-#       example.
-# TODO: Come up with a minimal working definition of a 'simple seed'
-setGeneric("subset_simple_seed_as_seed_class", signature = "seed",
-           function(seed, index) standardGeneric("subset_simple_seed_as_seed_class")
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colSums2
+#' @keywords internal
+setGeneric(".colSums2", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
+                    ...) standardGeneric(".colSums2")
 )
 
 ### -------------------------------------------------------------------------
@@ -28,9 +26,37 @@ setGeneric(".rowSums2", signature = "x",
                     ...) standardGeneric(".rowSums2")
 )
 
+### -------------------------------------------------------------------------
+### subset_simple_seed
+###
+
+# Like DelayedArray:::subset_seed_as_array except the return value has the same
+# class as seed.
+# NOTE: This only works for simple, in-memory seeds, e.g. matrix, Matrix,
+#       and data frame. It does not work with SeedBinder or HDF5ArraySeed, for
+#       example.
+# TODO: Come up with a minimal working definition of a 'simple seed'
+setGeneric("subset_simple_seed_as_seed_class", signature = "seed",
+           function(seed, index) standardGeneric("subset_simple_seed_as_seed_class")
+)
+
+
 ### =============================================================================
 ### Exported
 ###
+
+### -------------------------------------------------------------------------
+### colSums2
+###
+
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colSums2
+#' @export
+setGeneric("colSums2", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
+                    ...) standardGeneric("colSums2")
+)
+
 
 ### -------------------------------------------------------------------------
 ### rowSums2
@@ -43,5 +69,3 @@ setGeneric("rowSums2", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                     ...) standardGeneric("rowSums2")
 )
-
-

@@ -59,7 +59,7 @@ API coverage
 -   \[ \] `colRanks()`
 -   \[ \] `colSdDiffs()`
 -   \[ \] `colSds()`
--   \[ \] `colSums2()`
+-   \[x\] `colSums2()`
 -   \[ \] `colTabulates()`
 -   \[ \] `colVarDiffs()`
 -   \[ \] `colVars()`

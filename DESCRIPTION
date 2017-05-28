@@ -24,7 +24,8 @@ Imports:
   BiocGenerics,
   matrixStats,
   Matrix,
-  S4Vectors
+  S4Vectors,
+  IRanges
 Suggests: 
   testthat,
   HDF5Array
