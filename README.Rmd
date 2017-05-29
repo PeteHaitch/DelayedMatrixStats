@@ -30,9 +30,8 @@ The **DelayedArray** package already implements a clever strategy called
 "block-processing" for certain common "matrix stats" operations (e.g. 
 `colSums()`, `rowSums()`). This is a good start, but not all of the 
 **matrixStats** API is currently supported. Furthermore, certain operations can 
-be optimized with additional information about `x`. For example, if `x` is an 
-*RleArray*, then `colSums(x)` can be very efficiently implemented by calling 
-`sum,Rle-method()` on `x[, j]` for each `j`.
+be optimized with additional information about `x`. I'll refer to these 
+"seed-aware" implementations.
 
 ## Installation
 
@@ -45,11 +44,50 @@ devtools::install_github("PeteHaitch/DelayedMatrixStats")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This example compares two ways of computing column sums of a *DelayedMatrix* 
+object:
 
-```{r example}
-## TODO
+1. `DelayedMatrix::colSums()`: The 'block-processing strategy', implemented in the **DelayedArray** package. The block-processing strategy works for any *DelayedMatrix* object, regardless of the type of *seed*.
+2. `DelayedMatrixStats::colSums2()`: The 'seed-aware' strategy, implemented in the 
+**DelayedMatrixStats** package. The seed-aware implementation is optimized for both speed and memory but only for *DelayedMatrix* objects with certain types of *seed*.
+
+```{r example, message = FALSE}
+library(DelayedMatrixStats)
+library(Matrix)
+library(microbenchmark)
+
+# Fast column sums of DelayedMatrix with matrix seed
+dense_matrix <- DelayedArray(matrix(runif(20000 * 600), nrow = 20000,
+                                    ncol = 600))
+class(seed(dense_matrix))
+dense_matrix
+microbenchmark(DelayedArray::colSums(dense_matrix),
+               DelayedMatrixStats::colSums2(dense_matrix),
+               times = 10)
+
+# Fast, low-memory column sums of DelayedMatrix with sparse matrix seed
+sparse_matrix <- seed(dense_matrix)
+zero_idx <- sample(length(sparse_matrix), 0.6 * length(sparse_matrix))
+sparse_matrix[zero_idx] <- 0
+sparse_matrix <- DelayedArray(Matrix::Matrix(sparse_matrix, sparse = TRUE))
+class(seed(sparse_matrix))
+sparse_matrix
+microbenchmark(DelayedArray::colSums(sparse_matrix),
+               DelayedMatrixStats::colSums2(sparse_matrix),
+               times = 10)
+
+# Fast column sums of DelayedMatrix with Rle-based seed
+rle_matrix <- RleArray(Rle(sample(2L, 200000 * 6 / 10, replace = TRUE), 100),
+                       dim = c(2000000, 6))
+class(seed(rle_matrix))
+rle_matrix
+microbenchmark(DelayedArray::colSums(rle_matrix),
+               DelayedMatrixStats::colSums2(rle_matrix),
+               times = 10)
 ```
+
+The [benchmarking vignette](vignettes/benchmarking.Rmd) includes further 
+examples.
 
 ## API coverage
 
@@ -58,7 +96,7 @@ matrixStats <- sort(grep("^(col|row)",
                          getNamespaceExports("matrixStats"), 
                          value = TRUE))
 # TODO: A better way of parsing DelayedMatrixStats NAMESPACE to get exported 
-#       functions
+#       functions (will also need internal functions for api_df)
 DelayedMatrixStats <- readLines("NAMESPACE")
 DelayedMatrixStats <- gsub("exportMethods|\\(|\\)", 
                            "",
@@ -74,4 +112,22 @@ api <- do.call(c, lapply(matrixStats, function(fun) {
   paste0(checkbox, " `", fun, "()`")
 }))
 writeLines(api, sep = "\n")
+
+# TODO: Make a data frame mapping block-processing strategy methods to 
+#       matrixStats methods
+# TODO: Make a data frame of which methods have optimized seed-aware 
+#       implementations and print as table in README
+# api_df <- data.frame(
+#   Method = matrixStats,
+#   # `Block processing` = ifelse(matrixStats %in% DelayedMatrixStats,
+#   #                             emo::ji("ok"),
+#   #                             emo::ji("x")),
+#   `base::matrix optimized` = ,
+#   `Matrix::Matrix optimized` = ,
+#   `DelayedArray::RleArray optimized` = ,
+#   `HDF5Array::HDF5Matrix optimized` = ,
+#   `base::data.frame optimized` = ,
+#   `S4Vectors::DataFrame optimized` =
+#     stringsAsFactors = FALSE)
+# knitr::kable(api_df)
 ```
