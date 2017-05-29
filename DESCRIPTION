@@ -26,6 +26,9 @@ Imports:
   Matrix,
   S4Vectors,
   IRanges
-Suggests: 
+Suggests:
   testthat,
-  HDF5Array
+  HDF5Array,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
