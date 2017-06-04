@@ -31,6 +31,7 @@ This example compares two ways of computing column sums of a *DelayedMatrix* obj
 library(DelayedMatrixStats)
 library(Matrix)
 library(microbenchmark)
+library(profmem)
 
 # Fast column sums of DelayedMatrix with matrix seed
 dense_matrix <- DelayedArray(matrix(runif(20000 * 600), nrow = 20000,
@@ -39,28 +40,32 @@ class(seed(dense_matrix))
 #> [1] "matrix"
 dense_matrix
 #> DelayedMatrix object of 20000 x 600 doubles:
-#>                 [,1]        [,2]        [,3]      .     [,599]     [,600]
-#>     [1,] 0.398746183 0.658995559 0.346733093      . 0.46913117 0.10999856
-#>     [2,] 0.944626837 0.008473052 0.600675274      . 0.99329021 0.02908414
-#>     [3,] 0.123061080 0.056541906 0.444670161      . 0.69550733 0.98232569
-#>     [4,] 0.201957127 0.548035120 0.827493285      . 0.49562932 0.61086330
-#>     [5,] 0.737335345 0.839235505 0.535531887      . 0.86757552 0.05317334
-#>      ...           .           .           .      .          .          .
-#> [19996,]  0.75109176  0.12324372  0.99137732      .  0.6408046  0.7691766
-#> [19997,]  0.22065391  0.91954252  0.02550806      .  0.9688482  0.8275454
-#> [19998,]  0.86562732  0.81484728  0.03914879      .  0.3328586  0.7085412
-#> [19999,]  0.79949787  0.83112454  0.45859493      .  0.8742511  0.1713129
-#> [20000,]  0.70050093  0.96788879  0.19596691      .  0.9052799  0.0220140
+#>                [,1]       [,2]       [,3] ...     [,599]     [,600]
+#>     [1,] 0.92832478 0.03727067 0.42298066   . 0.26919993 0.01088585
+#>     [2,] 0.66435154 0.32407324 0.52703955   . 0.61336481 0.02026626
+#>     [3,] 0.11287813 0.81287740 0.66877786   . 0.26286243 0.24718550
+#>     [4,] 0.43659791 0.18193535 0.48888907   . 0.50910651 0.30005438
+#>     [5,] 0.02471516 0.76051861 0.47671737   . 0.95958493 0.12507951
+#>      ...          .          .          .   .          .          .
+#> [19996,] 0.79903182 0.77150048 0.47481631   .  0.2592853  0.5643751
+#> [19997,] 0.04831145 0.18305638 0.31878865   .  0.4941530  0.1577152
+#> [19998,] 0.84171147 0.52087414 0.11779283   .  0.6153694  0.7371335
+#> [19999,] 0.35407359 0.90328605 0.83162674   .  0.9211680  0.7909079
+#> [20000,] 0.06169634 0.39515889 0.34669773   .  0.2534062  0.6329015
 microbenchmark(DelayedArray::colSums(dense_matrix),
                DelayedMatrixStats::colSums2(dense_matrix),
                times = 10)
 #> Unit: milliseconds
 #>                                        expr        min         lq
-#>         DelayedArray::colSums(dense_matrix) 4462.00977 4652.81862
-#>  DelayedMatrixStats::colSums2(dense_matrix)   13.26318   14.29185
+#>         DelayedArray::colSums(dense_matrix) 4623.47451 5107.38358
+#>  DelayedMatrixStats::colSums2(dense_matrix)   13.45209   14.76281
 #>        mean     median         uq        max neval
-#>  5369.90054 5445.60099 6139.99734 6227.20492    10
-#>    18.46018   17.34971   18.58638   28.38708    10
+#>  6338.87961 6273.05437 6934.66140 9299.03339    10
+#>    23.64239   20.84275   32.58026   43.01038    10
+profmem::total(profmem::profmem(DelayedArray::colSums(dense_matrix)))
+#> [1] 2498163168
+profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(dense_matrix)))
+#> [1] 165512
 
 # Fast, low-memory column sums of DelayedMatrix with sparse matrix seed
 sparse_matrix <- seed(dense_matrix)
@@ -73,28 +78,32 @@ class(seed(sparse_matrix))
 #> [1] "Matrix"
 sparse_matrix
 #> DelayedMatrix object of 20000 x 600 doubles:
-#>                [,1]       [,2]       [,3]      .    [,599]    [,600]
-#>     [1,] 0.00000000 0.65899556 0.00000000      . 0.0000000 0.1099986
-#>     [2,] 0.00000000 0.00000000 0.00000000      . 0.0000000 0.0000000
-#>     [3,] 0.12306108 0.05654191 0.00000000      . 0.0000000 0.0000000
-#>     [4,] 0.00000000 0.54803512 0.00000000      . 0.4956293 0.0000000
-#>     [5,] 0.00000000 0.00000000 0.53553189      . 0.0000000 0.0000000
-#>      ...          .          .          .      .         .         .
-#> [19996,] 0.75109176 0.00000000 0.00000000      . 0.6408046 0.0000000
-#> [19997,] 0.00000000 0.00000000 0.00000000      . 0.9688482 0.0000000
-#> [19998,] 0.00000000 0.81484728 0.03914879      . 0.0000000 0.7085412
-#> [19999,] 0.00000000 0.83112454 0.00000000      . 0.0000000 0.1713129
-#> [20000,] 0.00000000 0.96788879 0.19596691      . 0.9052799 0.0220140
+#>                [,1]       [,2]       [,3] ...    [,599]    [,600]
+#>     [1,] 0.92832478 0.03727067 0.42298066   . 0.2691999 0.0000000
+#>     [2,] 0.66435154 0.32407324 0.52703955   . 0.0000000 0.0000000
+#>     [3,] 0.00000000 0.00000000 0.00000000   . 0.2628624 0.0000000
+#>     [4,] 0.00000000 0.00000000 0.00000000   . 0.5091065 0.0000000
+#>     [5,] 0.02471516 0.76051861 0.00000000   . 0.9595849 0.0000000
+#>      ...          .          .          .   .         .         .
+#> [19996,] 0.00000000 0.00000000 0.00000000   . 0.2592853 0.0000000
+#> [19997,] 0.04831145 0.00000000 0.31878865   . 0.0000000 0.0000000
+#> [19998,] 0.84171147 0.00000000 0.00000000   . 0.6153694 0.0000000
+#> [19999,] 0.00000000 0.90328605 0.00000000   . 0.0000000 0.0000000
+#> [20000,] 0.00000000 0.00000000 0.00000000   . 0.2534062 0.0000000
 microbenchmark(DelayedArray::colSums(sparse_matrix),
                DelayedMatrixStats::colSums2(sparse_matrix),
                times = 10)
 #> Unit: milliseconds
-#>                                         expr        min         lq
-#>         DelayedArray::colSums(sparse_matrix) 1095.97576 1109.95018
-#>  DelayedMatrixStats::colSums2(sparse_matrix)   11.13022   11.17825
-#>        mean     median         uq       max neval
-#>  1216.33666 1229.67348 1272.99977 1424.2127    10
-#>    12.13492   11.69185   12.29795   14.5534    10
+#>                                         expr        min        lq
+#>         DelayedArray::colSums(sparse_matrix) 1128.75228 1141.4802
+#>  DelayedMatrixStats::colSums2(sparse_matrix)   11.07331   11.4421
+#>        mean     median        uq        max neval
+#>  1322.53566 1267.81484 1311.1807 2026.94666    10
+#>    13.48079   12.72859   14.6371   19.59188    10
+profmem::total(profmem::profmem(DelayedArray::colSums(sparse_matrix)))
+#> [1] 1709259576
+profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(sparse_matrix)))
+#> [1] 5464
 
 # Fast column sums of DelayedMatrix with Rle-based seed
 rle_matrix <- RleArray(Rle(sample(2L, 200000 * 6 / 10, replace = TRUE), 100),
@@ -106,30 +115,37 @@ class(seed(rle_matrix))
 rle_matrix
 #> RleMatrix object of 2000000 x 6 integers:
 #>            [,1] [,2] [,3] [,4] [,5] [,6]
-#>       [1,]    1    1    1    2    2    2
-#>       [2,]    1    1    1    2    2    2
-#>       [3,]    1    1    1    2    2    2
-#>       [4,]    1    1    1    2    2    2
-#>       [5,]    1    1    1    2    2    2
+#>       [1,]    2    1    2    2    1    1
+#>       [2,]    2    1    2    2    1    1
+#>       [3,]    2    1    2    2    1    1
+#>       [4,]    2    1    2    2    1    1
+#>       [5,]    2    1    2    2    1    1
 #>        ...    .    .    .    .    .    .
-#> [1999996,]    2    2    2    2    1    1
-#> [1999997,]    2    2    2    2    1    1
-#> [1999998,]    2    2    2    2    1    1
-#> [1999999,]    2    2    2    2    1    1
-#> [2000000,]    2    2    2    2    1    1
+#> [1999996,]    1    1    2    1    1    1
+#> [1999997,]    1    1    2    1    1    1
+#> [1999998,]    1    1    2    1    1    1
+#> [1999999,]    1    1    2    1    1    1
+#> [2000000,]    1    1    2    1    1    1
 microbenchmark(DelayedArray::colSums(rle_matrix),
                DelayedMatrixStats::colSums2(rle_matrix),
                times = 10)
 #> Unit: milliseconds
 #>                                      expr         min          lq
-#>         DelayedArray::colSums(rle_matrix) 2607.380183 2638.167234
-#>  DelayedMatrixStats::colSums2(rle_matrix)    3.771215    3.897232
-#>        mean      median          uq        max neval
-#>  2700.45370 2667.519814 2746.171231 2891.17710    10
-#>    10.79183    4.316823    5.351091   61.17693    10
+#>         DelayedArray::colSums(rle_matrix) 2440.773690 2479.701479
+#>  DelayedMatrixStats::colSums2(rle_matrix)    3.800472    4.164246
+#>        mean      median         uq        max neval
+#>  2535.94410 2500.417820 2587.09763 2688.49354    10
+#>    11.24623    4.421598    5.00898   51.57551    10
+profmem::total(profmem::profmem(DelayedArray::colSums(rle_matrix)))
+#> [1] 787432264
+profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(rle_matrix)))
+#> [1] 1872
 ```
 
-The [benchmarking vignette](vignettes/benchmarking.Rmd) includes further examples.
+Benchmarking
+------------
+
+An extensive set of benchmarks is under development at <http://peterhickey.org/BenchmarkingDelayedMatrixStats/>.
 
 API coverage
 ------------

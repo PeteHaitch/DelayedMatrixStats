@@ -55,6 +55,7 @@ object:
 library(DelayedMatrixStats)
 library(Matrix)
 library(microbenchmark)
+library(profmem)
 
 # Fast column sums of DelayedMatrix with matrix seed
 dense_matrix <- DelayedArray(matrix(runif(20000 * 600), nrow = 20000,
@@ -64,6 +65,8 @@ dense_matrix
 microbenchmark(DelayedArray::colSums(dense_matrix),
                DelayedMatrixStats::colSums2(dense_matrix),
                times = 10)
+profmem::total(profmem::profmem(DelayedArray::colSums(dense_matrix)))
+profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(dense_matrix)))
 
 # Fast, low-memory column sums of DelayedMatrix with sparse matrix seed
 sparse_matrix <- seed(dense_matrix)
@@ -75,6 +78,8 @@ sparse_matrix
 microbenchmark(DelayedArray::colSums(sparse_matrix),
                DelayedMatrixStats::colSums2(sparse_matrix),
                times = 10)
+profmem::total(profmem::profmem(DelayedArray::colSums(sparse_matrix)))
+profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(sparse_matrix)))
 
 # Fast column sums of DelayedMatrix with Rle-based seed
 rle_matrix <- RleArray(Rle(sample(2L, 200000 * 6 / 10, replace = TRUE), 100),
@@ -84,10 +89,13 @@ rle_matrix
 microbenchmark(DelayedArray::colSums(rle_matrix),
                DelayedMatrixStats::colSums2(rle_matrix),
                times = 10)
+profmem::total(profmem::profmem(DelayedArray::colSums(rle_matrix)))
+profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(rle_matrix)))
 ```
 
-The [benchmarking vignette](vignettes/benchmarking.Rmd) includes further 
-examples.
+## Benchmarking
+
+An extensive set of benchmarks is under development at [http://peterhickey.org/BenchmarkingDelayedMatrixStats/](http://peterhickey.org/BenchmarkingDelayedMatrixStats/).
 
 ## API coverage
 
