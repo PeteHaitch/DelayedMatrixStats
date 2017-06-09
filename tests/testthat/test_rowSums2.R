@@ -4,7 +4,7 @@
 
 context("rowSums2")
 
-test_that(".rowSums2() conforms to matrixStats API", {
+test_that("rowSums2() conforms to matrixStats API", {
   lapply(seed_types, function(seed_type) {
     # NOTE: Only test those for which object exists (e.g. there is no 'empty'
     #       data.frame seed, so want to skip that)
@@ -12,7 +12,7 @@ test_that(".rowSums2() conforms to matrixStats API", {
     expecteds <- unlist(x = list_of_seeds[["matrix"]], recursive = FALSE)
     expecteds <- expecteds[match(names(objects), names(expecteds))]
     mapply(function(object, expected) {
-      expect_equal(.rowSums2(object), .rowSums2(expected))
+      expect_equal(rowSums2(object), rowSums2(expected))
     }, object = objects, expected = expecteds)
   })
 })

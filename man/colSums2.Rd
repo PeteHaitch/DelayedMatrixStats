@@ -3,10 +3,22 @@
 \docType{methods}
 \name{colSums2}
 \alias{colSums2}
+\alias{colSums2,Matrix-method}
+\alias{colSums2,RleArraySeed-method}
+\alias{colSums2,ANY-method}
 \alias{colSums2,DelayedMatrix-method}
 \title{Calculates the sum for each row (column) in a matrix}
 \usage{
 colSums2(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x), ...)
+
+\S4method{colSums2}{Matrix}(x, rows = NULL, cols = NULL, na.rm = FALSE,
+  dim. = dim(x), ...)
+
+\S4method{colSums2}{RleArraySeed}(x, rows = NULL, cols = NULL,
+  na.rm = FALSE, dim. = dim(x), ...)
+
+\S4method{colSums2}{ANY}(x, rows = NULL, cols = NULL, na.rm = FALSE,
+  dim. = dim(x), ...)
 
 \S4method{colSums2}{DelayedMatrix}(x, rows = NULL, cols = NULL,
   na.rm = FALSE, dim. = dim(x), ...)

@@ -1,10 +1,11 @@
 #-------------------------------------------------------------------------------
 # Non-exported methods (used on a seed **not** on a DelayedMatrix object)
+# TODO: These are being exported; why?
 #
 
 #' @importFrom matrixStats colSums2
 #' @importFrom methods setMethod
-setMethod(".colSums2", "matrix",
+setMethod("colSums2", "matrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    ...) {
             message("matrix")
@@ -12,12 +13,23 @@ setMethod(".colSums2", "matrix",
           }
 )
 
-# NOTE: No different from .colSums2,ANY-method except that it explicitly calls
+# #' @importFrom matrixStats colSums2
+# #' @importFrom methods setMethod
+# setMethod("colSums2", "matrix",
+#           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
+#                    ...) {
+#             message("matrix")
+#             matrixStats::colSums2(x, rows, cols, na.rm, dim., ...)
+#           }
+# )
+
+# NOTE: No different from colSums2,ANY-method except that it explicitly calls
 #       Matrix::colSums() to resolve what I think is a namespace collision with
 #       BiocGenerics::colSums()
 # TODO: Profile (this probably generates a copy when rows or cols is non NULL)
 #' @importFrom methods setMethod
-setMethod(".colSums2", "Matrix",
+#' @rdname colSums2
+setMethod("colSums2", "Matrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    ...) {
             message("Matrix")
@@ -33,7 +45,8 @@ setMethod(".colSums2", "Matrix",
 )
 
 #' @importFrom IRanges Views viewSums
-setMethod(".colSums2", "RleArraySeed",
+#' @rdname colSums2
+setMethod("colSums2", "RleArraySeed",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    ...) {
             irl <- get_Nindex_as_IRangesList(list(rows, cols), dim(x))
@@ -51,17 +64,19 @@ setMethod(".colSums2", "RleArraySeed",
           }
 )
 
+# TODO: ANY may be too general?
 # NOTE: This feels a little circular since it takes an ANY (those for which we
-#       don't have an explicit .colSums2() method) as a seed, contructs an
+#       don't have an explicit colSums2() method) as a seed, contructs an
 #       DelayedMatrix from that seed, subsets the DelayedMatrix, and then calls
 #       colSums,DelayedMatrix-method. All of this is to avoid writing an
-#       explicit .colSums2() method for these classes of seeds, for which it is
+#       explicit colSums2() method for these classes of seeds, for which it is
 #       likely to be difficult to write an implementation that is more
 #       efficient or simpler than the "block processing" strategy used by
 #       colSums,DelayedMatrix-method
 #' @importFrom DelayedArray DelayedArray
 #' @importFrom methods setMethod
-setMethod(".colSums2", "ANY",
+#' @rdname colSums2
+setMethod("colSums2", "ANY",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    ...) {
             message("ANY")
@@ -111,6 +126,6 @@ setMethod("colSums2", "DelayedMatrix",
               message("Not transposed")
               x <- .from_DelayedArray_to_simple_seed_class(x, FALSE)
             }
-            .colSums2(x, rows, cols, na.rm, dim., ...)
+            colSums2(x, rows, cols, na.rm, dim., ...)
           }
 )

@@ -57,6 +57,8 @@ library(Matrix)
 library(microbenchmark)
 library(profmem)
 
+set.seed(666)
+
 # Fast column sums of DelayedMatrix with matrix seed
 dense_matrix <- DelayedArray(matrix(runif(20000 * 600), nrow = 20000,
                                     ncol = 600))

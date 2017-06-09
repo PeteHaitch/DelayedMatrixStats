@@ -1,10 +1,11 @@
 #-------------------------------------------------------------------------------
 # Non-exported methods (used on a seed **not** on a DelayedMatrix object)
+# TODO: These are being exported; why?
 #
 
 #' @importFrom matrixStats rowSums2
 #' @importFrom methods setMethod
-setMethod(".rowSums2", "matrix",
+setMethod("rowSums2", "matrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    ...) {
             message("matrix")
@@ -12,12 +13,13 @@ setMethod(".rowSums2", "matrix",
           }
 )
 
-# NOTE: No different from .rowSums2,ANY-method except that it explicitly calls
+# NOTE: No different from rowSums2,ANY-method except that it explicitly calls
 #       Matrix::rowSums() to resolve what I think is a namespace collision with
 #       BiocGenerics::rowSums()
 # TODO: Profile (this probably generates a copy when rows or cols is non NULL)
 #' @importFrom methods setMethod
-setMethod(".rowSums2", "Matrix",
+#' @rdname rowSums2
+setMethod("rowSums2", "Matrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    ...) {
             message("Matrix")
@@ -33,16 +35,17 @@ setMethod(".rowSums2", "Matrix",
 )
 
 # NOTE: This feels a little circular since it takes an ANY (those for which we
-#       don't have an explicit .rowSums2() method) as a seed, contructs an
+#       don't have an explicit rowSums2() method) as a seed, contructs an
 #       DelayedMatrix from that seed, subsets the DelayedMatrix, and then calls
 #       rowSums,DelayedMatrix-method. All of this is to avoid writing an
-#       explicit .rowSums2() method for these classes of seeds, for which it is
+#       explicit rowSums2() method for these classes of seeds, for which it is
 #       likely to be difficult to write an implementation that is more
 #       efficient or simpler than the "block processing" strategy used by
 #       rowSums,DelayedMatrix-method
 #' @importFrom DelayedArray DelayedArray
 #' @importFrom methods setMethod
-setMethod(".rowSums2", "ANY",
+#' @rdname rowSums2
+setMethod("rowSums2", "ANY",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    ...) {
             message("ANY")
@@ -95,12 +98,9 @@ setMethod("rowSums2", "DelayedMatrix",
               message("Not transposed")
               x <- .from_DelayedArray_to_simple_seed_class(x, FALSE)
             }
-            .rowSums2(x, rows, cols, na.rm, dim., ...)
+            rowSums2(x, rows, cols, na.rm, dim., ...)
           }
 )
 
-# TODO: Unit tests for correctness
-# TODO: Benchmarks for performance
 # TODO: Some of the tricks to avoid unnecessary block processing in rowSums2()
 #       are also applicable to rowSums()
-# UP TO HERE: Implement colSums2() with tests, then start on benchmarks

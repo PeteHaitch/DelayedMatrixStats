@@ -3,10 +3,18 @@
 \docType{methods}
 \name{rowSums2}
 \alias{rowSums2}
+\alias{rowSums2,Matrix-method}
+\alias{rowSums2,ANY-method}
 \alias{rowSums2,DelayedMatrix-method}
 \title{Calculates the sum for each row (column) in a matrix}
 \usage{
 rowSums2(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x), ...)
+
+\S4method{rowSums2}{Matrix}(x, rows = NULL, cols = NULL, na.rm = FALSE,
+  dim. = dim(x), ...)
+
+\S4method{rowSums2}{ANY}(x, rows = NULL, cols = NULL, na.rm = FALSE,
+  dim. = dim(x), ...)
 
 \S4method{rowSums2}{DelayedMatrix}(x, rows = NULL, cols = NULL,
   na.rm = FALSE, dim. = dim(x), ...)

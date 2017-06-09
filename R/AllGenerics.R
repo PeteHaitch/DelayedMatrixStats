@@ -3,30 +3,6 @@
 ###
 
 ### -------------------------------------------------------------------------
-### .colSums2
-###
-
-#' @importFrom methods setGeneric
-#' @inherit matrixStats::colSums2
-#' @keywords internal
-setGeneric(".colSums2", signature = "x",
-           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                    ...) standardGeneric(".colSums2")
-)
-
-### -------------------------------------------------------------------------
-### .rowSums2
-###
-
-#' @importFrom methods setGeneric
-#' @inherit matrixStats::rowSums2
-#' @keywords internal
-setGeneric(".rowSums2", signature = "x",
-           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                    ...) standardGeneric(".rowSums2")
-)
-
-### -------------------------------------------------------------------------
 ### subset_simple_seed
 ###
 
