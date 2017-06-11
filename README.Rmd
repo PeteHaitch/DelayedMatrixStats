@@ -16,6 +16,9 @@ knitr::opts_chunk$set(
 
 # DelayedMatrixStats
 
+[![Travis-CI Build Status](https://travis-ci.org/PeteHaitch/DelayedMatrixStats.svg?branch=master)](https://travis-ci.org/PeteHaitch/DelayedMatrixStats)
+[![Coverage Status](https://img.shields.io/codecov/c/github/PeteHaitch/DelayedMatrixStats/master.svg)](https://codecov.io/github/PeteHaitch/DelayedMatrixStats?branch=master)
+
 **DelayedMatrixStats** is a port of the 
 [**matrixStats**](https://CRAN.R-project.org/package=matrixStats) API to work 
 with *DelayedMatrix* objects from the 
