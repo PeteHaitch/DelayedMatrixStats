@@ -1,7 +1,3 @@
-#-------------------------------------------------------------------------------
-# Non-exported methods
-#
-
 context("rowSums2")
 
 test_that("rowSums2() conforms to matrixStats API", {
@@ -16,10 +12,6 @@ test_that("rowSums2() conforms to matrixStats API", {
     }, object = objects, expected = expecteds)
   })
 })
-
-#-------------------------------------------------------------------------------
-# Exported methods
-#
 
 test_that("Identical output", {
   expecteds <- lapply(unlist(list_of_seeds[["matrix"]], recursive = FALSE),

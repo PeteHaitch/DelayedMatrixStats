@@ -1,6 +1,6 @@
-context("colSums2")
+context("colMedians")
 
-test_that("colSums2() conforms to matrixStats API", {
+test_that("colMedians() conforms to matrixStats API", {
   lapply(seed_types, function(seed_type) {
     # NOTE: Only test those for which object exists (e.g. there is no 'empty'
     #       data.frame seed, so want to skip that)
@@ -8,19 +8,19 @@ test_that("colSums2() conforms to matrixStats API", {
     expecteds <- unlist(x = list_of_seeds[["matrix"]], recursive = FALSE)
     expecteds <- expecteds[match(names(objects), names(expecteds))]
     mapply(function(object, expected) {
-      expect_equal(colSums2(object), colSums2(expected))
+      expect_equal(colMedians(object), colMedians(expected))
     }, object = objects, expected = expecteds)
   })
 })
 
 test_that("Identical output", {
   expecteds <- lapply(unlist(list_of_seeds[["matrix"]], recursive = FALSE),
-                      matrixStats::colSums2)
+                      matrixStats::colMedians)
   lapply(list_of_DelayedMatrix, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     expecteds <- expecteds[match(names(objects), names(expecteds))]
     mapply(function(object, expected) {
-      expect_equal(colSums2(object), expected)
+      expect_equal(colMedians(object), expected)
     }, object = objects, expected = expecteds)
   })
 })
@@ -30,11 +30,11 @@ test_that("Identical output with subsetting and delayed ops", {
   j <- c(1, 3)
   f <- function(x) log(x * 3 + 8)
   expecteds <- lapply(list_of_matrix_base_case,
-                      function(x) matrixStats::colSums2(f(x[i, j])))
+                      function(x) matrixStats::colMedians(f(x[i, j])))
   lapply(list_of_DelayedMatrix_base_case, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     mapply(function(object, expected) {
-      expect_equal(colSums2(f(object[i, j])), expected)
+      expect_equal(colMedians(f(object[i, j])), expected)
     }, object = objects, expected = expecteds)
   })
 })
@@ -43,11 +43,11 @@ test_that("Identical output with nrow and nrow", {
   i <- c(3, 2)
   j <- c(1, 3)
   expecteds <- lapply(list_of_matrix_base_case,
-                      function(x) matrixStats::colSums2(x, i, j))
+                      function(x) matrixStats::colMedians(x, i, j))
   lapply(list_of_DelayedMatrix_base_case, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     mapply(function(object, expected) {
-      expect_equal(colSums2(object, i, j), expected)
+      expect_equal(colMedians(object, i, j), expected)
     }, object = objects, expected = expecteds)
   })
 })

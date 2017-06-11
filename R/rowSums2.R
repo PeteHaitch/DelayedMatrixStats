@@ -1,14 +1,19 @@
-#-------------------------------------------------------------------------------
-# Non-exported methods (used on a seed **not** on a DelayedMatrix object)
-# TODO: These are being exported; why?
+### =============================================================================
+### rowSums2
+###
+
+# ------------------------------------------------------------------------------
+# Exported methods
 #
 
 #' @importFrom matrixStats rowSums2
 #' @importFrom methods setMethod
+#' @rdname rowSums2
+#' @export
 setMethod("rowSums2", "matrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    ...) {
-            message("matrix")
+            message2(class(x), get_verbose())
             matrixStats::rowSums2(x, rows, cols, na.rm, dim., ...)
           }
 )
@@ -16,23 +21,52 @@ setMethod("rowSums2", "matrix",
 # NOTE: No different from rowSums2,ANY-method except that it explicitly calls
 #       Matrix::rowSums() to resolve what I think is a namespace collision with
 #       BiocGenerics::rowSums()
-# TODO: Profile (this probably generates a copy when rows or cols is non NULL)
 #' @importFrom methods setMethod
 #' @rdname rowSums2
+#' @export
 setMethod("rowSums2", "Matrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    ...) {
-            message("Matrix")
-            if (!is.null(rows)) {
-              x <- x[rows, , drop = FALSE]
-            }
-            if (!is.null(cols)) {
-              x <- x[, cols, drop = FALSE]
-            }
+            message2(class(x), get_verbose())
+            x <- ..subset(x, rows, cols)
             # NOTE: Return value of matrixStats::rowSums2() has no names
             unname(Matrix::rowSums(x, na.rm))
           }
 )
+
+#' @importFrom BiocGenerics rowSums
+#' @importFrom DelayedArray seed
+#' @importFrom methods is
+#' @rdname rowSums2
+#' @export
+setMethod("rowSums2", "DelayedMatrix",
+          function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
+                   ...) {
+            if (.has_simple_seed(x)) {
+              message2("Simple seed", get_verbose())
+              if (DelayedArray:::is_pristine(x)) {
+                message2("Pristine", get_verbose())
+                x <- seed(x)
+              } else {
+                message2("Coercing to seed class", get_verbose())
+                # TODO: do_transpose trick
+                x <- from_DelayedArray_to_simple_seed_class(x)
+              }
+              return(rowSums2(x, rows, cols, na.rm, dim., ...))
+            } else {
+              message2("Block processing", get_verbose())
+              x <- ..subset(x, rows, cols)
+              # TODO: Check dims.?
+              # NOTE: Return value of matrixStats::colSums2() has no names
+              unname(DelayedArray::rowSums(x, na.rm))
+            }
+          }
+)
+
+# TODO: rowSums2,HDF5Matrix-method
+# TODO: rowSums2,RleArraySeed-method and/or
+#       rowSums2,SolidRleArraySeed-method and/or
+#       rowSums2,ChunkedRleArraySeed-method ?
 
 # NOTE: This feels a little circular since it takes an ANY (those for which we
 #       don't have an explicit rowSums2() method) as a seed, contructs an
@@ -45,62 +79,19 @@ setMethod("rowSums2", "Matrix",
 #' @importFrom DelayedArray DelayedArray
 #' @importFrom methods setMethod
 #' @rdname rowSums2
+#' @export
 setMethod("rowSums2", "ANY",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    ...) {
-            message("ANY")
+            message2("ANY", get_verbose())
             if (length(x) == 0L) {
               return(numeric(0L))
             }
+            # TODO: Can the subset be moved before the DelayedArray()? Probably
+            #       not (e.g. if x is a HDF5ArraySeed then cannot ..subset(x))
             x <- DelayedArray::DelayedArray(x)
-            if (!is.null(rows)) {
-              x <- x[rows, , drop = FALSE]
-            }
-            if (!is.null(cols)) {
-              x <- x[, cols, drop = FALSE]
-            }
+            x <- ..subset(x, rows, cols)
             # NOTE: Return value of matrixStats::rowSums2() has no names
             unname(rowSums(x, na.rm))
           }
 )
-
-#-------------------------------------------------------------------------------
-# Exported methods
-#
-
-#' @importFrom BiocGenerics rowSums
-#' @importFrom DelayedArray seed
-#' @importFrom methods is
-#' @rdname rowSums2
-#' @export
-setMethod("rowSums2", "DelayedMatrix",
-          function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                   ...) {
-            if (!.is_simple_seed(seed(x)) || x@is_transposed) {
-              message("The rest")
-              # Subset and defer to rowSums
-              if (!is.null(rows)) {
-                x <- x[rows, ]
-              }
-              if (!is.null(cols)) {
-                x <- x[, cols]
-              }
-              # TODO: Check dims.?
-              # NOTE: Return value of matrixStats::rowSums2() has no names
-              return(unname(rowSums(x, na.rm)))
-
-            }
-            if (DelayedArray:::is_pristine(x)) {
-              # TODO: Don't think I need this branch (next suffices?)
-              message("Pristine")
-              x <- DelayedArray:::remove_pristine_DelayedArray_wrapping(x)
-            } else {
-              message("Not transposed")
-              x <- .from_DelayedArray_to_simple_seed_class(x, FALSE)
-            }
-            rowSums2(x, rows, cols, na.rm, dim., ...)
-          }
-)
-
-# TODO: Some of the tricks to avoid unnecessary block processing in rowSums2()
-#       are also applicable to rowSums()

@@ -6,6 +6,8 @@
 ### Setup
 ###
 
+set_verbose(TRUE)
+
 nrow <- 3L
 ncol <- 4L
 max_x <- nrow * ncol * 10L

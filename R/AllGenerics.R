@@ -1,6 +1,11 @@
-### =============================================================================
-### Non-exported
+### ============================================================================
+### S4 generics
 ###
+
+
+# ------------------------------------------------------------------------------
+# Non-exported generics
+#
 
 ### -------------------------------------------------------------------------
 ### subset_simple_seed
@@ -16,14 +21,17 @@ setGeneric("subset_simple_seed_as_seed_class", signature = "seed",
            function(seed, index) standardGeneric("subset_simple_seed_as_seed_class")
 )
 
+# ------------------------------------------------------------------------------
+# Exported generics
+#
 
-### =============================================================================
-### Exported
-###
-
-### -------------------------------------------------------------------------
-### colSums2
-###
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colMedians
+#' @export
+setGeneric("colMedians", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
+                    ...) standardGeneric("colMedians")
+)
 
 #' @importFrom methods setGeneric
 #' @inherit matrixStats::colSums2
@@ -32,11 +40,6 @@ setGeneric("colSums2", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                     ...) standardGeneric("colSums2")
 )
-
-
-### -------------------------------------------------------------------------
-### rowSums2
-###
 
 #' @importFrom methods setGeneric
 #' @inherit matrixStats::rowSums2

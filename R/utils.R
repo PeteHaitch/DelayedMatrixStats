@@ -1,10 +1,29 @@
 ### =============================================================================
-### Non-exported functions
+### Utility functions
 ###
 
-### -------------------------------------------------------------------------
-### .is_simple_seed
-###
+# ------------------------------------------------------------------------------
+# Non-exported functions
+#
+
+get_verbose <- function() {
+  getOption("DelayedMatrixStats.verbose", default = FALSE)
+}
+
+set_verbose <- function(verbose) {
+  if (!isTRUEorFALSE(verbose)) {
+    stop("'verbose' must be TRUE or FALSE")
+  }
+  old_verbose <- get_verbose()
+  options(DelayedMatrixStats.verbose = verbose)
+  old_verbose
+}
+
+message2 <- function(msg, verbose = FALSE) {
+  if (verbose) {
+    message(msg)
+  }
+}
 
 # TODO: Figure out a minimal definition of a "simple seed"; Hervé defines a
 #       "seed contract" as dim(), dimnames(), and subset_seed_as_array()
@@ -17,6 +36,10 @@
   simple_seed_classes <- c("matrix", "Matrix", "data.frame", "DataFrame",
                            "RleArraySeed")
   any(vapply(simple_seed_classes, function(class) is(seed, class), logical(1)))
+}
+
+.has_simple_seed <- function(x) {
+  .is_simple_seed(seed(x))
 }
 
 # NOTE: A basic wrapper around DelayedArray:::.execute_delayed_ops() that also
@@ -34,16 +57,36 @@
   seed
 }
 
-### -------------------------------------------------------------------------
-### .from_DelayedArray_to_simple_seed_class
-###
+# NOTE: Named to avoid clash with base::.subset
+# NOTE: Helper function used within several [col|row]* functions
+..subset <- function(x, rows = NULL, cols = NULL) {
+  if (!is.null(rows) && !is.null(cols)) {
+    x <- x[rows, cols, drop = FALSE]
+  } else if (!is.null(rows)) {
+    x <- x[rows, , drop = FALSE]
+  } else if (!is.null(cols)) {
+    x <- x[, cols, drop = FALSE]
+  }
+  x
+}
 
-# TODO: Midway through writing this
-# Like DelayedArray:::.from_DelayedArray_to_array but returning an object of
-# the same class as class(seed(x))
-# NOTE: Only works for simple, in-memory seeds
+#' Coerce DelayedArray to its 'simple seed' form
+#' @details Like `DelayedArray:::.from_DelayedArray_to_array` but returning an
+#' object of the same class as `class(seed(x))`
+#' @param x A \linkS4class{DelayedArray}
+#' @param drop If `TRUE` the result is coerced to the lowest possible dimension
+#' @param do_transpose Should transposed input be physically transposed?
+#'
+#' @note Can be more efficient to leave the transpose implicit
+#' (`do_transpose = FALSE`) and switch from a `row*()` method to a `col*()`
+#' method (or vice versa).
+#'
+#' @note Only works on \linkS4class{DelayedArray} objects with 'simple seeds'
+#'
 #' @importFrom S4Vectors isTRUEorFALSE
-.from_DelayedArray_to_simple_seed_class <- function(x, drop = FALSE) {
+#' @keywords internal
+from_DelayedArray_to_simple_seed_class <- function(x, drop = FALSE,
+                                                    do_transpose = TRUE) {
   if (!.is_simple_seed(seed(x))) {
     stop("x does not have a simple seed")
   }
@@ -67,12 +110,13 @@
   if (drop) {
     ans <- DelayedArray:::.reduce_array_dimensions(ans)
   }
-  ## Base R doesn't support transposition of an array of arbitrary dimension
-  ## (generalized transposition) so the call to t() below will fail if 'ans'
-  ## has more than 2 dimensions. If we want as.array() to work on a
-  ## transposed DelayedArray object of arbitrary dimension, we need to
-  ## implement our own generalized transposition of an ordinary array.
-  if (x@is_transposed) {
+  # NOTE: Base R doesn't support transposition of an array of arbitrary
+  #       dimension (generalized transposition) so the call to t() below will
+  #       fail if 'ans' has more than 2 dimensions. If we want as.array() to
+  #       work on a transposed DelayedArray object of arbitrary dimension, we
+  #       need to implement our own generalized transposition of an ordinary
+  #       array [NOTE copied from DelayedArray]
+  if (x@is_transposed && do_transpose) {
     if (length(dim(ans)) > 2L) {
       stop("can't do as.array() on this object, sorry")
     }
@@ -80,10 +124,6 @@
   }
   ans
 }
-
-### -------------------------------------------------------------------------
-### get_Nindex_as_IRangesList
-###
 
 # Convert a Nindex of a matrix-like object to an IRangesList. Each element of
 # the IRangesList corresponds to a column of the matrix-like object and the
@@ -150,13 +190,9 @@ get_Nindex_as_IRangesList <- function(Nindex, dim) {
       partitioning = partitioning)
 }
 
-### =============================================================================
-### Non-exported methods
-###
-
-### -------------------------------------------------------------------------
-### subset_simple_seed_as_seed_class
-###
+# ------------------------------------------------------------------------------
+# Non-exported methods
+#
 
 setMethod("subset_simple_seed_as_seed_class", "matrix",
           function(seed, index) {
