@@ -38,7 +38,7 @@ be optimized with additional information about `x`. I'll refer to these
 
 ## Installation
 
-You can install DelayedMatrixStats from github with:
+You can install **DelayedMatrixStats** from github with:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")

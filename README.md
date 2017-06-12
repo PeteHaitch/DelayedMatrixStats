@@ -14,7 +14,7 @@ The **DelayedArray** package already implements a clever strategy called "block-
 Installation
 ------------
 
-You can install DelayedMatrixStats from github with:
+You can install **DelayedMatrixStats** from github with:
 
 ``` r
 # install.packages("devtools")
@@ -61,11 +61,11 @@ microbenchmark(DelayedArray::colSums(dense_matrix),
                times = 10)
 #> Unit: milliseconds
 #>                                        expr        min         lq
-#>         DelayedArray::colSums(dense_matrix) 4034.08048 4371.03038
-#>  DelayedMatrixStats::colSums2(dense_matrix)   13.41289   13.77259
-#>        mean   median         uq        max neval
-#>  5003.47465 4720.567 5153.30394 7160.62407    10
-#>    19.38687   15.805   25.92883   34.93857    10
+#>         DelayedArray::colSums(dense_matrix) 4655.70058 4715.82223
+#>  DelayedMatrixStats::colSums2(dense_matrix)   14.94614   16.02425
+#>        mean     median         uq        max neval
+#>  4932.03927 4937.04025 4996.55774 5525.97682    10
+#>    17.66763   16.54048   17.42644   28.49738    10
 profmem::total(profmem::profmem(DelayedArray::colSums(dense_matrix)))
 #> [1] 2498170032
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(dense_matrix)))
@@ -99,11 +99,11 @@ microbenchmark(DelayedArray::colSums(sparse_matrix),
                times = 10)
 #> Unit: milliseconds
 #>                                         expr        min         lq
-#>         DelayedArray::colSums(sparse_matrix) 1040.88851 1208.67881
-#>  DelayedMatrixStats::colSums2(sparse_matrix)   11.08855   11.34014
+#>         DelayedArray::colSums(sparse_matrix) 1212.40836 1351.73505
+#>  DelayedMatrixStats::colSums2(sparse_matrix)   11.68948   12.58647
 #>        mean     median         uq        max neval
-#>  1308.20718 1292.34716 1410.13812 1672.21904    10
-#>    13.12051   12.24028   12.73219   18.71125    10
+#>  1418.21116 1416.54304 1464.07341 1700.11156    10
+#>    13.45351   12.91349   13.41737   16.32436    10
 profmem::total(profmem::profmem(DelayedArray::colSums(sparse_matrix)))
 #> [1] 1709266424
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(sparse_matrix)))
@@ -135,11 +135,11 @@ microbenchmark(DelayedArray::colSums(rle_matrix),
                times = 10)
 #> Unit: milliseconds
 #>                                      expr         min          lq
-#>         DelayedArray::colSums(rle_matrix) 1315.479149 1373.755265
-#>  DelayedMatrixStats::colSums2(rle_matrix)    4.256474    4.350228
-#>       mean      median         uq        max neval
-#>  1610.5489 1452.909270 1893.17503 2109.70966    10
-#>    13.4017    8.935661   12.74955   59.15958    10
+#>         DelayedArray::colSums(rle_matrix) 1331.477396 1386.346508
+#>  DelayedMatrixStats::colSums2(rle_matrix)    3.951496    4.222368
+#>        mean      median          uq       max neval
+#>  1524.81650 1511.319274 1642.536396 1768.1202    10
+#>    20.32364    4.865937    8.528382  148.4582    10
 profmem::total(profmem::profmem(DelayedArray::colSums(rle_matrix)))
 #> [1] 594926952
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(rle_matrix)))
@@ -154,12 +154,12 @@ An extensive set of benchmarks is under development at <http://peterhickey.org/B
 API coverage
 ------------
 
--   \[ \] `colAlls()`
--   \[ \] `colAnyMissings()`
--   \[ \] `colAnyNAs()`
--   \[ \] `colAnys()`
--   \[ \] `colAvgsPerRowSet()`
--   \[ \] `colCollapse()`
+-   \[x\] `colAlls()`
+-   \[x\] `colAnyMissings()`
+-   \[x\] `colAnyNAs()`
+-   \[x\] `colAnys()`
+-   \[x\] `colAvgsPerRowSet()`
+-   \[x\] `colCollapse()`
 -   \[ \] `colCounts()`
 -   \[ \] `colCummaxs()`
 -   \[ \] `colCummins()`
@@ -210,7 +210,7 @@ API coverage
 -   \[ \] `rowMads()`
 -   \[ \] `rowMaxs()`
 -   \[ \] `rowMeans2()`
--   \[ \] `rowMedians()`
+-   \[x\] `rowMedians()`
 -   \[ \] `rowMins()`
 -   \[ \] `rowOrderStats()`
 -   \[ \] `rowProds()`
