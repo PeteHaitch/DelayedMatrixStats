@@ -6,27 +6,27 @@
 # Non-exported methods
 #
 
+# TODO: What to do with dim. arg?
 #' Column medians of DelayedMatrix using block-processing method
 #' @inherit matrixStats::colMedians
 #' @importFrom matrixStats colMedians
+#' @importFrom methods is
 .DelayedMatrix_block_colMedians <- function(x, rows = NULL, cols = NULL,
                                             na.rm = FALSE, dim. = dim(x), ...) {
   stopifnot(is(x, "DelayedMatrix"))
-  if (x@is_transposed) {
-    return(.DelayedMatrix_block_rowMedians(t(x), rows = cols, cols = rows,
-                                           na.rm, dim., ...))
-  }
+  stopifnot(!x@is_transposed)
 
   # Check input type
   DelayedArray:::.get_ans_type(x)
   x <- ..subset(x, rows = rows, cols = cols)
-  colmedians_list <- DelayedArray:::colblock_APPLY(x,
-                                                   matrixStats::colMedians,
-                                                   na.rm = na.rm)
-  if (length(colmedians_list) == 0L)
+  val <- DelayedArray:::colblock_APPLY(x,
+                                       matrixStats::colMedians,
+                                       na.rm = na.rm)
+  if (length(val) == 0L) {
     return(numeric(ncol(x)))
+  }
   # NOTE: Return value of matrixStats::colMedians() has no names
-  unlist(colmedians_list, recursive = FALSE, use.names = FALSE)
+  unlist(val, recursive = FALSE, use.names = FALSE)
 }
 
 # ------------------------------------------------------------------------------
@@ -55,9 +55,6 @@ setMethod("colMedians", "Matrix",
             message2(class(x), get_verbose())
             x <- ..subset(x, rows, cols)
             # NOTE: Return value of matrixStats::colMedians() has no names
-            # unlist(lapply(seq_len(ncol(x)), function(j) {
-            #   median(x[, j])
-            # }), use.names = FALSE)
             unname(apply(x, 2, median))
           }
 )
@@ -72,9 +69,6 @@ setMethod("colMedians", "data.frame",
             message2(class(x), get_verbose())
             x <- ..subset(x, rows, cols)
             # NOTE: Return value of matrixStats::colMedians() has no names
-            # unlist(lapply(seq_len(ncol(x)), function(j) {
-            #   median(x[, j])
-            # }), use.names = FALSE)
             unname(apply(x, 2, median))
           }
 )
@@ -89,16 +83,11 @@ setMethod("colMedians", "DataFrame",
             message2(class(x), get_verbose())
             x <- ..subset(x, rows, cols)
             # NOTE: Return value of matrixStats::colMedians() has no names
-            # unlist(lapply(seq_len(ncol(x)), function(j) {
-            #   median(x[, j])
-            # }), use.names = FALSE)
             unname(apply(x, 2, median))
           }
 )
 
 #' @importFrom DelayedArray seed
-#' @importFrom methods is
-#' @importFrom stats median
 #' @rdname colMedians
 #' @export
 setMethod("colMedians", "DelayedMatrix",
@@ -132,7 +121,7 @@ setMethod("colMedians", "DelayedMatrix",
 #       colMedians,ChunkedRleArraySeed-method
 
 # TODO: ANY may be too general?
-#' @importFrom matrixStats colMedians
+#' @importFrom DelayedArray DelayedArray
 #' @importFrom methods setMethod
 #' @rdname colMedians
 #' @export
