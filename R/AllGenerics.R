@@ -85,6 +85,15 @@ setGeneric("colMedians", signature = "x",
 )
 
 #' @importFrom methods setGeneric
+#' @inherit matrixStats::colCounts
+#' @export
+setGeneric("colCounts", signature = "x",
+           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
+                    dim. = dim(x),
+                    ...) standardGeneric("colCounts")
+)
+
+#' @importFrom methods setGeneric
 #' @inherit matrixStats::colSums2
 #' @export
 setGeneric("colSums2", signature = "x",
