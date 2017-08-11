@@ -93,13 +93,13 @@ setGeneric("colAnys", signature = "x",
 #                     ...) standardGeneric("colCollapse")
 # )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colCounts
-# #' @export
-# setGeneric("colCounts", signature = "x",
-#            function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
-#                     dim. = dim(x), ...) standardGeneric("colCounts")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colCounts
+#' @export
+setGeneric("colCounts", signature = "x",
+           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
+                    dim. = dim(x), ...) standardGeneric("colCounts")
+)
 
 # #' @importFrom methods setGeneric
 # #' @inherit matrixStats::colCummaxs
