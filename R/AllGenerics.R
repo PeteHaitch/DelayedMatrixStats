@@ -50,29 +50,29 @@ setGeneric("colAlls", signature = "x",
                     dim. = dim(x), ...) standardGeneric("colAlls")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colAnyMissings
-# #' @export
-# setGeneric("colAnyMissings", signature = "x",
-#            function(x, rows = NULL, cols = NULL,
-#                     ...) standardGeneric("colAnyMissings")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colAnyMissings
+#' @export
+setGeneric("colAnyMissings", signature = "x",
+           function(x, rows = NULL, cols = NULL,
+                    ...) standardGeneric("colAnyMissings")
+)
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colAnyNAs
-# #' @export
-# setGeneric("colAnyNAs", signature = "x",
-#            function(x, rows = NULL, cols = NULL,
-#                     ...) standardGeneric("colAnyNAs")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colAnyNAs
+#' @export
+setGeneric("colAnyNAs", signature = "x",
+           function(x, rows = NULL, cols = NULL,
+                    ...) standardGeneric("colAnyNAs")
+)
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colAnys
-# #' @export
-# setGeneric("colAnys", signature = "x",
-#            function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
-#                     dim. = dim(x), ...) standardGeneric("colAnys")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colAnys
+#' @export
+setGeneric("colAnys", signature = "x",
+           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
+                    dim. = dim(x), ...) standardGeneric("colAnys")
+)
 
 # # TODO: Check with Henrik why `...` appear in different place in signature for
 # #       colAvgsPerRowSet and rowAvgsPerColSet
