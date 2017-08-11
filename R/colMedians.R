@@ -22,7 +22,8 @@
   # Compute result
   val <- DelayedArray:::colblock_APPLY(x,
                                        matrixStats::colMedians,
-                                       na.rm = na.rm)
+                                       na.rm = na.rm,
+                                       ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }

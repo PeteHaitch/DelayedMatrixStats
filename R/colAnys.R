@@ -25,7 +25,8 @@
   val <- DelayedArray:::colblock_APPLY(x,
                                        matrixStats::colAnys,
                                        value = value,
-                                       na.rm = na.rm)
+                                       na.rm = na.rm,
+                                       ...)
   if (length(val) == 0L) {
     return(logical(ncol(x)))
   }
