@@ -1,7 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-README.Rmd
+^README.Rmd$
 ^README\.Rmd$
 ^README-.*\.png$
 ^\.travis\.yml$
 ^codecov\.yml$
+^matter_stuff$
+^man-roxygen$

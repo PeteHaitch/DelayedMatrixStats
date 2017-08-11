@@ -1,20 +1,7 @@
 context("colMedians")
 
-test_that("colMedians() conforms to matrixStats API", {
-  lapply(seed_types, function(seed_type) {
-    # NOTE: Only test those for which object exists (e.g. there is no 'empty'
-    #       data.frame seed, so want to skip that)
-    objects <- unlist(x = list_of_seeds[[seed_type]], recursive = FALSE)
-    expecteds <- unlist(x = list_of_seeds[["matrix"]], recursive = FALSE)
-    expecteds <- expecteds[match(names(objects), names(expecteds))]
-    mapply(function(object, expected) {
-      expect_equal(colMedians(object), colMedians(expected))
-    }, object = objects, expected = expecteds)
-  })
-})
-
-test_that("Identical output", {
-  expecteds <- lapply(unlist(list_of_seeds[["matrix"]], recursive = FALSE),
+test_that("DMS has equal output to mS", {
+  expecteds <- lapply(unlist(list_of_matrix, recursive = FALSE),
                       matrixStats::colMedians)
   lapply(list_of_DelayedMatrix, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
@@ -25,7 +12,7 @@ test_that("Identical output", {
   })
 })
 
-test_that("Identical output with subsetting and delayed ops", {
+test_that("DMS has equal output to mS: subsetting and delayed ops", {
   i <- c(3, 2)
   j <- c(1, 3)
   f <- function(x) log(x * 3 + 8)
@@ -39,15 +26,15 @@ test_that("Identical output with subsetting and delayed ops", {
   })
 })
 
-test_that("Identical output with nrow and nrow", {
-  i <- c(3, 2)
-  j <- c(1, 3)
+test_that("DMS has equal output to mS: non-NULL rows and cols", {
+  rows <- c(3, 2)
+  cols <- c(1, 3)
   expecteds <- lapply(list_of_matrix_base_case,
-                      function(x) matrixStats::colMedians(x, i, j))
+                      function(x) matrixStats::colMedians(x, rows, cols))
   lapply(list_of_DelayedMatrix_base_case, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     mapply(function(object, expected) {
-      expect_equal(colMedians(object, i, j), expected)
+      expect_equal(colMedians(object, rows, cols), expected)
     }, object = objects, expected = expecteds)
   })
 })

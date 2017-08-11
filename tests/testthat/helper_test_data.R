@@ -16,6 +16,7 @@ names(modes) <- modes
 
 ### ----------------------------------------------------------------------------
 ### List of matrix objects
+### Adapted from those used in unit tests of matrixStats
 ###
 
 list_of_matrix <- lapply(modes, function(mode) {
@@ -90,13 +91,17 @@ list_of_matrix <- lapply(modes, function(mode) {
 list_of_matrix_base_case <- lapply(list_of_matrix, "[[", "base_case")
 
 ### ----------------------------------------------------------------------------
-### List of matrix-like objects for seeds of a DelayedArray
+### List of supported matrix-like objects that can be used as seeds of a
+### DelayedArray
 ###
 
-# TODO: Add SeedBinder to seed_types
-
-seed_types <- c("matrix", "Matrix", "data.frame", "DataFrame", "RleArraySeed",
-                "HDF5ArraySeed", "SeedBinder")
+# TODO: Not testing matterArraySeed until these methods added to pkg
+seed_types <- c("matrix", "Matrix",
+                "data.frame", "DataFrame",
+                "SolidRleArraySeed", "ChunkedRleArraySeed",
+                "HDF5ArraySeed",
+                # "matterArraySeed",
+                "SeedBinder")
 names(seed_types) <- seed_types
 
 list_of_seeds <- lapply(seed_types, function(seed_type) {
@@ -124,10 +129,25 @@ list_of_seeds <- lapply(seed_types, function(seed_type) {
              lapply(tmp, as, "DataFrame")
            }),
            nm = modes),
-         RleArraySeed = setNames(
+         SolidRleArraySeed = setNames(
            object = lapply(modes, function(mode) {
              lapply(list_of_matrix[[mode]], function(x) {
-               DelayedArray:::RleArraySeed(Rle(x), dim(x), dimnames(x))
+               DelayedArray:::RleArraySeed(
+                 rle = Rle(x),
+                 dim = dim(x),
+                 dimnames = dimnames(x),
+                 chunksize = NULL)
+             })
+           }),
+           nm = modes),
+         ChunkedRleArraySeed = setNames(
+           object = lapply(modes, function(mode) {
+             lapply(list_of_matrix[[mode]], function(x) {
+               DelayedArray:::RleArraySeed(
+                 rle = Rle(x),
+                 dim = dim(x),
+                 dimnames = dimnames(x),
+                 chunksize = nrow(x))
              })
            }),
            nm = modes),
@@ -138,18 +158,33 @@ list_of_seeds <- lapply(seed_types, function(seed_type) {
              })
            }),
            nm = modes),
+         matterArraySeed = setNames(
+           object = lapply(modes, function(mode) {
+             # NOTE: Drop empty matrix, which doesn't work work as a matter_mat
+             tmp <- list_of_matrix[[mode]]
+             tmp <- tmp[-match("empty", names(tmp))]
+             lapply(tmp, function(x) {
+               matterArray::matterArraySeed(
+                 matter::matter_mat(data = x,
+                                    datamode = mode,
+                                    nrow = nrow(x),
+                                    ncol = ncol(x),
+                                    dimnames = dimnames(x)))
+             })
+           }),
+           nm = modes),
          SeedBinder = setNames(
            object = lapply(modes, function(mode) {
              lapply(list_of_matrix[[mode]], function(x) {
                DelayedArray:::.new_SeedBinder(list(x), along = 1L)
              })
            }),
-         nm = modes)
+           nm = modes)
   )
 })
 
 ### ----------------------------------------------------------------------------
-### List of DelayedMatrix objects
+### List of DelayedMatrix objects with different seed types
 ###
 
 list_of_DelayedMatrix <- setNames(
@@ -165,4 +200,3 @@ list_of_DelayedMatrix <- setNames(
 list_of_DelayedMatrix_base_case <- lapply(list_of_DelayedMatrix, function(x) {
   lapply(x, "[[", "base_case")
 })
-

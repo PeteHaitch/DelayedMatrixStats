@@ -54,12 +54,21 @@ object:
 2. `DelayedMatrixStats::colSums2()`: The 'seed-aware' strategy, implemented in the 
 **DelayedMatrixStats** package. The seed-aware implementation is optimized for both speed and memory but only for *DelayedMatrix* objects with certain types of *seed*.
 
-```{r example, message = FALSE}
+```{r real_pkg_load, message = FALSE, echo = FALSE}
+devtools::load_all()
+library(Matrix)
+library(microbenchmark)
+library(profmem)
+```
+
+```{r fake_pkg_load, message = FALSE, echo = TRUE, eval = FALSE}
 library(DelayedMatrixStats)
 library(Matrix)
 library(microbenchmark)
 library(profmem)
+```
 
+```{r example, message = FALSE}
 set.seed(666)
 
 # Fast column sums of DelayedMatrix with matrix seed

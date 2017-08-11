@@ -2,23 +2,24 @@
 ### colMedians
 ###
 
-# ------------------------------------------------------------------------------
-# Non-exported methods
-#
+###-----------------------------------------------------------------------------
+### Non-exported methods
+###
 
-# TODO: What to do with dim. arg?
 #' Column medians of DelayedMatrix using block-processing method
 #' @inherit matrixStats::colMedians
-#' @importFrom matrixStats colMedians
 #' @importFrom methods is
 .DelayedMatrix_block_colMedians <- function(x, rows = NULL, cols = NULL,
                                             na.rm = FALSE, dim. = dim(x), ...) {
+  # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   stopifnot(!x@is_transposed)
-
-  # Check input type
   DelayedArray:::.get_ans_type(x)
+
+  # Subset
   x <- ..subset(x, rows = rows, cols = cols)
+
+  # Compute result
   val <- DelayedArray:::colblock_APPLY(x,
                                        matrixStats::colMedians,
                                        na.rm = na.rm)
@@ -29,107 +30,53 @@
   unlist(val, recursive = FALSE, use.names = FALSE)
 }
 
+### ----------------------------------------------------------------------------
+### Exported methods
+###
+
 # ------------------------------------------------------------------------------
-# Exported methods
+# General method
 #
 
-#' @importFrom matrixStats colMedians
-#' @importFrom methods setMethod
-#' @rdname colMedians
-#' @export
-setMethod("colMedians", "matrix",
-          function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                   ...) {
-            message2(class(x), get_verbose())
-            matrixStats::colMedians(x, rows, cols, na.rm, dim., ...)
-          }
-)
-
-#' @importFrom matrixStats colMedians
-#' @importFrom methods setMethod
-#' @rdname colMedians
-#' @export
-setMethod("colMedians", "Matrix",
-          function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                   ...) {
-            message2(class(x), get_verbose())
-            x <- ..subset(x, rows, cols)
-            # NOTE: Return value of matrixStats::colMedians() has no names
-            unname(apply(x, 2, median))
-          }
-)
-
-#' @importFrom matrixStats colMedians
-#' @importFrom methods setMethod
-#' @rdname colMedians
-#' @export
-setMethod("colMedians", "data.frame",
-          function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                   ...) {
-            message2(class(x), get_verbose())
-            x <- ..subset(x, rows, cols)
-            # NOTE: Return value of matrixStats::colMedians() has no names
-            unname(apply(x, 2, median))
-          }
-)
-
-#' @importFrom matrixStats colMedians
-#' @importFrom methods setMethod
-#' @rdname colMedians
-#' @export
-setMethod("colMedians", "DataFrame",
-          function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                   ...) {
-            message2(class(x), get_verbose())
-            x <- ..subset(x, rows, cols)
-            # NOTE: Return value of matrixStats::colMedians() has no names
-            unname(apply(x, 2, median))
-          }
-)
-
 #' @importFrom DelayedArray seed
+#' @importFrom methods hasMethod is
 #' @rdname colMedians
+#' @template common_params
 #' @export
 setMethod("colMedians", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                   ...) {
-            if (x@is_transposed) {
-              message2("Transposed", get_verbose())
-              return(rowMedians(t(x), rows = cols, cols = rows, na.rm, dim.,
-                                ...))
-            }
-            if (.has_simple_seed(x)) {
-              message2("Simple seed", get_verbose())
-              if (DelayedArray:::is_pristine(x)) {
-                message2("Pristine", get_verbose())
-                x <- seed(x)
-              } else {
-                message2("Coercing to seed class", get_verbose())
-                x <- from_DelayedArray_to_simple_seed_class(x)
-              }
-              return(colMedians(x, rows, cols, na.rm, dim., ...))
-            } else {
+                   force_block_processing = FALSE, ...) {
+            if (!hasMethod("colMedians", class(seed(x))) ||
+                force_block_processing) {
               message2("Block processing", get_verbose())
-              .DelayedMatrix_block_colMedians(x, rows, cols, na.rm, dim., ...)
+              return(.DelayedMatrix_block_colMedians(x, rows, cols, na.rm,
+                                                     dim., ...))
             }
+
+            message2("Has seed-aware method", get_verbose())
+            if (DelayedArray:::is_pristine(x)) {
+              message2("Pristine", get_verbose())
+              simple_seed_x <- seed(x)
+            } else {
+              message2("Coercing to seed class", get_verbose())
+              # TODO: do_transpose trick
+              simple_seed_x <- try(from_DelayedArray_to_simple_seed_class(x),
+                                   silent = TRUE)
+              if (is(simple_seed_x, "try-error")) {
+                message2("Unable to coerce to seed class", get_verbose())
+                return(colMedians(x, rows, cols, na.rm, dim.,
+                                  force_block_processing = TRUE, ...))
+              }
+            }
+
+            colMedians(simple_seed_x, rows, cols, na.rm, dim., ...)
           }
 )
 
-# TODO: colMedians,HDF5Matrix-method
-# TODO: colMedians,RleArraySeed-method and/or
-#       colMedians,SolidRleArraySeed-method and/or
-#       colMedians,ChunkedRleArraySeed-method
+# ------------------------------------------------------------------------------
+# Seed-aware methods
+#
 
-# TODO: ANY may be too general?
-#' @importFrom DelayedArray DelayedArray
 #' @importFrom methods setMethod
-#' @rdname colMedians
 #' @export
-setMethod("colMedians", "ANY",
-          function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                   ...) {
-            message2("ANY", get_verbose())
-            x <- DelayedArray::DelayedArray(x)
-            .DelayedMatrix_block_colMedians(x, rows, cols, na.rm, dim., ...)
-          }
-)
+setMethod("colMedians", "matrix", matrixStats::colMedians)

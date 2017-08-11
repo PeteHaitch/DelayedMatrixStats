@@ -3,22 +3,15 @@
 \docType{methods}
 \name{colAlls}
 \alias{colAlls}
-\alias{colAlls,matrix-method}
 \alias{colAlls,DelayedMatrix-method}
-\alias{colAlls,ANY-method}
 \title{Checks if a value exists / does not exist in each row (column) of a matrix}
 \usage{
 colAlls(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
   dim. = dim(x), ...)
 
-\S4method{colAlls}{matrix}(x, rows = NULL, cols = NULL, value = TRUE,
-  na.rm = FALSE, dim. = dim(x), ...)
-
 \S4method{colAlls}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  value = TRUE, na.rm = FALSE, dim. = dim(x), ...)
-
-\S4method{colAlls}{ANY}(x, rows = NULL, cols = NULL, value = TRUE,
-  na.rm = FALSE, dim. = dim(x), ...)
+  value = TRUE, na.rm = FALSE, dim. = dim(x),
+  force_block_processing = FALSE, ...)
 }
 \arguments{
 \item{x}{An NxK \code{\link[base]{matrix}} or an N * K
@@ -42,6 +35,11 @@ length two specifying the dimension of \code{x}, also when not a
 \code{\link[base]{matrix}}.}
 
 \item{...}{Not used.}
+
+\item{force_block_processing}{\code{FALSE} (the default) means that a
+seed-aware, optimised method is used (if available). This can be overridden
+to use the general block-processing strategy by setting this to \code{TRUE}
+(typically not advised).}
 }
 \value{
 \code{rowAlls()} (\code{colAlls()}) returns an

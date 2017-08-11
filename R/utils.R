@@ -28,10 +28,14 @@ message2 <- function(msg, verbose = FALSE) {
 # TODO: Figure out a minimal definition of a "simple seed"; Hervé defines a
 #       "seed contract" as dim(), dimnames(), and subset_seed_as_array()
 #       https://github.com/Bioconductor-mirror/DelayedArray/blob/18685ee33442b9b8e499a75bd46451c56383f18b/R/cbind-methods.R#L49
+#       A potential minimal (albeit almost circular) definition is it has a
+#       subset_simple_seed_as_seed_class() method
 # TODO: Is an RleArraySeed a simple seed? It's in memory, but doesn't support
 #       basic operations like "[", although it does support
 #       subset_simple_seed_as_seed_class() and
 #       DelayedArray:::subset_seed_as_array(), which may be sufficient
+# NOTE: A matterArraySeed is not a simple seed because it does not support
+#       subset_simple_seed_as_seed_class
 .is_simple_seed <- function(seed) {
   simple_seed_classes <- c("matrix", "Matrix", "data.frame", "DataFrame",
                            "RleArraySeed")
@@ -72,7 +76,8 @@ message2 <- function(msg, verbose = FALSE) {
 
 #' Coerce DelayedArray to its 'simple seed' form
 #' @details Like `DelayedArray:::.from_DelayedArray_to_array` but returning an
-#' object of the same class as `class(seed(x))`
+#' object of the same class as `class(seed(x))` instead of an _array_. In
+#' doing so, all delayed operations are realised (including subsetting)
 #' @param x A \linkS4class{DelayedArray}
 #' @param drop If `TRUE` the result is coerced to the lowest possible dimension
 #' @param do_transpose Should transposed input be physically transposed?
@@ -86,7 +91,8 @@ message2 <- function(msg, verbose = FALSE) {
 #' @importFrom S4Vectors isTRUEorFALSE
 #' @keywords internal
 from_DelayedArray_to_simple_seed_class <- function(x, drop = FALSE,
-                                                    do_transpose = TRUE) {
+                                                   do_transpose = TRUE) {
+  stopifnot(is(x, "DelayedArray"))
   if (!.is_simple_seed(seed(x))) {
     stop("x does not have a simple seed")
   }
@@ -206,12 +212,14 @@ setMethod("subset_simple_seed_as_seed_class", "Matrix",
           }
 )
 
+# TODO: See https://github.com/Bioconductor-mirror/DelayedArray/blob/229050e7ac587b4e25a0ad0595d69a301b6314a0/R/DelayedArray-class.R#L612
 setMethod("subset_simple_seed_as_seed_class", "data.frame",
           function(seed, index) {
             DelayedArray:::subset_by_Nindex(seed, index)
           }
 )
 
+# TODO: See https://github.com/Bioconductor-mirror/DelayedArray/blob/229050e7ac587b4e25a0ad0595d69a301b6314a0/R/DelayedArray-class.R#L630
 setMethod("subset_simple_seed_as_seed_class", "DataFrame",
           function(seed, index) {
             DelayedArray:::subset_by_Nindex(seed, index)
@@ -221,7 +229,7 @@ setMethod("subset_simple_seed_as_seed_class", "DataFrame",
 # TODO: Might be able to simplify to DelayedArray:::subset_by_Nindex() if
 #       `[`,RleArraySeed-method is defined, e.g., via
 #       DelayedArray:::to_linear_index() like in the below
-setMethod("subset_simple_seed_as_seed_class", "RleArraySeed",
+setMethod("subset_simple_seed_as_seed_class", "SolidRleArraySeed",
           function(seed, index) {
             seed_dim <- dim(seed)
             i <- DelayedArray:::to_linear_index(index, seed_dim)
@@ -234,3 +242,6 @@ setMethod("subset_simple_seed_as_seed_class", "RleArraySeed",
             DelayedArray:::RleArraySeed(rle, dim, dimnames)
           }
 )
+
+# TODO: subset_simple_seed_as_seed_class,ChunkedRleArraySeed-method
+#       (see subset_seed_as_array,ChunkedRleArraySeed-method)

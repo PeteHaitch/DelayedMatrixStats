@@ -18,7 +18,8 @@ Coerce DelayedArray to its 'simple seed' form
 }
 \details{
 Like \code{DelayedArray:::.from_DelayedArray_to_array} but returning an
-object of the same class as \code{class(seed(x))}
+object of the same class as \code{class(seed(x))} instead of an \emph{array}. In
+doing so, all delayed operations are realised (including subsetting)
 }
 \note{
 Can be more efficient to leave the transpose implicit

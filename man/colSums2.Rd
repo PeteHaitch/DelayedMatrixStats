@@ -3,29 +3,21 @@
 \docType{methods}
 \name{colSums2}
 \alias{colSums2}
-\alias{colSums2,matrix-method}
-\alias{colSums2,Matrix-method}
-\alias{colSums2,RleArraySeed-method}
 \alias{colSums2,DelayedMatrix-method}
-\alias{colSums2,ANY-method}
+\alias{colSums2,Matrix-method}
+\alias{colSums2,SolidRleArraySeed-method}
 \title{Calculates the sum for each row (column) in a matrix}
 \usage{
 colSums2(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x), ...)
 
-\S4method{colSums2}{matrix}(x, rows = NULL, cols = NULL, na.rm = FALSE,
-  dim. = dim(x), ...)
+\S4method{colSums2}{DelayedMatrix}(x, rows = NULL, cols = NULL,
+  na.rm = FALSE, dim. = dim(x), force_block_processing = FALSE, ...)
 
 \S4method{colSums2}{Matrix}(x, rows = NULL, cols = NULL, na.rm = FALSE,
   dim. = dim(x), ...)
 
-\S4method{colSums2}{RleArraySeed}(x, rows = NULL, cols = NULL,
+\S4method{colSums2}{SolidRleArraySeed}(x, rows = NULL, cols = NULL,
   na.rm = FALSE, dim. = dim(x), ...)
-
-\S4method{colSums2}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, dim. = dim(x), ...)
-
-\S4method{colSums2}{ANY}(x, rows = NULL, cols = NULL, na.rm = FALSE,
-  dim. = dim(x), ...)
 }
 \arguments{
 \item{x}{A \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}}.}
@@ -46,6 +38,11 @@ length two specifying the dimension of \code{x}, also when not a
 \code{\link[base]{matrix}}.}
 
 \item{...}{Not used.}
+
+\item{force_block_processing}{\code{FALSE} (the default) means that a
+seed-aware, optimised method is used (if available). This can be overridden
+to use the general block-processing strategy by setting this to \code{TRUE}
+(typically not advised).}
 }
 \value{
 Returns a \code{\link[base]{numeric}} \code{\link[base]{vector}} of
