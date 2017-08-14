@@ -119,21 +119,23 @@ setGeneric("colCummins", signature = "x",
                     ...) standardGeneric("colCummins")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colCumprods
-# #' @export
-# setGeneric("colCumprods", signature = "x",
-#            function(x, rows = NULL, cols = NULL,
-#                     ...) standardGeneric("colCumprods")
-# )
+#' @importFrom methods setGeneric
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colCumprods
+#' @export
+setGeneric("colCumprods", signature = "x",
+           function(x, rows = NULL, cols = NULL, dim. = dim(x),
+                    ...) standardGeneric("colCumprods")
+)
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colCumsums
-# #' @export
-# setGeneric("colCumsums", signature = "x",
-#            function(x, rows = NULL, cols = NULL,
-#                     ...) standardGeneric("colCumsums")
-# )
+#' @importFrom methods setGeneric
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colCumsums
+#' @export
+setGeneric("colCumsums", signature = "x",
+           function(x, rows = NULL, cols = NULL, dim. = dim(x),
+                    ...) standardGeneric("colCumsums")
+)
 
 # #' @importFrom methods setGeneric
 # #' @inherit matrixStats::colDiffs
