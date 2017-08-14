@@ -137,13 +137,13 @@ setGeneric("colCumsums", signature = "x",
                     ...) standardGeneric("colCumsums")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colDiffs
-# #' @export
-# setGeneric("colDiffs", signature = "x",
-#            function(x, rows = NULL, cols = NULL, lag = 1L, differences = 1L,
-#                     dim. = dim(x), ...) standardGeneric("colDiffs")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colDiffs
+#' @export
+setGeneric("colDiffs", signature = "x",
+           function(x, rows = NULL, cols = NULL, lag = 1L, differences = 1L,
+                    dim. = dim(x), ...) standardGeneric("colDiffs")
+)
 
 # #' @importFrom methods setGeneric
 # #' @inherit matrixStats::colIQRDiffs
