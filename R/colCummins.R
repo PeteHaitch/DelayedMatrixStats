@@ -22,6 +22,7 @@
   # Compute result
   val <- DelayedArray:::colblock_APPLY(x,
                                        matrixStats::colCummins,
+                                       dim. = dim(x),
                                        ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
