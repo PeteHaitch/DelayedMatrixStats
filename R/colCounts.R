@@ -6,7 +6,7 @@
 ### Non-exported methods
 ###
 
-#' Column medians of DelayedMatrix using block-processing method
+#' `colCounts()` block-processing internal helper
 #' @inherit matrixStats::colCounts
 #' @importFrom methods is
 .DelayedMatrix_block_colCounts <- function(x, rows = NULL, cols = NULL,
