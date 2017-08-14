@@ -101,21 +101,23 @@ setGeneric("colCounts", signature = "x",
                     dim. = dim(x), ...) standardGeneric("colCounts")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colCummaxs
-# #' @export
-# setGeneric("colCummaxs", signature = "x",
-#            function(x, rows = NULL, cols = NULL,
-#                     ...) standardGeneric("colCummaxs")
-# )
+# TODO: Ask Henrik why na.rm isn't an argument?
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colCummaxs
+#' @export
+setGeneric("colCummaxs", signature = "x",
+           function(x, rows = NULL, cols = NULL, dim. = dim(x),
+                    ...) standardGeneric("colCummaxs")
+)
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colCummins
-# #' @export
-# setGeneric("colCummins", signature = "x",
-#            function(x, rows = NULL, cols = NULL,
-#                     ...) standardGeneric("colCummins")
-# )
+# TODO: Ask Henrik why na.rm isn't an argument?
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colCummins
+#' @export
+setGeneric("colCummins", signature = "x",
+           function(x, rows = NULL, cols = NULL, dim. = dim(x),
+                    ...) standardGeneric("colCummins")
+)
 
 # #' @importFrom methods setGeneric
 # #' @inherit matrixStats::colCumprods
