@@ -154,13 +154,13 @@ setGeneric("colIQRDiffs", signature = "x",
                     trim = 0, ...) standardGeneric("colIQRDiffs")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colIQRs
-# #' @export
-# setGeneric("colIQRs", signature = "x",
-#            function(x, rows = NULL, cols = NULL, na.rm = FALSE,
-#                     ...) standardGeneric("colIQRs")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colIQRs
+#' @export
+setGeneric("colIQRs", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
+                    ...) standardGeneric("colIQRs")
+)
 
 # #' @importFrom methods setGeneric
 # #' @inherit matrixStats::colLogSumExps
