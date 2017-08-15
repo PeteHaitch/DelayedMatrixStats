@@ -145,13 +145,14 @@ setGeneric("colDiffs", signature = "x",
                     dim. = dim(x), ...) standardGeneric("colDiffs")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colIQRDiffs
-# #' @export
-# setGeneric("colIQRDiffs", signature = "x",
-#            function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
-#                     trim = 0, ...) standardGeneric("colIQRDiffs")
-# )
+# TODO: Ask Henrik why this function keep colnames whereas most don't
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colIQRDiffs
+#' @export
+setGeneric("colIQRDiffs", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
+                    trim = 0, ...) standardGeneric("colIQRDiffs")
+)
 
 # #' @importFrom methods setGeneric
 # #' @inherit matrixStats::colIQRs
