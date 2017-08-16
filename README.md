@@ -62,12 +62,12 @@ microbenchmark(DelayedArray::colSums(dense_matrix),
                DelayedMatrixStats::colSums2(dense_matrix),
                times = 10)
 #> Unit: milliseconds
-#>                                        expr       min        lq     mean
-#>         DelayedArray::colSums(dense_matrix) 320.22279 375.30668 437.7997
-#>  DelayedMatrixStats::colSums2(dense_matrix)  14.60207  15.37119  17.0354
+#>                                        expr       min        lq      mean
+#>         DelayedArray::colSums(dense_matrix) 336.69281 364.23145 394.34366
+#>  DelayedMatrixStats::colSums2(dense_matrix)  14.46096  16.45409  20.69621
 #>     median        uq       max neval
-#>  413.25348 444.46619 737.96888    10
-#>   15.86781  17.87751  23.54094    10
+#>  386.70929 437.40217 465.94858    10
+#>   17.31994  21.29487  40.54135    10
 profmem::total(profmem::profmem(DelayedArray::colSums(dense_matrix)))
 #> [1] 386179232
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(dense_matrix)))
@@ -100,12 +100,12 @@ microbenchmark(DelayedArray::colSums(sparse_matrix),
                DelayedMatrixStats::colSums2(sparse_matrix),
                times = 10)
 #> Unit: milliseconds
-#>                                         expr       min        lq      mean
-#>         DelayedArray::colSums(sparse_matrix) 604.80867 634.61266 674.25632
-#>  DelayedMatrixStats::colSums2(sparse_matrix)  11.94333  14.50893  17.95869
-#>     median        uq       max neval
-#>  642.62014 712.00000 819.10336    10
-#>   15.31832  25.67656  26.28267    10
+#>                                         expr       min        lq     mean
+#>         DelayedArray::colSums(sparse_matrix) 625.89074 691.92063 934.5440
+#>  DelayedMatrixStats::colSums2(sparse_matrix)  12.70058  14.05367  28.0906
+#>     median         uq       max neval
+#>  729.42193 1082.17389 1689.7915    10
+#>   15.34431   17.35039  116.7558    10
 profmem::total(profmem::profmem(DelayedArray::colSums(sparse_matrix)))
 #> [1] 442020888
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(sparse_matrix)))
@@ -136,12 +136,12 @@ microbenchmark(DelayedArray::colSums(rle_matrix),
                DelayedMatrixStats::colSums2(rle_matrix),
                times = 10)
 #> Unit: milliseconds
-#>                                      expr        min          lq
-#>         DelayedArray::colSums(rle_matrix) 1187.69052 1298.054424
-#>  DelayedMatrixStats::colSums2(rle_matrix)    4.39694    4.479827
-#>        mean      median         uq       max neval
-#>  1519.21726 1374.443446 1480.31947 2330.2829    10
-#>    27.22595    4.960764   14.07545  126.9667    10
+#>                                      expr         min         lq
+#>         DelayedArray::colSums(rle_matrix) 1382.600212 1481.24510
+#>  DelayedMatrixStats::colSums2(rle_matrix)    5.827698    8.07606
+#>        mean     median         uq        max neval
+#>  1908.60239 1642.58012 2420.29222 3066.27040    10
+#>    22.04962   17.85348   29.98883   53.73267    10
 profmem::total(profmem::profmem(DelayedArray::colSums(rle_matrix)))
 #> [1] 592057352
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(rle_matrix)))
@@ -170,7 +170,7 @@ API coverage
 -   \[x\] `colDiffs()`
 -   \[x\] `colIQRDiffs()`
 -   \[x\] `colIQRs()`
--   \[ \] `colLogSumExps()`
+-   \[x\] `colLogSumExps()`
 -   \[ \] `colMadDiffs()`
 -   \[ \] `colMads()`
 -   \[ \] `colMaxs()`
