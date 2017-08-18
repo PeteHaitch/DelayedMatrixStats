@@ -42,9 +42,17 @@ test_that("DMS has equal output to mS: subsetting and delayed ops", {
   })
 })
 
-# TODO: This failed test appears to be due to a bug in
-#       matrixStats::colLogSumExps()
+# TODO: This test fails due to a bug in matrixStats::colLogSumExps(); report bug
 test_that("DMS has equal output to mS: non-NULL rows and cols", {
+  matrixStats_test_case <- try(
+    colLogSumExps(list_of_matrix_base_case[["double"]],
+                  rows = c(3, 2),
+                  cols = c(1, 3)),
+    silent = TRUE)
+  if (is(matrixStats_test_case, "try-error")) {
+    skip("Skipping to bug in matrixStats::colLogSumExps()")
+  }
+
   # NOTE: Drop integer matrices, which aren't supported by
   #       matrixStats::colLogSumExps()
   list_of_matrix_base_case[["integer"]] <- NULL
