@@ -170,13 +170,14 @@ setGeneric("colLogSumExps", signature = "lx",
                     dim. = dim(lx), ...) standardGeneric("colLogSumExps")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colMadDiffs
-# #' @export
-# setGeneric("colMadDiffs", signature = "x",
-#            function(x, rows = NULL, cols = NULL, na.rm = FALSE,
-#                     diff = 1L, trim = 0, ...) standardGeneric("colMadDiffs")
-# )
+# TODO: Ask Henrik why this function keep colnames whereas most don't
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colMadDiffs
+#' @export
+setGeneric("colMadDiffs", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
+                    diff = 1L, trim = 0, ...) standardGeneric("colMadDiffs")
+)
 
 # #' @importFrom methods setGeneric
 # #' @inherit matrixStats::colMads

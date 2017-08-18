@@ -1,15 +1,15 @@
 ### ============================================================================
-### colIQRDiffs
+### colMadDiffs
 ###
 
 ###-----------------------------------------------------------------------------
 ### Non-exported methods
 ###
 
-#' `colIQRDiffs()` block-processing internal helper
-#' @inherit matrixStats::colIQRDiffs
+#' `colMadDiffs()` block-processing internal helper
+#' @inherit matrixStats::colMadDiffs
 #' @importFrom methods is
-.DelayedMatrix_block_colIQRDiffs <- function(x, rows = NULL, cols = NULL,
+.DelayedMatrix_block_colMadDiffs <- function(x, rows = NULL, cols = NULL,
                                              na.rm = FALSE, diff = 1L,
                                              trim = 0, ...) {
   # Check input type
@@ -22,7 +22,7 @@
 
   # Compute result
   val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colIQRDiffs,
+                                       matrixStats::colMadDiffs,
                                        na.rm = na.rm,
                                        diff = diff,
                                        trim = trim,
@@ -44,16 +44,16 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname colIQRDiffs
+#' @rdname colMadDiffs
 #' @template common_params
 #' @export
-setMethod("colIQRDiffs", "DelayedMatrix",
+setMethod("colMadDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
                    trim = 0, force_block_processing = FALSE, ...) {
-            if (!hasMethod("colIQRDiffs", class(seed(x))) ||
+            if (!hasMethod("colMadDiffs", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colIQRDiffs(x, rows, cols, na.rm,
+              return(.DelayedMatrix_block_colMadDiffs(x, rows, cols, na.rm,
                                                       diff, trim, ...))
             }
 
@@ -68,12 +68,12 @@ setMethod("colIQRDiffs", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colIQRDiffs(x, rows, cols, na.rm, diff, trim,
+                return(colMadDiffs(x, rows, cols, na.rm, diff, trim,
                                    force_block_processing = TRUE, ...))
               }
             }
 
-            colIQRDiffs(simple_seed_x, rows, cols, na.rm, diff, trim, ...)
+            colMadDiffs(simple_seed_x, rows, cols, na.rm, diff, trim, ...)
           }
 )
 
@@ -83,4 +83,4 @@ setMethod("colIQRDiffs", "DelayedMatrix",
 
 #' @importFrom methods setMethod
 #' @export
-setMethod("colIQRDiffs", "matrix", matrixStats::colIQRDiffs)
+setMethod("colMadDiffs", "matrix", matrixStats::colMadDiffs)
