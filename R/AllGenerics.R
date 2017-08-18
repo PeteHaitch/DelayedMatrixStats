@@ -181,15 +181,15 @@ setGeneric("colMadDiffs", signature = "x",
                     diff = 1L, trim = 0, ...) standardGeneric("colMadDiffs")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colMads
-# #' @export
-# setGeneric("colMads", signature = "x",
-#            function(x, rows = NULL, cols = NULL, center = NULL,
-#                     constant = 1.4826, na.rm = FALSE,
-#                     dim. = dim(x), centers = NULL,
-#                     ...) standardGeneric("colMads")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colMads
+#' @export
+setGeneric("colMads", signature = "x",
+           function(x, rows = NULL, cols = NULL, center = NULL,
+                    constant = 1.4826, na.rm = FALSE,
+                    dim. = dim(x), centers = NULL,
+                    ...) standardGeneric("colMads")
+)
 
 # NOTE: colMaxs S4 generic already defined in DelayedArray
 # #' @importMethodsFrom DelayedArray colMaxs
