@@ -67,7 +67,7 @@ message2 <- function(msg, verbose = FALSE) {
   if (!is.null(rows) && !is.null(cols)) {
     x <- x[rows, cols, drop = FALSE]
   } else if (!is.null(rows)) {
-    x <- x[rows, , drop = FALSE]
+    x <- x[rows, , drop = FALSE] # nolint
   } else if (!is.null(cols)) {
     x <- x[, cols, drop = FALSE]
   }

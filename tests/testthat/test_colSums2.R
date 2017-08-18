@@ -42,4 +42,3 @@ test_that("DMS has equal output to mS: non-NULL rows and cols", {
 # TODO: Test with transposing
 # TODO: When there's an error, want to report class of object and expected,
 #       possibly even str(), to make it easier to figure out which test failed
-

@@ -16,9 +16,11 @@
 #       and data frame. It does not work with SeedBinder or HDF5ArraySeed, for
 #       example.
 # TODO: Come up with a minimal working definition of a 'simple seed'
+# nolint start
 setGeneric("subset_simple_seed_as_seed_class", signature = "seed",
            function(seed, index) standardGeneric("subset_simple_seed_as_seed_class")
 )
+# nolint end
 
 ### ----------------------------------------------------------------------------
 ### Exported generics
