@@ -217,13 +217,14 @@ setGeneric("colMedians", signature = "x",
 # #' @inherit matrixStats::colMins
 # #' @importMethodsFrom DelayedArray colMins
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colOrderStats
-# #' @export
-# setGeneric("colOrderStats", signature = "x",
-#            function(x, rows = NULL, cols = NULL, which, dim. = dim(x),
-#                     ...) standardGeneric("colOrderStats")
-# )
+# TODO: Ask Henrik why na.rm isn't an argument (this is noted in docs)
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colOrderStats
+#' @export
+setGeneric("colOrderStats", signature = "x",
+           function(x, rows = NULL, cols = NULL, which, dim. = dim(x),
+                    ...) standardGeneric("colOrderStats")
+)
 
 # #' @importFrom methods setGeneric
 # #' @inherit matrixStats::colProds
