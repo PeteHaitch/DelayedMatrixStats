@@ -252,14 +252,14 @@ setGeneric("colQuantiles", signature = "x",
 # #' @inherit matrixStats::colRanges
 # #' @importMethodsFrom DelayedArray colRanges
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colRanks
-# #' @export
-# setGeneric("colRanks", signature = "x",
-#            function(x, rows = NULL, cols = NULL,
-#                     ties.method = c("max", "average", "min"), dim. = dim(x),
-#                     preserveShape = FALSE, ...) standardGeneric("colRanks")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colRanks
+#' @export
+setGeneric("colRanks", signature = "x",
+           function(x, rows = NULL, cols = NULL,
+                    ties.method = c("max", "average", "min"), dim. = dim(x),
+                    preserveShape = FALSE, ...) standardGeneric("colRanks")
+)
 
 # #' @importFrom methods setGeneric
 # #' @inherit matrixStats::colSdDiffs
