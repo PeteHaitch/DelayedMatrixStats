@@ -3,11 +3,12 @@ context("colQuantiles")
 test_that("DMS has equal output to mS", {
   expecteds <- lapply(unlist(list_of_matrix, recursive = FALSE),
                       matrixStats::colQuantiles)
-  lapply(list_of_DelayedMatrix[2], function(list_of_objects) {
+  lapply(list_of_DelayedMatrix, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     expecteds <- expecteds[match(names(objects), names(expecteds))]
     mapply(function(object, expected) {
-      expect_equal(colQuantiles(object), expected)
+      expect_equal(colQuantiles(object), expected,
+                   check.attributes = !is(object, "HDF5Array"))
     }, object = objects, expected = expecteds)
   })
 })
