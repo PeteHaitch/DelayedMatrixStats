@@ -226,14 +226,14 @@ setGeneric("colOrderStats", signature = "x",
                     ...) standardGeneric("colOrderStats")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colProds
-# #' @export
-# setGeneric("colProds", signature = "x",
-#            function(x, rows = NULL, cols = NULL, na.rm = FALSE,
-#                     methods = c("direct", "expSumLog"),
-#                     ...) standardGeneric("colProds")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colProds
+#' @export
+setGeneric("colProds", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
+                    method = c("direct", "expSumLog"),
+                    ...) standardGeneric("colProds")
+)
 
 # #' @importFrom methods setGeneric
 # #' @inherit matrixStats::colQuantiles

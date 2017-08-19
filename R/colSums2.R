@@ -21,8 +21,10 @@
 
   # Compute result
   # TODO: Use this or colblock_APPLY() with matrixStats::colSums2()?
+  val <- DelayedArray::colSums(x, na.rm)
+
   # NOTE: Return value of matrixStats::colSums2() has no names
-  unname(DelayedArray::colSums(x, na.rm))
+  unname(val)
 }
 
 ### ----------------------------------------------------------------------------
@@ -107,6 +109,7 @@ setMethod("colSums2", "SolidRleArraySeed",
               return(val)
             }
             IDX <- rep(seq_along(irl), each = n)
-            unlist(lapply(split(val, IDX), sum, na.rm), use.names = FALSE)
+            unlist(lapply(split(val, IDX), sum, na.rm = na.rm),
+                   use.names = FALSE)
           }
 )
