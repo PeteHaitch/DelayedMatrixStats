@@ -235,15 +235,17 @@ setGeneric("colProds", signature = "x",
                     ...) standardGeneric("colProds")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colQuantiles
-# #' @export
-# setGeneric("colQuantiles", signature = "x",
-#            function(x, rows = NULL, cols = NULL,
-#                     probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE,
-#                     type = 7L, ...,
-#                     drop = TRUE) standardGeneric("colQuantiles")
-# )
+# TODO: Ask Henrik why matrixStats::colQuantiles() returns rownames in certain
+#       circumstances but not others (e.g., 1-column matrix has not dimnames,
+#       if matrix has NA/NaN)
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colQuantiles
+#' @export
+setGeneric("colQuantiles", signature = "x",
+           function(x, rows = NULL, cols = NULL,
+                    probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE,
+                    type = 7L, ..., drop = TRUE) standardGeneric("colQuantiles")
+)
 
 # TODO: Need to think about interaction with methods and docs in DelayedArray
 # NOTE: colRanges S4 generic already defined in DelayedArray
