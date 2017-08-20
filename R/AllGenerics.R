@@ -269,13 +269,13 @@ setGeneric("colSdDiffs", signature = "x",
                     trim = 0, ...) standardGeneric("colSdDiffs")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colSds
-# #' @export
-# setGeneric("colSds", signature = "x",
-#            function(x, rows = NULL, cols = NULL,
-#                     ...) standardGeneric("colSds")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colSds
+#' @export
+setGeneric("colSds", signature = "x",
+           function(x, rows = NULL, cols = NULL,
+                    ...) standardGeneric("colSds")
+)
 
 #' @importFrom methods setGeneric
 #' @inherit matrixStats::colSums2
@@ -293,21 +293,21 @@ setGeneric("colSums2", signature = "x",
 #                     ...) standardGeneric("colTabulates")
 # )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colVarDiffs
-# #' @export
-# setGeneric("colVarDiffs", signature = "x",
-#            function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
-#                     trim = 0, ...) standardGeneric("colVarDiffs")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colVarDiffs
+#' @export
+setGeneric("colVarDiffs", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
+                    trim = 0, ...) standardGeneric("colVarDiffs")
+)
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colVars
-# #' @export
-# setGeneric("colVars", signature = "x",
-#            function(x, rows = NULL, cols = NULL,
-#                     ...) standardGeneric("colVars")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colVars
+#' @export
+setGeneric("colVars", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE, center = NULL,
+                    dim. = dim(x), ...) standardGeneric("colVars")
+)
 
 # #' @importFrom methods setGeneric
 # #' @inherit matrixStats::colWeightedMads
