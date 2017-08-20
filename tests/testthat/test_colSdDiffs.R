@@ -1,0 +1,79 @@
+context("colSdDiffs")
+
+test_that("DMS has equal output to mS", {
+  # NOTE: Drop matrix of all Inf as it needs special handling
+  list_of_matrix[["double"]] <-
+    list_of_matrix[["double"]][grep("Inf",
+                                    names(list_of_matrix[["double"]]),
+                                    invert = TRUE)]
+  list_of_DelayedMatrix <- lapply(list_of_DelayedMatrix, function(x) {
+    x[["double"]] <- x[["double"]][grep("Inf", names(x[["double"]]),
+                                        invert = TRUE)]
+    x
+  })
+  expecteds <- lapply(unlist(list_of_matrix, recursive = FALSE),
+                      matrixStats::colSdDiffs)
+  lapply(list_of_DelayedMatrix, function(list_of_objects) {
+    objects <- unlist(list_of_objects, recursive = FALSE)
+    expecteds <- expecteds[match(names(objects), names(expecteds))]
+    mapply(function(object, expected) {
+      expect_equal(colSdDiffs(object), expected,
+                   check.names = !is(object, "HDF5Array"))
+    }, object = objects, expected = expecteds)
+  })
+})
+
+test_that("DMS has equal output to mS: subsetting and delayed ops", {
+  # NOTE: Drop matrix of all Inf as it needs special handling
+  list_of_matrix[["double"]] <-
+    list_of_matrix[["double"]][grep("Inf",
+                                    names(list_of_matrix[["double"]]),
+                                    invert = TRUE)]
+  list_of_DelayedMatrix <- lapply(list_of_DelayedMatrix, function(x) {
+    x[["double"]] <- x[["double"]][grep("Inf", names(x[["double"]]),
+                                        invert = TRUE)]
+    x
+  })
+  i <- c(3, 2)
+  j <- c(1, 3)
+  f <- function(x) log(x * 3 + 8)
+  expecteds <- lapply(list_of_matrix_base_case,
+                      function(x) matrixStats::colSdDiffs(f(x[i, j])))
+  lapply(list_of_DelayedMatrix_base_case, function(list_of_objects) {
+    objects <- unlist(list_of_objects, recursive = FALSE)
+    mapply(function(object, expected) {
+      expect_equal(colSdDiffs(f(object[i, j])), expected,
+                   check.names = !is(object, "HDF5Array"))
+    }, object = objects, expected = expecteds)
+  })
+})
+
+test_that("DMS has equal output to mS: non-NULL rows and cols", {
+  # NOTE: Drop matrix of all Inf as it needs special handling
+  list_of_matrix[["double"]] <-
+    list_of_matrix[["double"]][grep("Inf",
+                                    names(list_of_matrix[["double"]]),
+                                    invert = TRUE)]
+  list_of_DelayedMatrix <- lapply(list_of_DelayedMatrix, function(x) {
+    x[["double"]] <- x[["double"]][grep("Inf", names(x[["double"]]),
+                                        invert = TRUE)]
+    x
+  })
+  rows <- c(3, 2)
+  cols <- c(1, 3)
+  expecteds <- lapply(list_of_matrix_base_case,
+                      function(x) matrixStats::colSdDiffs(x, rows, cols))
+  lapply(list_of_DelayedMatrix_base_case, function(list_of_objects) {
+    objects <- unlist(list_of_objects, recursive = FALSE)
+    mapply(function(object, expected) {
+      expect_equal(colSdDiffs(object, rows, cols), expected,
+                   check.names = !is(object, "HDF5Array"))
+    }, object = objects, expected = expecteds)
+  })
+})
+
+# TODO: Test with transposing
+# TODO: When there's an error, want to report class of object and expected,
+#       possibly even str(), to make it easier to figure out which test failed
+# TODO: Test with different `diff` and `trim`
+# TODO: Test 'Inf' case

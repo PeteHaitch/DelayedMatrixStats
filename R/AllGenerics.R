@@ -261,13 +261,13 @@ setGeneric("colRanks", signature = "x",
                     preserveShape = FALSE, ...) standardGeneric("colRanks")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colSdDiffs
-# #' @export
-# setGeneric("colSdDiffs", signature = "x",
-#            function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
-#                     trim = 0, ...) standardGeneric("colSdDiffs")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colSdDiffs
+#' @export
+setGeneric("colSdDiffs", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
+                    trim = 0, ...) standardGeneric("colSdDiffs")
+)
 
 # #' @importFrom methods setGeneric
 # #' @inherit matrixStats::colSds
