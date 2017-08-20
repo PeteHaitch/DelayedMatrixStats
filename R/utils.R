@@ -62,7 +62,7 @@ message2 <- function(msg, verbose = FALSE) {
 }
 
 # NOTE: Named to avoid clash with base::.subset
-# NOTE: Helper function used within several [col|row]* functions
+# NOTE: Helper function used within [col|row]* functions
 ..subset <- function(x, rows = NULL, cols = NULL) {
   if (!is.null(rows) && !is.null(cols)) {
     x <- x[rows, cols, drop = FALSE]

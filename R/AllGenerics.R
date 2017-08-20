@@ -309,14 +309,14 @@ setGeneric("colVars", signature = "x",
                     dim. = dim(x), ...) standardGeneric("colVars")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colWeightedMads
-# #' @export
-# setGeneric("colWeightedMads", signature = "x",
-#            function(x, rows = NULL, cols = NULL, na.rm = FALSE,
-#                     constant = 1.4826, center = NULL,
-#                     ...) standardGeneric("colWeightedMads")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colWeightedMads
+#' @export
+setGeneric("colWeightedMads", signature = "x",
+           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
+                    constant = 1.4826, center = NULL,
+                    ...) standardGeneric("colWeightedMads")
+)
 
 # #' @importFrom methods setGeneric
 # #' @inherit matrixStats::colWeightedMeans
