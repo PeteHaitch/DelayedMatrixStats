@@ -192,8 +192,8 @@ get_Nindex_as_IRangesList <- function(Nindex, dim) {
   }
   # TODO: Better way to instantiate the result?
   new2("CompressedIRangesList",
-      unlistData = ir,
-      partitioning = partitioning)
+       unlistData = ir,
+       partitioning = partitioning)
 }
 
 # ------------------------------------------------------------------------------
