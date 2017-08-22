@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 # DelayedMatrixStats
 
 [![Travis-CI Build Status](https://travis-ci.org/PeteHaitch/DelayedMatrixStats.svg?branch=master)](https://travis-ci.org/PeteHaitch/DelayedMatrixStats)
-[![Coverage Status](https://img.shields.io/codecov/c/github/PeteHaitch/DelayedMatrixStats/master.svg)](https://codecov.io/github/PeteHaitch/DelayedMatrixStats?branch=master)
+[![Coverage Status](https://codecov.io/gh/PeteHaitch/DelayedMatrixStats/branch/master/graph/badge.svg)](https://codecov.io/gh/PeteHaitch/DelayedMatrixStats)
 
 **DelayedMatrixStats** is a port of the 
 [**matrixStats**](https://CRAN.R-project.org/package=matrixStats) API to work 
@@ -125,31 +125,39 @@ DelayedMatrixStats <- gsub("exportMethods|\\(|\\)",
                            grep("^exportMethods", 
                                 DelayedMatrixStats, 
                                 value = TRUE))
-api <- do.call(c, lapply(matrixStats, function(fun) {
-  if (fun %in% DelayedMatrixStats) {
-    checkbox <- "- [x]"
-  } else {
-    checkbox <- "- [ ]"
-  }
-  paste0(checkbox, " `", fun, "()`")
-}))
-writeLines(api, sep = "\n")
 
-# TODO: Make a data frame mapping block-processing strategy methods to 
-#       matrixStats methods
-# TODO: Make a data frame of which methods have optimized seed-aware 
-#       implementations and print as table in README
-# api_df <- data.frame(
-#   Method = matrixStats,
-#   # `Block processing` = ifelse(matrixStats %in% DelayedMatrixStats,
-#   #                             emo::ji("ok"),
-#   #                             emo::ji("x")),
-#   `base::matrix optimized` = ,
-#   `Matrix::Matrix optimized` = ,
-#   `DelayedArray::RleArray optimized` = ,
-#   `HDF5Array::HDF5Matrix optimized` = ,
-#   `base::data.frame optimized` = ,
-#   `S4Vectors::DataFrame optimized` =
-#     stringsAsFactors = FALSE)
-# knitr::kable(api_df)
+api_tbl <- tibble::tibble(
+  Method = paste0("`", matrixStats, "()`"),
+  `Block processing` = ifelse(matrixStats %in% DelayedMatrixStats,
+                              emo::ji("heavy_check_mark"),
+                              emo::ji("x")),
+  `_base::matrix_ optimized` = 
+    ifelse(sapply(matrixStats, hasMethod, signature = "matrix"), 
+           emo::ji("heavy_check_mark"), 
+           emo::ji("x")),
+  `_Matrix::Matrix_ optimized` = 
+    ifelse(sapply(matrixStats, hasMethod, signature = "Matrix"), 
+           emo::ji("heavy_check_mark"), 
+           emo::ji("x")),
+  `_DelayedArray::RleArray_ (_SolidRleArraySeed_) optimized` = 
+    ifelse(sapply(matrixStats, hasMethod, signature = "SolidRleArraySeed"),
+           emo::ji("heavy_check_mark"), 
+           emo::ji("x")),
+  `_DelayedArray::RleArray_  (_ChunkedRleArraySeed_) optimized` = 
+    ifelse(sapply(matrixStats, hasMethod, signature = "ChunkedRleArraySeed"),
+           emo::ji("heavy_check_mark"), 
+           emo::ji("x")),
+  `_HDF5Array::HDF5Matrix_ optimized` = 
+    ifelse(sapply(matrixStats, hasMethod, signature = "HDF5ArraySeed"),
+           emo::ji("heavy_check_mark"), 
+           emo::ji("x")),
+  `_base::data.frame_ optimized` = 
+    ifelse(sapply(matrixStats, hasMethod, signature = "data.frame"),
+           emo::ji("heavy_check_mark"), 
+           emo::ji("x")),
+  `_S4Vectors::DataFrame_ optimized` =
+    ifelse(sapply(matrixStats, hasMethod, signature = "DataFrame"),
+           emo::ji("heavy_check_mark"), 
+           emo::ji("x")))
+knitr::kable(api_tbl)
 ```
