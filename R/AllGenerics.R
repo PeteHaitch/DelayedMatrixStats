@@ -326,29 +326,29 @@ setGeneric("colWeightedMeans", signature = "x",
                     ...) standardGeneric("colWeightedMeans")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colWeightedMedians
-# #' @export
-# setGeneric("colWeightedMedians", signature = "x",
-#            function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-#                     ...) standardGeneric("colWeightedMedians")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colWeightedMedians
+#' @export
+setGeneric("colWeightedMedians", signature = "x",
+           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
+                    ...) standardGeneric("colWeightedMedians")
+)
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colWeightedSds
-# #' @export
-# setGeneric("colWeightedSds", signature = "x",
-#            function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-#                     ...) standardGeneric("colWeightedSds")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colWeightedSds
+#' @export
+setGeneric("colWeightedSds", signature = "x",
+           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
+                    ...) standardGeneric("colWeightedSds")
+)
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colWeightedVars
-# #' @export
-# setGeneric("colWeightedVars", signature = "x",
-#            function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-#                     ...) standardGeneric("colWeightedVars")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colWeightedVars
+#' @export
+setGeneric("colWeightedVars", signature = "x",
+           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
+                    ...) standardGeneric("colWeightedVars")
+)
 
 # ------------------------------------------------------------------------------
 # rowFoos
