@@ -18,11 +18,11 @@
   DelayedArray:::.get_ans_type(x)
 
   # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
+  x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colCounts,
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colCounts,
                                        value = value,
                                        na.rm = na.rm,
                                        ...)
@@ -47,14 +47,18 @@
 #' @template common_params
 #' @export
 setMethod("colCounts", "DelayedMatrix",
-          function(x, rows = NULL, cols = NULL, value = TRUE,
-                   na.rm = FALSE, dim. = dim(x),
-                   force_block_processing = FALSE, ...) {
+          function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
+                   dim. = dim(x), force_block_processing = FALSE, ...) {
             if (!hasMethod("colCounts", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colCounts(x, rows, cols, value,
-                                                    na.rm, dim., ...))
+              return(.DelayedMatrix_block_colCounts(x = x,
+                                                    rows = rows,
+                                                    cols = cols,
+                                                    value = value,
+                                                    na.rm = na.rm,
+                                                    dim. = dim.,
+                                                    ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -68,12 +72,24 @@ setMethod("colCounts", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colCounts(x, rows, cols, value, na.rm, dim.,
-                                  force_block_processing = TRUE, ...))
+                return(colCounts(x = x,
+                                 rows = rows,
+                                 cols = cols,
+                                 value = value,
+                                 na.rm = na.rm,
+                                 dim. = dim.,
+                                 force_block_processing = TRUE,
+                                 ...))
               }
             }
 
-            colCounts(simple_seed_x, rows, cols, value, na.rm, dim., ...)
+            colCounts(x = simple_seed_x,
+                      rows = rows,
+                      cols = cols,
+                      value = value,
+                      na.rm = na.rm,
+                      dim. = dim.,
+                      ...)
           }
 )
 

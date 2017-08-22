@@ -10,18 +10,18 @@
 #' @inherit matrixStats::colCumprods
 #' @importFrom methods is
 .DelayedMatrix_block_colCumprods <- function(x, rows = NULL, cols = NULL,
-                                            dim. = dim(x), ...) {
+                                             dim. = dim(x), ...) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   stopifnot(!x@is_transposed)
   DelayedArray:::.get_ans_type(x)
 
   # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
+  x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colCumprods,
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colCumprods,
                                        dim. = dim(x),
                                        ...)
   if (length(val) == 0L) {
@@ -50,7 +50,11 @@ setMethod("colCumprods", "DelayedMatrix",
             if (!hasMethod("colCumprods", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colCumprods(x, rows, cols, dim., ...))
+              return(.DelayedMatrix_block_colCumprods(x = x,
+                                                      rows = rows,
+                                                      cols = cols,
+                                                      dim. = dim.,
+                                                      ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -64,12 +68,20 @@ setMethod("colCumprods", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colCumprods(x, rows, cols, dim.,
-                                  force_block_processing = TRUE, ...))
+                return(colCumprods(x = x,
+                                   rows = rows,
+                                   cols = cols,
+                                   dim. = dim.,
+                                   force_block_processing = TRUE,
+                                   ...))
               }
             }
 
-            colCumprods(simple_seed_x, rows, cols, dim., ...)
+            colCumprods(x = simple_seed_x,
+                        rows = rows,
+                        cols = cols,
+                        dim. = dim.,
+                        ...)
           }
 )
 

@@ -17,11 +17,11 @@
   DelayedArray:::.get_ans_type(x)
 
   # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
+  x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colOrderStats,
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colOrderStats,
                                        which = which,
                                        dim. = dim(x),
                                        ...)
@@ -51,8 +51,12 @@ setMethod("colOrderStats", "DelayedMatrix",
             if (!hasMethod("colOrderStats", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colOrderStats(x, rows, cols, which,
-                                                        dim., ...))
+              return(.DelayedMatrix_block_colOrderStats(x = x,
+                                                        rows = rows,
+                                                        cols = cols,
+                                                        which = which,
+                                                        dim. = dim.,
+                                                        ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -66,12 +70,22 @@ setMethod("colOrderStats", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colOrderStats(x, rows, cols, which, dim.,
-                                     force_block_processing = TRUE, ...))
+                return(colOrderStats(x = x,
+                                     rows = rows,
+                                     cols = cols,
+                                     which = which,
+                                     dim. = dim.,
+                                     force_block_processing = TRUE,
+                                     ...))
               }
             }
 
-            colOrderStats(simple_seed_x, rows, cols, which, dim., ...)
+            colOrderStats(x = simple_seed_x,
+                          rows = rows,
+                          cols = cols,
+                          which = which,
+                          dim. = dim.,
+                          ...)
           }
 )
 

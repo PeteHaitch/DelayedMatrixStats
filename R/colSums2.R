@@ -17,11 +17,11 @@
   DelayedArray:::.get_ans_type(x)
 
   # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
+  x <- ..subset(x, rows, cols)
 
   # Compute result
   # TODO: Use this or colblock_APPLY() with matrixStats::colSums2()?
-  val <- DelayedArray::colSums(x, na.rm)
+  val <- DelayedArray::colSums(x = x, na.rm = na.rm)
 
   # NOTE: Return value of matrixStats::colSums2() has no names
   unname(val)
@@ -47,7 +47,11 @@ setMethod("colSums2", "DelayedMatrix",
             if (!hasMethod("colSums2", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colSums2(x, rows, cols, na.rm, dim.))
+              return(.DelayedMatrix_block_colSums2(x = x,
+                                                   rows = rows,
+                                                   cols = cols,
+                                                   na.rm = na.rm,
+                                                   dim. = dim.))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -58,15 +62,25 @@ setMethod("colSums2", "DelayedMatrix",
               message2("Coercing to seed class", get_verbose())
               # TODO: do_transpose trick
               simple_seed_x <- try(from_DelayedArray_to_simple_seed_class(x),
-                              silent = TRUE)
+                                   silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colSums2(x, rows, cols, na.rm, dim.,
-                                force_block_processing = TRUE, ...))
+                return(colSums2(x = x,
+                                rows = rows,
+                                cols = cols,
+                                na.rm = na.rm,
+                                dim. = dim.,
+                                force_block_processing = TRUE,
+                                ...))
               }
             }
 
-            colSums2(simple_seed_x, rows, cols, na.rm, dim., ...)
+            colSums2(x = simple_seed_x,
+                     rows = rows,
+                     cols = cols,
+                     na.rm = na.rm,
+                     dim. = dim.,
+                     ...)
           }
 )
 
@@ -87,7 +101,7 @@ setMethod("colSums2", "Matrix",
             message2(class(x), get_verbose())
             x <- ..subset(x, rows, cols)
             # NOTE: Return value of matrixStats::colSums2() has no names
-            unname(Matrix::colSums(x, na.rm))
+            unname(Matrix::colSums(x = x, na.rm = na.rm))
           }
 )
 
@@ -98,9 +112,10 @@ setMethod("colSums2", "SolidRleArraySeed",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    ...) {
             message2(class(x), get_verbose())
-            irl <- get_Nindex_as_IRangesList(list(rows, cols), dim(x))
-            views <- IRanges::Views(x@rle, unlist(irl))
-            val <- IRanges::viewSums(views, na.rm)
+            irl <- get_Nindex_as_IRangesList(Nindex = list(rows, cols),
+                                             dim = dim(x))
+            views <- IRanges::Views(subject = x@rle, start = unlist(irl))
+            val <- IRanges::viewSums(x = views, na.rm = na.rm)
             if (length(irl) == 0) {
               return(val)
             }
@@ -109,7 +124,7 @@ setMethod("colSums2", "SolidRleArraySeed",
               return(val)
             }
             IDX <- rep(seq_along(irl), each = n)
-            unlist(lapply(split(val, IDX), sum, na.rm = na.rm),
+            unlist(lapply(X = split(val, IDX), FUN = sum, na.rm = na.rm),
                    use.names = FALSE)
           }
 )

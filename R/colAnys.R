@@ -19,11 +19,11 @@
   DelayedArray:::.get_ans_type(x)
 
   # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
+  x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colAnys,
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colAnys,
                                        value = value,
                                        na.rm = na.rm,
                                        ...)
@@ -53,8 +53,13 @@ setMethod("colAnys", "DelayedMatrix",
             if (!hasMethod("colAnys", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colAnys(x, rows, cols, value, na.rm,
-                                                  dim., ...))
+              return(.DelayedMatrix_block_colAnys(x = x,
+                                                  rows = rows,
+                                                  cols = cols,
+                                                  value = value,
+                                                  na.rm = na.rm,
+                                                  dim. = dim.,
+                                                  ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -68,12 +73,24 @@ setMethod("colAnys", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colAnys(x, rows, cols, value, na.rm, dim.,
-                               force_block_processing = TRUE, ...))
+                return(colAnys(x = x,
+                               rows = rows,
+                               cols = cols,
+                               value = value,
+                               na.rm = na.rm,
+                               dim. = dim.,
+                               force_block_processing = TRUE,
+                               ...))
               }
             }
 
-            colAnys(simple_seed_x, rows, cols, value, na.rm, dim., ...)
+            colAnys(x = simple_seed_x,
+                    rows = rows,
+                    cols = cols,
+                    value = value,
+                    na.rm = na.rm,
+                    dim. = dim.,
+                    ...)
           }
 )
 

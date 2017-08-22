@@ -143,10 +143,10 @@ from_DelayedArray_to_simple_seed_class <- function(x, drop = FALSE,
 get_Nindex_as_IRangesList <- function(Nindex, dim) {
   stopifnot(is.list(Nindex), is.integer(dim), length(Nindex) ==
               length(dim), length(Nindex) == 2L)
-  rows <- Nindex[[1]]
-  cols <- Nindex[[2]]
-  nrow <- dim[[1]]
-  ncol <- dim[[2]]
+  rows <- Nindex[[1L]]
+  cols <- Nindex[[2L]]
+  nrow <- dim[[1L]]
+  ncol <- dim[[2L]]
   if (ncol == 0) {
     return(IRanges::IRangesList())
   }
@@ -168,23 +168,31 @@ get_Nindex_as_IRangesList <- function(Nindex, dim) {
     ir0 <- as(rows, "IRanges")
     if (is.null(cols)) {
       # Case 3: Non-NULL rows and NULL cols
-      start <- vapply(seq.int(1, ncol), function(jj) {
-        start(ir0) + (jj - 1L) * nrow
-      }, integer(length(ir0)))
-      end <- vapply(seq.int(1, ncol), function(jj) {
-        end(ir0) + (jj - 1L) * nrow
-      }, integer(length(ir0)))
+      start <- vapply(X = seq.int(1, ncol),
+                      FUN = function(jj) {
+                        start(ir0) + (jj - 1L) * nrow
+                      },
+                      FUN.VALUE = integer(length(ir0)))
+      end <- vapply(X = seq.int(1, ncol),
+                    FUN = function(jj) {
+                      end(ir0) + (jj - 1L) * nrow
+                    },
+                    FUN.VALUE = integer(length(ir0)))
       ir <- IRanges::IRanges(start, end)
       partitioning <- IRanges::PartitioningByEnd(
         seq.int(length(ir0), length(ir0) * ncol, length(ir0)))
     } else if (!is.null(cols)) {
       # Case 4: Non-NULL rows and non_NULL cols
-      start <- vapply(as.integer(cols), function(jj) {
-        start(ir0) + (jj - 1L) * nrow
-      }, integer(length(ir0)))
-      end <- vapply(as.integer(cols), function(jj) {
-        end(ir0) + (jj - 1L) * nrow
-      }, integer(length(ir0)))
+      start <- vapply(X = as.integer(cols),
+                      FUN = function(jj) {
+                        start(ir0) + (jj - 1L) * nrow
+                      },
+                      FUN.VALUE = integer(length(ir0)))
+      end <- vapply(X = as.integer(cols),
+                    FUN = function(jj) {
+                      end(ir0) + (jj - 1L) * nrow
+                    },
+                    FUN.VALUE = integer(length(ir0)))
       ir <- IRanges::IRanges(start, end)
       partitioning <- IRanges::PartitioningByEnd(
         seq.int(length(ir0), length(ir0) * length(cols), length(ir0)))
@@ -202,27 +210,27 @@ get_Nindex_as_IRangesList <- function(Nindex, dim) {
 
 setMethod("subset_simple_seed_as_seed_class", "matrix",
           function(seed, index) {
-            DelayedArray:::subset_by_Nindex(seed, index)
+            DelayedArray:::subset_by_Nindex(x = seed, Nindex = index)
           }
 )
 
 setMethod("subset_simple_seed_as_seed_class", "Matrix",
           function(seed, index) {
-            DelayedArray:::subset_by_Nindex(seed, index)
+            DelayedArray:::subset_by_Nindex(x = seed, Nindex = index)
           }
 )
 
 # TODO: See https://github.com/Bioconductor-mirror/DelayedArray/blob/229050e7ac587b4e25a0ad0595d69a301b6314a0/R/DelayedArray-class.R#L612
 setMethod("subset_simple_seed_as_seed_class", "data.frame",
           function(seed, index) {
-            DelayedArray:::subset_by_Nindex(seed, index)
+            DelayedArray:::subset_by_Nindex(x = seed, Nindex = index)
           }
 )
 
 # TODO: See https://github.com/Bioconductor-mirror/DelayedArray/blob/229050e7ac587b4e25a0ad0595d69a301b6314a0/R/DelayedArray-class.R#L630
 setMethod("subset_simple_seed_as_seed_class", "DataFrame",
           function(seed, index) {
-            DelayedArray:::subset_by_Nindex(seed, index)
+            DelayedArray:::subset_by_Nindex(x = seed, Nindex = index)
           }
 )
 
@@ -232,13 +240,19 @@ setMethod("subset_simple_seed_as_seed_class", "DataFrame",
 setMethod("subset_simple_seed_as_seed_class", "SolidRleArraySeed",
           function(seed, index) {
             seed_dim <- dim(seed)
-            i <- DelayedArray:::to_linear_index(index, seed_dim)
+            i <- DelayedArray:::to_linear_index(Nindex = index,
+                                                dim = seed_dim)
             rle <- seed@rle[i]
-            dim <- DelayedArray:::get_Nindex_lengths(index, seed_dim)
+            dim <- DelayedArray:::get_Nindex_lengths(Nindex = index,
+                                                     dim = seed_dim)
             # TODO: Need to subset dimnames and pass to constructor
             dimnames <- list(
-              DelayedArray:::get_Nindex_names_along(index, seed@dimnames, 1),
-              DelayedArray:::get_Nindex_names_along(index, seed@dimnames, 2))
+              DelayedArray:::get_Nindex_names_along(Nindex = index,
+                                                    dimnames = seed@dimnames,
+                                                    along = 1L),
+              DelayedArray:::get_Nindex_names_along(Nindex = index,
+                                                    dimnames = seed@dimnames,
+                                                    along = 2L))
             DelayedArray:::RleArraySeed(rle, dim, dimnames)
           }
 )

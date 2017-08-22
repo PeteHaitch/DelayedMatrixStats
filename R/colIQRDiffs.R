@@ -18,11 +18,11 @@
   DelayedArray:::.get_ans_type(x)
 
   # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
+  x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colIQRDiffs,
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colIQRDiffs,
                                        na.rm = na.rm,
                                        diff = diff,
                                        trim = trim,
@@ -53,8 +53,13 @@ setMethod("colIQRDiffs", "DelayedMatrix",
             if (!hasMethod("colIQRDiffs", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colIQRDiffs(x, rows, cols, na.rm,
-                                                      diff, trim, ...))
+              return(.DelayedMatrix_block_colIQRDiffs(x = x,
+                                                      rows = rows,
+                                                      cols = cols,
+                                                      na.rm = na.rm,
+                                                      diff = diff,
+                                                      trim = trim,
+                                                      ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -68,12 +73,24 @@ setMethod("colIQRDiffs", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colIQRDiffs(x, rows, cols, na.rm, diff, trim,
-                                   force_block_processing = TRUE, ...))
+                return(colIQRDiffs(x = x,
+                                   rows = rows,
+                                   cols = cols,
+                                   na.rm = na.rm,
+                                   diff = diff,
+                                   trim = trim,
+                                   force_block_processing = TRUE,
+                                   ...))
               }
             }
 
-            colIQRDiffs(simple_seed_x, rows, cols, na.rm, diff, trim, ...)
+            colIQRDiffs(x = simple_seed_x,
+                        rows = rows,
+                        cols = cols,
+                        na.rm = na.rm,
+                        diff = diff,
+                        trim = trim,
+                        ...)
           }
 )
 

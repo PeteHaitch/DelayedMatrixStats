@@ -10,19 +10,19 @@
 #' @inherit matrixStats::colSdDiffs
 #' @importFrom methods is
 .DelayedMatrix_block_colSdDiffs <- function(x, rows = NULL, cols = NULL,
-                                             na.rm = FALSE, diff = 1L,
-                                             trim = 0, ...) {
+                                            na.rm = FALSE, diff = 1L,
+                                            trim = 0, ...) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   stopifnot(!x@is_transposed)
   DelayedArray:::.get_ans_type(x)
 
   # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
+  x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colSdDiffs,
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colSdDiffs,
                                        na.rm = na.rm,
                                        diff = diff,
                                        trim = trim,
@@ -53,8 +53,13 @@ setMethod("colSdDiffs", "DelayedMatrix",
             if (!hasMethod("colSdDiffs", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colSdDiffs(x, rows, cols, na.rm,
-                                                      diff, trim, ...))
+              return(.DelayedMatrix_block_colSdDiffs(x = x,
+                                                     rows = rows,
+                                                     cols = cols,
+                                                     na.rm = na.rm,
+                                                     diff = diff,
+                                                     trim = trim,
+                                                     ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -68,12 +73,24 @@ setMethod("colSdDiffs", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colSdDiffs(x, rows, cols, na.rm, diff, trim,
-                                   force_block_processing = TRUE, ...))
+                return(colSdDiffs(x = x,
+                                  rows = rows,
+                                  cols = cols,
+                                  na.rm = na.rm,
+                                  diff = diff,
+                                  trim = trim,
+                                  force_block_processing = TRUE,
+                                  ...))
               }
             }
 
-            colSdDiffs(simple_seed_x, rows, cols, na.rm, diff, trim, ...)
+            colSdDiffs(x = simple_seed_x,
+                       rows = rows,
+                       cols = cols,
+                       na.rm = na.rm,
+                       diff = diff,
+                       trim = trim,
+                       ...)
           }
 )
 

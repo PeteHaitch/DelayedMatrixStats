@@ -192,7 +192,8 @@ setGeneric("colMads", signature = "x",
 )
 
 # TODO: Need to think about interaction with methods and docs in DelayedArray
-# NOTE: colMaxs S4 generic already defined in DelayedArray
+# NOTE: colMaxs S4 generic and colMaxs,DelayedMatrix-method already defined in
+#       DelayedArray
 # #' @inherit matrixStats::colMaxs
 # #' @importMethodsFrom DelayedArray colMaxs
 
@@ -213,7 +214,8 @@ setGeneric("colMedians", signature = "x",
 )
 
 # TODO: Need to think about interaction with methods and docs in DelayedArray
-# NOTE: colMins S4 generic already defined in DelayedArray
+# NOTE: colMins S4 generic and colMins,DelayedMatrix-method, already defined in
+#       DelayedArray
 # #' @inherit matrixStats::colMins
 # #' @importMethodsFrom DelayedArray colMins
 
@@ -248,7 +250,8 @@ setGeneric("colQuantiles", signature = "x",
 )
 
 # TODO: Need to think about interaction with methods and docs in DelayedArray
-# NOTE: colRanges S4 generic already defined in DelayedArray
+# NOTE: colRanges S4 generic and colRanges,DelayedMatrix-method already defined
+#       in DelayedArray
 # #' @inherit matrixStats::colRanges
 # #' @importMethodsFrom DelayedArray colRanges
 

@@ -18,11 +18,11 @@
   DelayedArray:::.get_ans_type(lx)
 
   # Subset
-  lx <- ..subset(lx, rows = rows, cols = cols)
+  lx <- ..subset(lx, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(lx,
-                                       matrixStats::colLogSumExps,
+  val <- DelayedArray:::colblock_APPLY(x = lx,
+                                       APPLY = matrixStats::colLogSumExps,
                                        na.rm = na.rm,
                                        ...)
   if (length(val) == 0L) {
@@ -51,8 +51,12 @@ setMethod("colLogSumExps", "DelayedMatrix",
             if (!hasMethod("colLogSumExps", class(seed(lx))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colLogSumExps(lx, rows, cols, na.rm,
-                                                        dim., ...))
+              return(.DelayedMatrix_block_colLogSumExps(lx = lx,
+                                                        rows = rows,
+                                                        cols = cols,
+                                                        na.rm  = na.rm,
+                                                        dim. = dim.,
+                                                        ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -66,12 +70,22 @@ setMethod("colLogSumExps", "DelayedMatrix",
                                     silent = TRUE)
               if (is(simple_seed_lx, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colLogSumExps(lx, rows, cols, na.rm, dim.,
-                                     force_block_processing = TRUE, ...))
+                return(colLogSumExps(lx = lx,
+                                     rows = rows,
+                                     cols = cols,
+                                     na.rm = na.rm,
+                                     dim. = dim.,
+                                     force_block_processing = TRUE,
+                                     ...))
               }
             }
 
-            colLogSumExps(simple_seed_lx, rows, cols, na.rm, dim., ...)
+            colLogSumExps(lx = simple_seed_lx,
+                          rows = rows,
+                          cols = cols,
+                          na.rm = na.rm,
+                          dim. = dim.,
+                          ...)
           }
 )
 

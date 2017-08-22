@@ -20,11 +20,11 @@
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
 
   # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
+  x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colProds,
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colProds,
                                        na.rm = na.rm,
                                        method = method,
                                        ...)
@@ -57,8 +57,11 @@ setMethod("colProds", "DelayedMatrix",
             if (!hasMethod("colProds", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colProds(x, rows, cols, na.rm,
-                                                   method))
+              return(.DelayedMatrix_block_colProds(x = x,
+                                                   rows = rows,
+                                                   cols = cols,
+                                                   na.rm = na.rm,
+                                                   method = method))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -72,12 +75,22 @@ setMethod("colProds", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colProds(x, rows, cols, na.rm, method,
-                                force_block_processing = TRUE, ...))
+                return(colProds(x = x,
+                                rows = rows,
+                                cols = cols,
+                                na.rm = na.rm,
+                                method = method,
+                                force_block_processing = TRUE,
+                                ...))
               }
             }
 
-            colProds(simple_seed_x, rows, cols, na.rm, method, ...)
+            colProds(x = simple_seed_x,
+                     rows = rows,
+                     cols = cols,
+                     na.rm = na.rm,
+                     method = method,
+                     ...)
           }
 )
 
@@ -101,9 +114,10 @@ setMethod("colProds", "SolidRleArraySeed",
                    "DelayedMatrix with '", class(x), "' seed.")
             }
             message2(class(x), get_verbose())
-            irl <- get_Nindex_as_IRangesList(list(rows, cols), dim(x))
-            views <- IRanges::Views(x@rle, unlist(irl))
-            val <- IRanges::viewApply(views, prod, na.rm = na.rm)
+            irl <- get_Nindex_as_IRangesList(Nindex = list(rows, cols),
+                                             dim = dim(x))
+            views <- IRanges::Views(subject = x@rle, start = unlist(irl))
+            val <- IRanges::viewApply(X = views, FUN = prod, na.rm = na.rm)
             if (length(irl) == 0) {
               return(numeric(ncol(x)))
             }
@@ -112,7 +126,7 @@ setMethod("colProds", "SolidRleArraySeed",
               return(val)
             }
             IDX <- rep(seq_along(irl), each = n)
-            unlist(lapply(split(val, IDX), prod, na.rm = na.rm),
+            unlist(lapply(X = split(val, IDX), FUN = prod, na.rm = na.rm),
                    use.names = FALSE)
           }
 )

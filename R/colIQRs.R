@@ -10,18 +10,18 @@
 #' @inherit matrixStats::colIQRs
 #' @importFrom methods is
 .DelayedMatrix_block_colIQRs <- function(x, rows = NULL, cols = NULL,
-                                            na.rm = FALSE, ...) {
+                                         na.rm = FALSE, ...) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   stopifnot(!x@is_transposed)
   DelayedArray:::.get_ans_type(x)
 
   # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
+  x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colIQRs,
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colIQRs,
                                        na.rm = na.rm,
                                        ...)
   if (length(val) == 0L) {
@@ -50,7 +50,11 @@ setMethod("colIQRs", "DelayedMatrix",
             if (!hasMethod("colIQRs", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colIQRs(x, rows, cols, na.rm, ...))
+              return(.DelayedMatrix_block_colIQRs(x = x,
+                                                  rows = rows,
+                                                  cols = cols,
+                                                  na.rm = na.rm,
+                                                  ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -64,12 +68,20 @@ setMethod("colIQRs", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colIQRs(x, rows, cols, na.rm,
-                               force_block_processing = TRUE, ...))
+                return(colIQRs(x = x,
+                               rows = rows,
+                               cols = cols,
+                               na.rm = na.rm,
+                               force_block_processing = TRUE,
+                               ...))
               }
             }
 
-            colIQRs(simple_seed_x, rows, cols, na.rm, ...)
+            colIQRs(x = simple_seed_x,
+                    rows = rows,
+                    cols = cols,
+                    na.rm = na.rm,
+                    ...)
           }
 )
 

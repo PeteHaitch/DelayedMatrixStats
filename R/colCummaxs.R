@@ -17,11 +17,11 @@
   DelayedArray:::.get_ans_type(x)
 
   # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
+  x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colCummaxs,
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colCummaxs,
                                        dim. = dim(x),
                                        ...)
   if (length(val) == 0L) {
@@ -50,7 +50,11 @@ setMethod("colCummaxs", "DelayedMatrix",
             if (!hasMethod("colCummaxs", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colCummaxs(x, rows, cols, dim., ...))
+              return(.DelayedMatrix_block_colCummaxs(x = x,
+                                                     rows = rows,
+                                                     cols = cols,
+                                                     dim. = dim.,
+                                                     ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -64,12 +68,20 @@ setMethod("colCummaxs", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colCummaxs(x, rows, cols, dim.,
-                                  force_block_processing = TRUE, ...))
+                return(colCummaxs(x = x,
+                                  rows = rows,
+                                  cols = cols,
+                                  dim. = dim.,
+                                  force_block_processing = TRUE,
+                                  ...))
               }
             }
 
-            colCummaxs(simple_seed_x, rows, cols, dim., ...)
+            colCummaxs(x = simple_seed_x,
+                       rows = rows,
+                       cols = cols,
+                       dim. = dim.,
+                       ...)
           }
 )
 

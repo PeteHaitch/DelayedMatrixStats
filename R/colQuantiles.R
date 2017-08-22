@@ -19,11 +19,11 @@
     DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
 
     # Subset
-    x <- ..subset(x, rows = rows, cols = cols)
+    x <- ..subset(x, rows, cols)
 
     # Compute result
-    val <- DelayedArray:::colblock_APPLY(x,
-                                         matrixStats::colQuantiles,
+    val <- DelayedArray:::colblock_APPLY(x = x,
+                                         APPLY = matrixStats::colQuantiles,
                                          probs = probs,
                                          na.rm = na.rm,
                                          type = type,
@@ -67,8 +67,13 @@ setMethod("colQuantiles", "DelayedMatrix",
             if (!hasMethod("colQuantiles", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colQuantiles(x, rows, cols, probs,
-                                                       na.rm, type, ...,
+              return(.DelayedMatrix_block_colQuantiles(x = x,
+                                                       rows = rows,
+                                                       cols = cols,
+                                                       probs = probs,
+                                                       na.rm = na.rm,
+                                                       type = type,
+                                                       ...,
                                                        drop = drop))
             }
 
@@ -83,13 +88,25 @@ setMethod("colQuantiles", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colQuantiles(x, rows, cols, probs, na.rm, type,
-                                    force_block_processing = TRUE, ...,
+                return(colQuantiles(x = x,
+                                    rows = rows,
+                                    cols = cols,
+                                    probs = probs,
+                                    na.rm = na.rm,
+                                    type = type,
+                                    force_block_processing = TRUE,
+                                    ...,
                                     drop = drop))
               }
             }
 
-            colQuantiles(simple_seed_x, rows, cols, probs, na.rm, type, ...,
+            colQuantiles(x = simple_seed_x,
+                         rows = rows,
+                         cols = cols,
+                         probs = probs,
+                         na.rm = na.rm,
+                         type = type,
+                         ...,
                          drop = drop)
           }
 )

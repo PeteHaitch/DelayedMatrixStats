@@ -13,28 +13,28 @@
   function(x, rows = NULL, cols = NULL,
            ties.method = c("max", "average", "min"), dim. = dim(x),
            preserveShape = FALSE, ...) {
-  # Check input type
-  ties.method <- match.arg(ties.method)
-  stopifnot(is(x, "DelayedMatrix"))
-  stopifnot(!x@is_transposed)
-  DelayedArray:::.get_ans_type(x)
+    # Check input type
+    ties.method <- match.arg(ties.method)
+    stopifnot(is(x, "DelayedMatrix"))
+    stopifnot(!x@is_transposed)
+    DelayedArray:::.get_ans_type(x)
 
-  # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
+    # Subset
+    x <- ..subset(x, rows, cols)
 
-  # Compute result
-  val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colRanks,
-                                       ties.method = ties.method,
-                                       dim. = dim(x),
-                                       preserveShape = preserveShape,
-                                       ...)
-  if (length(val) == 0L) {
-    return(numeric(ncol(x)))
+    # Compute result
+    val <- DelayedArray:::colblock_APPLY(x = x,
+                                         APPLY = matrixStats::colRanks,
+                                         ties.method = ties.method,
+                                         dim. = dim(x),
+                                         preserveShape = preserveShape,
+                                         ...)
+    if (length(val) == 0L) {
+      return(numeric(ncol(x)))
+    }
+    # NOTE: Return value of matrixStats::colRanks() has no names
+    unname(do.call(cbind, val))
   }
-  # NOTE: Return value of matrixStats::colRanks() has no names
-  unname(do.call(cbind, val))
-}
 
 ### ----------------------------------------------------------------------------
 ### Exported methods
@@ -57,8 +57,14 @@ setMethod("colRanks", "DelayedMatrix",
             if (!hasMethod("colRanks", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colRanks(x, rows, cols, ties.method,
-                                                   dim., preserveShape, ...))
+              return(
+                .DelayedMatrix_block_colRanks(x = x,
+                                              rows = rows,
+                                              cols = cols,
+                                              ties.method = ties.method,
+                                              dim. = dim.,
+                                              preserveShape = preserveShape,
+                                              ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -72,13 +78,24 @@ setMethod("colRanks", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colRanks(x, rows, cols, ties.method, dim., preserveShape,
-                                force_block_processing = TRUE, ...))
+                return(colRanks(x = x,
+                                rows = rows,
+                                cols = cols,
+                                ties.method = ties.method,
+                                dim. = dim.,
+                                preserveShape = preserveShape,
+                                force_block_processing = TRUE,
+                                ...))
               }
             }
 
-            colRanks(simple_seed_x, rows, cols, ties.method, dim.,
-                     preserveShape, ...)
+            colRanks(x = simple_seed_x,
+                     rows = rows,
+                     cols = cols,
+                     ties.method = ties.method,
+                     dim. = dim.,
+                     preserveShape = preserveShape,
+                     ...)
           }
 )
 

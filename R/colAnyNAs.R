@@ -18,8 +18,12 @@
 setMethod("colAnyNAs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, force_block_processing = FALSE,
                    ...) {
-            colAnys(x, rows, cols, value = NA,
-                    force_block_processing = force_block_processing, ...)
+            colAnys(x = x,
+                    rows = rows,
+                    cols = cols,
+                    value = NA,
+                    force_block_processing = force_block_processing,
+                    ...)
           }
 )
 

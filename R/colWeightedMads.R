@@ -19,13 +19,14 @@
   DelayedArray:::.get_ans_type(x)
 
   # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
-  w <- w[DelayedArray:::to_linear_index(list(rows, NULL), c(length(w), 1L))]
+  x <- ..subset(x, rows, cols)
+  w <- w[DelayedArray:::to_linear_index(Nindex = list(rows, NULL),
+                                        dim = c(length(w), 1L))]
 
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colWeightedMads,
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colWeightedMads,
                                        w = w,
                                        na.rm = na.rm,
                                        constant = constant,
@@ -58,9 +59,14 @@ setMethod("colWeightedMads", "DelayedMatrix",
             if (!hasMethod("colWeightedMads", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colWeightedMads(x, w, rows, cols,
-                                                          na.rm, constant,
-                                                          center, ...))
+              return(.DelayedMatrix_block_colWeightedMads(x = x,
+                                                          w = w,
+                                                          rows = rows,
+                                                          cols = cols,
+                                                          na.rm = na.rm,
+                                                          constant = constant,
+                                                          center = center,
+                                                          ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -74,14 +80,26 @@ setMethod("colWeightedMads", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colWeightedMads(x, w, rows, cols, na.rm, constant,
-                                       center, force_block_processing = TRUE,
+                return(colWeightedMads(x = x,
+                                       w = w,
+                                       rows = rows,
+                                       cols = cols,
+                                       na.rm = na.rm,
+                                       constant = constant,
+                                       center = center,
+                                       force_block_processing = TRUE,
                                        ...))
               }
             }
 
-            colWeightedMads(simple_seed_x, w, rows, cols, na.rm, constant,
-                            center, ...)
+            colWeightedMads(x = simple_seed_x,
+                            w = w,
+                            rows = rows,
+                            cols = cols,
+                            na.rm = na.rm,
+                            constant = constant,
+                            center = center,
+                            ...)
           }
 )
 

@@ -19,11 +19,11 @@
   DelayedArray:::.get_ans_type(x)
 
   # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
+  x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colMads,
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colMads,
                                        center = center,
                                        constant = constant,
                                        na.rm = na.rm,
@@ -57,9 +57,15 @@ setMethod("colMads", "DelayedMatrix",
             if (!hasMethod("colMads", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colMads(x, rows, cols, center,
-                                                  constant, na.rm, dim.,
-                                                  centers, ...))
+              return(.DelayedMatrix_block_colMads(x = x,
+                                                  rows = rows,
+                                                  cols = cols,
+                                                  center = center,
+                                                  constant = constant,
+                                                  na.rm = na.rm,
+                                                  dim. = dim.,
+                                                  centers = centers,
+                                                  ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -73,13 +79,27 @@ setMethod("colMads", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colMads(x, rows, cols, center, constant, na.rm, dim.,
-                               centers, force_block_processing = TRUE, ...))
+                return(colMads(x = x,
+                               rows = rows,
+                               cols = cols,
+                               center = center,
+                               constant = constant,
+                               na.rm = na.rm,
+                               dim. = dim.,
+                               centers = centers,
+                               force_block_processing = TRUE,
+                               ...))
               }
             }
 
-            colMads(simple_seed_x, rows, cols, center, constant, na.rm, dim.,
-                    centers, ...)
+            colMads(x = simple_seed_x,
+                    rows = rows, cols = cols,
+                    center = center,
+                    constant = constant,
+                    na.rm = na.rm,
+                    dim. = dim.,
+                    centers = centers,
+                    ...)
           }
 )
 

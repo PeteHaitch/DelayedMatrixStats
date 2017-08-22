@@ -18,13 +18,14 @@
   DelayedArray:::.get_ans_type(x)
 
   # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
-  w <- w[DelayedArray:::to_linear_index(list(rows, NULL), c(length(w), 1L))]
+  x <- ..subset(x, rows, cols)
+  w <- w[DelayedArray:::to_linear_index(Nindex = list(rows, NULL),
+                                        dim = c(length(w), 1L))]
 
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colWeightedMeans,
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colWeightedMeans,
                                        w = w,
                                        na.rm = na.rm,
                                        ...)
@@ -54,8 +55,12 @@ setMethod("colWeightedMeans", "DelayedMatrix",
             if (!hasMethod("colWeightedMeans", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colWeightedMeans(x, w, rows, cols,
-                                                           na.rm, ...))
+              return(.DelayedMatrix_block_colWeightedMeans(x = x,
+                                                           w = w,
+                                                           rows = rows,
+                                                           cols = cols,
+                                                           na.rm = na.rm,
+                                                           ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -69,12 +74,22 @@ setMethod("colWeightedMeans", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colWeightedMeans(x, w, rows, cols, na.rm,
-                                        force_block_processing = TRUE, ...))
+                return(colWeightedMeans(x = x,
+                                        w = w,
+                                        rows = rows,
+                                        cols = cols,
+                                        na.rm = na.rm,
+                                        force_block_processing = TRUE,
+                                        ...))
               }
             }
 
-            colWeightedMeans(simple_seed_x, w, rows, cols, na.rm, ...)
+            colWeightedMeans(x = simple_seed_x,
+                             w = w,
+                             rows = rows,
+                             cols = cols,
+                             na.rm = na.rm,
+                             ...)
           }
 )
 

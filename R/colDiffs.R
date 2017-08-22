@@ -18,11 +18,11 @@
   DelayedArray:::.get_ans_type(x)
 
   # Subset
-  x <- ..subset(x, rows = rows, cols = cols)
+  x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x,
-                                       matrixStats::colDiffs,
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colDiffs,
                                        lag = lag,
                                        differences = differences,
                                        dim. = dim(x),
@@ -54,8 +54,13 @@ setMethod("colDiffs", "DelayedMatrix",
             if (!hasMethod("colDiffs", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colDiffs(x, rows, cols, lag,
-                                                   differences, dim., ...))
+              return(.DelayedMatrix_block_colDiffs(x = x,
+                                                   rows = rows,
+                                                   cols = cols,
+                                                   lag = lag,
+                                                   differences = differences,
+                                                   dim. = dim.,
+                                                   ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -69,12 +74,24 @@ setMethod("colDiffs", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colDiffs(x, rows, cols, lag, differences, dim.,
-                                force_block_processing = TRUE, ...))
+                return(colDiffs(x = x,
+                                rows = rows,
+                                cols = cols,
+                                lag = lag,
+                                differences = differences,
+                                dim. = dim.,
+                                force_block_processing = TRUE,
+                                ...))
               }
             }
 
-            colDiffs(simple_seed_x, rows, cols, lag, differences, dim., ...)
+            colDiffs(x = simple_seed_x,
+                     rows = rows,
+                     cols = cols,
+                     lag = lag,
+                     differences = differences,
+                     dim. = dim.,
+                     ...)
           }
 )
 
