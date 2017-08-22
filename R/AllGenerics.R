@@ -364,3 +364,27 @@ setGeneric("rowAlls", signature = "x",
            function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
                     dim. = dim(x), ...) standardGeneric("rowAlls")
 )
+
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowAnyMissings
+#' @export
+setGeneric("rowAnyMissings", signature = "x",
+           function(x, rows = NULL, cols = NULL,
+                    ...) standardGeneric("rowAnyMissings")
+)
+
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowAnyNAs
+#' @export
+setGeneric("rowAnyNAs", signature = "x",
+           function(x, rows = NULL, cols = NULL,
+                    ...) standardGeneric("rowAnyNAs")
+)
+
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowAnys
+#' @export
+setGeneric("rowAnys", signature = "x",
+           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
+                    dim. = dim(x), ...) standardGeneric("rowAnys")
+)
