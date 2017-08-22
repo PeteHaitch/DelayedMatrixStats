@@ -356,3 +356,11 @@ setGeneric("colWeightedVars", signature = "x",
 # ------------------------------------------------------------------------------
 # rowFoos
 #
+
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowAlls
+#' @export
+setGeneric("rowAlls", signature = "x",
+           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
+                    dim. = dim(x), ...) standardGeneric("rowAlls")
+)
