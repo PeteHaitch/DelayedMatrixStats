@@ -388,3 +388,30 @@ setGeneric("rowAnys", signature = "x",
            function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
                     dim. = dim(x), ...) standardGeneric("rowAnys")
 )
+
+# # TODO: Check with Henrik why `...` appear in different place in signature for
+# #       colAvgsPerRowSet and rowAvgsPerColSet
+# # TODO: Check with Henrik why first arg is `X` and not `x`
+# #' @importFrom methods setGeneric
+# #' @inherit matrixStats::rowAvgsPerRowSet
+# #' @export
+# setGeneric("rowAvgsPerRowSet", signature = "X",
+#            function(X, W = NULL, cols = NULL, S, FUN = colMeans, tFUN = FALSE,
+#                     ...) standardGeneric("rowAvgsPerRowSet")
+# )
+
+# #' @importFrom methods setGeneric
+# #' @inherit matrixStats::rowCollapse
+# #' @export
+# setGeneric("rowCollapse", signature = "x",
+#            function(x, idxs, cols = NULL, dim. = dim(x),
+#                     ...) standardGeneric("rowCollapse")
+# )
+
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowCounts
+#' @export
+setGeneric("rowCounts", signature = "x",
+           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
+                    dim. = dim(x), ...) standardGeneric("rowCounts")
+)
