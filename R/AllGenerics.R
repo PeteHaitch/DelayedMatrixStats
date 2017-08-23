@@ -525,3 +525,18 @@ setGeneric("rowMedians", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                     ...) standardGeneric("rowMedians")
 )
+
+# TODO: Need to think about interaction with methods and docs in DelayedArray
+# NOTE: rowMins S4 generic and rowMins,DelayedMatrix-method, already defined in
+#       DelayedArray
+# #' @inherit matrixStats::rowMins
+# #' @importMethodsFrom DelayedArray rowMins
+
+# TODO: Ask Henrik why na.rm isn't an argument (this is noted in docs)
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowOrderStats
+#' @export
+setGeneric("rowOrderStats", signature = "x",
+           function(x, rows = NULL, cols = NULL, which, dim. = dim(x),
+                    ...) standardGeneric("rowOrderStats")
+)
