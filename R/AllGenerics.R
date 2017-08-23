@@ -484,3 +484,12 @@ setGeneric("rowLogSumExps", signature = "lx",
            function(lx, rows = NULL, cols = NULL, na.rm = FALSE,
                     dim. = dim(lx), ...) standardGeneric("rowLogSumExps")
 )
+
+# TODO: Ask Henrik why this function keep colnames whereas most don't
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowMadDiffs
+#' @export
+setGeneric("rowMadDiffs", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
+                    diff = 1L, trim = 0, ...) standardGeneric("rowMadDiffs")
+)
