@@ -6,6 +6,8 @@
 ### Setup
 ###
 
+library(Matrix)
+
 set_verbose(TRUE)
 
 nrow <- 3L
@@ -110,7 +112,7 @@ list_of_seeds <- lapply(seed_types, function(seed_type) {
          matrix = list_of_matrix,
          Matrix = setNames(
            object = lapply(modes, function(mode) {
-             lapply(list_of_matrix[[mode]], Matrix::Matrix)
+             lapply(list_of_matrix[[mode]], as, Class = "dgCMatrix")
            }),
            nm = modes),
          data.frame = setNames(
