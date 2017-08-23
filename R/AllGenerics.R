@@ -517,3 +517,11 @@ setGeneric("rowMeans2", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                     ...) standardGeneric("rowMeans2")
 )
+
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowMedians
+#' @export
+setGeneric("rowMedians", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
+                    ...) standardGeneric("rowMedians")
+)
