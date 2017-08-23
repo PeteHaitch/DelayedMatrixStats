@@ -468,3 +468,11 @@ setGeneric("rowIQRDiffs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
                     trim = 0, ...) standardGeneric("rowIQRDiffs")
 )
+
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowIQRs
+#' @export
+setGeneric("rowIQRs", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
+                    ...) standardGeneric("rowIQRs")
+)
