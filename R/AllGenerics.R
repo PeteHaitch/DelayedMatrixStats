@@ -476,3 +476,11 @@ setGeneric("rowIQRs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE,
                     ...) standardGeneric("rowIQRs")
 )
+
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowLogSumExps
+#' @export
+setGeneric("rowLogSumExps", signature = "lx",
+           function(lx, rows = NULL, cols = NULL, na.rm = FALSE,
+                    dim. = dim(lx), ...) standardGeneric("rowLogSumExps")
+)
