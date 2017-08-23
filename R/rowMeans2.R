@@ -1,15 +1,15 @@
 ### =============================================================================
-### colMeans2
+### rowMeans2
 ###
 
 ### ----------------------------------------------------------------------------
 ### Non-exported methods
 ###
 
-#' `colMeans2()` block-processing internal helper
-#' @inherit matrixStats::colMeans2
+#' `rowMeans2()` block-processing internal helper
+#' @inherit matrixStats::rowMeans2
 #' @importFrom methods is
-.DelayedMatrix_block_colMeans2 <- function(x, rows = NULL, cols = NULL,
+.DelayedMatrix_block_rowMeans2 <- function(x, rows = NULL, cols = NULL,
                                            na.rm = FALSE, dim. = dim(x), ...) {
   # Check input
   stopifnot(is(x, "DelayedMatrix"))
@@ -20,9 +20,17 @@
   x <- ..subset(x, rows, cols)
 
   # Compute result
-  # TODO: Use this or colblock_APPLY() with matrixStats::colMeans2()?
-  # NOTE: Return value of matrixStats::colMeans2() has no names
-  unname(DelayedArray::colMeans(x = x, na.rm = na.rm))
+  if (nrow(x) == 0) {
+    # TODO: This is a workaround a bug in DelayedArray::rowMeans(); e.g.m
+    #       DelayedArray::rowMeans(DelayedArray(matrix(nrow = 0, ncol = 10)))
+    #       gives an error whereas
+    #       DelayedArray::colMeans(DelayedArray(matrix(nrow = 10, ncol = 0)))
+    #       gives the expected result
+    return(numeric(0))
+  }
+  # TODO: Use this or rowblock_APPLY() with matrixStats::rowMeans2()?
+  # NOTE: Return value of matrixStats::rowMeans2() has no names
+  unname(DelayedArray::rowMeans(x = x, na.rm = na.rm))
 }
 
 ### ----------------------------------------------------------------------------
@@ -35,16 +43,16 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname colMeans2
+#' @rdname rowMeans2
 #' @template common_params
 #' @export
-setMethod("colMeans2", "DelayedMatrix",
+setMethod("rowMeans2", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colMeans2", class(seed(x))) ||
+            if (!hasMethod("rowMeans2", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colMeans2(x = x,
+              return(.DelayedMatrix_block_rowMeans2(x = x,
                                                     rows = rows,
                                                     cols = cols,
                                                     na.rm = na.rm,
@@ -63,7 +71,7 @@ setMethod("colMeans2", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colMeans2(x = x,
+                return(rowMeans2(x = x,
                                  rows = rows,
                                  cols = cols,
                                  na.rm = na.rm,
@@ -73,7 +81,7 @@ setMethod("colMeans2", "DelayedMatrix",
               }
             }
 
-            colMeans2(x = simple_seed_x,
+            rowMeans2(x = simple_seed_x,
                       rows = rows,
                       cols = cols,
                       na.rm = na.rm,
@@ -88,41 +96,17 @@ setMethod("colMeans2", "DelayedMatrix",
 
 #' @importFrom methods setMethod
 #' @export
-setMethod("colMeans2", "matrix", matrixStats::colMeans2)
+setMethod("rowMeans2", "matrix", matrixStats::rowMeans2)
 
 #' @importFrom methods setMethod
-#' @rdname colMeans2
+#' @rdname rowMeans2
 #' @export
-setMethod("colMeans2", "Matrix",
+setMethod("rowMeans2", "Matrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    ...) {
             message2(class(x), get_verbose())
             x <- ..subset(x, rows, cols)
-            # NOTE: Return value of matrixStats::colMeans2() has no names
-            unname(Matrix::colMeans(x = x, na.rm = na.rm))
-          }
-)
-
-#' @importFrom IRanges Views viewSums
-#' @rdname colMeans2
-#' @export
-setMethod("colMeans2", "SolidRleArraySeed",
-          function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                   ...) {
-            message2(class(x), get_verbose())
-            irl <- get_Nindex_as_IRangesList(Nindex = list(rows, cols),
-                                             dim = dim(x))
-            views <- IRanges::Views(subject = x@rle, start = unlist(irl))
-            val <- IRanges::viewMeans(x = views, na.rm = na.rm)
-            if (length(irl) == 0) {
-              return(val)
-            }
-            n <- length(irl[[1]])
-            if (n == 1) {
-              return(val)
-            }
-            IDX <- rep(seq_along(irl), each = n)
-            unlist(lapply(X = split(val, IDX), FUN = mean, na.rm = na.rm),
-                   use.names = FALSE)
+            # NOTE: Return value of matrixStats::rowMeans2() has no names
+            unname(Matrix::rowMeans(x = x, na.rm = na.rm))
           }
 )

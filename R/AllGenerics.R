@@ -504,3 +504,16 @@ setGeneric("rowMads", signature = "x",
                     ...) standardGeneric("rowMads")
 )
 
+# TODO: Need to think about interaction with methods and docs in DelayedArray
+# NOTE: rowMaxs S4 generic and rowMaxs,DelayedMatrix-method already defined in
+#       DelayedArray
+# #' @inherit matrixStats::rowMaxs
+# #' @importMethodsFrom DelayedArray rowMaxs
+
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowMeans2
+#' @export
+setGeneric("rowMeans2", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
+                    ...) standardGeneric("rowMeans2")
+)
