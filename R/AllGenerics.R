@@ -415,3 +415,56 @@ setGeneric("rowCounts", signature = "x",
            function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
                     dim. = dim(x), ...) standardGeneric("rowCounts")
 )
+
+# TODO: Ask Henrik why na.rm isn't an argument?
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowCummaxs
+#' @export
+setGeneric("rowCummaxs", signature = "x",
+           function(x, rows = NULL, cols = NULL, dim. = dim(x),
+                    ...) standardGeneric("rowCummaxs")
+)
+
+# TODO: Ask Henrik why na.rm isn't an argument?
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowCummins
+#' @export
+setGeneric("rowCummins", signature = "x",
+           function(x, rows = NULL, cols = NULL, dim. = dim(x),
+                    ...) standardGeneric("rowCummins")
+)
+
+#' @importFrom methods setGeneric
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowCumprods
+#' @export
+setGeneric("rowCumprods", signature = "x",
+           function(x, rows = NULL, cols = NULL, dim. = dim(x),
+                    ...) standardGeneric("rowCumprods")
+)
+
+#' @importFrom methods setGeneric
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowCumsums
+#' @export
+setGeneric("rowCumsums", signature = "x",
+           function(x, rows = NULL, cols = NULL, dim. = dim(x),
+                    ...) standardGeneric("rowCumsums")
+)
+
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowDiffs
+#' @export
+setGeneric("rowDiffs", signature = "x",
+           function(x, rows = NULL, cols = NULL, lag = 1L, differences = 1L,
+                    dim. = dim(x), ...) standardGeneric("rowDiffs")
+)
+
+# TODO: Ask Henrik why this function keep colnames whereas most don't
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowIQRDiffs
+#' @export
+setGeneric("rowIQRDiffs", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
+                    trim = 0, ...) standardGeneric("rowIQRDiffs")
+)
