@@ -493,3 +493,14 @@ setGeneric("rowMadDiffs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE,
                     diff = 1L, trim = 0, ...) standardGeneric("rowMadDiffs")
 )
+
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::rowMads
+#' @export
+setGeneric("rowMads", signature = "x",
+           function(x, rows = NULL, cols = NULL, center = NULL,
+                    constant = 1.4826, na.rm = FALSE,
+                    dim. = dim(x), centers = NULL,
+                    ...) standardGeneric("rowMads")
+)
+
