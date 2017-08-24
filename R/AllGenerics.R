@@ -538,3 +538,12 @@ setGeneric("rowOrderStats", signature = "x",
            function(x, rows = NULL, cols = NULL, which, dim. = dim(x),
                     ...) standardGeneric("rowOrderStats")
 )
+
+#' @importFrom methods setGeneric
+#' @rdname colProds
+#' @export
+setGeneric("rowProds", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
+                    method = c("direct", "expSumLog"),
+                    ...) standardGeneric("rowProds")
+)
