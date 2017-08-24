@@ -63,9 +63,6 @@ rowblock_APPLY <- function(x, APPLY, ..., sink = NULL) {
   APPLY <- match.fun(APPLY)
   max_block_len <- max(DelayedArray:::get_max_block_length(type(x)),
                        x_dim[[2L]])
-  # TODO: How to apply over rows?
-  # DelayedArray:::block_APPLY(x, APPLY, ..., sink = sink,
-  #                            max_block_len = max_block_len)
-  block_APPLY(x, APPLY, MARGIN = 2, ..., sink = sink,
+  block_APPLY(x, APPLY, MARGIN = 1, ..., sink = sink,
               max_block_len = max_block_len)
 }

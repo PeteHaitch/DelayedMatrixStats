@@ -37,10 +37,10 @@
     if (ncol(x) == 1L) {
       return(unlist(val))
     }
-    val <- do.call(cbind, val)
+    val <- do.call(rbind, val)
     # NOTE: Return value of matrixStats::colQuantiles() has rownames if
-    #       return value is a matrix and does not have NA/NaN
-    if (!any(colAnyNAs(val))) {
+    #       return value is a matrix and does not have NA/NaN column
+    if (!any(colAlls(val, value = NA))) {
       rownames(val) <- colnames(x)
     }
     val

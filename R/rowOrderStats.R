@@ -23,7 +23,6 @@
   val <- rowblock_APPLY(x = x,
                         APPLY = matrixStats::rowOrderStats,
                         which = which,
-                        dim. = dim(x),
                         ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))

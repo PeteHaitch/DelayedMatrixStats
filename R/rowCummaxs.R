@@ -22,7 +22,6 @@
   # Compute result
   val <- rowblock_APPLY(x = x,
                         APPLY = matrixStats::rowCummaxs,
-                        dim. = dim(x),
                         ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))

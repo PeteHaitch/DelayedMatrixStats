@@ -26,14 +26,13 @@
     val <- DelayedArray:::colblock_APPLY(x = x,
                                          APPLY = matrixStats::colRanks,
                                          ties.method = ties.method,
-                                         dim. = dim(x),
                                          preserveShape = preserveShape,
                                          ...)
     if (length(val) == 0L) {
       return(numeric(ncol(x)))
     }
     # NOTE: Return value of matrixStats::colRanks() has no names
-    unname(do.call(cbind, val))
+    unname(do.call(rbind, val))
   }
 
 ### ----------------------------------------------------------------------------

@@ -25,13 +25,12 @@
                         APPLY = matrixStats::rowDiffs,
                         lag = lag,
                         differences = differences,
-                        dim. = dim(x),
                         ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
   # NOTE: Return value of matrixStats::rowDiffs() has no names
-  unname(do.call(cbind, val))
+  unname(do.call(rbind, val))
 }
 
 

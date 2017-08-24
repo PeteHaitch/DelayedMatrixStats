@@ -23,7 +23,6 @@
   val <- DelayedArray:::colblock_APPLY(x = x,
                                        APPLY = matrixStats::colOrderStats,
                                        which = which,
-                                       dim. = dim(x),
                                        ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))

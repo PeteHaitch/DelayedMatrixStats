@@ -25,7 +25,6 @@
                                        APPLY = matrixStats::colDiffs,
                                        lag = lag,
                                        differences = differences,
-                                       dim. = dim(x),
                                        ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))

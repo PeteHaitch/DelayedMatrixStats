@@ -27,7 +27,6 @@
                         center = center,
                         constant = constant,
                         na.rm = na.rm,
-                        dim. = dim(x),
                         centers = centers,
                         ...)
   if (length(val) == 0L) {

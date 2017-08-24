@@ -22,13 +22,12 @@
   # Compute result
   val <- rowblock_APPLY(x = x,
                         APPLY = matrixStats::rowCumprods,
-                        dim. = dim(x),
                         ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
   # NOTE: Return value of matrixStats::rowCumprods() has no names
-  unname(do.call(cbind, val))
+  unname(do.call(rbind, val))
 }
 
 ### ----------------------------------------------------------------------------
