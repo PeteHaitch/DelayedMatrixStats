@@ -43,7 +43,6 @@
 # General method
 #
 
-#' @importFrom BiocGenerics colSums
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
 #' @rdname colProds

@@ -1,15 +1,15 @@
 ### ============================================================================
-### colQuantiles
+### rowQuantiles
 ###
 
 ### ----------------------------------------------------------------------------
 ### Non-exported methods
 ###
 
-#' `colQuantiles()` block-processing internal helper
-#' @inherit matrixStats::colQuantiles
+#' `rowQuantiles()` block-processing internal helper
+#' @inherit matrixStats::rowQuantiles
 #' @importFrom methods is
-.DelayedMatrix_block_colQuantiles <-
+.DelayedMatrix_block_rowQuantiles <-
   function(x, rows = NULL, cols = NULL,
            probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE, type = 7L,
            ..., drop = TRUE) {
@@ -22,26 +22,26 @@
     x <- ..subset(x, rows, cols)
 
     # Compute result
-    val <- DelayedArray:::colblock_APPLY(x = x,
-                                         APPLY = matrixStats::colQuantiles,
-                                         probs = probs,
-                                         na.rm = na.rm,
-                                         type = type,
-                                         ...,
-                                         drop = drop)
+    val <- rowblock_APPLY(x = x,
+                          APPLY = matrixStats::rowQuantiles,
+                          probs = probs,
+                          na.rm = na.rm,
+                          type = type,
+                          ...,
+                          drop = drop)
     if (length(val) == 0L) {
       return(numeric(ncol(x)))
     }
-    # NOTE: Return value of matrixStats::colQuantiles() is a vector if input is
-    #       a column vector (matrix with 1 column)
-    if (ncol(x) == 1L) {
+    # NOTE: Return value of matrixStats::rowQuantiles() is a vector if input is
+    #       a row vector (matrix with 1 row)
+    if (nrow(x) == 1L) {
       return(unlist(val))
     }
-    val <- do.call(cbind, val)
-    # NOTE: Return value of matrixStats::colQuantiles() has rownames if
+    val <- do.call(rbind, val)
+    # NOTE: Return value of matrixStats::rowQuantiles() has rownames if
     #       return value is a matrix and does not have NA/NaN
-    if (!any(colAnyNAs(val))) {
-      rownames(val) <- colnames(x)
+    if (!any(rowAnyNAs(val))) {
+      rownames(val) <- rownames(x)
     }
     val
   }
@@ -57,17 +57,16 @@
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
 #' @rdname colQuantiles
-#' @template common_params
 #' @export
-setMethod("colQuantiles", "DelayedMatrix",
+setMethod("rowQuantiles", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
                    probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE,
                    type = 7L, force_block_processing = FALSE, ...,
                    drop = TRUE) {
-            if (!hasMethod("colQuantiles", class(seed(x))) ||
+            if (!hasMethod("rowQuantiles", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colQuantiles(x = x,
+              return(.DelayedMatrix_block_rowQuantiles(x = x,
                                                        rows = rows,
                                                        cols = cols,
                                                        probs = probs,
@@ -88,7 +87,7 @@ setMethod("colQuantiles", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colQuantiles(x = x,
+                return(rowQuantiles(x = x,
                                     rows = rows,
                                     cols = cols,
                                     probs = probs,
@@ -100,7 +99,7 @@ setMethod("colQuantiles", "DelayedMatrix",
               }
             }
 
-            colQuantiles(x = simple_seed_x,
+            rowQuantiles(x = simple_seed_x,
                          rows = rows,
                          cols = cols,
                          probs = probs,
@@ -117,4 +116,4 @@ setMethod("colQuantiles", "DelayedMatrix",
 
 #' @importFrom methods setMethod
 #' @export
-setMethod("colQuantiles", "matrix", matrixStats::colQuantiles)
+setMethod("rowQuantiles", "matrix", matrixStats::rowQuantiles)

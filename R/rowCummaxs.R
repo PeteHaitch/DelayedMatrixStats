@@ -28,7 +28,7 @@
     return(numeric(ncol(x)))
   }
   # NOTE: Return value of matrixStats::rowCummaxs() has no names
-  unname(do.call(cbind, val))
+  unname(do.call(rbind, val))
 }
 
 ### ----------------------------------------------------------------------------
