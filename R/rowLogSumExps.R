@@ -42,8 +42,7 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname rowLogSumExps
-#' @template common_params
+#' @rdname colLogSumExps
 #' @export
 setMethod("rowLogSumExps", "DelayedMatrix",
           function(lx, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(lx),

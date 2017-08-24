@@ -12,8 +12,7 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname rowAnyNAs
-#' @template common_params
+#' @rdname colAnyNAs
 #' @export
 setMethod("rowAnyNAs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, force_block_processing = FALSE,

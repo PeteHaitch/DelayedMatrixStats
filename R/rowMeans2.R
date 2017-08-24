@@ -43,8 +43,7 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname rowMeans2
-#' @template common_params
+#' @rdname colMeans2
 #' @export
 setMethod("rowMeans2", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
@@ -99,7 +98,7 @@ setMethod("rowMeans2", "DelayedMatrix",
 setMethod("rowMeans2", "matrix", matrixStats::rowMeans2)
 
 #' @importFrom methods setMethod
-#' @rdname rowMeans2
+#' @rdname colMeans2
 #' @export
 setMethod("rowMeans2", "Matrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),

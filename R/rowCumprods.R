@@ -41,8 +41,7 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname rowCumprods
-#' @template common_params
+#' @rdname colCumprods
 #' @export
 setMethod("rowCumprods", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, dim. = dim(x),

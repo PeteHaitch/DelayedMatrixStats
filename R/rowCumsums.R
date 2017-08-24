@@ -41,8 +41,7 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname rowCumsums
-#' @template common_params
+#' @rdname colCumsums
 #' @export
 setMethod("rowCumsums", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, dim. = dim(x),

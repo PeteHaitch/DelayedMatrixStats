@@ -358,7 +358,7 @@ setGeneric("colWeightedVars", signature = "x",
 #
 
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowAlls
+#' @rdname colAlls
 #' @export
 setGeneric("rowAlls", signature = "x",
            function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
@@ -366,7 +366,7 @@ setGeneric("rowAlls", signature = "x",
 )
 
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowAnyMissings
+#' @rdname colAnyMissings
 #' @export
 setGeneric("rowAnyMissings", signature = "x",
            function(x, rows = NULL, cols = NULL,
@@ -374,7 +374,7 @@ setGeneric("rowAnyMissings", signature = "x",
 )
 
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowAnyNAs
+#' @rdname colAnyNAs
 #' @export
 setGeneric("rowAnyNAs", signature = "x",
            function(x, rows = NULL, cols = NULL,
@@ -382,7 +382,7 @@ setGeneric("rowAnyNAs", signature = "x",
 )
 
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowAnys
+#' @rdname colAnys
 #' @export
 setGeneric("rowAnys", signature = "x",
            function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
@@ -393,7 +393,7 @@ setGeneric("rowAnys", signature = "x",
 # #       colAvgsPerRowSet and rowAvgsPerColSet
 # # TODO: Check with Henrik why first arg is `X` and not `x`
 # #' @importFrom methods setGeneric
-# #' @inherit matrixStats::rowAvgsPerRowSet
+# #' @rdname colAvgsPerRowSet
 # #' @export
 # setGeneric("rowAvgsPerRowSet", signature = "X",
 #            function(X, W = NULL, cols = NULL, S, FUN = colMeans, tFUN = FALSE,
@@ -401,7 +401,7 @@ setGeneric("rowAnys", signature = "x",
 # )
 
 # #' @importFrom methods setGeneric
-# #' @inherit matrixStats::rowCollapse
+# #' @rdname colCollapse
 # #' @export
 # setGeneric("rowCollapse", signature = "x",
 #            function(x, idxs, cols = NULL, dim. = dim(x),
@@ -409,7 +409,7 @@ setGeneric("rowAnys", signature = "x",
 # )
 
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowCounts
+#' @rdname colCounts
 #' @export
 setGeneric("rowCounts", signature = "x",
            function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
@@ -418,7 +418,7 @@ setGeneric("rowCounts", signature = "x",
 
 # TODO: Ask Henrik why na.rm isn't an argument?
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowCummaxs
+#' @rdname colCummaxs
 #' @export
 setGeneric("rowCummaxs", signature = "x",
            function(x, rows = NULL, cols = NULL, dim. = dim(x),
@@ -427,7 +427,7 @@ setGeneric("rowCummaxs", signature = "x",
 
 # TODO: Ask Henrik why na.rm isn't an argument?
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowCummins
+#' @rdname colCummins
 #' @export
 setGeneric("rowCummins", signature = "x",
            function(x, rows = NULL, cols = NULL, dim. = dim(x),
@@ -435,8 +435,7 @@ setGeneric("rowCummins", signature = "x",
 )
 
 #' @importFrom methods setGeneric
-#' @importFrom methods setGeneric
-#' @inherit matrixStats::rowCumprods
+#' @rdname colCumprods
 #' @export
 setGeneric("rowCumprods", signature = "x",
            function(x, rows = NULL, cols = NULL, dim. = dim(x),
@@ -444,8 +443,7 @@ setGeneric("rowCumprods", signature = "x",
 )
 
 #' @importFrom methods setGeneric
-#' @importFrom methods setGeneric
-#' @inherit matrixStats::rowCumsums
+#' @rdname colCumsums
 #' @export
 setGeneric("rowCumsums", signature = "x",
            function(x, rows = NULL, cols = NULL, dim. = dim(x),
@@ -453,7 +451,7 @@ setGeneric("rowCumsums", signature = "x",
 )
 
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowDiffs
+#' @rdname colDiffs
 #' @export
 setGeneric("rowDiffs", signature = "x",
            function(x, rows = NULL, cols = NULL, lag = 1L, differences = 1L,
@@ -462,7 +460,7 @@ setGeneric("rowDiffs", signature = "x",
 
 # TODO: Ask Henrik why this function keep colnames whereas most don't
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowIQRDiffs
+#' @rdname colIQRDiffs
 #' @export
 setGeneric("rowIQRDiffs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
@@ -470,7 +468,7 @@ setGeneric("rowIQRDiffs", signature = "x",
 )
 
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowIQRs
+#' @rdname colIQRs
 #' @export
 setGeneric("rowIQRs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE,
@@ -478,7 +476,7 @@ setGeneric("rowIQRs", signature = "x",
 )
 
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowLogSumExps
+#' @rdname colLogSumExps
 #' @export
 setGeneric("rowLogSumExps", signature = "lx",
            function(lx, rows = NULL, cols = NULL, na.rm = FALSE,
@@ -487,7 +485,7 @@ setGeneric("rowLogSumExps", signature = "lx",
 
 # TODO: Ask Henrik why this function keep colnames whereas most don't
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowMadDiffs
+#' @rdname colMadDiffs
 #' @export
 setGeneric("rowMadDiffs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE,
@@ -495,7 +493,7 @@ setGeneric("rowMadDiffs", signature = "x",
 )
 
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowMads
+#' @rdname colMads
 #' @export
 setGeneric("rowMads", signature = "x",
            function(x, rows = NULL, cols = NULL, center = NULL,
@@ -507,11 +505,11 @@ setGeneric("rowMads", signature = "x",
 # TODO: Need to think about interaction with methods and docs in DelayedArray
 # NOTE: rowMaxs S4 generic and rowMaxs,DelayedMatrix-method already defined in
 #       DelayedArray
-# #' @inherit matrixStats::rowMaxs
+# #' @rdname colMaxs
 # #' @importMethodsFrom DelayedArray rowMaxs
 
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowMeans2
+#' @rdname colMeans2
 #' @export
 setGeneric("rowMeans2", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
@@ -519,7 +517,7 @@ setGeneric("rowMeans2", signature = "x",
 )
 
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowMedians
+#' @rdname colMedians
 #' @export
 setGeneric("rowMedians", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
@@ -529,12 +527,12 @@ setGeneric("rowMedians", signature = "x",
 # TODO: Need to think about interaction with methods and docs in DelayedArray
 # NOTE: rowMins S4 generic and rowMins,DelayedMatrix-method, already defined in
 #       DelayedArray
-# #' @inherit matrixStats::rowMins
+# #' @rdname colMins
 # #' @importMethodsFrom DelayedArray rowMins
 
 # TODO: Ask Henrik why na.rm isn't an argument (this is noted in docs)
 #' @importFrom methods setGeneric
-#' @inherit matrixStats::rowOrderStats
+#' @rdname colOrderStats
 #' @export
 setGeneric("rowOrderStats", signature = "x",
            function(x, rows = NULL, cols = NULL, which, dim. = dim(x),

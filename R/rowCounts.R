@@ -43,8 +43,7 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname rowCounts
-#' @template common_params
+#' @rdname colCounts
 #' @export
 setMethod("rowCounts", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,

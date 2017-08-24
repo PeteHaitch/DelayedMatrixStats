@@ -45,8 +45,7 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname rowDiffs
-#' @template common_params
+#' @rdname colDiffs
 #' @export
 setMethod("rowDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, lag = 1L, differences = 1L,

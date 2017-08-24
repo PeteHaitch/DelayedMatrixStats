@@ -12,8 +12,7 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname rowAnyMissings
-#' @template common_params
+#' @rdname colAnyMissings
 #' @export
 setMethod("rowAnyMissings", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, force_block_processing = FALSE,

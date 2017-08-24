@@ -44,8 +44,7 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname rowIQRDiffs
-#' @template common_params
+#' @rdname colIQRDiffs
 #' @export
 setMethod("rowIQRDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,

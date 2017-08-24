@@ -41,8 +41,7 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname rowIQRs
-#' @template common_params
+#' @rdname colIQRs
 #' @export
 setMethod("rowIQRs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,

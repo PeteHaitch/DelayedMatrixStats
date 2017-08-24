@@ -42,8 +42,7 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname rowOrderStats
-#' @template common_params
+#' @rdname colOrderStats
 #' @export
 setMethod("rowOrderStats", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, which, dim. = dim(x),

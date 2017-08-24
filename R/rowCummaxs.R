@@ -41,8 +41,7 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname rowCummaxs
-#' @template common_params
+#' @rdname colCummaxs
 #' @export
 setMethod("rowCummaxs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, dim. = dim(x),
