@@ -1,13 +1,13 @@
-context("colRanks")
+context("rowRanks")
 
 test_that("DMS has equal output to mS", {
   expecteds <- lapply(unlist(list_of_matrix, recursive = FALSE),
-                      matrixStats::colRanks)
+                      matrixStats::rowRanks)
   lapply(list_of_DelayedMatrix, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     expecteds <- expecteds[match(names(objects), names(expecteds))]
     mapply(function(object, expected) {
-      expect_equal(colRanks(object), expected)
+      expect_equal(rowRanks(object), expected)
     }, object = objects, expected = expecteds)
   })
 })
@@ -17,11 +17,11 @@ test_that("DMS has equal output to mS: subsetting and delayed ops", {
   j <- c(1, 3)
   f <- function(x) log(x * 3 + 8)
   expecteds <- lapply(list_of_matrix_base_case,
-                      function(x) matrixStats::colRanks(f(x[i, j])))
+                      function(x) matrixStats::rowRanks(f(x[i, j])))
   lapply(list_of_DelayedMatrix_base_case, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     mapply(function(object, expected) {
-      expect_equal(colRanks(f(object[i, j])), expected)
+      expect_equal(rowRanks(f(object[i, j])), expected)
     }, object = objects, expected = expecteds)
   })
 })
@@ -30,11 +30,11 @@ test_that("DMS has equal output to mS: non-NULL rows and cols", {
   rows <- c(3, 2)
   cols <- c(1, 3)
   expecteds <- lapply(list_of_matrix_base_case,
-                      function(x) matrixStats::colRanks(x, rows, cols))
+                      function(x) matrixStats::rowRanks(x, rows, cols))
   lapply(list_of_DelayedMatrix_base_case, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     mapply(function(object, expected) {
-      expect_equal(colRanks(object, rows, cols), expected)
+      expect_equal(rowRanks(object, rows, cols), expected)
     }, object = objects, expected = expecteds)
   })
 })

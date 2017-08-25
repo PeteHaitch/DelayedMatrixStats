@@ -559,3 +559,19 @@ setGeneric("rowQuantiles", signature = "x",
                     probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE,
                     type = 7L, ..., drop = TRUE) standardGeneric("rowQuantiles")
 )
+
+# TODO: Need to think about interaction with methods and docs in DelayedArray
+# NOTE: rowRanges S4 generic and rowRanges,DelayedMatrix-method already defined
+#       in DelayedArray
+# #' @rdname colRanges
+# #' @importMethodsFrom DelayedArray rowRanges
+
+# TODO: Ask Henrik why rowRanks() does not have the preserveShape argument
+#' @importFrom methods setGeneric
+#' @rdname colRanks
+#' @export
+setGeneric("rowRanks", signature = "x",
+           function(x, rows = NULL, cols = NULL,
+                    ties.method = c("max", "average", "min"), dim. = dim(x),
+                    ...) standardGeneric("rowRanks")
+)
