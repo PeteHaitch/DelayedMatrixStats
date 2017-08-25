@@ -276,8 +276,7 @@ setGeneric("colSdDiffs", signature = "x",
 #' @inherit matrixStats::colSds
 #' @export
 setGeneric("colSds", signature = "x",
-           function(x, rows = NULL, cols = NULL,
-                    ...) standardGeneric("colSds")
+           function(x, rows = NULL, cols = NULL, ...) standardGeneric("colSds")
 )
 
 #' @importFrom methods setGeneric
@@ -574,4 +573,51 @@ setGeneric("rowRanks", signature = "x",
            function(x, rows = NULL, cols = NULL,
                     ties.method = c("max", "average", "min"), dim. = dim(x),
                     ...) standardGeneric("rowRanks")
+)
+
+#' @importFrom methods setGeneric
+#' @rdname colSdDiffs
+#' @export
+setGeneric("rowSdDiffs", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
+                    trim = 0, ...) standardGeneric("rowSdDiffs")
+)
+
+#' @importFrom methods setGeneric
+#' @rdname colSds
+#' @export
+setGeneric("rowSds", signature = "x",
+           function(x, rows = NULL, cols = NULL, ...) standardGeneric("rowSds")
+)
+
+#' @importFrom methods setGeneric
+#' @rdname colSums2
+#' @export
+setGeneric("rowSums2", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
+                    ...) standardGeneric("rowSums2")
+)
+
+# #' @importFrom methods setGeneric
+# #' @rdname colTabulates
+# #' @export
+# setGeneric("rowTabulates", signature = "x",
+#            function(x, rows = NULL, cols = NULL, values = NULL,
+#                     ...) standardGeneric("rowTabulates")
+# )
+
+#' @importFrom methods setGeneric
+#' @rdname colVarDiffs
+#' @export
+setGeneric("rowVarDiffs", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
+                    trim = 0, ...) standardGeneric("rowVarDiffs")
+)
+
+#' @importFrom methods setGeneric
+#' @rdname colVars
+#' @export
+setGeneric("rowVars", signature = "x",
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE, center = NULL,
+                    dim. = dim(x), ...) standardGeneric("rowVars")
 )
