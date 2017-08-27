@@ -1,17 +1,16 @@
-context("colWeightedMedians")
+context("colWeightedVars")
 
 test_that("DMS has equal output to mS", {
   w <- runif(3)
   expecteds <- lapply(unlist(list_of_matrix, recursive = FALSE),
                       function(x) {
-                        matrixStats::colWeightedMedians(x,
-                                                        w = w[seq_len(nrow(x))])
+                        matrixStats::colWeightedVars(x, w = w[seq_len(nrow(x))])
                       })
   lapply(list_of_DelayedMatrix, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     expecteds <- expecteds[match(names(objects), names(expecteds))]
     mapply(function(object, expected) {
-      expect_equal(colWeightedMedians(object, w = w[seq_len(nrow(object))]),
+      expect_equal(colWeightedVars(object, w = w[seq_len(nrow(object))]),
                    expected,
                    check.names = !is(object, "HDF5Array"))
     }, object = objects, expected = expecteds)
@@ -25,15 +24,15 @@ test_that("DMS has equal output to mS: subsetting and delayed ops", {
   f <- function(x) log(x * 3 + 8)
   expecteds <- lapply(list_of_matrix_base_case,
                       function(x) {
-                        matrixStats::colWeightedMedians(
+                        matrixStats::colWeightedVars(
                           f(x[i, j]),
                           w = w[seq_len(nrow(x[i, j]))])
                       })
   lapply(list_of_DelayedMatrix_base_case, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     mapply(function(object, expected) {
-      expect_equal(colWeightedMedians(f(object[i, j]),
-                                    w = w[seq_len(nrow(object[i, j]))]),
+      expect_equal(colWeightedVars(f(object[i, j]),
+                                   w = w[seq_len(nrow(object[i, j]))]),
                    expected,
                    check.names = !is(object, "HDF5Array"))
     }, object = objects, expected = expecteds)
@@ -46,7 +45,7 @@ test_that("DMS has equal output to mS: non-NULL rows and cols", {
   cols <- c(1, 3)
   expecteds <- lapply(list_of_matrix_base_case,
                       function(x) {
-                        matrixStats::colWeightedMedians(
+                        matrixStats::colWeightedVars(
                           x,
                           w[seq_len(nrow(x))],
                           rows,
@@ -55,10 +54,10 @@ test_that("DMS has equal output to mS: non-NULL rows and cols", {
   lapply(list_of_DelayedMatrix_base_case, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     mapply(function(object, expected) {
-      expect_equal(colWeightedMedians(object,
-                                    w[seq_len(nrow(object))],
-                                    rows,
-                                    cols),
+      expect_equal(colWeightedVars(object,
+                                   w[seq_len(nrow(object))],
+                                   rows,
+                                   cols),
                    expected,
                    check.names = !is(object, "HDF5Array"))
     }, object = objects, expected = expecteds)

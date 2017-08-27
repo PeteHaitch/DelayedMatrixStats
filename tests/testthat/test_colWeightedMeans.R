@@ -1,10 +1,11 @@
 context("colWeightedMeans")
 
 test_that("DMS has equal output to mS", {
-  w <- 1:4
+  w <- runif(3)
   expecteds <- lapply(unlist(list_of_matrix, recursive = FALSE),
                       function(x) {
-                        matrixStats::colWeightedMeans(x, w = w[seq_len(nrow(x))])
+                        matrixStats::colWeightedMeans(x,
+                                                      w = w[seq_len(nrow(x))])
                       })
   lapply(list_of_DelayedMatrix, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
@@ -18,7 +19,7 @@ test_that("DMS has equal output to mS", {
 })
 
 test_that("DMS has equal output to mS: subsetting and delayed ops", {
-  w <- 1:2
+  w <- runif(2)
   i <- c(3, 2)
   j <- c(1, 3)
   f <- function(x) log(x * 3 + 8)
@@ -40,7 +41,7 @@ test_that("DMS has equal output to mS: subsetting and delayed ops", {
 })
 
 test_that("DMS has equal output to mS: non-NULL rows and cols", {
-  w <- 1:4
+  w <- runif(3)
   rows <- c(3, 2)
   cols <- c(1, 3)
   expecteds <- lapply(list_of_matrix_base_case,

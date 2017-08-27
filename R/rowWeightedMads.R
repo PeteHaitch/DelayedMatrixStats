@@ -1,15 +1,15 @@
 ### ============================================================================
-### colWeightedMads
+### rowWeightedMads
 ###
 
 ### ----------------------------------------------------------------------------
 ### Non-exported methods
 ###
 
-#' `colWeightedMads()` block-processing internal helper
-#' @inherit matrixStats::colWeightedMads
+#' `rowWeightedMads()` block-processing internal helper
+#' @inherit matrixStats::rowWeightedMads
 #' @importFrom methods is
-.DelayedMatrix_block_colWeightedMads <- function(x, w = NULL, rows = NULL,
+.DelayedMatrix_block_rowWeightedMads <- function(x, w = NULL, rows = NULL,
                                                  cols = NULL, na.rm = FALSE,
                                                  constant = 1.4826,
                                                  center = NULL, ...) {
@@ -20,22 +20,22 @@
 
   # Subset
   x <- ..subset(x, rows, cols)
-  if (!is.null(w) && !is.null(rows)) {
-    w <- w[rows]
+  if (!is.null(w) && !is.null(cols)) {
+    w <- w[cols]
   }
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x = x,
-                                       APPLY = matrixStats::colWeightedMads,
-                                       w = w,
-                                       na.rm = na.rm,
-                                       constant = constant,
-                                       center = center,
-                                       ...)
+  val <- rowblock_APPLY(x = x,
+                        APPLY = matrixStats::rowWeightedMads,
+                        w = w,
+                        na.rm = na.rm,
+                        constant = constant,
+                        center = center,
+                        ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::colWeightedMads() has names
+  # NOTE: Return value of matrixStats::rowWeightedMads() has names
   unlist(val, recursive = FALSE, use.names = TRUE)
 }
 
@@ -50,16 +50,15 @@
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
 #' @rdname colWeightedMads
-#' @template common_params
 #' @export
-setMethod("colWeightedMads", "DelayedMatrix",
+setMethod("rowWeightedMads", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    constant = 1.4826, center = NULL,
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colWeightedMads", class(seed(x))) ||
+            if (!hasMethod("rowWeightedMads", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colWeightedMads(x = x,
+              return(.DelayedMatrix_block_rowWeightedMads(x = x,
                                                           w = w,
                                                           rows = rows,
                                                           cols = cols,
@@ -80,7 +79,7 @@ setMethod("colWeightedMads", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colWeightedMads(x = x,
+                return(rowWeightedMads(x = x,
                                        w = w,
                                        rows = rows,
                                        cols = cols,
@@ -92,7 +91,7 @@ setMethod("colWeightedMads", "DelayedMatrix",
               }
             }
 
-            colWeightedMads(x = simple_seed_x,
+            rowWeightedMads(x = simple_seed_x,
                             w = w,
                             rows = rows,
                             cols = cols,
@@ -109,4 +108,4 @@ setMethod("colWeightedMads", "DelayedMatrix",
 
 #' @importFrom methods setMethod
 #' @export
-setMethod("colWeightedMads", "matrix", matrixStats::colWeightedMads)
+setMethod("rowWeightedMads", "matrix", matrixStats::rowWeightedMads)

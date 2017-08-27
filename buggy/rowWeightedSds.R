@@ -1,15 +1,15 @@
 ### ============================================================================
-### colWeightedSds
+### rowWeightedSds
 ###
 
 ### ----------------------------------------------------------------------------
 ### Non-exported methods
 ###
 
-#' `colWeightedSds()` block-processing internal helper
-#' @inherit matrixStats::colWeightedSds
+#' `rowWeightedSds()` block-processing internal helper
+#' @inherit matrixStats::rowWeightedSds
 #' @importFrom methods is
-.DelayedMatrix_block_colWeightedSds <- function(x, w = NULL, rows = NULL,
+.DelayedMatrix_block_rowWeightedSds <- function(x, w = NULL, rows = NULL,
                                                 cols = NULL, na.rm = FALSE,
                                                 ...) {
   # Check input type
@@ -19,20 +19,20 @@
 
   # Subset
   x <- ..subset(x, rows, cols)
-  w <- w[DelayedArray:::to_linear_index(Nindex = list(rows, NULL),
-                                        dim = c(length(w), 1L))]
-
+  if (!is.null(w) && !is.null(rows)) {
+    w <- w[rows]
+  }
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x = x,
-                                       APPLY = matrixStats::colWeightedSds,
-                                       w = w,
-                                       na.rm = na.rm,
-                                       ...)
+  val <- rowblock_APPLY(x = x,
+                        APPLY = matrixStats::rowWeightedSds,
+                        w = w,
+                        na.rm = na.rm,
+                        ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::colWeightedSds() has names
+  # NOTE: Return value of matrixStats::rowWeightedSds() has names
   unlist(val, recursive = FALSE, use.names = TRUE)
 }
 
@@ -47,15 +47,14 @@
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
 #' @rdname colWeightedSds
-#' @template common_params
 #' @export
-setMethod("colWeightedSds", "DelayedMatrix",
+setMethod("rowWeightedSds", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colWeightedSds", class(seed(x))) ||
+            if (!hasMethod("rowWeightedSds", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colWeightedSds(x = x,
+              return(.DelayedMatrix_block_rowWeightedSds(x = x,
                                                          w = w,
                                                          rows = rows,
                                                          cols = cols,
@@ -74,7 +73,7 @@ setMethod("colWeightedSds", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colWeightedSds(x = x,
+                return(rowWeightedSds(x = x,
                                       w = w,
                                       rows = rows,
                                       cols = cols,
@@ -84,7 +83,7 @@ setMethod("colWeightedSds", "DelayedMatrix",
               }
             }
 
-            colWeightedSds(x = simple_seed_x,
+            rowWeightedSds(x = simple_seed_x,
                            w = w,
                            rows = rows,
                            cols = cols,
@@ -99,4 +98,4 @@ setMethod("colWeightedSds", "DelayedMatrix",
 
 #' @importFrom methods setMethod
 #' @export
-setMethod("colWeightedSds", "matrix", matrixStats::colWeightedSds)
+setMethod("rowWeightedSds", "matrix", matrixStats::rowWeightedSds)

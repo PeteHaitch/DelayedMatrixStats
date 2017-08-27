@@ -1,17 +1,17 @@
 ### ============================================================================
-### colWeightedMeans
+### colWeightedSds
 ###
 
 ### ----------------------------------------------------------------------------
 ### Non-exported methods
 ###
 
-#' `colWeightedMeans()` block-processing internal helper
-#' @inherit matrixStats::colWeightedMeans
+#' `colWeightedSds()` block-processing internal helper
+#' @inherit matrixStats::colWeightedSds
 #' @importFrom methods is
-.DelayedMatrix_block_colWeightedMeans <- function(x, w = NULL, rows = NULL,
-                                                  cols = NULL, na.rm = FALSE,
-                                                  ...) {
+.DelayedMatrix_block_colWeightedSds <- function(x, w = NULL, rows = NULL,
+                                                cols = NULL, na.rm = FALSE,
+                                                ...) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   stopifnot(!x@is_transposed)
@@ -25,14 +25,14 @@
 
   # Compute result
   val <- DelayedArray:::colblock_APPLY(x = x,
-                                       APPLY = matrixStats::colWeightedMeans,
+                                       APPLY = matrixStats::colWeightedSds,
                                        w = w,
                                        na.rm = na.rm,
                                        ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::colWeightedMeans() has names
+  # NOTE: Return value of matrixStats::colWeightedSds() has names
   unlist(val, recursive = FALSE, use.names = TRUE)
 }
 
@@ -46,21 +46,21 @@
 
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
-#' @rdname colWeightedMeans
+#' @rdname colWeightedSds
 #' @template common_params
 #' @export
-setMethod("colWeightedMeans", "DelayedMatrix",
+setMethod("colWeightedSds", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colWeightedMeans", class(seed(x))) ||
+            if (!hasMethod("colWeightedSds", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colWeightedMeans(x = x,
-                                                           w = w,
-                                                           rows = rows,
-                                                           cols = cols,
-                                                           na.rm = na.rm,
-                                                           ...))
+              return(.DelayedMatrix_block_colWeightedSds(x = x,
+                                                         w = w,
+                                                         rows = rows,
+                                                         cols = cols,
+                                                         na.rm = na.rm,
+                                                         ...))
             }
 
             message2("Has seed-aware method", get_verbose())
@@ -74,22 +74,22 @@ setMethod("colWeightedMeans", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colWeightedMeans(x = x,
-                                        w = w,
-                                        rows = rows,
-                                        cols = cols,
-                                        na.rm = na.rm,
-                                        force_block_processing = TRUE,
-                                        ...))
+                return(colWeightedSds(x = x,
+                                      w = w,
+                                      rows = rows,
+                                      cols = cols,
+                                      na.rm = na.rm,
+                                      force_block_processing = TRUE,
+                                      ...))
               }
             }
 
-            colWeightedMeans(x = simple_seed_x,
-                             w = w,
-                             rows = rows,
-                             cols = cols,
-                             na.rm = na.rm,
-                             ...)
+            colWeightedSds(x = simple_seed_x,
+                           w = w,
+                           rows = rows,
+                           cols = cols,
+                           na.rm = na.rm,
+                           ...)
           }
 )
 
@@ -99,4 +99,4 @@ setMethod("colWeightedMeans", "DelayedMatrix",
 
 #' @importFrom methods setMethod
 #' @export
-setMethod("colWeightedMeans", "matrix", matrixStats::colWeightedMeans)
+setMethod("colWeightedSds", "matrix", matrixStats::colWeightedSds)

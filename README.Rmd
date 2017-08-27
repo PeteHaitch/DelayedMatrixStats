@@ -113,6 +113,10 @@ An extensive set of benchmarks is under development at [http://peterhickey.org/B
 
 ## API coverage
 
+**NOTE:** `colWeightedSds()`, `colWeightedVars()`, `rowWeightedSds()`, and 
+`rowWeightedVars()` will be implemented/reinstated after resolving 
+[a bug in `matrixStats::weightedVar()`](https://github.com/HenrikBengtsson/matrixStats/issues/105)
+
 ```{r, echo = FALSE, comment="", results = "asis"}
 matrixStats <- sort(grep("^(col|row)", 
                          getNamespaceExports("matrixStats"), 

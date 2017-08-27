@@ -1,15 +1,15 @@
 ### ============================================================================
-### colWeightedMeans
+### rowWeightedMeans
 ###
 
 ### ----------------------------------------------------------------------------
 ### Non-exported methods
 ###
 
-#' `colWeightedMeans()` block-processing internal helper
-#' @inherit matrixStats::colWeightedMeans
+#' `rowWeightedMeans()` block-processing internal helper
+#' @inherit matrixStats::rowWeightedMeans
 #' @importFrom methods is
-.DelayedMatrix_block_colWeightedMeans <- function(x, w = NULL, rows = NULL,
+.DelayedMatrix_block_rowWeightedMeans <- function(x, w = NULL, rows = NULL,
                                                   cols = NULL, na.rm = FALSE,
                                                   ...) {
   # Check input type
@@ -19,20 +19,20 @@
 
   # Subset
   x <- ..subset(x, rows, cols)
-  if (!is.null(w) && !is.null(rows)) {
-    w <- w[rows]
+  if (!is.null(w) && !is.null(cols)) {
+    w <- w[cols]
   }
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x = x,
-                                       APPLY = matrixStats::colWeightedMeans,
-                                       w = w,
-                                       na.rm = na.rm,
-                                       ...)
+  val <- rowblock_APPLY(x = x,
+                        APPLY = matrixStats::rowWeightedMeans,
+                        w = w,
+                        na.rm = na.rm,
+                        ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::colWeightedMeans() has names
+  # NOTE: Return value of matrixStats::rowWeightedMeans() has names
   unlist(val, recursive = FALSE, use.names = TRUE)
 }
 
@@ -47,15 +47,14 @@
 #' @importFrom DelayedArray seed
 #' @importFrom methods hasMethod is
 #' @rdname colWeightedMeans
-#' @template common_params
 #' @export
-setMethod("colWeightedMeans", "DelayedMatrix",
+setMethod("rowWeightedMeans", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colWeightedMeans", class(seed(x))) ||
+            if (!hasMethod("rowWeightedMeans", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colWeightedMeans(x = x,
+              return(.DelayedMatrix_block_rowWeightedMeans(x = x,
                                                            w = w,
                                                            rows = rows,
                                                            cols = cols,
@@ -74,7 +73,7 @@ setMethod("colWeightedMeans", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_x, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(colWeightedMeans(x = x,
+                return(rowWeightedMeans(x = x,
                                         w = w,
                                         rows = rows,
                                         cols = cols,
@@ -84,7 +83,7 @@ setMethod("colWeightedMeans", "DelayedMatrix",
               }
             }
 
-            colWeightedMeans(x = simple_seed_x,
+            rowWeightedMeans(x = simple_seed_x,
                              w = w,
                              rows = rows,
                              cols = cols,
@@ -99,4 +98,4 @@ setMethod("colWeightedMeans", "DelayedMatrix",
 
 #' @importFrom methods setMethod
 #' @export
-setMethod("colWeightedMeans", "matrix", matrixStats::colWeightedMeans)
+setMethod("rowWeightedMeans", "matrix", matrixStats::rowWeightedMeans)

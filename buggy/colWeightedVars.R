@@ -19,9 +19,9 @@
 
   # Subset
   x <- ..subset(x, rows, cols)
-  w <- w[DelayedArray:::to_linear_index(Nindex = list(rows, NULL),
-                                        dim = c(length(w), 1L))]
-
+  if (!is.null(w) && !is.null(rows)) {
+    w <- w[rows]
+  }
 
   # Compute result
   val <- DelayedArray:::colblock_APPLY(x = x,
