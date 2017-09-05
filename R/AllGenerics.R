@@ -79,13 +79,13 @@ setGeneric("colAnys", signature = "x",
 # # TODO: Check with Henrik why `...` appear in different place in signature for
 # #       colAvgsPerRowSet and rowAvgsPerColSet
 # # TODO: Check with Henrik why first arg is `X` and not `x`
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colAvgsPerRowSet
-# #' @export
-# setGeneric("colAvgsPerRowSet", signature = "X",
-#            function(X, W = NULL, cols = NULL, S, FUN = colMeans, tFUN = FALSE,
-#                     ...) standardGeneric("colAvgsPerRowSet")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colAvgsPerRowSet
+#' @export
+setGeneric("colAvgsPerRowSet", signature = "X",
+           function(X, W = NULL, cols = NULL, S, FUN = colMeans, tFUN = FALSE,
+                    ...) standardGeneric("colAvgsPerRowSet")
+)
 
 # #' @importFrom methods setGeneric
 # #' @inherit matrixStats::colCollapse
