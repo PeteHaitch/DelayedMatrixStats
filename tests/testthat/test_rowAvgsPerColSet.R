@@ -1,72 +1,73 @@
-context("colAvgsPerRowSet.R")
+context("rowAvgsPerColSet.R")
 
 test_that("DMS has equal output to mS", {
-  S <- matrix(c(1, 3), nrow = 2, ncol = 1)
+  S <- matrix(c(1, 4), nrow = 1, ncol = 2)
   expecteds <- lapply(unlist(list_of_matrix, recursive = FALSE),
                       function(x) {
-                        matrixStats::colAvgsPerRowSet(
+                        matrixStats::rowAvgsPerColSet(
                           x,
-                          S = S[seq_len(min(nrow(x), nrow(S))), ,
-                                drop = FALSE])
+                          S = S[, seq_len(min(ncol(x), ncol(S))), drop = FALSE])
                       })
   lapply(list_of_DelayedMatrix, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     expecteds <- expecteds[match(names(objects), names(expecteds))]
     mapply(function(object, expected) {
-      expect_equal(colAvgsPerRowSet(
+      expect_equal(rowAvgsPerColSet(
         object,
-        S = S[seq_len(min(nrow(object), nrow(S))), ,  drop = FALSE]),
+        S = S[, seq_len(min(ncol(object), ncol(S))),  drop = FALSE]),
         expected,
-        check.attributes = !is(object, "HDF5Array"))
+        check.attributes = !is(object, "HDF5Array") &&
+          all(dim(object) != c(0, 0)))
     }, object = objects, expected = expecteds)
   })
 })
 
 test_that("DMS has equal output to mS: subsetting and delayed ops", {
-  S <- matrix(c(1, 3))
-  j <- c(3, 1)
+  S <- matrix(c(1, 4))
+  i <- c(2, 1)
   f <- function(x) log(x * 3 + 8)
   expecteds <- lapply(list_of_matrix_base_case,
                       function(x) {
-                        matrixStats::colAvgsPerRowSet(
-                          f(x[, j, drop = FALSE]),
-                          S = S[seq_len(min(nrow(x[, j, drop = FALSE]),
-                                            nrow(S))), ,
-                                drop = FALSE])
+                        matrixStats::rowAvgsPerColSet(
+                          f(x[i, , drop = FALSE]),
+                          S = S[, seq_len(min(ncol(x[i, , drop = FALSE]),
+                                              ncol(S))), drop = FALSE])
                       })
   lapply(list_of_DelayedMatrix_base_case, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     mapply(function(object, expected) {
-      expect_equal(colAvgsPerRowSet(
-        f(object[, j, drop = FALSE]),
-        S = S[seq_len(min(nrow(object[, j, drop = FALSE]), nrow(S))), ,
+      expect_equal(rowAvgsPerColSet(
+        f(object[i, , drop = FALSE]),
+        S = S[, seq_len(min(ncol(object[i, , drop = FALSE]), ncol(S))),
               drop = FALSE]),
         expected,
-        check.attributes = !is(object, "HDF5Array"))
+        check.attributes = !is(object, "HDF5Array") &&
+          all(dim(object) != c(0, 0)))
     }, object = objects, expected = expecteds)
   })
 })
 
 test_that("DMS has equal output to mS: non-NULL cols", {
-  S <- matrix(c(1, 3))
-  cols <- c(3, 1)
+  S <- matrix(c(1, 4))
+  rows <- c(2, 1)
   expecteds <- lapply(list_of_matrix_base_case,
                       function(x) {
-                        matrixStats::colAvgsPerRowSet(
+                        matrixStats::rowAvgsPerColSet(
                           x,
-                          cols = cols,
-                          S = S[seq_len(min(nrow(x), nrow(S))), ,
-                                drop = FALSE])
+                          rows = rows,
+                          S = S[, seq_len(min(ncol(x), ncol(S))), drop = FALSE])
                       })
   lapply(list_of_DelayedMatrix_base_case, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
     mapply(function(object, expected) {
-      expect_equal(colAvgsPerRowSet(object,
-                                    cols = cols,
-                                    S = S[seq_len(min(nrow(object), nrow(S))), ,
-                                      drop = FALSE]),
-                   expected,
-                   check.attributes = !is(object, "HDF5Array"))
+      expect_equal(
+        rowAvgsPerColSet(object,
+                         rows = rows,
+                         S = S[, seq_len(min(ncol(object), ncol(S))),
+                               drop = FALSE]),
+        expected,
+        check.attributes = !is(object, "HDF5Array") &&
+          all(dim(object) != c(0, 0)))
     }, object = objects, expected = expecteds)
   })
 })

@@ -76,15 +76,13 @@ setGeneric("colAnys", signature = "x",
                     dim. = dim(x), ...) standardGeneric("colAnys")
 )
 
-# # TODO: Check with Henrik why `...` appear in different place in signature for
-# #       colAvgsPerRowSet and rowAvgsPerColSet
 # # TODO: Check with Henrik why first arg is `X` and not `x`
 #' @importFrom methods setGeneric
 #' @inherit matrixStats::colAvgsPerRowSet
 #' @export
 setGeneric("colAvgsPerRowSet", signature = "X",
-           function(X, W = NULL, cols = NULL, S, FUN = colMeans, tFUN = FALSE,
-                    ...) standardGeneric("colAvgsPerRowSet")
+           function(X, W = NULL, cols = NULL, S, FUN = colMeans, ...,
+                    tFUN = FALSE) standardGeneric("colAvgsPerRowSet")
 )
 
 # #' @importFrom methods setGeneric
@@ -375,13 +373,13 @@ setGeneric("rowAnys", signature = "x",
 # # TODO: Check with Henrik why `...` appear in different place in signature for
 # #       colAvgsPerRowSet and rowAvgsPerColSet
 # # TODO: Check with Henrik why first arg is `X` and not `x`
-# #' @importFrom methods setGeneric
-# #' @rdname colAvgsPerRowSet
-# #' @export
-# setGeneric("rowAvgsPerRowSet", signature = "X",
-#            function(X, W = NULL, cols = NULL, S, FUN = colMeans, tFUN = FALSE,
-#                     ...) standardGeneric("rowAvgsPerRowSet")
-# )
+#' @importFrom methods setGeneric
+#' @rdname colAvgsPerRowSet
+#' @export
+setGeneric("rowAvgsPerColSet", signature = "X",
+           function(X, W = NULL, rows = NULL, S, FUN = rowMeans, ...,
+                    tFUN = FALSE) standardGeneric("rowAvgsPerColSet")
+)
 
 # #' @importFrom methods setGeneric
 # #' @rdname colCollapse
