@@ -22,7 +22,7 @@ Depends:
 Imports:
   methods,
   BiocGenerics,
-  matrixStats,
+  matrixStats (>= 0.52.2-9000),
   Matrix,
   S4Vectors,
   IRanges
