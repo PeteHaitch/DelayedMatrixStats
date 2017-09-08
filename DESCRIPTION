@@ -35,4 +35,4 @@ Suggests:
 VignetteBuilder: knitr
 URL: https://github.com/PeteHaitch/DelayedMatrixStats
 BugReports: https://github.com/PeteHaitch/DelayedMatrixStats/issues
-Remotes: HenrikBengtsson/matrixStats#109
+Remotes: HenrikBengtsson/matrixStats@develop
