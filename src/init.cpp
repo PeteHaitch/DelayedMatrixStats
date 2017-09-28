@@ -4,7 +4,7 @@
 extern "C" {
 
   static const R_CallMethodDef all_call_entries[] = {
-    REGISTER(colSums2, 2),
+    REGISTER(colSums2, 3),
     {0}
   };
 

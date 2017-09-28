@@ -7,7 +7,7 @@
 #include "beachmat/integer_matrix.h"
 
 extern "C" {
-  SEXP colSums2 (SEXP, SEXP);
+  SEXP colSums2 (SEXP, SEXP, SEXP);
 }
 
 #include "template_methods.h"

@@ -136,8 +136,11 @@ setMethod("colSums2", "HDF5Matrix",
                    ...) {
             warning("colSums2,HDF5Matrix-method not yet properly implemented")
             message2(class(x), get_verbose())
-            x <- ..subset(x, rows, cols)
             # NOTE: Return value of matrixStats::colSums2() has no names
-            .Call(cxx_colSums2, x, na.rm)
+            # TODO: What's the most efficient way to convert R-based indexing
+            #       (1-based) to C-based indexing (0-based). Currently,
+            #       creating an intermediate vector of size length(cols) and,
+            #       furthermore, this won't work for the default cols = NULL
+            .Call(cxx_colSums2, x, cols - 1L, na.rm)
           }
 )
