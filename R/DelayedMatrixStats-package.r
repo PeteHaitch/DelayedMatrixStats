@@ -13,4 +13,6 @@
 #'
 #' @name DelayedMatrixStats
 #' @docType package
+#' @importFrom Rcpp sourceCpp
+#' @useDynLib DelayedMatrixStats, .registration = TRUE, .fixes = "cxx_"
 NULL

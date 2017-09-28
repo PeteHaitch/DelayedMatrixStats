@@ -25,14 +25,19 @@ Imports:
   matrixStats (>= 0.52.2-9000),
   Matrix,
   S4Vectors,
-  IRanges
+  IRanges,
+  Rcpp
 Suggests:
   testthat,
   HDF5Array,
   knitr,
   rmarkdown,
-  covr
+  covr,
+  beachmat
 VignetteBuilder: knitr
 URL: https://github.com/PeteHaitch/DelayedMatrixStats
 BugReports: https://github.com/PeteHaitch/DelayedMatrixStats/issues
 Remotes: HenrikBengtsson/matrixStats@develop
+NeedsCompilation: yes
+SystemRequirements: C++11
+LinkingTo: Rcpp, beachmat, Rhdf5lib

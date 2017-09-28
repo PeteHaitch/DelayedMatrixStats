@@ -127,3 +127,17 @@ setMethod("colSums2", "SolidRleArraySeed",
                    use.names = FALSE)
           }
 )
+
+#' @importFrom methods setMethod
+#' @rdname colSums2
+#' @export
+setMethod("colSums2", "HDF5Matrix",
+          function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
+                   ...) {
+            warning("colSums2,HDF5Matrix-method not yet properly implemented")
+            message2(class(x), get_verbose())
+            x <- ..subset(x, rows, cols)
+            # NOTE: Return value of matrixStats::colSums2() has no names
+            .Call(cxx_colSums2, x, na.rm)
+          }
+)
