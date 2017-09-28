@@ -141,6 +141,9 @@ setMethod("colSums2", "HDF5Matrix",
             #       (1-based) to C-based indexing (0-based). Currently,
             #       creating an intermediate vector of size length(cols) and,
             #       furthermore, this won't work for the default cols = NULL
-            .Call(cxx_colSums2, x, cols - 1L, na.rm)
+            if (!is.null(cols)) {
+              cols <- cols - 1L
+            }
+            .Call(cxx_colSums2, x, cols, na.rm)
           }
 )
