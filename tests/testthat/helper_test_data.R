@@ -178,7 +178,7 @@ list_of_seeds <- lapply(seed_types, function(seed_type) {
          SeedBinder = setNames(
            object = lapply(modes, function(mode) {
              lapply(list_of_matrix[[mode]], function(x) {
-               DelayedArray:::.new_SeedBinder(list(x), along = 1L)
+               DelayedArray:::new_SeedBinder(list(x), along = 1L)
              })
            }),
            nm = modes)
