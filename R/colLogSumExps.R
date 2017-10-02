@@ -44,6 +44,7 @@
 #' @importFrom methods hasMethod is
 #' @rdname colLogSumExps
 #' @template common_params
+#' @template lx
 #' @export
 setMethod("colLogSumExps", "DelayedMatrix",
           function(lx, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(lx),

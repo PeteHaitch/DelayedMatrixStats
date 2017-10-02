@@ -43,6 +43,7 @@
 #' @importFrom methods hasMethod is
 #' @rdname colOrderStats
 #' @template common_params
+#' @template lowercase_x
 #' @export
 setMethod("colOrderStats", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, which, dim. = dim(x),

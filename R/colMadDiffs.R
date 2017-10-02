@@ -46,6 +46,7 @@
 #' @importFrom methods hasMethod is
 #' @rdname colMadDiffs
 #' @template common_params
+#' @template lowercase_x
 #' @export
 setMethod("colMadDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,

@@ -48,6 +48,7 @@
 #' @importFrom methods hasMethod is
 #' @rdname colMads
 #' @template common_params
+#' @template lowercase_x
 #' @export
 setMethod("colMads", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, center = NULL,

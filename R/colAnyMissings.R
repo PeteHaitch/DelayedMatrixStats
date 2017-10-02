@@ -14,6 +14,7 @@
 #' @importFrom methods hasMethod is
 #' @rdname colAnyMissings
 #' @template common_params
+#' @template lowercase_x
 #' @export
 setMethod("colAnyMissings", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, force_block_processing = FALSE,

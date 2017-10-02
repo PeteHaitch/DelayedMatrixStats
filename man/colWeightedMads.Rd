@@ -24,8 +24,7 @@ rowWeightedMads(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
   force_block_processing = FALSE, ...)
 }
 \arguments{
-\item{x}{a \code{\link[base]{numeric}} \code{\link[base]{vector}} containing
-the values whose weighted MAD is to be computed.}
+\item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
 \item{w}{a vector of weights the same length as \code{x} giving the weights
 to use for each element of \code{x}. Negative weights are treated as zero

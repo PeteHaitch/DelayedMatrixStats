@@ -14,6 +14,7 @@
 #' @importFrom methods hasMethod is
 #' @rdname colAnyNAs
 #' @template common_params
+#' @template lowercase_x
 #' @export
 setMethod("colAnyNAs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, force_block_processing = FALSE,

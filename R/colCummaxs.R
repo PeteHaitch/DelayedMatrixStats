@@ -42,6 +42,7 @@
 #' @importFrom methods hasMethod is
 #' @rdname colCummaxs
 #' @template common_params
+#' @template lowercase_x
 #' @export
 setMethod("colCummaxs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, dim. = dim(x),

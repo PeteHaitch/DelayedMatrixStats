@@ -24,8 +24,7 @@ rowQuantiles(x, rows = NULL, cols = NULL, probs = seq(from = 0, to = 1, by
   force_block_processing = FALSE, ..., drop = TRUE)
 }
 \arguments{
-\item{x}{A \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}} with
-N >= 0.}
+\item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
 \item{rows}{A \code{\link[base]{vector}} indicating subset of rows
 (and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting

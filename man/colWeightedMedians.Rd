@@ -22,7 +22,7 @@ rowWeightedMedians(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
   cols = NULL, na.rm = FALSE, force_block_processing = FALSE, ...)
 }
 \arguments{
-\item{x}{A \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}}.}
+\item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
 \item{w}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length
 K (N).}

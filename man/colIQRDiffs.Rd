@@ -23,8 +23,7 @@ rowIQRDiffs(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
   ...)
 }
 \arguments{
-\item{x}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length
-N or a \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}}.}
+\item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
 \item{rows}{A \code{\link[base]{vector}} indicating subset of
 elements (or rows and/or columns) to operate over. If

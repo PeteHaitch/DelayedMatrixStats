@@ -23,8 +23,7 @@ rowCounts(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
   force_block_processing = FALSE, ...)
 }
 \arguments{
-\item{x}{An NxK \code{\link[base]{matrix}} or an N * K
-\code{\link[base]{vector}}.}
+\item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
 \item{rows}{A \code{\link[base]{vector}} indicating subset of
 elements (or rows and/or columns) to operate over. If

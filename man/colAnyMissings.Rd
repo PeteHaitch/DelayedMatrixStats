@@ -20,9 +20,7 @@ rowAnyMissings(x, rows = NULL, cols = NULL, ...)
   force_block_processing = FALSE, ...)
 }
 \arguments{
-\item{x}{A \code{\link[base]{vector}}, a \code{\link[base]{list}}, a
-\code{\link[base]{matrix}}, a \code{\link[base]{data.frame}}, or
-\code{\link[base]{NULL}}.}
+\item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
 \item{rows}{A \code{\link[base]{vector}} indicating subset of
 elements (or rows and/or columns) to operate over. If

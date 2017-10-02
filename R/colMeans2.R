@@ -37,6 +37,7 @@
 #' @importFrom methods hasMethod is
 #' @rdname colMeans2
 #' @template common_params
+#' @template lowercase_x
 #' @export
 setMethod("colMeans2", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),

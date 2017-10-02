@@ -51,6 +51,7 @@
 #' @importFrom methods hasMethod is
 #' @rdname colWeightedMads
 #' @template common_params
+#' @template lowercase_x
 #' @export
 setMethod("colWeightedMads", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,

@@ -39,6 +39,7 @@
 #' @importFrom methods hasMethod is
 #' @rdname colSums2
 #' @template common_params
+#' @template lowercase_x
 #' @export
 setMethod("colSums2", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),

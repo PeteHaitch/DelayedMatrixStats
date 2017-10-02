@@ -31,8 +31,7 @@ rowSums2(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x), ...)
   dim. = dim(x), ...)
 }
 \arguments{
-\item{x}{A \code{\link[base]{numeric}} or a \code{\link[base]{logical}}
-NxK \code{\link[base]{matrix}}.}
+\item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
 \item{rows}{A \code{\link[base]{vector}} indicating subset of rows
 (and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting

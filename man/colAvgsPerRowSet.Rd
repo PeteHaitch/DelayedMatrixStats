@@ -23,7 +23,7 @@ rowAvgsPerColSet(X, W = NULL, rows = NULL, S, FUN = rowMeans, ...,
   FUN = colMeans, ..., force_block_processing = FALSE, tFUN = FALSE)
 }
 \arguments{
-\item{X}{A \code{\link[base]{numeric}} NxM \code{\link[base]{matrix}}.}
+\item{X}{A NxM \linkS4class{DelayedMatrix}.}
 
 \item{W}{An optional \code{\link[base]{numeric}} NxM
 \code{\link[base]{matrix}} of weights.}

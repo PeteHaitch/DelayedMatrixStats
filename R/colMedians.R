@@ -43,6 +43,7 @@
 #' @importFrom methods hasMethod is
 #' @rdname colMedians
 #' @template common_params
+#' @template lowercase_x
 #' @export
 setMethod("colMedians", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),

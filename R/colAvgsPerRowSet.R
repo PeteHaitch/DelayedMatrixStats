@@ -55,6 +55,7 @@
 #' @importFrom methods hasMethod is
 #' @rdname colAvgsPerRowSet
 #' @template common_params
+#' @template uppercase_X
 #' @export
 setMethod("colAvgsPerRowSet", "DelayedMatrix",
           function(X, W = NULL, cols = NULL, S, FUN = colMeans, ...,

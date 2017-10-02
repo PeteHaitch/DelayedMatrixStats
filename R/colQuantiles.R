@@ -58,6 +58,7 @@
 #' @importFrom methods hasMethod is
 #' @rdname colQuantiles
 #' @template common_params
+#' @template lowercase_x
 #' @export
 setMethod("colQuantiles", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,

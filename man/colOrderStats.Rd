@@ -20,7 +20,7 @@ rowOrderStats(x, rows = NULL, cols = NULL, which, dim. = dim(x), ...)
   dim. = dim(x), force_block_processing = FALSE, ...)
 }
 \arguments{
-\item{x}{A \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}}.}
+\item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
 \item{rows}{A \code{\link[base]{vector}} indicating subset of rows
 (and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting

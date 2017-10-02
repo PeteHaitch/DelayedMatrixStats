@@ -23,8 +23,7 @@ rowLogSumExps(lx, rows = NULL, cols = NULL, na.rm = FALSE,
   na.rm = FALSE, dim. = dim(lx), force_block_processing = FALSE, ...)
 }
 \arguments{
-\item{lx}{A \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}}.
-Typically \code{lx} are \eqn{log(x)} values.}
+\item{lx}{A \eqn{N \times M} \linkS4class{DelayedMatrix}.}
 
 \item{rows}{A \code{\link[base]{vector}} indicating subset of rows
 (and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting

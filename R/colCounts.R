@@ -45,6 +45,7 @@
 #' @importFrom methods hasMethod is
 #' @rdname colCounts
 #' @template common_params
+#' @template lowercase_x
 #' @export
 setMethod("colCounts", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
