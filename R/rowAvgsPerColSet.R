@@ -29,17 +29,23 @@
   X <- ..subset(X, rows = rows)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x = X,
-                                       APPLY = matrixStats::rowAvgsPerColSet,
-                                       W = W,
-                                       S = S,
-                                       FUN = FUN,
-                                       ...,
-                                       tFUN = tFUN)
+  # NOTE: Can't use DelayedArray:::colblock_APPLY() because it may process as
+  #       few as 1 column per iteration (and rowAvgsPerColSet() may require
+  #       access to multiple columns)
+  val <- lapply(seq_len(ncol(S)), function(j) {
+    if (!is.null(W)) {
+      W <- W[, j]
+    }
+    matrixStats::rowAvgsPerColSet(as.matrix(X[, S[, j]]),
+                                  W = W,
+                                  S = matrix(seq_len(nrow(S))),
+                                  FUN = FUN,
+                                  tFUN = tFUN)
+  })
   if (length(val) == 0L) {
-    return(numeric(ncol(X)))
+    return(matrix(numeric(ncol(X)), ncol = ncol(X)))
   }
-  # NOTE: Return value of matrixStats::rowAvgsPerColSet() has names
+  # NOTE: Return value of matrixStats::rowAvgsPerColSet() has rownames
   do.call(cbind, val)
 }
 
