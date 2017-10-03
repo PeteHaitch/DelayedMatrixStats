@@ -63,11 +63,11 @@ microbenchmark(DelayedArray::colSums(dense_matrix),
                times = 10)
 #> Unit: milliseconds
 #>                                        expr       min        lq      mean
-#>         DelayedArray::colSums(dense_matrix) 371.90365 378.16266 425.15587
-#>  DelayedMatrixStats::colSums2(dense_matrix)  14.11041  17.18078  20.12705
-#>     median       uq       max neval
-#>  418.49190 462.8008 520.77549    10
-#>   19.82519  22.9351  27.51914    10
+#>         DelayedArray::colSums(dense_matrix) 327.93742 338.98647 357.40873
+#>  DelayedMatrixStats::colSums2(dense_matrix)  13.86998  14.10148  15.67781
+#>     median        uq       max neval
+#>  355.70137 375.22709 386.21763    10
+#>   14.56348  17.39413  18.66634    10
 profmem::total(profmem::profmem(DelayedArray::colSums(dense_matrix)))
 #> [1] 386181032
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(dense_matrix)))
@@ -101,11 +101,11 @@ microbenchmark(DelayedArray::colSums(sparse_matrix),
                times = 10)
 #> Unit: milliseconds
 #>                                         expr       min        lq      mean
-#>         DelayedArray::colSums(sparse_matrix) 583.10169 601.89730 653.28473
-#>  DelayedMatrixStats::colSums2(sparse_matrix)  12.09302  13.96917  15.22128
+#>         DelayedArray::colSums(sparse_matrix) 556.38057 578.64594 609.74193
+#>  DelayedMatrixStats::colSums2(sparse_matrix)  11.95251  12.05811  12.86814
 #>     median        uq       max neval
-#>  626.01234 644.15704 945.97921    10
-#>   14.29211  15.20277  23.58993    10
+#>  590.19795 597.35965 771.65599    10
+#>   12.92408  13.50224  14.06702    10
 profmem::total(profmem::profmem(DelayedArray::colSums(sparse_matrix)))
 #> [1] 442022688
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(sparse_matrix)))
@@ -137,11 +137,11 @@ microbenchmark(DelayedArray::colSums(rle_matrix),
                times = 10)
 #> Unit: milliseconds
 #>                                      expr         min          lq
-#>         DelayedArray::colSums(rle_matrix) 1235.674912 1311.276083
-#>  DelayedMatrixStats::colSums2(rle_matrix)    4.509028    5.674593
-#>        mean      median         uq        max neval
-#>  1364.75078 1335.938416 1372.50850 1592.48242    10
-#>    13.13621    8.197078   11.75057   57.97778    10
+#>         DelayedArray::colSums(rle_matrix) 1198.016600 1286.464946
+#>  DelayedMatrixStats::colSums2(rle_matrix)    4.711003    5.265063
+#>        mean      median          uq        max neval
+#>  1352.95369 1307.698350 1418.840872 1618.44917    10
+#>    13.81162    5.862016    9.164006   70.77689    10
 profmem::total(profmem::profmem(DelayedArray::colSums(rle_matrix)))
 #> [1] 592057872
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(rle_matrix)))
@@ -189,7 +189,7 @@ API coverage
 | `colSdDiffs()`         | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colSds()`             | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colSums2()`           | ✔️               | ✔️                       | ✔️                         | ✔️                                                       | ❌                                                          | ❌                                 | ❌                            | ❌                                |
-| `colTabulates()`       | ❌                | ❌                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
+| `colTabulates()`       | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colVarDiffs()`        | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colVars()`            | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colWeightedMads()`    | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
@@ -226,7 +226,7 @@ API coverage
 | `rowSdDiffs()`         | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowSds()`             | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowSums2()`           | ✔️               | ✔️                       | ✔️                         | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
-| `rowTabulates()`       | ❌                | ❌                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
+| `rowTabulates()`       | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowVarDiffs()`        | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowVars()`            | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowWeightedMads()`    | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |

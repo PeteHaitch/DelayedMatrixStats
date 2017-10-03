@@ -285,13 +285,13 @@ setGeneric("colSums2", signature = "x",
                     ...) standardGeneric("colSums2")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colTabulates
-# #' @export
-# setGeneric("colTabulates", signature = "x",
-#            function(x, rows = NULL, cols = NULL, values = NULL,
-#                     ...) standardGeneric("colTabulates")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colTabulates
+#' @export
+setGeneric("colTabulates", signature = "x",
+           function(x, rows = NULL, cols = NULL, values = NULL,
+                    ...) standardGeneric("colTabulates")
+)
 
 #' @importFrom methods setGeneric
 #' @inherit matrixStats::colVarDiffs
@@ -580,13 +580,13 @@ setGeneric("rowSums2", signature = "x",
                     ...) standardGeneric("rowSums2")
 )
 
-# #' @importFrom methods setGeneric
-# #' @rdname colTabulates
-# #' @export
-# setGeneric("rowTabulates", signature = "x",
-#            function(x, rows = NULL, cols = NULL, values = NULL,
-#                     ...) standardGeneric("rowTabulates")
-# )
+#' @importFrom methods setGeneric
+#' @rdname colTabulates
+#' @export
+setGeneric("rowTabulates", signature = "x",
+           function(x, rows = NULL, cols = NULL, values = NULL,
+                    ...) standardGeneric("rowTabulates")
+)
 
 #' @importFrom methods setGeneric
 #' @rdname colVarDiffs
