@@ -85,13 +85,13 @@ setGeneric("colAvgsPerRowSet", signature = "X",
                     tFUN = FALSE) standardGeneric("colAvgsPerRowSet")
 )
 
-# #' @importFrom methods setGeneric
-# #' @inherit matrixStats::colCollapse
-# #' @export
-# setGeneric("colCollapse", signature = "x",
-#            function(x, idxs, cols = NULL, dim. = dim(x),
-#                     ...) standardGeneric("colCollapse")
-# )
+#' @importFrom methods setGeneric
+#' @inherit matrixStats::colCollapse
+#' @export
+setGeneric("colCollapse", signature = "x",
+           function(x, idxs, cols = NULL, dim. = dim(x),
+                    ...) standardGeneric("colCollapse")
+)
 
 #' @importFrom methods setGeneric
 #' @inherit matrixStats::colCounts
@@ -381,13 +381,13 @@ setGeneric("rowAvgsPerColSet", signature = "X",
                     tFUN = FALSE) standardGeneric("rowAvgsPerColSet")
 )
 
-# #' @importFrom methods setGeneric
-# #' @rdname colCollapse
-# #' @export
-# setGeneric("rowCollapse", signature = "x",
-#            function(x, idxs, cols = NULL, dim. = dim(x),
-#                     ...) standardGeneric("rowCollapse")
-# )
+#' @importFrom methods setGeneric
+#' @rdname colCollapse
+#' @export
+setGeneric("rowCollapse", signature = "x",
+           function(x, idxs, rows = NULL, dim. = dim(x),
+                    ...) standardGeneric("rowCollapse")
+)
 
 #' @importFrom methods setGeneric
 #' @rdname colCounts

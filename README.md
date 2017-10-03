@@ -63,11 +63,11 @@ microbenchmark(DelayedArray::colSums(dense_matrix),
                times = 10)
 #> Unit: milliseconds
 #>                                        expr       min        lq      mean
-#>         DelayedArray::colSums(dense_matrix) 338.31215 353.26057 394.38960
-#>  DelayedMatrixStats::colSums2(dense_matrix)  13.86288  14.11944  15.21455
-#>     median        uq       max neval
-#>  362.70862 402.57477 611.44475    10
-#>   14.90101  15.44216  19.07666    10
+#>         DelayedArray::colSums(dense_matrix) 371.90365 378.16266 425.15587
+#>  DelayedMatrixStats::colSums2(dense_matrix)  14.11041  17.18078  20.12705
+#>     median       uq       max neval
+#>  418.49190 462.8008 520.77549    10
+#>   19.82519  22.9351  27.51914    10
 profmem::total(profmem::profmem(DelayedArray::colSums(dense_matrix)))
 #> [1] 386181032
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(dense_matrix)))
@@ -101,11 +101,11 @@ microbenchmark(DelayedArray::colSums(sparse_matrix),
                times = 10)
 #> Unit: milliseconds
 #>                                         expr       min        lq      mean
-#>         DelayedArray::colSums(sparse_matrix) 597.40722 625.30586 717.07918
-#>  DelayedMatrixStats::colSums2(sparse_matrix)  13.66688  13.97549  15.72942
-#>    median        uq        max neval
-#>  685.4919 770.38244 1030.37101    10
-#>   15.3115  16.49481   19.70193    10
+#>         DelayedArray::colSums(sparse_matrix) 583.10169 601.89730 653.28473
+#>  DelayedMatrixStats::colSums2(sparse_matrix)  12.09302  13.96917  15.22128
+#>     median        uq       max neval
+#>  626.01234 644.15704 945.97921    10
+#>   14.29211  15.20277  23.58993    10
 profmem::total(profmem::profmem(DelayedArray::colSums(sparse_matrix)))
 #> [1] 442022688
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(sparse_matrix)))
@@ -137,11 +137,11 @@ microbenchmark(DelayedArray::colSums(rle_matrix),
                times = 10)
 #> Unit: milliseconds
 #>                                      expr         min          lq
-#>         DelayedArray::colSums(rle_matrix) 1212.550787 1230.136379
-#>  DelayedMatrixStats::colSums2(rle_matrix)    4.971268    5.691022
-#>        mean      median          uq        max neval
-#>  1332.38390 1343.473471 1412.210344 1455.29559    10
-#>    10.53266    5.907373    6.550761   42.29009    10
+#>         DelayedArray::colSums(rle_matrix) 1235.674912 1311.276083
+#>  DelayedMatrixStats::colSums2(rle_matrix)    4.509028    5.674593
+#>        mean      median         uq        max neval
+#>  1364.75078 1335.938416 1372.50850 1592.48242    10
+#>    13.13621    8.197078   11.75057   57.97778    10
 profmem::total(profmem::profmem(DelayedArray::colSums(rle_matrix)))
 #> [1] 592057872
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(rle_matrix)))
@@ -165,7 +165,7 @@ API coverage
 | `colAnyNAs()`          | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colAnys()`            | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colAvgsPerRowSet()`   | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
-| `colCollapse()`        | ❌                | ❌                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
+| `colCollapse()`        | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colCounts()`          | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colCummaxs()`         | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colCummins()`         | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
@@ -177,14 +177,14 @@ API coverage
 | `colLogSumExps()`      | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colMadDiffs()`        | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colMads()`            | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
-| `colMaxs()`            | ❌                | ✔️                       | ✔️                         | ✔️                                                       | ✔️                                                         | ✔️                                | ✔️                           | ✔️                               |
+| `colMaxs()`            | ❌                | ❌                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colMeans2()`          | ✔️               | ✔️                       | ✔️                         | ✔️                                                       | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colMedians()`         | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
-| `colMins()`            | ❌                | ✔️                       | ✔️                         | ✔️                                                       | ✔️                                                         | ✔️                                | ✔️                           | ✔️                               |
+| `colMins()`            | ❌                | ❌                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colOrderStats()`      | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colProds()`           | ✔️               | ✔️                       | ❌                          | ✔️                                                       | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colQuantiles()`       | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
-| `colRanges()`          | ❌                | ✔️                       | ✔️                         | ✔️                                                       | ✔️                                                         | ✔️                                | ✔️                           | ✔️                               |
+| `colRanges()`          | ❌                | ❌                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colRanks()`           | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colSdDiffs()`         | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colSds()`             | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
@@ -202,7 +202,7 @@ API coverage
 | `rowAnyNAs()`          | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowAnys()`            | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowAvgsPerColSet()`   | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
-| `rowCollapse()`        | ❌                | ❌                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
+| `rowCollapse()`        | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowCounts()`          | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowCummaxs()`         | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowCummins()`         | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
@@ -214,14 +214,14 @@ API coverage
 | `rowLogSumExps()`      | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowMadDiffs()`        | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowMads()`            | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
-| `rowMaxs()`            | ❌                | ✔️                       | ✔️                         | ✔️                                                       | ✔️                                                         | ✔️                                | ✔️                           | ✔️                               |
+| `rowMaxs()`            | ❌                | ❌                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowMeans2()`          | ✔️               | ✔️                       | ✔️                         | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowMedians()`         | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
-| `rowMins()`            | ❌                | ✔️                       | ✔️                         | ✔️                                                       | ✔️                                                         | ✔️                                | ✔️                           | ✔️                               |
+| `rowMins()`            | ❌                | ❌                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowOrderStats()`      | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowProds()`           | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowQuantiles()`       | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
-| `rowRanges()`          | ❌                | ✔️                       | ✔️                         | ✔️                                                       | ✔️                                                         | ✔️                                | ✔️                           | ✔️                               |
+| `rowRanges()`          | ❌                | ❌                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowRanks()`           | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowSdDiffs()`         | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowSds()`             | ✔️               | ✔️                       | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
