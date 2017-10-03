@@ -23,7 +23,7 @@
     S <- as.matrix(S)
   }
   stopifnot(!X@is_transposed)
-  DelayedArray:::.get_ans_type(X)
+  DelayedArray:::.get_ans_type(X, must.be.numeric = TRUE)
 
   # Subset
   X <- ..subset(X, rows = rows)

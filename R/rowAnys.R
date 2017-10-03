@@ -16,7 +16,7 @@
   stopifnot(is(x, "DelayedMatrix"))
   stopifnot(!x@is_transposed)
   # TODO: Answer is always logical, so this might not be appropriate
-  DelayedArray:::.get_ans_type(x)
+  DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
 
   # Subset
   x <- ..subset(x, rows, cols)
