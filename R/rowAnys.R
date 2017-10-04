@@ -42,7 +42,7 @@
 #
 
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colAnys
+#' @rdname colAlls
 #' @export
 setMethod("rowAnys", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,

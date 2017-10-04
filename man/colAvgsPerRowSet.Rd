@@ -76,3 +76,14 @@ If argument \code{S} is a single column vector with indices \code{1:N}, then
 \code{rowAvgsPerColSet(X, S = S, FUN = rowMeans)} gives the same result as
 \code{rowMeans(X)}.  Analogously, for \code{rowAvgsPerColSet()}.
 }
+\examples{
+# A DelayedMatrix with a 'Matrix' seed
+dm_Matrix <- DelayedArray(Matrix::Matrix(c(rep(1, 5), 1:5), ncol = 2))
+class(seed(dm_Matrix))
+# A DelayedMatrix with a 'DataFrame' seed
+dm_DF <- DelayedArray(S4Vectors::DataFrame(C1 = rep(1, 5), C2 = 1:5))
+class(seed(dm_DF))
+
+colAvgsPerRowSet(dm_Matrix, S = matrix(1:4, ncol = 2))
+rowAvgsPerColSet(dm_DF, S = matrix(1:2, ncol = 1))
+}

@@ -15,6 +15,14 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_matrix
+#' @template example_dm_HDF5
+#' @examples
+#'
+#' dm_matrix[dm_matrix > 3] <- NA
+#' colAnyNAs(dm_matrix)
+#' dm_HDF5[dm_HDF5 > 3] <- NA
+#' rowAnyNAs(dm_HDF5)
 setMethod("colAnyNAs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, force_block_processing = FALSE,
                    ...) {

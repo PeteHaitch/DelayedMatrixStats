@@ -55,6 +55,12 @@
 #' @template common_params
 #' @template uppercase_X
 #' @export
+#' @template example_dm_MatrixMatrix
+#' @template example_dm_S4VectorsDF
+#' @examples
+#'
+#' colAvgsPerRowSet(dm_Matrix, S = matrix(1:4, ncol = 2))
+#' rowAvgsPerColSet(dm_DF, S = matrix(1:2, ncol = 1))
 setMethod("colAvgsPerRowSet", "DelayedMatrix",
           function(X, W = NULL, cols = NULL, S, FUN = colMeans, ...,
                    force_block_processing = FALSE, tFUN = FALSE) {

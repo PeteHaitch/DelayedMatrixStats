@@ -11,7 +11,7 @@
 #
 
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colAnyMissings
+#' @rdname colAnyNAs
 #' @export
 setMethod("rowAnyMissings", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, force_block_processing = FALSE,

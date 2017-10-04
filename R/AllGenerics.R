@@ -52,6 +52,7 @@ setGeneric("colAlls", signature = "x",
 )
 
 #' @inherit matrixStats::colAnyMissings
+#' @rdname colAnyNAs
 #' @export
 setGeneric("colAnyMissings", signature = "x",
            function(x, rows = NULL, cols = NULL,
@@ -66,6 +67,7 @@ setGeneric("colAnyNAs", signature = "x",
 )
 
 #' @inherit matrixStats::colAnys
+#' @rdname colAlls
 #' @export
 setGeneric("colAnys", signature = "x",
            function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
@@ -311,7 +313,7 @@ setGeneric("rowAlls", signature = "x",
                     dim. = dim(x), ...) standardGeneric("rowAlls")
 )
 
-#' @rdname colAnyMissings
+#' @rdname colAnyNAs
 #' @export
 setGeneric("rowAnyMissings", signature = "x",
            function(x, rows = NULL, cols = NULL,
@@ -325,7 +327,7 @@ setGeneric("rowAnyNAs", signature = "x",
                     ...) standardGeneric("rowAnyNAs")
 )
 
-#' @rdname colAnys
+#' @rdname colAlls
 #' @export
 setGeneric("rowAnys", signature = "x",
            function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,

@@ -42,10 +42,12 @@
 #
 
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colAnys
-#' @template common_params
-#' @template lowercase_x
+#' @rdname colAlls
 #' @export
+#' @examples
+#'
+#' colAnys(dm_matrix, value = 2)
+#' rowAnys(dm_Rle, value = 2)
 setMethod("colAnys", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
                    dim. = dim(x), force_block_processing = FALSE, ...) {
