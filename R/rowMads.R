@@ -46,6 +46,9 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colMads
 #' @export
+#' @examples
+#'
+#' rowMads(dm_DF)
 setMethod("rowMads", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, center = NULL,
                    constant = 1.4826, na.rm = FALSE, dim. = dim(x),

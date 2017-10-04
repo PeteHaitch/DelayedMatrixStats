@@ -72,6 +72,17 @@ if argument \code{na.rm} is \code{\link[base:logical]{TRUE}}, otherwise not.
 
 }
 
+\examples{
+# A DelayedMatrix with a 'matrix' seed
+dm_matrix <- DelayedArray(matrix(c(rep(1L, 5),
+                                   as.integer((0:4) ^ 2),
+                                   seq(-5L, -1L, 1L)),
+                                 ncol = 3))
+
+colWeightedMads(dm_matrix, w = 1:5)
+
+rowWeightedMads(dm_matrix, w = 3:1)
+}
 \seealso{
 For the non-weighted MAD, see \code{\link[stats]{mad}}.  Internally
 \code{\link{weightedMedian}}() is used to calculate the weighted median.

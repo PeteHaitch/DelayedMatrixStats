@@ -43,6 +43,9 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colVars
 #' @export
+#' @examples
+#'
+#' rowVars(dm_matrix)
 setMethod("rowVars", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, center = NULL,
                    dim. = dim(x), force_block_processing = FALSE, ...) {

@@ -50,7 +50,6 @@
 #' @examples
 #'
 #' colAlls(dm_matrix, value = 1)
-#' rowAlls(dm_Rle, value = 1)
 setMethod("colAlls", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
                    dim. = dim(x), force_block_processing = FALSE, ...) {

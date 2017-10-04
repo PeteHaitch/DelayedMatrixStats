@@ -67,6 +67,19 @@ argument would be available).
 
 }
 
+\examples{
+# A DelayedMatrix with a 'Matrix' seed
+dm_Matrix <- DelayedArray(Matrix::Matrix(c(rep(1L, 5),
+                                           as.integer((0:4) ^ 2),
+                                           seq(-5L, -1L, 1L)),
+                                         ncol = 3))
+# Only using columns 2-3
+colOrderStats(dm_Matrix, cols = 2:3, which = 1)
+
+# Different algorithms, specified by `which`, may give different results
+rowOrderStats(dm_Matrix, which = 1)
+rowOrderStats(dm_Matrix, which = 2)
+}
 \seealso{
 See \code{rowMeans()} in \code{\link[base]{colSums}}().
 }

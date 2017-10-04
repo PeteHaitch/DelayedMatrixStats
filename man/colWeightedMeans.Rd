@@ -59,6 +59,18 @@ The implementations of these methods are optimized for both speed and
 memory.  If no weights are given, the corresponding
 \code{rowMeans()}/\code{colMeans()} is used.
 }
+\examples{
+# A DelayedMatrix with a 'Matrix' seed
+dm_Matrix <- DelayedArray(Matrix::Matrix(c(rep(1L, 5),
+                                           as.integer((0:4) ^ 2),
+                                           seq(-5L, -1L, 1L)),
+                                         ncol = 3))
+
+colWeightedMeans(dm_Matrix)
+# Specifying weights inversely proportional to rowwise variances
+colWeightedMeans(dm_Matrix, w = 1 / rowVars(dm_Matrix))
+rowWeightedMeans(dm_Matrix, w = 1:3)
+}
 \seealso{
 See \code{rowMeans()} and \code{colMeans()} in
 \code{\link[base]{colSums}}() for non-weighted means.  See also

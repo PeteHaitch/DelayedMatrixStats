@@ -59,6 +59,8 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colAvgsPerRowSet
 #' @export
+#' @examples
+#' rowAvgsPerColSet(dm_DF, S = matrix(1:2, ncol = 1))
 setMethod("rowAvgsPerColSet", "DelayedMatrix",
           function(X, W = NULL, rows = NULL, S, FUN = colMeans, ...,
                    force_block_processing = FALSE, tFUN = FALSE) {

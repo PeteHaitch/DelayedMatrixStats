@@ -38,10 +38,11 @@
 #
 
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colCummins
-#' @template common_params
-#' @template lowercase_x
+#' @rdname colCummaxs
 #' @export
+#' @examples
+#'
+#' colCummins(dm_matrix)
 setMethod("colCummins", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

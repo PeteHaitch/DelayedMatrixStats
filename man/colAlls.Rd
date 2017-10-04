@@ -106,16 +106,19 @@ and all missing values as \code{NA}.
 
 \examples{
 # A DelayedMatrix with a 'matrix' seed
-dm_matrix <- DelayedArray(matrix(c(rep(1, 5), 1:5), ncol = 2))
-class(seed(dm_matrix))
+dm_matrix <- DelayedArray(matrix(c(rep(1L, 5),
+                                   as.integer((0:4) ^ 2),
+                                   seq(-5L, -1L, 1L)),
+                                 ncol = 3))
 # A DelayedMatrix with a 'SolidRleArraySeed' seed
-dm_Rle <- RleArray(Rle(c(rep(1, 5), 0:4)), dim = c(5, 2))
-class(seed(dm_Rle))
+dm_Rle <- RleArray(Rle(c(rep(1L, 5),
+                         as.integer((0:4) ^ 2),
+                         seq(-5L, -1L, 1L))),
+                   dim = c(5, 3))
 
 colAlls(dm_matrix, value = 1)
-rowAlls(dm_Rle, value = 1)
-
 colAnys(dm_matrix, value = 2)
+rowAlls(dm_Rle, value = 1)
 rowAnys(dm_Rle, value = 2)
 }
 \seealso{

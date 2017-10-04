@@ -38,8 +38,12 @@
 #
 
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colCumsums
+#' @rdname colCummaxs
 #' @export
+#' @examples
+#'
+#' # Only use rows 2-4
+#' rowCumsums(dm_Matrix, rows = 2:4)
 setMethod("rowCumsums", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

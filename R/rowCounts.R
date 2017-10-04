@@ -43,6 +43,11 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colCounts
 #' @export
+#' @examples
+#'
+#' rowCounts(dm_DF, value = 5)
+#' # Only count those in the odd-numbered rows of the 2nd column
+#' rowCounts(dm_DF, rows = seq(1, nrow(dm_DF), 2), cols = 2, value = 5)
 setMethod("rowCounts", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
                    dim. = dim(x), force_block_processing = FALSE, ...) {

@@ -42,8 +42,12 @@
 #
 
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colVarDiffs
+#' @rdname colIQRDiffs
 #' @export
+#' @examples
+#'
+#' # Only using rows 2-4
+#' rowVarDiffs(dm_Rle, rows = 2:4)
 setMethod("rowVarDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
                    trim = 0, force_block_processing = FALSE, ...) {

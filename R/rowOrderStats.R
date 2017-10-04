@@ -41,6 +41,11 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colOrderStats
 #' @export
+#' @examples
+#'
+#' # Different algorithms, specified by `which`, may give different results
+#' rowOrderStats(dm_Matrix, which = 1)
+#' rowOrderStats(dm_Matrix, which = 2)
 setMethod("rowOrderStats", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, which, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

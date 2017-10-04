@@ -46,6 +46,11 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_MatrixMatrix
+#' @template example_dm_Rle
+#' @examples
+#'
+#' colIQRDiffs(dm_Matrix)
 setMethod("colIQRDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
                    trim = 0, force_block_processing = FALSE, ...) {

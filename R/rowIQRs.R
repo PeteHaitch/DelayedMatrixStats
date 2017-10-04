@@ -41,6 +41,10 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colIQRs
 #' @export
+#' @examples
+#'
+#' # Only using rows 2-4
+#' rowIQRs(dm_matrix, rows = 2:4)
 setMethod("rowIQRs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {

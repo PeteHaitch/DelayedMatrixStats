@@ -38,10 +38,11 @@
 #
 
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colCumsums
-#' @template common_params
-#' @template lowercase_x
+#' @rdname colCummaxs
 #' @export
+#' @examples
+#'
+#' colCumsums(dm_matrix)
 setMethod("colCumsums", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

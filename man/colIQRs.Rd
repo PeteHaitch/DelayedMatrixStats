@@ -58,6 +58,23 @@ and its corresponding row and column-specific functions return
 
 }
 
+\examples{
+# A DelayedMatrix with a 'matrix' seed
+dm_matrix <- DelayedArray(matrix(c(rep(1L, 5),
+                                   as.integer((0:4) ^ 2),
+                                   seq(-5L, -1L, 1L)),
+                                 ncol = 3))
+# A DelayedMatrix with a 'Matrix' seed
+dm_Matrix <- DelayedArray(Matrix::Matrix(c(rep(1L, 5),
+                                           as.integer((0:4) ^ 2),
+                                           seq(-5L, -1L, 1L)),
+                                         ncol = 3))
+
+colIQRs(dm_matrix)
+
+# Only using rows 2-4
+rowIQRs(dm_matrix, rows = 2:4)
+}
 \seealso{
 See \code{\link[stats]{IQR}}.  See \code{\link{rowSds}}().
 }

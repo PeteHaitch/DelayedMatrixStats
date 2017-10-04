@@ -38,10 +38,11 @@
 #
 
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colCumprods
-#' @template common_params
-#' @template lowercase_x
+#' @rdname colCummaxs
 #' @export
+#' @examples
+#'
+#' colCumprods(dm_matrix)
 setMethod("colCumprods", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

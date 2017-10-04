@@ -45,6 +45,7 @@ setGeneric("subset_simple_seed_as_seed_class", signature = "seed",
 #
 
 #' @inherit matrixStats::colAlls
+#' @rdname colAlls
 #' @export
 setGeneric("colAlls", signature = "x",
            function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
@@ -60,6 +61,7 @@ setGeneric("colAnyMissings", signature = "x",
 )
 
 #' @inherit matrixStats::colAnyNAs
+#' @rdname colAnyNAs
 #' @export
 setGeneric("colAnyNAs", signature = "x",
            function(x, rows = NULL, cols = NULL,
@@ -76,6 +78,7 @@ setGeneric("colAnys", signature = "x",
 
 # # TODO: Check with Henrik why first arg is `X` and not `x`
 #' @inherit matrixStats::colAvgsPerRowSet
+#' @rdname colAvgsPerRowSet
 #' @export
 setGeneric("colAvgsPerRowSet", signature = "X",
            function(X, W = NULL, cols = NULL, S, FUN = colMeans, ...,
@@ -83,6 +86,7 @@ setGeneric("colAvgsPerRowSet", signature = "X",
 )
 
 #' @inherit matrixStats::colCollapse
+#' @rdname colCollapse
 #' @export
 setGeneric("colCollapse", signature = "x",
            function(x, idxs, cols = NULL, dim. = dim(x),
@@ -90,6 +94,7 @@ setGeneric("colCollapse", signature = "x",
 )
 
 #' @inherit matrixStats::colCounts
+#' @rdname colCounts
 #' @export
 setGeneric("colCounts", signature = "x",
            function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
@@ -98,6 +103,7 @@ setGeneric("colCounts", signature = "x",
 
 # TODO: Ask Henrik why na.rm isn't an argument?
 #' @inherit matrixStats::colCummaxs
+#' @rdname colCummaxs
 #' @export
 setGeneric("colCummaxs", signature = "x",
            function(x, rows = NULL, cols = NULL, dim. = dim(x),
@@ -106,6 +112,7 @@ setGeneric("colCummaxs", signature = "x",
 
 # TODO: Ask Henrik why na.rm isn't an argument?
 #' @inherit matrixStats::colCummins
+#' @rdname colCummaxs
 #' @export
 setGeneric("colCummins", signature = "x",
            function(x, rows = NULL, cols = NULL, dim. = dim(x),
@@ -113,6 +120,7 @@ setGeneric("colCummins", signature = "x",
 )
 
 #' @inherit matrixStats::colCumprods
+#' @rdname colCummaxs
 #' @export
 setGeneric("colCumprods", signature = "x",
            function(x, rows = NULL, cols = NULL, dim. = dim(x),
@@ -120,6 +128,7 @@ setGeneric("colCumprods", signature = "x",
 )
 
 #' @inherit matrixStats::colCumsums
+#' @rdname colCummaxs
 #' @export
 setGeneric("colCumsums", signature = "x",
            function(x, rows = NULL, cols = NULL, dim. = dim(x),
@@ -127,6 +136,7 @@ setGeneric("colCumsums", signature = "x",
 )
 
 #' @inherit matrixStats::colDiffs
+#' @rdname colDiffs
 #' @export
 setGeneric("colDiffs", signature = "x",
            function(x, rows = NULL, cols = NULL, lag = 1L, differences = 1L,
@@ -135,6 +145,7 @@ setGeneric("colDiffs", signature = "x",
 
 # TODO: Ask Henrik why this function keep colnames whereas most don't
 #' @inherit matrixStats::colIQRDiffs
+#' @rdname colIQRDiffs
 #' @export
 setGeneric("colIQRDiffs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
@@ -142,6 +153,7 @@ setGeneric("colIQRDiffs", signature = "x",
 )
 
 #' @inherit matrixStats::colIQRs
+#' @rdname colIQRs
 #' @export
 setGeneric("colIQRs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE,
@@ -149,6 +161,7 @@ setGeneric("colIQRs", signature = "x",
 )
 
 #' @inherit matrixStats::colLogSumExps
+#' @rdname colLogSumExps
 #' @export
 setGeneric("colLogSumExps", signature = "lx",
            function(lx, rows = NULL, cols = NULL, na.rm = FALSE,
@@ -157,6 +170,7 @@ setGeneric("colLogSumExps", signature = "lx",
 
 # TODO: Ask Henrik why this function keep colnames whereas most don't
 #' @inherit matrixStats::colMadDiffs
+#' @rdname colIQRDiffs
 #' @export
 setGeneric("colMadDiffs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE,
@@ -164,6 +178,7 @@ setGeneric("colMadDiffs", signature = "x",
 )
 
 #' @inherit matrixStats::colMads
+#' @rdname colMads
 #' @export
 setGeneric("colMads", signature = "x",
            function(x, rows = NULL, cols = NULL, center = NULL,
@@ -179,6 +194,7 @@ setGeneric("colMads", signature = "x",
 # #' @importMethodsFrom DelayedArray colMaxs
 
 #' @inherit matrixStats::colMeans2
+#' @rdname colMeans2
 #' @export
 setGeneric("colMeans2", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
@@ -186,6 +202,7 @@ setGeneric("colMeans2", signature = "x",
 )
 
 #' @inherit matrixStats::colMedians
+#' @rdname colMedians
 #' @export
 setGeneric("colMedians", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
@@ -200,6 +217,7 @@ setGeneric("colMedians", signature = "x",
 
 # TODO: Ask Henrik why na.rm isn't an argument (this is noted in docs)
 #' @inherit matrixStats::colOrderStats
+#' @rdname colOrderStats
 #' @export
 setGeneric("colOrderStats", signature = "x",
            function(x, rows = NULL, cols = NULL, which, dim. = dim(x),
@@ -207,6 +225,7 @@ setGeneric("colOrderStats", signature = "x",
 )
 
 #' @inherit matrixStats::colProds
+#' @rdname colProds
 #' @export
 setGeneric("colProds", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE,
@@ -218,6 +237,7 @@ setGeneric("colProds", signature = "x",
 #       circumstances but not others (e.g., 1-column matrix has not dimnames,
 #       if matrix has NA/NaN)
 #' @inherit matrixStats::colQuantiles
+#' @rdname colQuantiles
 #' @export
 setGeneric("colQuantiles", signature = "x",
            function(x, rows = NULL, cols = NULL,
@@ -232,6 +252,7 @@ setGeneric("colQuantiles", signature = "x",
 # #' @importMethodsFrom DelayedArray colRanges
 
 #' @inherit matrixStats::colRanks
+#' @rdname colRanks
 #' @export
 setGeneric("colRanks", signature = "x",
            function(x, rows = NULL, cols = NULL,
@@ -240,6 +261,7 @@ setGeneric("colRanks", signature = "x",
 )
 
 #' @inherit matrixStats::colSdDiffs
+#' @rdname colIQRDiffs
 #' @export
 setGeneric("colSdDiffs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
@@ -247,12 +269,14 @@ setGeneric("colSdDiffs", signature = "x",
 )
 
 #' @inherit matrixStats::colSds
+#' @rdname colMads
 #' @export
 setGeneric("colSds", signature = "x",
            function(x, rows = NULL, cols = NULL, ...) standardGeneric("colSds")
 )
 
 #' @inherit matrixStats::colSums2
+#' @rdname colSums2
 #' @export
 setGeneric("colSums2", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
@@ -260,6 +284,7 @@ setGeneric("colSums2", signature = "x",
 )
 
 #' @inherit matrixStats::colTabulates
+#' @rdname colTabulates
 #' @export
 setGeneric("colTabulates", signature = "x",
            function(x, rows = NULL, cols = NULL, values = NULL,
@@ -267,6 +292,7 @@ setGeneric("colTabulates", signature = "x",
 )
 
 #' @inherit matrixStats::colVarDiffs
+#' @rdname colIQRDiffs
 #' @export
 setGeneric("colVarDiffs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
@@ -274,6 +300,7 @@ setGeneric("colVarDiffs", signature = "x",
 )
 
 #' @inherit matrixStats::colVars
+#' @rdname colVars
 #' @export
 setGeneric("colVars", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, center = NULL,
@@ -281,6 +308,7 @@ setGeneric("colVars", signature = "x",
 )
 
 #' @inherit matrixStats::colWeightedMads
+#' @rdname colWeightedMads
 #' @export
 setGeneric("colWeightedMads", signature = "x",
            function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
@@ -289,6 +317,7 @@ setGeneric("colWeightedMads", signature = "x",
 )
 
 #' @inherit matrixStats::colWeightedMeans
+#' @rdname colWeightedMeans
 #' @export
 setGeneric("colWeightedMeans", signature = "x",
            function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
@@ -296,6 +325,7 @@ setGeneric("colWeightedMeans", signature = "x",
 )
 
 #' @inherit matrixStats::colWeightedMedians
+#' @rdname colWeightedMedians
 #' @export
 setGeneric("colWeightedMedians", signature = "x",
            function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
@@ -367,21 +397,21 @@ setGeneric("rowCummaxs", signature = "x",
 )
 
 # TODO: Ask Henrik why na.rm isn't an argument?
-#' @rdname colCummins
+#' @rdname colCummaxs
 #' @export
 setGeneric("rowCummins", signature = "x",
            function(x, rows = NULL, cols = NULL, dim. = dim(x),
                     ...) standardGeneric("rowCummins")
 )
 
-#' @rdname colCumprods
+#' @rdname colCummaxs
 #' @export
 setGeneric("rowCumprods", signature = "x",
            function(x, rows = NULL, cols = NULL, dim. = dim(x),
                     ...) standardGeneric("rowCumprods")
 )
 
-#' @rdname colCumsums
+#' @rdname colCummaxs
 #' @export
 setGeneric("rowCumsums", signature = "x",
            function(x, rows = NULL, cols = NULL, dim. = dim(x),
@@ -410,6 +440,8 @@ setGeneric("rowIQRs", signature = "x",
                     ...) standardGeneric("rowIQRs")
 )
 
+# TODO: Ask Henrik why matrixStats::colLogSumExps() and
+#       matrixStats::rowLogSumExps() don't work with integer input
 #' @rdname colLogSumExps
 #' @export
 setGeneric("rowLogSumExps", signature = "lx",
@@ -418,7 +450,7 @@ setGeneric("rowLogSumExps", signature = "lx",
 )
 
 # TODO: Ask Henrik why this function keep colnames whereas most don't
-#' @rdname colMadDiffs
+#' @rdname colIQRDiffs
 #' @export
 setGeneric("rowMadDiffs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE,
@@ -502,14 +534,14 @@ setGeneric("rowRanks", signature = "x",
                     ...) standardGeneric("rowRanks")
 )
 
-#' @rdname colSdDiffs
+#' @rdname colIQRDiffs
 #' @export
 setGeneric("rowSdDiffs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
                     trim = 0, ...) standardGeneric("rowSdDiffs")
 )
 
-#' @rdname colSds
+#' @rdname colMads
 #' @export
 setGeneric("rowSds", signature = "x",
            function(x, rows = NULL, cols = NULL, ...) standardGeneric("rowSds")
@@ -529,7 +561,7 @@ setGeneric("rowTabulates", signature = "x",
                     ...) standardGeneric("rowTabulates")
 )
 
-#' @rdname colVarDiffs
+#' @rdname colIQRDiffs
 #' @export
 setGeneric("rowVarDiffs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,

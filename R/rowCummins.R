@@ -38,8 +38,12 @@
 #
 
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colCummins
+#' @rdname colCummaxs
 #' @export
+#' @examples
+#'
+#' # Only use rows 2-4
+#' rowCummins(dm_Matrix, rows = 2:4)
 setMethod("rowCummins", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

@@ -44,6 +44,11 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colDiffs
 #' @export
+#' @examples
+#'
+#' rowDiffs(dm_HDF5)
+#' # In reverse column order
+#' rowDiffs(dm_HDF5, cols = seq(ncol(dm_HDF5), 1, -1))
 setMethod("rowDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, lag = 1L, differences = 1L,
                    dim. = dim(x), force_block_processing = FALSE, ...) {

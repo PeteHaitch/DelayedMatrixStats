@@ -49,6 +49,9 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedMads
 #' @export
+#' @examples
+#'
+#' rowWeightedMads(dm_matrix, w = 3:1)
 setMethod("rowWeightedMads", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    constant = 1.4826, center = NULL,

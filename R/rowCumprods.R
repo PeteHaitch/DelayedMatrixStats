@@ -38,8 +38,12 @@
 #
 
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colCumprods
+#' @rdname colCummaxs
 #' @export
+#' @examples
+#'
+#' # Only use rows 2-4
+#' rowCumprods(dm_Matrix, rows = 2:4)
 setMethod("rowCumprods", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

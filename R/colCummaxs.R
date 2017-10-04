@@ -42,6 +42,11 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_matrix
+#' @template example_dm_MatrixMatrix
+#' @examples
+#'
+#' colCummaxs(dm_matrix)
 setMethod("colCummaxs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

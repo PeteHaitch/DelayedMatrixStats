@@ -54,6 +54,10 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_S4VectorsDF
+#' @examples
+#'
+#' colTabulates(dm_DF)
 setMethod("colTabulates", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, values = NULL,
                    force_block_processing = FALSE, ...) {

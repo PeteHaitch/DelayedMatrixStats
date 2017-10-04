@@ -43,6 +43,12 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_matrix
+#' @template example_dm_MatrixMatrix
+#'
+#' @examples
+#'
+#' colIQRs(dm_matrix)
 setMethod("colIQRs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {

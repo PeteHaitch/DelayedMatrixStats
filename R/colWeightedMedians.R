@@ -48,6 +48,11 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_Rle
+#' @examples
+#'
+#' # Specifying weights inversely proportional to rowwise MADs
+#' colWeightedMedians(dm_Rle, w = 1 / rowMads(dm_Rle))
 setMethod("colWeightedMedians", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {

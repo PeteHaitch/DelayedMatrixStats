@@ -46,6 +46,8 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedMeans
 #' @export
+#' @examples
+#' rowWeightedMeans(dm_Matrix, w = 1:3)
 setMethod("rowWeightedMeans", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {

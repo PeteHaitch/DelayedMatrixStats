@@ -43,6 +43,10 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_MatrixMatrix
+#' @examples
+#'
+#' colMedians(dm_Matrix)
 setMethod("colMedians", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

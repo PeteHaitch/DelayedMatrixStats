@@ -48,6 +48,12 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_MatrixMatrix
+#' @examples
+#'
+#' colWeightedMeans(dm_Matrix)
+#' # Specifying weights inversely proportional to rowwise variances
+#' colWeightedMeans(dm_Matrix, w = 1 / rowVars(dm_Matrix))
 setMethod("colWeightedMeans", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {

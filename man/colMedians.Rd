@@ -64,6 +64,17 @@ then \code{rowMedians(as.double(x))} (\code{rowMedians(as.double(x))}) would
 require three times the memory of \code{rowMedians(x)}
 (\code{colMedians(x)}), but all this is avoided.
 }
+\examples{
+# A DelayedMatrix with a 'Matrix' seed
+dm_Matrix <- DelayedArray(Matrix::Matrix(c(rep(1L, 5),
+                                           as.integer((0:4) ^ 2),
+                                           seq(-5L, -1L, 1L)),
+                                         ncol = 3))
+
+colMedians(dm_Matrix)
+
+rowMedians(dm_Matrix)
+}
 \seealso{
 See \code{\link{rowMedians}}() and \code{colMedians()} for weighted
 medians.  For mean estimates, see \code{rowMeans()} in

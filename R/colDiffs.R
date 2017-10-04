@@ -46,6 +46,11 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_matrix
+#' @template example_dm_HDF5
+#' @examples
+#'
+#' colDiffs(dm_matrix)
 setMethod("colDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, lag = 1L, differences = 1L,
                    dim. = dim(x), force_block_processing = FALSE, ...) {

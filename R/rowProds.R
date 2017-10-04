@@ -45,6 +45,9 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colProds
 #' @export
+#' @examples
+#'
+#' rowProds(dm_matrix)
 setMethod("rowProds", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
                    method = c("direct", "expSumLog"),

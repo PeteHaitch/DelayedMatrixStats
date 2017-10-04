@@ -56,6 +56,26 @@ Returns a \code{\link[base]{numeric}} Nx(K-1) or (N-1)xK
 \description{
 Calculates difference for each row (column) in a matrix.
 }
+\examples{
+# A DelayedMatrix with a 'matrix' seed
+dm_matrix <- DelayedArray(matrix(c(rep(1L, 5),
+                                   as.integer((0:4) ^ 2),
+                                   seq(-5L, -1L, 1L)),
+                                 ncol = 3))
+# A DelayedMatrix with a 'HDF5ArraySeed' seed
+# NOTE: Requires that the HDF5Array package is installed
+library(HDF5Array)
+dm_HDF5 <- writeHDF5Array(matrix(c(rep(1L, 5),
+                                   as.integer((0:4) ^ 2),
+                                   seq(-5L, -1L, 1L)),
+                                 ncol = 3))
+
+colDiffs(dm_matrix)
+
+rowDiffs(dm_HDF5)
+# In reverse column order
+rowDiffs(dm_HDF5, cols = seq(ncol(dm_HDF5), 1, -1))
+}
 \seealso{
 See also \code{\link{diff2}}().
 }

@@ -43,6 +43,9 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colRanks
 #' @export
+#' @examples
+#'
+#' rowRanks(dm_Matrix)
 setMethod("rowRanks", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
                    ties.method = c("max", "average", "min"), dim. = dim(x),

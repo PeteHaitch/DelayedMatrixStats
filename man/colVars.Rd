@@ -59,6 +59,24 @@ length N (K).
 \description{
 Variance estimates for each row (column) in a matrix.
 }
+\examples{
+# A DelayedMatrix with a 'matrix' seed
+dm_matrix <- DelayedArray(matrix(c(rep(1L, 5),
+                                   as.integer((0:4) ^ 2),
+                                   seq(-5L, -1L, 1L)),
+                                 ncol = 3))
+# A DelayedMatrix with a 'HDF5ArraySeed' seed
+# NOTE: Requires that the HDF5Array package is installed
+library(HDF5Array)
+dm_HDF5 <- writeHDF5Array(matrix(c(rep(1L, 5),
+                                   as.integer((0:4) ^ 2),
+                                   seq(-5L, -1L, 1L)),
+                                 ncol = 3))
+
+colVars(dm_matrix)
+
+rowVars(dm_matrix)
+}
 \seealso{
 See \code{rowMeans()} and \code{rowSums()} in
 \code{\link[base]{colSums}}().

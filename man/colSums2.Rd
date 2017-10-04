@@ -68,3 +68,27 @@ Calculates the sum for each row (column) in a matrix.
 The implementation of \code{rowSums2()} and \code{colSums2()} is
 optimized for both speed and memory.
 }
+\examples{
+# A DelayedMatrix with a 'matrix' seed
+dm_matrix <- DelayedArray(matrix(c(rep(1L, 5),
+                                   as.integer((0:4) ^ 2),
+                                   seq(-5L, -1L, 1L)),
+                                 ncol = 3))
+# A DelayedMatrix with a 'Matrix' seed
+dm_Matrix <- DelayedArray(Matrix::Matrix(c(rep(1L, 5),
+                                           as.integer((0:4) ^ 2),
+                                           seq(-5L, -1L, 1L)),
+                                         ncol = 3))
+
+colSums2(dm_matrix)
+
+# NOTE: Temporarily use verbose output to demonstrate which method is
+#       which method is being used
+options(DelayedMatrixStats.verbose = TRUE)
+# By default, this uses a seed-aware method for a DelayedMatrix with a
+# 'SolidRleArraySeed' seed
+rowSums2(dm_Matrix)
+# Alternatively, can use the block-processing strategy
+rowSums2(dm_Matrix, force_block_processing = TRUE)
+options(DelayedMatrixStats.verbose = FALSE)
+}

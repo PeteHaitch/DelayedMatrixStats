@@ -41,6 +41,9 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colMedians
 #' @export
+#' @examples
+#'
+#' rowMedians(dm_Matrix)
 setMethod("rowMedians", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

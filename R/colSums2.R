@@ -43,6 +43,11 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_matrix
+#' @template example_dm_MatrixMatrix
+#' @examples
+#'
+#' colSums2(dm_matrix)
 setMethod("colSums2", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

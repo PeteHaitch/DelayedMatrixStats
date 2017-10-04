@@ -102,6 +102,11 @@ setMethod("colProds", "matrix", matrixStats::colProds)
 #' @importMethodsFrom IRanges Views viewApply
 #' @rdname colProds
 #' @export
+#' @template example_dm_matrix
+#' @template example_dm_HDF5
+#' @examples
+#'
+#' colProds(dm_matrix)
 setMethod("colProds", "SolidRleArraySeed",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
                    method = c("direct", "expSumLog"), ...) {

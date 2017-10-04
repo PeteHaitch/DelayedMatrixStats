@@ -66,6 +66,25 @@ obtained when passing \code{matrix(x, nrow = dim.[1L], ncol = dim.[2L])},
 but avoids having to temporarily create/allocate a matrix, if only such is
 needed only for these calculations.
 }
+\examples{
+# A DelayedMatrix with a 'matrix' seed
+dm_matrix <- DelayedArray(matrix(c(rep(1L, 5),
+                                   as.integer((0:4) ^ 2),
+                                   seq(-5L, -1L, 1L)),
+                                 ncol = 3))
+# A DelayedMatrix with a 'DataFrame' seed
+dm_DF <- DelayedArray(S4Vectors::DataFrame(C1 = rep(1L, 5),
+                                           C2 = as.integer((0:4) ^ 2),
+                                           C3 = seq(-5L, -1L, 1L)))
+
+colCounts(dm_matrix, value = 1)
+# Only count those in the first 4 rows
+colCounts(dm_matrix, rows = 1:4, value = 1)
+
+rowCounts(dm_DF, value = 5)
+# Only count those in the odd-numbered rows of the 2nd column
+rowCounts(dm_DF, rows = seq(1, nrow(dm_DF), 2), cols = 2, value = 5)
+}
 \seealso{
 rowAlls
 }

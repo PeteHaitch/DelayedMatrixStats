@@ -58,6 +58,11 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_df
+#' @examples
+#'
+#' # colnames, if present, are preserved as rownames on output
+#' colQuantiles(dm_df)
 setMethod("colQuantiles", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
                    probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE,

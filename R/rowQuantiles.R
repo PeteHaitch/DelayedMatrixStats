@@ -56,6 +56,10 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colQuantiles
 #' @export
+#' @examples
+#'
+#' # Input has no rownames so output has no rownames
+#' rowQuantiles(dm_df)
 setMethod("rowQuantiles", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
                    probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE,

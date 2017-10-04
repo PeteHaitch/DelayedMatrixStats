@@ -45,6 +45,11 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_matrix
+#' @template example_dm_HDF5
+#' @examples
+#'
+#' colVars(dm_matrix)
 setMethod("colVars", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, center = NULL,
                    dim. = dim(x), force_block_processing = FALSE, ...) {

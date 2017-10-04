@@ -59,6 +59,16 @@ The implementations of these methods are optimized for both speed and
 memory.  If no weights are given, the corresponding
 \code{\link{rowMedians}}()/\code{colMedians()} is used.
 }
+\examples{
+# A DelayedMatrix with a 'SolidRleArraySeed' seed
+dm_Rle <- RleArray(Rle(c(rep(1L, 5),
+                         as.integer((0:4) ^ 2),
+                         seq(-5L, -1L, 1L))),
+                   dim = c(5, 3))
+
+# Specifying weights inversely proportional to rowwise MADs
+colWeightedMedians(dm_Rle, w = 1 / rowMads(dm_Rle))
+}
 \seealso{
 See \code{\link{rowMedians}}() and \code{colMedians()} for
 non-weighted medians.  Internally, \code{\link{weightedMedian}}() is used.

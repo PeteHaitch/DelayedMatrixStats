@@ -50,6 +50,15 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_matrix
+#' @template example_dm_HDF5
+#' @examples
+#'
+#' # Extract the 4th row as a vector
+#' # NOTE: An ordinary vector is returned regardless of the backend of
+#' #       the DelayedMatrix object
+#' colCollapse(dm_matrix, 4)
+#' colCollapse(dm_HDF5, 4)
 setMethod("colCollapse", "DelayedMatrix",
           function(x, idxs, cols = NULL, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

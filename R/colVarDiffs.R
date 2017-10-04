@@ -42,10 +42,11 @@
 #
 
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colVarDiffs
-#' @template common_params
-#' @template lowercase_x
+#' @rdname colIQRDiffs
 #' @export
+#' @examples
+#'
+#' colVarDiffs(dm_Matrix)
 setMethod("colVarDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
                    trim = 0, force_block_processing = FALSE, ...) {

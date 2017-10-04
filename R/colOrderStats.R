@@ -43,6 +43,10 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_MatrixMatrix
+#' @examples
+#' # Only using columns 2-3
+#' colOrderStats(dm_Matrix, cols = 2:3, which = 1)
 setMethod("colOrderStats", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, which, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

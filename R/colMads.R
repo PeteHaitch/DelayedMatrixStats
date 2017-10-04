@@ -48,6 +48,11 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_df
+#' @template example_dm_S4VectorsDF
+#' @examples
+#'
+#' colMads(dm_df)
 setMethod("colMads", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, center = NULL,
                    constant = 1.4826, na.rm = FALSE, dim. = dim(x),

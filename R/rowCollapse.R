@@ -47,6 +47,13 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colCollapse
 #' @export
+#' @examples
+#'
+#' # Extract the 2nd column as a vector
+#' # NOTE: An ordinary vector is returned regardless of the backend of
+#' #       the DelayedMatrix object
+#' rowCollapse(dm_matrix, 2)
+#' rowCollapse(dm_HDF5, 2)
 setMethod("rowCollapse", "DelayedMatrix",
           function(x, idxs, rows = NULL, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

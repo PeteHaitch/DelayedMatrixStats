@@ -37,10 +37,11 @@
 #
 
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colSds
-#' @template common_params
-#' @template lowercase_x
+#' @rdname colMads
 #' @export
+#' @examples
+#'
+#' colSds(dm_df)
 setMethod("colSds", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, force_block_processing = FALSE,
                    ...) {

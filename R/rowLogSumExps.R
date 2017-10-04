@@ -42,6 +42,10 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colLogSumExps
 #' @export
+#'
+#' @examples
+#'
+#' rowLogSumExps(dm_HDF5 + 0.1)
 setMethod("rowLogSumExps", "DelayedMatrix",
           function(lx, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(lx),
                    force_block_processing = FALSE, ...) {

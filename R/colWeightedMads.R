@@ -51,6 +51,10 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_matrix
+#' @examples
+#'
+#' colWeightedMads(dm_matrix, w = 1:5)
 setMethod("colWeightedMads", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    constant = 1.4826, center = NULL,

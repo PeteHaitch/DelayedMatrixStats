@@ -40,6 +40,10 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colCummaxs
 #' @export
+#' @examples
+#'
+#' # Only use rows 2-4
+#' rowCummaxs(dm_Matrix, rows = 2:4)
 setMethod("rowCummaxs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

@@ -41,6 +41,17 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colSums2
 #' @export
+#' @examples
+#'
+#' # NOTE: Temporarily use verbose output to demonstrate which method is
+#' #       which method is being used
+#' options(DelayedMatrixStats.verbose = TRUE)
+#' # By default, this uses a seed-aware method for a DelayedMatrix with a
+#' # 'SolidRleArraySeed' seed
+#' rowSums2(dm_Matrix)
+#' # Alternatively, can use the block-processing strategy
+#' rowSums2(dm_Matrix, force_block_processing = TRUE)
+#' options(DelayedMatrixStats.verbose = FALSE)
 setMethod("rowSums2", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    force_block_processing = FALSE, ...) {

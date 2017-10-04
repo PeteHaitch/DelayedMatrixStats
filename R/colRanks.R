@@ -47,6 +47,10 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_MatrixMatrix
+#' @examples
+#'
+#' colRanks(dm_Matrix)
 setMethod("colRanks", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
                    ties.method = c("max", "average", "min"), dim. = dim(x),

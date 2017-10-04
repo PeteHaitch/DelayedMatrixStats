@@ -52,6 +52,32 @@ Returns a \code{\link[base]{vector}} of length N (K).
 Extracts one cell per row (column) from a matrix.  The implementation is
 optimized for memory and speed.
 }
+\examples{
+# A DelayedMatrix with a 'matrix' seed
+dm_matrix <- DelayedArray(matrix(c(rep(1L, 5),
+                                   as.integer((0:4) ^ 2),
+                                   seq(-5L, -1L, 1L)),
+                                 ncol = 3))
+# A DelayedMatrix with a 'HDF5ArraySeed' seed
+# NOTE: Requires that the HDF5Array package is installed
+library(HDF5Array)
+dm_HDF5 <- writeHDF5Array(matrix(c(rep(1L, 5),
+                                   as.integer((0:4) ^ 2),
+                                   seq(-5L, -1L, 1L)),
+                                 ncol = 3))
+
+# Extract the 4th row as a vector
+# NOTE: An ordinary vector is returned regardless of the backend of
+#       the DelayedMatrix object
+colCollapse(dm_matrix, 4)
+colCollapse(dm_HDF5, 4)
+
+# Extract the 2nd column as a vector
+# NOTE: An ordinary vector is returned regardless of the backend of
+#       the DelayedMatrix object
+rowCollapse(dm_matrix, 2)
+rowCollapse(dm_HDF5, 2)
+}
 \seealso{
 \emph{Matrix indexing} to index elements in matrices and arrays,
 cf. \code{\link[base]{[}}().

@@ -70,3 +70,27 @@ Calculates the mean for each row (column) in a matrix.
 The implementation of \code{rowMeans2()} and \code{colMeans2()} is
 optimized for both speed and memory.
 }
+\examples{
+# A DelayedMatrix with a 'matrix' seed
+dm_matrix <- DelayedArray(matrix(c(rep(1L, 5),
+                                   as.integer((0:4) ^ 2),
+                                   seq(-5L, -1L, 1L)),
+                                 ncol = 3))
+# A DelayedMatrix with a 'SolidRleArraySeed' seed
+dm_Rle <- RleArray(Rle(c(rep(1L, 5),
+                         as.integer((0:4) ^ 2),
+                         seq(-5L, -1L, 1L))),
+                   dim = c(5, 3))
+
+colMeans2(dm_matrix)
+
+# NOTE: Temporarily use verbose output to demonstrate which method is
+#       which method is being used
+options(DelayedMatrixStats.verbose = TRUE)
+# By default, this uses a seed-aware method for a DelayedMatrix with a
+# 'SolidRleArraySeed' seed
+rowMeans2(dm_Rle)
+# Alternatively, can use the block-processing strategy
+rowMeans2(dm_Rle, force_block_processing = TRUE)
+options(DelayedMatrixStats.verbose = FALSE)
+}

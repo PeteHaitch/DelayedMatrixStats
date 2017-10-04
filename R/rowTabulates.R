@@ -52,6 +52,9 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colTabulates
 #' @export
+#' @examples
+#'
+#' rowTabulates(dm_DF)
 setMethod("rowTabulates", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, values = NULL,
                    force_block_processing = FALSE, ...) {

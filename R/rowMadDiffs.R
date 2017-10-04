@@ -42,8 +42,12 @@
 #
 
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colMadDiffs
+#' @rdname colIQRDiffs
 #' @export
+#' @examples
+#'
+#' # Only using rows 2-4
+#' rowMadDiffs(dm_Rle, rows = 2:4)
 setMethod("rowMadDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
                    trim = 0, force_block_processing = FALSE, ...) {

@@ -45,6 +45,13 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @template example_dm_matrix
+#' @template example_dm_S4VectorsDF
+#' @examples
+#'
+#' colCounts(dm_matrix, value = 1)
+#' # Only count those in the first 4 rows
+#' colCounts(dm_matrix, rows = 1:4, value = 1)
 setMethod("colCounts", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
                    dim. = dim(x), force_block_processing = FALSE, ...) {

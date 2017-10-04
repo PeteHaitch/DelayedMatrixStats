@@ -44,6 +44,8 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colAlls
 #' @export
+#' @examples
+#' rowAnys(dm_Rle, value = 2)
 setMethod("rowAnys", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
                    dim. = dim(x), force_block_processing = FALSE, ...) {
