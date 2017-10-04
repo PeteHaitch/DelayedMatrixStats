@@ -73,8 +73,7 @@ value is detected.
 dm_matrix <- DelayedArray(matrix(c(rep(1, 5), 1:5), ncol = 2))
 class(seed(dm_matrix))
 # A DelayedMatrix with a 'HDF5ArraySeed' seed
-library(HDF5Array)
-dm_HDF5 <- writeHDF5Array(matrix(c(rep(1, 5), 1:5), ncol = 2))
+dm_HDF5 <- HDF5Array::writeHDF5Array(matrix(c(rep(1, 5), 1:5), ncol = 2))
 class(seed(dm_HDF5))
 
 dm_matrix[dm_matrix > 3] <- NA
