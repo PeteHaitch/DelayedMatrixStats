@@ -8,7 +8,6 @@
 
 #' `rowCumsums()` block-processing internal helper
 #' @inherit matrixStats::rowCumsums
-#' @importFrom methods is
 .DelayedMatrix_block_rowCumsums <- function(x, rows = NULL, cols = NULL,
                                             dim. = dim(x), ...) {
   # Check input type
@@ -38,8 +37,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colCumsums
 #' @export
 setMethod("rowCumsums", "DelayedMatrix",
@@ -87,6 +85,5 @@ setMethod("rowCumsums", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowCumsums", "matrix", matrixStats::rowCumsums)

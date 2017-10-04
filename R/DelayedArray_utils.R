@@ -3,7 +3,8 @@
 ###
 
 # NOTE: Adapted from DelayedArray:::block_APPLY()
-#' @importFrom DelayedArray ArrayRegularGrid type write_block_to_sink
+#' @importFrom DelayedArray ArrayRegularGrid
+#' @importMethodsFrom DelayedArray type write_block_to_sink
 #' @importFrom S4Vectors isSingleNumber
 #' @keywords internal
 block_APPLY <- function(x, APPLY, MARGIN, ..., sink = NULL,
@@ -53,7 +54,7 @@ block_APPLY <- function(x, APPLY, MARGIN, ..., sink = NULL,
 }
 
 #' Adapted from `DelayedArray:::colblock_APPLY()`
-#' @importFrom DelayedArray type
+#' @importMethodsFrom DelayedArray type
 #' @keywords internal
 rowblock_APPLY <- function(x, APPLY, ..., sink = NULL) {
   x_dim <- dim(x)

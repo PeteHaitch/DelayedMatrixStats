@@ -8,7 +8,6 @@
 
 #' `rowAnys()` block-processing internal helper
 #' @inherit matrixStats::rowAnys
-#' @importFrom methods is
 .DelayedMatrix_block_rowAnys <- function(x, rows = NULL, cols = NULL,
                                          value = TRUE, na.rm = FALSE,
                                          dim. = dim(x), ...) {
@@ -42,8 +41,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colAnys
 #' @export
 setMethod("rowAnys", "DelayedMatrix",
@@ -97,6 +95,5 @@ setMethod("rowAnys", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowAnys", "matrix", matrixStats::rowAnys)

@@ -8,7 +8,6 @@
 
 #' `rowCummins()` block-processing internal helper
 #' @inherit matrixStats::rowCummins
-#' @importFrom methods is
 .DelayedMatrix_block_rowCummins <- function(x, rows = NULL, cols = NULL,
                                             dim. = dim(x), ...) {
   # Check input type
@@ -38,8 +37,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colCummins
 #' @export
 setMethod("rowCummins", "DelayedMatrix",
@@ -85,6 +83,5 @@ setMethod("rowCummins", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowCummins", "matrix", matrixStats::rowCummins)

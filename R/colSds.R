@@ -8,7 +8,6 @@
 
 #' `colSds()` block-processing internal helper
 #' @inherit matrixStats::colSds
-#' @importFrom methods is
 .DelayedMatrix_block_colSds <- function(x, rows = NULL, cols = NULL, ...) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
@@ -37,8 +36,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colSds
 #' @template common_params
 #' @template lowercase_x
@@ -84,6 +82,5 @@ setMethod("colSds", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colSds", "matrix", matrixStats::colSds)

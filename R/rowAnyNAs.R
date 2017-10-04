@@ -10,8 +10,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colAnyNAs
 #' @export
 setMethod("rowAnyNAs", "DelayedMatrix",
@@ -30,6 +29,5 @@ setMethod("rowAnyNAs", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowAnyNAs", "matrix", matrixStats::rowAnyNAs)

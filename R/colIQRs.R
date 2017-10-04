@@ -8,7 +8,6 @@
 
 #' `colIQRs()` block-processing internal helper
 #' @inherit matrixStats::colIQRs
-#' @importFrom methods is
 .DelayedMatrix_block_colIQRs <- function(x, rows = NULL, cols = NULL,
                                          na.rm = FALSE, ...) {
   # Check input type
@@ -39,8 +38,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colIQRs
 #' @template common_params
 #' @template lowercase_x
@@ -90,6 +88,5 @@ setMethod("colIQRs", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colIQRs", "matrix", matrixStats::colIQRs)

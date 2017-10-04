@@ -8,7 +8,6 @@
 
 #' `colCummaxs()` block-processing internal helper
 #' @inherit matrixStats::colCummaxs
-#' @importFrom methods is
 .DelayedMatrix_block_colCummaxs <- function(x, rows = NULL, cols = NULL,
                                             dim. = dim(x), ...) {
   # Check input type
@@ -38,8 +37,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colCummaxs
 #' @template common_params
 #' @template lowercase_x
@@ -89,6 +87,5 @@ setMethod("colCummaxs", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colCummaxs", "matrix", matrixStats::colCummaxs)

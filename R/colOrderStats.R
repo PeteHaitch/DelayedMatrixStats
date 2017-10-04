@@ -8,7 +8,6 @@
 
 #' `colOrderStats()` block-processing internal helper
 #' @inherit matrixStats::colOrderStats
-#' @importFrom methods is
 .DelayedMatrix_block_colOrderStats <- function(x, rows = NULL, cols = NULL,
                                                which, dim. = dim(x), ...) {
   # Check input type
@@ -39,8 +38,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colOrderStats
 #' @template common_params
 #' @template lowercase_x
@@ -93,6 +91,5 @@ setMethod("colOrderStats", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colOrderStats", "matrix", matrixStats::colOrderStats)

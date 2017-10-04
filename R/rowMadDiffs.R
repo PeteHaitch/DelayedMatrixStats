@@ -8,7 +8,6 @@
 
 #' `rowMadDiffs()` block-processing internal helper
 #' @inherit matrixStats::rowMadDiffs
-#' @importFrom methods is
 .DelayedMatrix_block_rowMadDiffs <- function(x, rows = NULL, cols = NULL,
                                               na.rm = FALSE, diff = 1L,
                                               trim = 0, ...) {
@@ -42,8 +41,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colMadDiffs
 #' @export
 setMethod("rowMadDiffs", "DelayedMatrix",
@@ -97,6 +95,5 @@ setMethod("rowMadDiffs", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowMadDiffs", "matrix", matrixStats::rowMadDiffs)

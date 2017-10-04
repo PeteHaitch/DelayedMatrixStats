@@ -8,7 +8,6 @@
 
 #' `rowMeans2()` block-processing internal helper
 #' @inherit matrixStats::rowMeans2
-#' @importFrom methods is
 .DelayedMatrix_block_rowMeans2 <- function(x, rows = NULL, cols = NULL,
                                            na.rm = FALSE, dim. = dim(x), ...) {
   # Check input
@@ -20,17 +19,15 @@
   x <- ..subset(x, rows, cols)
 
   # Compute result
-  if (nrow(x) == 0) {
-    # TODO: This is a workaround a bug in DelayedArray::rowMeans(); e.g.m
-    #       DelayedArray::rowMeans(DelayedArray(matrix(nrow = 0, ncol = 10)))
-    #       gives an error whereas
-    #       DelayedArray::colMeans(DelayedArray(matrix(nrow = 10, ncol = 0)))
-    #       gives the expected result
-    return(numeric(0))
+  val <- rowblock_APPLY(x = x,
+                        APPLY = matrixStats::rowMeans2,
+                        na.rm = na.rm,
+                        ...)
+  if (length(val) == 0L) {
+    return(numeric(nrow(x)))
   }
-  # TODO: Use this or rowblock_APPLY() with matrixStats::rowMeans2()?
-  # NOTE: Return value of matrixStats::rowMeans2() has no names
-  unname(DelayedArray::rowMeans(x = x, na.rm = na.rm))
+  # NOTE: Return value of matrixStats::rowMeans() has no names
+  unlist(val, recursive = FALSE, use.names = FALSE)
 }
 
 ### ----------------------------------------------------------------------------
@@ -41,8 +38,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colMeans2
 #' @export
 setMethod("rowMeans2", "DelayedMatrix",
@@ -93,11 +89,10 @@ setMethod("rowMeans2", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowMeans2", "matrix", matrixStats::rowMeans2)
 
-#' @importFrom methods setMethod
+#' @importMethodsFrom Matrix rowMeans
 #' @rdname colMeans2
 #' @export
 setMethod("rowMeans2", "Matrix",
@@ -106,6 +101,6 @@ setMethod("rowMeans2", "Matrix",
             message2(class(x), get_verbose())
             x <- ..subset(x, rows, cols)
             # NOTE: Return value of matrixStats::rowMeans2() has no names
-            unname(Matrix::rowMeans(x = x, na.rm = na.rm))
+            unname(rowMeans(x = x, na.rm = na.rm))
           }
 )

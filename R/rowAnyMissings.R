@@ -10,8 +10,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colAnyMissings
 #' @export
 setMethod("rowAnyMissings", "DelayedMatrix",
@@ -30,6 +29,5 @@ setMethod("rowAnyMissings", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowAnyMissings", "matrix", matrixStats::rowAnyMissings)

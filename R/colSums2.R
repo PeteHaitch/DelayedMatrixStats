@@ -8,7 +8,6 @@
 
 #' `colSums2()` block-processing internal helper
 #' @inherit matrixStats::colSums2
-#' @importFrom methods is
 .DelayedMatrix_block_colSums2 <- function(x, rows = NULL, cols = NULL,
                                           na.rm = FALSE, dim. = dim(x), ...) {
   # Check input
@@ -20,11 +19,15 @@
   x <- ..subset(x, rows, cols)
 
   # Compute result
-  # TODO: Use this or colblock_APPLY() with matrixStats::colSums2()?
-  val <- DelayedArray::colSums(x = x, na.rm = na.rm)
-
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colSums2,
+                                       na.rm = na.rm,
+                                       ...)
+  if (length(val) == 0L) {
+    return(numeric(ncol(x)))
+  }
   # NOTE: Return value of matrixStats::colSums2() has no names
-  unname(val)
+  unlist(val, recursive = FALSE, use.names = FALSE)
 }
 
 ### ----------------------------------------------------------------------------
@@ -35,8 +38,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colSums2
 #' @template common_params
 #' @template lowercase_x
@@ -88,11 +90,10 @@ setMethod("colSums2", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colSums2", "matrix", matrixStats::colSums2)
 
-#' @importFrom methods setMethod
+#' @importMethodsFrom Matrix colSums
 #' @rdname colSums2
 #' @export
 setMethod("colSums2", "Matrix",
@@ -101,11 +102,11 @@ setMethod("colSums2", "Matrix",
             message2(class(x), get_verbose())
             x <- ..subset(x, rows, cols)
             # NOTE: Return value of matrixStats::colSums2() has no names
-            unname(Matrix::colSums(x = x, na.rm = na.rm))
+            unname(colSums(x = x, na.rm = na.rm))
           }
 )
 
-#' @importFrom IRanges Views viewSums
+#' @importMethodsFrom IRanges Views viewSums
 #' @rdname colSums2
 #' @export
 setMethod("colSums2", "SolidRleArraySeed",
@@ -114,8 +115,8 @@ setMethod("colSums2", "SolidRleArraySeed",
             message2(class(x), get_verbose())
             irl <- get_Nindex_as_IRangesList(Nindex = list(rows, cols),
                                              dim = dim(x))
-            views <- IRanges::Views(subject = x@rle, start = unlist(irl))
-            val <- IRanges::viewSums(x = views, na.rm = na.rm)
+            views <- Views(subject = x@rle, start = unlist(irl))
+            val <- viewSums(x = views, na.rm = na.rm)
             if (length(irl) == 0) {
               return(val)
             }

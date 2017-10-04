@@ -8,7 +8,6 @@
 
 #' `rowIQRs()` block-processing internal helper
 #' @inherit matrixStats::rowIQRs
-#' @importFrom methods is
 .DelayedMatrix_block_rowIQRs <- function(x, rows = NULL, cols = NULL,
                                          na.rm = FALSE, ...) {
   # Check input type
@@ -39,8 +38,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colIQRs
 #' @export
 setMethod("rowIQRs", "DelayedMatrix",
@@ -88,6 +86,5 @@ setMethod("rowIQRs", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowIQRs", "matrix", matrixStats::rowIQRs)

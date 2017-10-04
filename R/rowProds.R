@@ -8,7 +8,6 @@
 
 #' `rowProds()` block-processing internal helper
 #' @inherit matrixStats::rowProds
-#' @importFrom methods is
 .DelayedMatrix_block_rowProds <- function(x, rows = NULL, cols = NULL,
                                           na.rm = FALSE,
                                           method = c("direct", "expSumLog"),
@@ -43,8 +42,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colProds
 #' @export
 setMethod("rowProds", "DelayedMatrix",
@@ -96,6 +94,5 @@ setMethod("rowProds", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowProds", "matrix", matrixStats::rowProds)

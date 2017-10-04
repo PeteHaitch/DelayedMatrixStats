@@ -8,7 +8,6 @@
 
 #' `colCollapse()` block-processing internal helper
 #' @inherit matrixStats::colCollapse
-#' @importFrom methods is
 .DelayedMatrix_block_colCollapse <- function(x, idxs, cols = NULL,
                                              dim. = dim(x), ...) {
   # Check input
@@ -46,8 +45,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colCollapse
 #' @template common_params
 #' @template lowercase_x
@@ -97,6 +95,5 @@ setMethod("colCollapse", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colCollapse", "matrix", matrixStats::colCollapse)

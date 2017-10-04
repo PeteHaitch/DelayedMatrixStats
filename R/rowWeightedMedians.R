@@ -8,7 +8,6 @@
 
 #' `rowWeightedMedians()` block-processing internal helper
 #' @inherit matrixStats::rowWeightedMedians
-#' @importFrom methods is
 .DelayedMatrix_block_rowWeightedMedians <- function(x, w = NULL, rows = NULL,
                                                     cols = NULL, na.rm = FALSE,
                                                     ...) {
@@ -44,8 +43,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedMedians
 #' @export
 setMethod("rowWeightedMedians", "DelayedMatrix",
@@ -96,6 +94,5 @@ setMethod("rowWeightedMedians", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowWeightedMedians", "matrix", matrixStats::rowWeightedMedians)

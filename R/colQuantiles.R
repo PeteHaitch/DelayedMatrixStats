@@ -8,7 +8,6 @@
 
 #' `colQuantiles()` block-processing internal helper
 #' @inherit matrixStats::colQuantiles
-#' @importFrom methods is
 .DelayedMatrix_block_colQuantiles <-
   function(x, rows = NULL, cols = NULL,
            probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE, type = 7L,
@@ -54,8 +53,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colQuantiles
 #' @template common_params
 #' @template lowercase_x
@@ -116,6 +114,5 @@ setMethod("colQuantiles", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colQuantiles", "matrix", matrixStats::colQuantiles)

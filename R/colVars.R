@@ -8,7 +8,6 @@
 
 #' `colVars()` block-processing internal helper
 #' @inherit matrixStats::colVars
-#' @importFrom methods is
 .DelayedMatrix_block_colVars <- function(x, rows = NULL, cols = NULL,
                                          na.rm = FALSE, center = NULL,
                                          dim. = dim(x), ...) {
@@ -41,8 +40,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colVars
 #' @template common_params
 #' @template lowercase_x
@@ -98,6 +96,5 @@ setMethod("colVars", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colVars", "matrix", matrixStats::colVars)

@@ -8,7 +8,6 @@
 
 #' `rowVars()` block-processing internal helper
 #' @inherit matrixStats::rowVars
-#' @importFrom methods is
 .DelayedMatrix_block_rowVars <- function(x, rows = NULL, cols = NULL,
                                          na.rm = FALSE, center = NULL,
                                          dim. = dim(x), ...) {
@@ -41,8 +40,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colVars
 #' @export
 setMethod("rowVars", "DelayedMatrix",
@@ -96,6 +94,5 @@ setMethod("rowVars", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowVars", "matrix", matrixStats::rowVars)

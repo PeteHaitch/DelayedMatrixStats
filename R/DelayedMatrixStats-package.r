@@ -13,4 +13,5 @@
 #'
 #' @name DelayedMatrixStats
 #' @docType package
+#' @import methods
 NULL

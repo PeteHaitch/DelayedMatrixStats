@@ -8,7 +8,6 @@
 
 #' `rowSums2()` block-processing internal helper
 #' @inherit matrixStats::rowSums2
-#' @importFrom methods is
 .DelayedMatrix_block_rowSums2 <- function(x, rows = NULL, cols = NULL,
                                           na.rm = FALSE, dim. = dim(x), ...) {
   # Check input
@@ -20,11 +19,15 @@
   x <- ..subset(x, rows, cols)
 
   # Compute result
-  # TODO: Use this or rowblock_APPLY() with matrixStats::rowSums2()?
-  val <- DelayedArray::rowSums(x = x, na.rm = na.rm)
-
-  # NOTE: Return value of matrixStats::rowSums2() has no names
-  unname(val)
+  val <- rowblock_APPLY(x = x,
+                        APPLY = matrixStats::rowSums2,
+                        na.rm = na.rm,
+                        ...)
+  if (length(val) == 0L) {
+    return(numeric(nrow(x)))
+  }
+  # NOTE: Return value of matrixStats::rowSums() has no names
+  unlist(val, recursive = FALSE, use.names = FALSE)
 }
 
 ### ----------------------------------------------------------------------------
@@ -35,8 +38,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colSums2
 #' @export
 setMethod("rowSums2", "DelayedMatrix",
@@ -86,11 +88,10 @@ setMethod("rowSums2", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowSums2", "matrix", matrixStats::rowSums2)
 
-#' @importFrom methods setMethod
+#' @importMethodsFrom Matrix rowSums
 #' @rdname colSums2
 #' @export
 setMethod("rowSums2", "Matrix",
@@ -99,6 +100,6 @@ setMethod("rowSums2", "Matrix",
             message2(class(x), get_verbose())
             x <- ..subset(x, rows, cols)
             # NOTE: Return value of matrixStats::rowSums2() has no names
-            unname(Matrix::rowSums(x = x, na.rm = na.rm))
+            unname(rowSums(x = x, na.rm = na.rm))
           }
 )

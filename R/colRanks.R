@@ -8,7 +8,6 @@
 
 #' `colRanks()` block-processing internal helper
 #' @inherit matrixStats::colRanks
-#' @importFrom methods is
 .DelayedMatrix_block_colRanks <-
   function(x, rows = NULL, cols = NULL,
            ties.method = c("max", "average", "min"), dim. = dim(x),
@@ -43,8 +42,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colRanks
 #' @template common_params
 #' @template lowercase_x
@@ -103,6 +101,5 @@ setMethod("colRanks", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colRanks", "matrix", matrixStats::colRanks)

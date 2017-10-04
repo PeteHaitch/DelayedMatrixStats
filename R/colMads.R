@@ -8,7 +8,6 @@
 
 #' `colMads()` block-processing internal helper
 #' @inherit matrixStats::colMads
-#' @importFrom methods is
 .DelayedMatrix_block_colMads <- function(x, rows = NULL, cols = NULL,
                                          center = NULL, constant = 1.4826,
                                          na.rm = FALSE, dim. = dim(x),
@@ -44,8 +43,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colMads
 #' @template common_params
 #' @template lowercase_x
@@ -107,6 +105,5 @@ setMethod("colMads", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colMads", "matrix", matrixStats::colMads)

@@ -8,7 +8,6 @@
 
 #' `colCounts()` block-processing internal helper
 #' @inherit matrixStats::colCounts
-#' @importFrom methods is
 .DelayedMatrix_block_colCounts <- function(x, rows = NULL, cols = NULL,
                                            value = TRUE, na.rm = FALSE,
                                            dim. = dim(x), ...) {
@@ -41,8 +40,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colCounts
 #' @template common_params
 #' @template lowercase_x
@@ -98,6 +96,5 @@ setMethod("colCounts", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colCounts", "matrix", matrixStats::colCounts)

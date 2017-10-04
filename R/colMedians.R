@@ -8,7 +8,6 @@
 
 #' `colMedians()` block-processing internal helper
 #' @inherit matrixStats::colMedians
-#' @importFrom methods is
 .DelayedMatrix_block_colMedians <- function(x, rows = NULL, cols = NULL,
                                             na.rm = FALSE, dim. = dim(x), ...) {
   # Check input type
@@ -39,8 +38,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colMedians
 #' @template common_params
 #' @template lowercase_x
@@ -93,6 +91,5 @@ setMethod("colMedians", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colMedians", "matrix", matrixStats::colMedians)

@@ -8,7 +8,6 @@
 
 #' `colProds()` block-processing internal helper
 #' @inherit matrixStats::colProds
-#' @importFrom methods is
 .DelayedMatrix_block_colProds <- function(x, rows = NULL, cols = NULL,
                                           na.rm = FALSE,
                                           method = c("direct", "expSumLog"),
@@ -43,8 +42,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colProds
 #' @template common_params
 #' @template lowercase_x
@@ -98,11 +96,10 @@ setMethod("colProds", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colProds", "matrix", matrixStats::colProds)
 
-#' @importFrom IRanges Views viewApply
+#' @importMethodsFrom IRanges Views viewApply
 #' @rdname colProds
 #' @export
 setMethod("colProds", "SolidRleArraySeed",
@@ -116,8 +113,8 @@ setMethod("colProds", "SolidRleArraySeed",
             message2(class(x), get_verbose())
             irl <- get_Nindex_as_IRangesList(Nindex = list(rows, cols),
                                              dim = dim(x))
-            views <- IRanges::Views(subject = x@rle, start = unlist(irl))
-            val <- IRanges::viewApply(X = views, FUN = prod, na.rm = na.rm)
+            views <- Views(subject = x@rle, start = unlist(irl))
+            val <- viewApply(X = views, FUN = prod, na.rm = na.rm)
             if (length(irl) == 0) {
               return(numeric(ncol(x)))
             }

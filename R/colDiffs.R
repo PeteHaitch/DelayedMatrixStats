@@ -8,7 +8,6 @@
 
 #' `colDiffs()` block-processing internal helper
 #' @inherit matrixStats::colDiffs
-#' @importFrom methods is
 .DelayedMatrix_block_colDiffs <- function(x, rows = NULL, cols = NULL, lag = 1L,
                                           differences = 1L, dim. = dim(x),
                                           ...) {
@@ -42,8 +41,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colDiffs
 #' @template common_params
 #' @template lowercase_x
@@ -99,6 +97,5 @@ setMethod("colDiffs", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colDiffs", "matrix", matrixStats::colDiffs)

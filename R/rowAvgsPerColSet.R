@@ -8,7 +8,6 @@
 
 #' `rowAvgsPerColSet()` block-processing internal helper
 #' @inherit matrixStats::rowAvgsPerColSet
-#' @importFrom methods is
 .DelayedMatrix_block_rowAvgsPerColSet <- function(X, W = NULL, rows = NULL, S,
                                                   FUN = rowMeans, ...,
                                                   tFUN = FALSE) {
@@ -57,8 +56,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colAvgsPerRowSet
 #' @export
 setMethod("rowAvgsPerColSet", "DelayedMatrix",
@@ -112,6 +110,5 @@ setMethod("rowAvgsPerColSet", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowAvgsPerColSet", "matrix", matrixStats::rowAvgsPerColSet)

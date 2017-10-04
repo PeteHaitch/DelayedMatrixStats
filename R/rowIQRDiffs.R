@@ -8,7 +8,6 @@
 
 #' `rowIQRDiffs()` block-processing internal helper
 #' @inherit matrixStats::rowIQRDiffs
-#' @importFrom methods is
 .DelayedMatrix_block_rowIQRDiffs <- function(x, rows = NULL, cols = NULL,
                                              na.rm = FALSE, diff = 1L,
                                              trim = 0, ...) {
@@ -42,8 +41,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colIQRDiffs
 #' @export
 setMethod("rowIQRDiffs", "DelayedMatrix",
@@ -97,6 +95,5 @@ setMethod("rowIQRDiffs", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowIQRDiffs", "matrix", matrixStats::rowIQRDiffs)

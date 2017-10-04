@@ -8,7 +8,6 @@
 
 #' `rowTabulates()` block-processing internal helper
 #' @inherit matrixStats::rowTabulates
-#' @importFrom methods is
 .DelayedMatrix_block_rowTabulates <- function(x, rows = NULL, cols = NULL,
                                               values = NULL, ...) {
   # Check input type
@@ -50,8 +49,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colTabulates
 #' @export
 setMethod("rowTabulates", "DelayedMatrix",
@@ -103,6 +101,5 @@ setMethod("rowTabulates", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowTabulates", "matrix", matrixStats::rowTabulates)

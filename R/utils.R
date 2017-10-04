@@ -49,7 +49,7 @@ message2 <- function(msg, verbose = FALSE) {
 # NOTE: A basic wrapper around DelayedArray:::.execute_delayed_ops() that also
 #       handles seed instance of class RleArraySeed
 # TODO: Make generic and implement methods
-#' @importFrom S4Vectors endoapply
+#' @importMethodsFrom S4Vectors endoapply
 .execute_delayed_ops <- function(seed, delayed_ops) {
   if (is(seed, "RleArraySeed")) {
     seed@rle <- DelayedArray:::.execute_delayed_ops(seed@rle, delayed_ops)
@@ -138,7 +138,6 @@ from_DelayedArray_to_simple_seed_class <- function(x, drop = FALSE,
 #       on a RleArraySeed. This RleViews object then provides efficient ways
 #       to compute summaries of the RleArraySeed via Views summary functions
 #' @importFrom IRanges IRanges IRangesList PartitioningByEnd
-#' @importFrom methods as
 #' @importFrom S4Vectors new2
 get_Nindex_as_IRangesList <- function(Nindex, dim) {
   stopifnot(is.list(Nindex), is.integer(dim), length(Nindex) ==
@@ -148,7 +147,7 @@ get_Nindex_as_IRangesList <- function(Nindex, dim) {
   nrow <- dim[[1L]]
   ncol <- dim[[2L]]
   if (ncol == 0) {
-    return(IRanges::IRangesList())
+    return(IRangesList())
   }
   # TODO: Sanity check rows and cols are compatible with dim(seed)
 
@@ -156,14 +155,14 @@ get_Nindex_as_IRangesList <- function(Nindex, dim) {
   # Four cases
   if (is.null(rows) && is.null(cols)) {
     # Case 1: NULL rows and NULL cols
-    ir <- IRanges::IRanges(start = seq.int(1, nrow * ncol, nrow),
-                           end = seq.int(nrow, nrow * ncol, nrow))
-    partitioning <- IRanges::PartitioningByEnd(seq_len(ncol))
+    ir <- IRanges(start = seq.int(1, nrow * ncol, nrow),
+                  end = seq.int(nrow, nrow * ncol, nrow))
+    partitioning <- PartitioningByEnd(seq_len(ncol))
   } else if (is.null(rows) && !is.null(cols)) {
     # Case 2: NULL rows and non-NULL cols
-    ir <- IRanges::IRanges(start = (cols - 1L) * nrow + 1L,
-                           end = cols * nrow)
-    partitioning <- IRanges::PartitioningByEnd(seq_along(cols))
+    ir <- IRanges(start = (cols - 1L) * nrow + 1L,
+                  end = cols * nrow)
+    partitioning <- PartitioningByEnd(seq_along(cols))
   } else if (!is.null(rows)) {
     ir0 <- as(rows, "IRanges")
     if (is.null(cols)) {
@@ -178,8 +177,8 @@ get_Nindex_as_IRangesList <- function(Nindex, dim) {
                       end(ir0) + (jj - 1L) * nrow
                     },
                     FUN.VALUE = integer(length(ir0)))
-      ir <- IRanges::IRanges(start, end)
-      partitioning <- IRanges::PartitioningByEnd(
+      ir <- IRanges(start, end)
+      partitioning <- PartitioningByEnd(
         seq.int(length(ir0), length(ir0) * ncol, length(ir0)))
     } else if (!is.null(cols)) {
       # Case 4: Non-NULL rows and non_NULL cols
@@ -193,8 +192,8 @@ get_Nindex_as_IRangesList <- function(Nindex, dim) {
                       end(ir0) + (jj - 1L) * nrow
                     },
                     FUN.VALUE = integer(length(ir0)))
-      ir <- IRanges::IRanges(start, end)
-      partitioning <- IRanges::PartitioningByEnd(
+      ir <- IRanges(start, end)
+      partitioning <- PartitioningByEnd(
         seq.int(length(ir0), length(ir0) * length(cols), length(ir0)))
     }
   }

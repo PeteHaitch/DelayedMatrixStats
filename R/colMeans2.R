@@ -8,7 +8,6 @@
 
 #' `colMeans2()` block-processing internal helper
 #' @inherit matrixStats::colMeans2
-#' @importFrom methods is
 .DelayedMatrix_block_colMeans2 <- function(x, rows = NULL, cols = NULL,
                                            na.rm = FALSE, dim. = dim(x), ...) {
   # Check input
@@ -20,9 +19,15 @@
   x <- ..subset(x, rows, cols)
 
   # Compute result
-  # TODO: Use this or colblock_APPLY() with matrixStats::colMeans2()?
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = matrixStats::colMeans2,
+                                       na.rm = na.rm,
+                                       ...)
+  if (length(val) == 0L) {
+    return(numeric(ncol(x)))
+  }
   # NOTE: Return value of matrixStats::colMeans2() has no names
-  unname(DelayedArray::colMeans(x = x, na.rm = na.rm))
+  unlist(val, recursive = FALSE, use.names = FALSE)
 }
 
 ### ----------------------------------------------------------------------------
@@ -33,8 +38,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colMeans2
 #' @template common_params
 #' @template lowercase_x
@@ -87,11 +91,10 @@ setMethod("colMeans2", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colMeans2", "matrix", matrixStats::colMeans2)
 
-#' @importFrom methods setMethod
+#' @importMethodsFrom Matrix colMeans
 #' @rdname colMeans2
 #' @export
 setMethod("colMeans2", "Matrix",
@@ -100,11 +103,11 @@ setMethod("colMeans2", "Matrix",
             message2(class(x), get_verbose())
             x <- ..subset(x, rows, cols)
             # NOTE: Return value of matrixStats::colMeans2() has no names
-            unname(Matrix::colMeans(x = x, na.rm = na.rm))
+            unname(colMeans(x = x, na.rm = na.rm))
           }
 )
 
-#' @importFrom IRanges Views viewSums
+#' @importMethodsFrom IRanges Views viewMeans
 #' @rdname colMeans2
 #' @export
 setMethod("colMeans2", "SolidRleArraySeed",
@@ -113,8 +116,8 @@ setMethod("colMeans2", "SolidRleArraySeed",
             message2(class(x), get_verbose())
             irl <- get_Nindex_as_IRangesList(Nindex = list(rows, cols),
                                              dim = dim(x))
-            views <- IRanges::Views(subject = x@rle, start = unlist(irl))
-            val <- IRanges::viewMeans(x = views, na.rm = na.rm)
+            views <- Views(subject = x@rle, start = unlist(irl))
+            val <- viewMeans(x = views, na.rm = na.rm)
             if (length(irl) == 0) {
               return(val)
             }

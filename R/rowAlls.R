@@ -8,7 +8,6 @@
 
 #' `rowAlls()` block-processing internal helper
 #' @inherit matrixStats::rowAlls
-#' @importFrom methods is
 .DelayedMatrix_block_rowAlls <- function(x, rows = NULL, cols = NULL,
                                          value = TRUE, na.rm = FALSE,
                                          dim. = dim(x), ...) {
@@ -41,8 +40,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colAlls
 #' @export
 setMethod("rowAlls", "DelayedMatrix",
@@ -95,6 +93,5 @@ setMethod("rowAlls", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowAlls", "matrix", matrixStats::rowAlls)

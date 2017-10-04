@@ -8,7 +8,6 @@
 
 #' `rowLogSumExps()` block-processing internal helper
 #' @inherit matrixStats::rowLogSumExps
-#' @importFrom methods is
 .DelayedMatrix_block_rowLogSumExps <- function(lx, rows = NULL, cols = NULL,
                                                na.rm = FALSE, dim. = dim(lx),
                                                ...) {
@@ -40,8 +39,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colLogSumExps
 #' @export
 setMethod("rowLogSumExps", "DelayedMatrix",
@@ -92,6 +90,5 @@ setMethod("rowLogSumExps", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowLogSumExps", "matrix", matrixStats::rowLogSumExps)

@@ -8,7 +8,6 @@
 
 #' `rowWeightedMads()` block-processing internal helper
 #' @inherit matrixStats::rowWeightedMads
-#' @importFrom methods is
 .DelayedMatrix_block_rowWeightedMads <- function(x, w = NULL, rows = NULL,
                                                  cols = NULL, na.rm = FALSE,
                                                  constant = 1.4826,
@@ -47,8 +46,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedMads
 #' @export
 setMethod("rowWeightedMads", "DelayedMatrix",
@@ -106,6 +104,5 @@ setMethod("rowWeightedMads", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowWeightedMads", "matrix", matrixStats::rowWeightedMads)

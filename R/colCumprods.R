@@ -8,7 +8,6 @@
 
 #' `colCumprods()` block-processing internal helper
 #' @inherit matrixStats::colCumprods
-#' @importFrom methods is
 .DelayedMatrix_block_colCumprods <- function(x, rows = NULL, cols = NULL,
                                              dim. = dim(x), ...) {
   # Check input type
@@ -38,8 +37,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colCumprods
 #' @template common_params
 #' @template lowercase_x
@@ -89,6 +87,5 @@ setMethod("colCumprods", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("colCumprods", "matrix", matrixStats::colCumprods)

@@ -8,7 +8,6 @@
 
 #' `rowSds()` block-processing internal helper
 #' @inherit matrixStats::rowSds
-#' @importFrom methods is
 .DelayedMatrix_block_rowSds <- function(x, rows = NULL, cols = NULL, ...) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
@@ -37,8 +36,7 @@
 # General method
 #
 
-#' @importFrom DelayedArray seed
-#' @importFrom methods hasMethod is
+#' @importMethodsFrom DelayedArray seed
 #' @rdname colSds
 #' @export
 setMethod("rowSds", "DelayedMatrix",
@@ -82,6 +80,5 @@ setMethod("rowSds", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom methods setMethod
 #' @export
 setMethod("rowSds", "matrix", matrixStats::rowSds)
