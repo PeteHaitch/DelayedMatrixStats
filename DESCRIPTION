@@ -32,10 +32,9 @@ Suggests:
   rmarkdown,
   covr,
   BiocStyle,
-  tibble,
-  emo
+  tibble
 VignetteBuilder: knitr
 URL: https://github.com/PeteHaitch/DelayedMatrixStats
 BugReports: https://github.com/PeteHaitch/DelayedMatrixStats/issues
-Remotes: HenrikBengtsson/matrixStats@develop, hadley/emo
+Remotes: HenrikBengtsson/matrixStats@develop
 biocViews: Infrastructure, DataRepresentation, Software

@@ -136,36 +136,36 @@ DelayedMatrixStats <- sort(grep("^(col|row)",
 api_tbl <- tibble::tibble(
   Method = paste0("`", matrixStats, "()`"),
   `Block processing` = ifelse(matrixStats %in% DelayedMatrixStats,
-                              emo::ji("heavy_check_mark"),
-                              emo::ji("x")),
+                              "✔",
+                              "❌"),
   `_base::matrix_ optimized` = 
     ifelse(sapply(matrixStats, existsMethod, signature = "matrix"), 
-           emo::ji("heavy_check_mark"), 
-           emo::ji("x")),
+           "✔", 
+           "❌"),
   `_Matrix::Matrix_ optimized` = 
     ifelse(sapply(matrixStats, existsMethod, signature = "Matrix"), 
-           emo::ji("heavy_check_mark"), 
-           emo::ji("x")),
+           "✔", 
+           "❌"),
   `_DelayedArray::RleArray_ (_SolidRleArraySeed_) optimized` = 
     ifelse(sapply(matrixStats, existsMethod, signature = "SolidRleArraySeed"),
-           emo::ji("heavy_check_mark"), 
-           emo::ji("x")),
+           "✔", 
+           "❌"),
   `_DelayedArray::RleArray_  (_ChunkedRleArraySeed_) optimized` = 
     ifelse(sapply(matrixStats, existsMethod, signature = "ChunkedRleArraySeed"),
-           emo::ji("heavy_check_mark"), 
-           emo::ji("x")),
+           "✔", 
+           "❌"),
   `_HDF5Array::HDF5Matrix_ optimized` = 
     ifelse(sapply(matrixStats, existsMethod, signature = "HDF5ArraySeed"),
-           emo::ji("heavy_check_mark"), 
-           emo::ji("x")),
+           "✔", 
+           "❌"),
   `_base::data.frame_ optimized` = 
     ifelse(sapply(matrixStats, existsMethod, signature = "data.frame"),
-           emo::ji("heavy_check_mark"), 
-           emo::ji("x")),
+           "✔", 
+           "❌"),
   `_S4Vectors::DataFrame_ optimized` =
     ifelse(sapply(matrixStats, existsMethod, signature = "DataFrame"),
-           emo::ji("heavy_check_mark"), 
-           emo::ji("x")))
+           "✔", 
+           "❌"))
 knitr::kable(api_tbl)
 ```
 
@@ -176,4 +176,3 @@ for a summary these methods.
 # Benchmarking
 
 # Roadmap
-
