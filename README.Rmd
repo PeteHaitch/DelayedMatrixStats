@@ -130,7 +130,7 @@ DelayedMatrixStats <- gsub("exportMethods|\\(|\\)",
                                 DelayedMatrixStats, 
                                 value = TRUE))
 
-api_tbl <- tibble::tibble(
+api_df <- data.frame(
   Method = paste0("`", matrixStats, "()`"),
   `Block processing` = ifelse(matrixStats %in% DelayedMatrixStats,
                               "✔",
@@ -162,6 +162,7 @@ api_tbl <- tibble::tibble(
   `_S4Vectors::DataFrame_ optimized` =
     ifelse(sapply(matrixStats, existsMethod, signature = "DataFrame"),
            "✔", 
-           "❌"))
-knitr::kable(api_tbl)
+           "❌"), 
+  check.names = FALSE)
+knitr::kable(api_df, row.names = FALSE)
 ```
