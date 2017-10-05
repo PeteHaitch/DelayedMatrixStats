@@ -227,8 +227,8 @@ microbenchmark(
   block_processing = colSums2(dm_matrix, force_block_processing = TRUE),
   seed_aware = colSums2(dm_matrix),
   times = 10)
-profmem::total(profmem::profmem(DelayedArray::colSums(dm_matrix)))
-profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(dm_matrix)))
+total(profmem(colSums2(dm_matrix, force_block_processing = TRUE)))
+total(profmem(colSums2(dm_matrix)))
 
 # -----------------------------------------------------------------------------
 # Sparse (60% zero) with values in (0, 1)
@@ -248,8 +248,8 @@ microbenchmark(
   block_processing = colSums2(dm_dgCMatrix, force_block_processing = TRUE),
   seed_aware = colSums2(dm_dgCMatrix),
   times = 10)
-profmem::total(profmem::profmem(DelayedArray::colSums(dm_dgCMatrix)))
-profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(dm_dgCMatrix)))
+total(profmem(colSums2(dm_dgCMatrix, force_block_processing = TRUE)))
+total(profmem(colSums2(dm_dgCMatrix)))
 
 # -----------------------------------------------------------------------------
 # Dense with values in {0, 100} featuring runs of identical values
@@ -281,5 +281,47 @@ The development of 'seed-aware' methods is ongoing work (see the [Roadmap](#road
 
 An extensive set of benchmarks is under development at [http://peterhickey.org/BenchmarkingDelayedMatrixStats/](http://peterhickey.org/BenchmarkingDelayedMatrixStats/). 
 
+# Delayed operations
+
+A key feature of a _DelayedArray_ is the ability to register 'delayed 
+operations'. For example, let's compute `sin(dm_matrix)`:
+
+```{r sin}
+system.time(sin_dm_matrix <- sin(dm_matrix))
+```
+
+This instantaneous because the operation is not actually performed, rather 
+it is registered and only performed when the object is _realized_. All methods 
+in `r Biocpkg("DelayedMatrixStats")` will correctly realise these delayed 
+operations before computing the final result. For example, let's compute  
+`colSums2(sin_dm_matrix)` and compare check we get the correct answer:
+
+```{r colSums2_sin}
+all.equal(colSums2(sin_dm_matrix), colSums(sin(as.matrix(dm_matrix))))
+```
 
 # Roadmap {#roadmap}
+
+The initial version of `r Biocpkg("DelayedMatrixStats")` provides complete 
+coverage of the `r CRANpkg("matrixStats")` column-wise and row-wise API[^api], 
+allowing package developers to use these functions with _DelayedMatrix_ objects 
+as well as with ordinary _matrix_ objects. This should simplify package 
+development and assist authors to support to their software for large datasets 
+stored in disk-backed data structures such as _HDF5Array_. Such large datasets 
+are increasingly common with the rise of single-cell genomics.
+
+Future releases of `r Biocpkg("DelayedMatrixStats")` will improve the 
+performance of these methods, specfically by developing additional 'seed-aware' 
+methods. The plan is to prioritise commonly used methods (e.g.,  
+`colMeans2()`/`rowMeans2()`, `colSums2()`/`rowSums2()`, etc.) and the 
+development of 'seed-aware' methods for the _HDF5Matrix_ class. To do so, we 
+will leverage the `r Biocpkg("beachmat")` package. Proof-of-concept code 
+has shown that this can greatly increase the performance when analysing such 
+disk-backed data.
+
+Importantly, all package developers using methods from 
+`r Biocpkg("DelayedMatrixStats")` will immediately gain from performance 
+improvements to these low-level routines. By using 
+`r Biocpkg("DelayedMatrixStats")`, package developers will be able to focus on 
+higher level programming tasks and address important scientific questions and 
+technological challenges in high-throughput biology.

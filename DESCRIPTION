@@ -31,7 +31,9 @@ Suggests:
   knitr,
   rmarkdown,
   covr,
-  BiocStyle
+  BiocStyle,
+  microbenchmark,
+  profmem
 VignetteBuilder: knitr
 URL: https://github.com/PeteHaitch/DelayedMatrixStats
 BugReports: https://github.com/PeteHaitch/DelayedMatrixStats/issues
