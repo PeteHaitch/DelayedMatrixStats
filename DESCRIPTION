@@ -30,7 +30,8 @@ Suggests:
   HDF5Array,
   knitr,
   rmarkdown,
-  covr
+  covr,
+  BiocStyle
 VignetteBuilder: knitr
 URL: https://github.com/PeteHaitch/DelayedMatrixStats
 BugReports: https://github.com/PeteHaitch/DelayedMatrixStats/issues

@@ -1,0 +1,179 @@
+---
+title: "Overview of DelayedMatrixStats"
+author: "Peter Hickey"
+date: "Modified: 04 Oct 2017. Compiled: `r format(Sys.Date(), '%d %b %Y')`"
+output: BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE, setup}
+knitr::opts_chunk$set(echo = TRUE, comment = "#>", collapse = TRUE,
+                      message = FALSE)
+```
+
+# Overview
+
+`r Biocpkg("DelayedMatrixStats")` ports the `r CRANpkg("matrixStats")` API 
+to work with *DelayedMatrix* objects from the `r Biocpkg("DelayedArray")` 
+package. It provides high-performing functions operating on rows and columns of 
+*DelayedMatrix* objects, including all subclasses such as *RleArray* (from the 
+`r Biocpkg("DelayedArray")` package) and *HDF5Array* (from the 
+`r Biocpkg("HDF5Array")`) as well as supporting all types of *seeds*, such as 
+*matrix* (from the *base* package) and *Matrix* (from the `r CRANpkg("Matrix")` 
+package).
+
+# How can DelayedMatrixStats help me?
+
+The `r Biocpkg("DelayedArray")` package allows developers to store array-like 
+data using in-memory or on-disk representations (e.g., in HDF5 files) and 
+provides a common and familiar array-like interace for interacting with these 
+data.
+
+The `r Biocpkg("DelayedMatrixStats")` package is designed to make life easier 
+for Bioconductor developers wanting to use `r Biocpkg("DelayedArray")` by 
+providing a rich set of column-wise and row-wise summary functions. Key to this 
+are:
+
+1. A common and familiar API
+2. 'Seed-aware' optimized methods
+
+We briefly demonstrate and explain these two features using a simple example.
+
+## Example
+
+We'll simulate some (unrealistic) RNA-seq read counts data from 10,000 genes 
+and 20 samples and store it on disk as a *HDF5Array*:
+
+```{r data_sim, message = FALSE}
+library(DelayedArray)
+
+x <- do.call(cbind, lapply(1:20, function(j) {
+  rpois(n = 10000, lambda = sample(20:40, 10000, replace = TRUE))
+}))
+colnames(x) <- paste0("S", 1:20)
+x <- realize(x, "HDF5Array")
+x
+```
+
+Suppose you wish to compute the standard deviation of the read counts for each 
+gene. 
+
+You might think to use `apply()` like in the following:
+
+```{r apply}
+system.time(row_sds <- apply(x, 1, sd))
+head(row_sds)
+```
+
+This works, but takes quite a while.
+
+Or perhaps you already know that the `r CRANpkg("matrixStats")` package 
+provides a `rowSds()` function:
+
+```{r matrixStats, error = TRUE}
+matrixStats::rowSds(x)
+```
+
+Unfortunately (and perhaps unsurprisingly) this doesn't work. 
+`r CRANpkg("matrixStats")` is designed for use on in-memory *matrix* ojects. 
+Well, why don't we just first realize our data in-memory and then use 
+`r CRANpkg("matrixStats")`
+
+```{r realization}
+system.time(row_sds <- matrixStats::rowSds(as.matrix(x)))
+head(row_sds)
+```
+
+This works and is many times faster than the `apply()`-based approach! However, 
+it rather defeats the purpose of using a *HDF5Array* for storing the 
+data since we have to bring all the data into memory at once to compute the 
+result. 
+
+Instead, we can use `DelayedMatrixStats::rowSds()`, which has the speed 
+benefits of `matrixStats::rowSds()`[^speed] but without having to load the 
+entire data into memory at once[^block_size]:
+
+[^speed]: In fact, it currently uses `matrixStats::rowSds()` under the hood.
+[^block_size]: In this case, it loads blocks of data row-by-row. The amount of 
+data loaded into memory at any one time is controlled by the 
+`DelayedArray.block.size` option; see `?DelayedArray::DelayedArray` for 
+details. Notably, if the data are small enough (and the value of this option is 
+largeenough) then all the data is loaded as a single block, but this approach 
+generalizes and still works when the data are too large to be loaded into 
+memory in one block.
+
+```{r DelayedMatrixStats}
+library(DelayedMatrixStats)
+
+system.time(row_sds <- rowSds(x))
+head(row_sds)
+```
+
+# Supported methods
+
+The initial release of `r Biocpkg("DelayedMatrixStats")` supports the complete 
+set of column-wise and row-wise `r CRANpkg("matrixStats")` API[^api].
+
+[^api]: **NOTE:** `colWeightedSds()`, `colWeightedVars()`, `rowWeightedSds()`, and 
+`rowWeightedVars()` will be implemented/reinstated after resolving 
+[a bug in `matrixStats::weightedVar()`](https://github.com/HenrikBengtsson/matrixStats/issues/105)
+
+```{r API, echo = FALSE}
+matrixStats <- sort(grep("^(col|row)", 
+                         getNamespaceExports("matrixStats"), 
+                         value = TRUE))
+# TODO: A better way of parsing DelayedMatrixStats NAMESPACE to get exported 
+#       functions (will also need internal functions for api_df)
+DelayedMatrixStats <- sort(grep("^(col|row)", 
+                         getNamespaceExports("matrixStats"), 
+                         value = TRUE))
+
+api_tbl <- tibble::tibble(
+  Method = paste0("`", matrixStats, "()`"),
+  `Block processing` = ifelse(matrixStats %in% DelayedMatrixStats,
+                              emo::ji("heavy_check_mark"),
+                              emo::ji("x")),
+  `_base::matrix_ optimized` = 
+    ifelse(sapply(matrixStats, existsMethod, signature = "matrix"), 
+           emo::ji("heavy_check_mark"), 
+           emo::ji("x")),
+  `_Matrix::Matrix_ optimized` = 
+    ifelse(sapply(matrixStats, existsMethod, signature = "Matrix"), 
+           emo::ji("heavy_check_mark"), 
+           emo::ji("x")),
+  `_DelayedArray::RleArray_ (_SolidRleArraySeed_) optimized` = 
+    ifelse(sapply(matrixStats, existsMethod, signature = "SolidRleArraySeed"),
+           emo::ji("heavy_check_mark"), 
+           emo::ji("x")),
+  `_DelayedArray::RleArray_  (_ChunkedRleArraySeed_) optimized` = 
+    ifelse(sapply(matrixStats, existsMethod, signature = "ChunkedRleArraySeed"),
+           emo::ji("heavy_check_mark"), 
+           emo::ji("x")),
+  `_HDF5Array::HDF5Matrix_ optimized` = 
+    ifelse(sapply(matrixStats, existsMethod, signature = "HDF5ArraySeed"),
+           emo::ji("heavy_check_mark"), 
+           emo::ji("x")),
+  `_base::data.frame_ optimized` = 
+    ifelse(sapply(matrixStats, existsMethod, signature = "data.frame"),
+           emo::ji("heavy_check_mark"), 
+           emo::ji("x")),
+  `_S4Vectors::DataFrame_ optimized` =
+    ifelse(sapply(matrixStats, existsMethod, signature = "DataFrame"),
+           emo::ji("heavy_check_mark"), 
+           emo::ji("x")))
+knitr::kable(api_tbl)
+```
+
+Please see the `r CRANpkg("matrixStats")` vignette ([available online](https://cran.r-project.org/package=matrixStats/vignettes/matrixStats-methods.html)) 
+for a summary these methods.
+
+
+# Benchmarking
+
+# Roadmap
+
