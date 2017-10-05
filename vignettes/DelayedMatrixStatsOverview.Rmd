@@ -125,7 +125,7 @@ version of `r Biocpkg("DelayedMatrixStats")`.
 
 [^api]: **NOTE:** `colWeightedSds()`, `colWeightedVars()`, `rowWeightedSds()`, and 
 `rowWeightedVars()` will be implemented/reinstated after resolving 
-[a bug in `matrixStats::weightedVar()`](https://github.com/HenrikBengtsson/matrixStats/issues/105)
+[a bug in `matrixStats::weightedVar()`](https://github.com/HenrikBengtsson/matrixStats/issues/105). `colAvgsPerRowSet()` will be implemented/reinstated upon the next CRAN release of **matrixStats** ([https://github.com/PeteHaitch/DelayedMatrixStats/issues/34](https://github.com/PeteHaitch/DelayedMatrixStats/issues/34))
 
 ```{r API, echo = FALSE}
 matrixStats <- sort(grep("^(col|row)", 
