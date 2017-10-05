@@ -50,7 +50,7 @@ is done.  Default value is \code{\link[base]{NA}} (for efficiency).}
 center location of the data.  If \code{\link[base]{NULL}}, it is estimated
 from data.}
 
-\item{...}{Not used.}
+\item{...}{Additional arguments passed to specific methods.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden

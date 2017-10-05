@@ -78,7 +78,7 @@ subsetting is done.}
 length two specifying the dimension of \code{x}, also when not a
 \code{\link[base]{matrix}}.}
 
-\item{...}{Not used.}
+\item{...}{Additional arguments passed to specific methods.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden

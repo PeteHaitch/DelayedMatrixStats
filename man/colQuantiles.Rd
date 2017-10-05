@@ -43,7 +43,7 @@ are excluded first, otherwise not.}
 \item{type}{An \code{\link[base]{integer}} specify the type of estimator.
 See \code{\link[stats]{quantile}} for more details.}
 
-\item{...}{Additional arguments passed to \code{\link[stats]{quantile}}.}
+\item{...}{Additional arguments passed to specific methods.}
 
 \item{drop}{If TRUE, singleton dimensions in the result are dropped,
 otherwise not.}

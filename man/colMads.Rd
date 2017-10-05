@@ -63,8 +63,7 @@ length two specifying the dimension of \code{x}, also when not a
 
 \item{centers}{(deprectated) use \code{center} instead.}
 
-\item{...}{Additional arguments passed to \code{\link{rowVars}}() and
-\code{\link{rowMedians}}(), respectively.}
+\item{...}{Additional arguments passed to specific methods.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden

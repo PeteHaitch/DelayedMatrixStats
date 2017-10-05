@@ -32,7 +32,7 @@ is done.}
 length two specifying the dimension of \code{x}, also when not a
 \code{\link[base]{matrix}}.}
 
-\item{...}{Not used.}
+\item{...}{Additional arguments passed to specific methods.}
 
 \item{rows}{A \code{\link[base]{vector}} indicating subset of rows
 (and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting

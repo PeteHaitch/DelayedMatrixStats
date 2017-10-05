@@ -44,7 +44,7 @@ elements (or rows and/or columns) to operate over. If
 elements (or rows and/or columns) to operate over. If
 \code{\link[base]{NULL}}, no subsetting is done.}
 
-\item{...}{Not used.}
+\item{...}{Additional arguments passed to specific methods.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden

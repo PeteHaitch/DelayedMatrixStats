@@ -38,7 +38,7 @@ is done.}
 \item{na.rm}{If \code{\link[base:logical]{TRUE}}, missing values are
 excluded from the calculation, otherwise not.}
 
-\item{...}{Additional arguments passed to \code{\link{weightedMedian}}().}
+\item{...}{Additional arguments passed to specific methods.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden

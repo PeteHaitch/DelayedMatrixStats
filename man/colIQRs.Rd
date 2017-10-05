@@ -32,8 +32,7 @@ elements (or rows and/or columns) to operate over. If
 \item{na.rm}{If \code{\link[base:logical]{TRUE}}, missing values are dropped
 first, otherwise not.}
 
-\item{...}{Additional arguments passed to \code{\link{rowQuantiles}}()
-(\code{colQuantiles()}).}
+\item{...}{Additional arguments passed to specific methods.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden

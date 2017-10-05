@@ -43,8 +43,7 @@ used to average over each subset of \code{X}.  This function must accept a
 set), and return a \code{\link[base]{numeric}} \code{\link[base]{vector}} of
 length N (M).}
 
-\item{...}{Additional arguments passed to then \code{FUN}
-\code{\link[base]{function}}.}
+\item{...}{Additional arguments passed to specific methods.}
 
 \item{tFUN}{If \code{\link[base:logical]{TRUE}}, the NxK (KxM)
 \code{\link[base]{matrix}} passed to \code{FUN()} is transposed first.}
