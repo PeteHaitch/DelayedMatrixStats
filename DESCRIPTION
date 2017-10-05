@@ -1,7 +1,7 @@
 Package: DelayedMatrixStats
 Type: Package
 Title: Functions that Apply to Rows and Columns of 'DelayedMatrix' Objects
-Version: 0.99.0
+Version: 0.99.1
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"))
 Author: Peter Hickey <peter.hickey@gmail.com>
@@ -21,7 +21,7 @@ Depends:
   DelayedArray
 Imports:
   methods,
-  matrixStats (>= 0.52.2-9000),
+  matrixStats,
   Matrix,
   S4Vectors,
   IRanges
@@ -37,5 +37,4 @@ Suggests:
 VignetteBuilder: knitr
 URL: https://github.com/PeteHaitch/DelayedMatrixStats
 BugReports: https://github.com/PeteHaitch/DelayedMatrixStats/issues
-Remotes: HenrikBengtsson/matrixStats@develop
 biocViews: Infrastructure, DataRepresentation, Software

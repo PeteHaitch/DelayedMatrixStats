@@ -6,7 +6,7 @@
 \alias{rowCounts}
 \alias{colCounts,DelayedMatrix-method}
 \alias{rowCounts,DelayedMatrix-method}
-\title{Counts the number of occurrences of a specific value}
+\title{Counts the number of TRUE values in each row (column) of a matrix}
 \usage{
 colCounts(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
   dim. = dim(x), ...)
@@ -54,17 +54,17 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \value{
 \code{rowCounts()} (\code{colCounts()}) returns an
 \code{\link[base]{integer}} \code{\link[base]{vector}} of length N (K).
-\code{count()} returns a scalar of type \code{\link[base]{integer}} if
-the count is less than 2^31-1 (= \code{.Machine$integer.max}) otherwise
-a scalar of type \code{\link[base]{double}}.
 }
 \description{
-The row- and column-wise functions take either a matrix or a vector as
-input. If a vector, then argument \code{dim.} must be specified and fulfill
-\code{prod(dim.) == length(x)}.  The result will be identical to the results
-obtained when passing \code{matrix(x, nrow = dim.[1L], ncol = dim.[2L])},
-but avoids having to temporarily create/allocate a matrix, if only such is
-needed only for these calculations.
+Counts the number of TRUE values in each row (column) of a matrix.
+}
+\details{
+These functions takes either a matrix or a vector as input. If a vector,
+then argument \code{dim.} must be specified and fulfill \code{prod(dim.) ==
+length(x)}.  The result will be identical to the results obtained when
+passing \code{matrix(x, nrow = dim.[1L], ncol = dim.[2L])}, but avoids
+having to temporarily create/allocate a matrix, if only such is needed
+only for these calculations.
 }
 \examples{
 # A DelayedMatrix with a 'matrix' seed

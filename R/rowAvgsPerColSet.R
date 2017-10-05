@@ -57,8 +57,11 @@
 #
 
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colAvgsPerRowSet
+#' @rdname rowAvgsPerColSet
+#' @template common_params
+#' @template uppercase_X
 #' @export
+#' @template example_dm_S4VectorsDF
 #' @examples
 #' rowAvgsPerColSet(dm_DF, S = matrix(1:2, ncol = 1))
 setMethod("rowAvgsPerColSet", "DelayedMatrix",
