@@ -73,7 +73,7 @@ matrixStats::rowSds(x)
 ```
 
 Unfortunately (and perhaps unsurprisingly) this doesn't work. 
-`r CRANpkg("matrixStats")` is designed for use on in-memory *matrix* ojects. 
+`r CRANpkg("matrixStats")` is designed for use on in-memory *matrix* objects. 
 Well, why don't we just first realize our data in-memory and then use 
 `r CRANpkg("matrixStats")`
 
@@ -96,7 +96,7 @@ entire data into memory at once[^block_size]:
 data loaded into memory at any one time is controlled by the 
 `DelayedArray.block.size` option; see `?DelayedArray::DelayedArray` for 
 details. Notably, if the data are small enough (and the value of this option is 
-largeenough) then all the data is loaded as a single block, but this approach 
+large enough) then all the data is loaded as a single block, but this approach 
 generalizes and still works when the data are too large to be loaded into 
 memory in one block.
 
@@ -110,7 +110,7 @@ head(row_sds)
 Finally, by using `r Biocpkg("DelayedMatrixStats")` we can use the same code, 
 (`colMedians(x)`) regardless of whether the input is an ordinary *matrix* or a 
 *DelayedMatrix*. This is useful for packages wishing to support both types of 
-objects, e.g., packages wanting to retain backward compatability or during a 
+objects, e.g., packages wanting to retain backward compatibility or during a 
 transition period from *matrix*-based to *DelayeMatrix*-based objects.
 
 # Supported methods
@@ -201,7 +201,7 @@ each method.
 In each case, the 'seed-aware' method is many times faster and allocates 
 substantially lower total memory.
 
-```{r benchmarking, message = FALSE, echo = TRUE}
+```{r benchmarking, message = FALSE, echo = TRUE, error = TRUE}
 library(DelayedMatrixStats)
 library(Matrix)
 library(microbenchmark)
@@ -311,7 +311,7 @@ stored in disk-backed data structures such as _HDF5Array_. Such large datasets
 are increasingly common with the rise of single-cell genomics.
 
 Future releases of `r Biocpkg("DelayedMatrixStats")` will improve the 
-performance of these methods, specfically by developing additional 'seed-aware' 
+performance of these methods, specifically by developing additional 'seed-aware' 
 methods. The plan is to prioritise commonly used methods (e.g.,  
 `colMeans2()`/`rowMeans2()`, `colSums2()`/`rowSums2()`, etc.) and the 
 development of 'seed-aware' methods for the _HDF5Matrix_ class. To do so, we 
