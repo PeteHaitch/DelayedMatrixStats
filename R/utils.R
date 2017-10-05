@@ -77,10 +77,13 @@ message2 <- function(msg, verbose = FALSE) {
 #' Coerce DelayedArray to its 'simple seed' form
 #' @details Like `DelayedArray:::.from_DelayedArray_to_array` but returning an
 #' object of the same class as `class(seed(x))` instead of an _array_. In
-#' doing so, all delayed operations are realised (including subsetting)
+#' doing so, all delayed operations are realised (including subsetting).
+#'
 #' @param x A \linkS4class{DelayedArray}
 #' @param drop If `TRUE` the result is coerced to the lowest possible dimension
 #' @param do_transpose Should transposed input be physically transposed?
+#'
+#' @return An object of the same class as `class(seed(x))`.
 #'
 #' @note Can be more efficient to leave the transpose implicit
 #' (`do_transpose = FALSE`) and switch from a `row*()` method to a `col*()`
@@ -90,6 +93,7 @@ message2 <- function(msg, verbose = FALSE) {
 #'
 #' @importFrom S4Vectors isTRUEorFALSE
 #' @keywords internal
+
 from_DelayedArray_to_simple_seed_class <- function(x, drop = FALSE,
                                                    do_transpose = TRUE) {
   stopifnot(is(x, "DelayedArray"))

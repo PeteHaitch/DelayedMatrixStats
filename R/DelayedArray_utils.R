@@ -2,7 +2,7 @@
 ### Utility functions that probably belong in DelayedArray package
 ###
 
-# NOTE: Adapted from DelayedArray:::block_APPLY()
+# NOTE: Adapted from DelayedArray:::block_APPLY(), adds the `MARGIN` argument
 #' @importFrom DelayedArray ArrayRegularGrid
 #' @importMethodsFrom DelayedArray type write_block_to_sink
 #' @importFrom S4Vectors isSingleNumber
@@ -56,6 +56,8 @@ block_APPLY <- function(x, APPLY, MARGIN, ..., sink = NULL,
 #' Adapted from `DelayedArray:::colblock_APPLY()`
 #' @importMethodsFrom DelayedArray type
 #' @keywords internal
+#' @return A list of length equal to `ncol(x)`, each list element storing the
+#' result for the corresponding column.
 rowblock_APPLY <- function(x, APPLY, ..., sink = NULL) {
   x_dim <- dim(x)
   if (length(x_dim) != 2L) {

@@ -6,6 +6,10 @@
 \usage{
 rowblock_APPLY(x, APPLY, ..., sink = NULL)
 }
+\value{
+A list of length equal to \code{ncol(x)}, each list element storing the
+result for the corresponding column.
+}
 \description{
 Adapted from \code{DelayedArray:::colblock_APPLY()}
 }
