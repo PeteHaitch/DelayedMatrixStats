@@ -49,7 +49,7 @@ message2 <- function(msg, verbose = FALSE) {
 # NOTE: A basic wrapper around DelayedArray:::.execute_delayed_ops() that also
 #       handles seed instance of class RleArraySeed
 # TODO: Make generic and implement methods
-#' @importMethodsFrom S4Vectors endoapply
+#' @importFrom S4Vectors endoapply
 .execute_delayed_ops <- function(seed, delayed_ops) {
   if (is(seed, "RleArraySeed")) {
     seed@rle <- DelayedArray:::.execute_delayed_ops(seed@rle, delayed_ops)
