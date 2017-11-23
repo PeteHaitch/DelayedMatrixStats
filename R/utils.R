@@ -26,14 +26,14 @@ message2 <- function(msg, verbose = FALSE) {
 }
 
 # TODO: Figure out a minimal definition of a "simple seed"; Hervé defines a
-#       "seed contract" as dim(), dimnames(), and subset_seed_as_array()
+#       "seed contract" as dim(), dimnames(), and extract_array()
 #       https://github.com/Bioconductor-mirror/DelayedArray/blob/18685ee33442b9b8e499a75bd46451c56383f18b/R/cbind-methods.R#L49
 #       A potential minimal (albeit almost circular) definition is it has a
 #       subset_simple_seed_as_seed_class() method
 # TODO: Is an RleArraySeed a simple seed? It's in memory, but doesn't support
 #       basic operations like "[", although it does support
 #       subset_simple_seed_as_seed_class() and
-#       DelayedArray:::subset_seed_as_array(), which may be sufficient
+#       DelayedArray::extract_array(), which may be sufficient
 # NOTE: A matterArraySeed is not a simple seed because it does not support
 #       subset_simple_seed_as_seed_class
 .is_simple_seed <- function(seed) {
@@ -261,4 +261,4 @@ setMethod("subset_simple_seed_as_seed_class", "SolidRleArraySeed",
 )
 
 # TODO: subset_simple_seed_as_seed_class,ChunkedRleArraySeed-method
-#       (see subset_seed_as_array,ChunkedRleArraySeed-method)
+#       (see extract_array,ChunkedRleArraySeed-method)

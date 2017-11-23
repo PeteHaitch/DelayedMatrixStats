@@ -10,7 +10,7 @@
 # subset_simple_seed
 #
 
-# Like DelayedArray:::subset_seed_as_array except the return value has the same
+# Like DelayedArray::extract_array except the return value has the same
 # class as seed.
 # NOTE: This only works for simple, in-memory seeds, e.g. matrix, Matrix,
 #       and data frame. It does not work with SeedBinder or HDF5ArraySeed, for
