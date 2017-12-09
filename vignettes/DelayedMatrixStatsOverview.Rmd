@@ -4,7 +4,7 @@ author: "Peter Hickey"
 date: "Modified: 05 Oct 2017. Compiled: `r format(Sys.Date(), '%d %b %Y')`"
 output: BiocStyle::html_document
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Overview of DelayedMatrixStats}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
