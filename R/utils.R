@@ -26,16 +26,15 @@ message2 <- function(msg, verbose = FALSE) {
 }
 
 # TODO: Figure out a minimal definition of a "simple seed"; Hervé defines a
-#       "seed contract" as dim(), dimnames(), and subset_seed_as_array()
-#       https://github.com/Bioconductor-mirror/DelayedArray/blob/18685ee33442b9b8e499a75bd46451c56383f18b/R/cbind-methods.R#L49
+#       "seed contract" as dim(), dimnames(), and extract_array(); see
+#       DelayedArray vignette
 #       A potential minimal (albeit almost circular) definition is it has a
-#       subset_simple_seed_as_seed_class() method
+#       well-defined subset_by_Nindex() method
 # TODO: Is an RleArraySeed a simple seed? It's in memory, but doesn't support
-#       basic operations like "[", although it does support
-#       subset_simple_seed_as_seed_class() and
-#       DelayedArray:::subset_seed_as_array(), which may be sufficient
-# NOTE: A matterArraySeed is not a simple seed because it does not support
-#       subset_simple_seed_as_seed_class
+#       basic operations like "[", although it does support subset_by_Nindex()
+#       and  DelayedArray::extract_array(), which may be sufficient
+# NOTE: A HDF5ArraySeed is not a simple seed because it does not support
+#       subset_by_Nindex()
 .is_simple_seed <- function(seed) {
   simple_seed_classes <- c("matrix", "Matrix", "data.frame", "DataFrame",
                            "RleArraySeed")
@@ -93,7 +92,6 @@ message2 <- function(msg, verbose = FALSE) {
 #'
 #' @importFrom S4Vectors isTRUEorFALSE
 #' @keywords internal
-
 from_DelayedArray_to_simple_seed_class <- function(x, drop = FALSE,
                                                    do_transpose = TRUE) {
   stopifnot(is(x, "DelayedArray"))
@@ -103,7 +101,7 @@ from_DelayedArray_to_simple_seed_class <- function(x, drop = FALSE,
   if (!isTRUEorFALSE(drop)) {
     stop("'drop' must be TRUE or FALSE")
   }
-  ans <- subset_simple_seed_as_seed_class(seed(x), unname(x@index))
+  ans <- subset_by_Nindex(seed(x), unname(x@index))
   # TODO: Doesn't work for certain types of seed; does this matter? (am I going
   #       to have transposed DelayedArray objects coming through this routine?)
   # TODO: Need a dim,RleArraySeed-method
@@ -211,54 +209,40 @@ get_Nindex_as_IRangesList <- function(Nindex, dim) {
 # Non-exported methods
 #
 
-setMethod("subset_simple_seed_as_seed_class", "matrix",
-          function(seed, index) {
-            DelayedArray:::subset_by_Nindex(x = seed, Nindex = index)
+setMethod("subset_by_Nindex", "ANY",
+          function(x, Nindex) {
+            DelayedArray:::subset_by_Nindex(x = x, Nindex = Nindex)
           }
 )
 
-setMethod("subset_simple_seed_as_seed_class", "Matrix",
-          function(seed, index) {
-            DelayedArray:::subset_by_Nindex(x = seed, Nindex = index)
-          }
-)
-
-# TODO: See https://github.com/Bioconductor-mirror/DelayedArray/blob/229050e7ac587b4e25a0ad0595d69a301b6314a0/R/DelayedArray-class.R#L612
-setMethod("subset_simple_seed_as_seed_class", "data.frame",
-          function(seed, index) {
-            DelayedArray:::subset_by_Nindex(x = seed, Nindex = index)
-          }
-)
-
-# TODO: See https://github.com/Bioconductor-mirror/DelayedArray/blob/229050e7ac587b4e25a0ad0595d69a301b6314a0/R/DelayedArray-class.R#L630
-setMethod("subset_simple_seed_as_seed_class", "DataFrame",
-          function(seed, index) {
-            DelayedArray:::subset_by_Nindex(x = seed, Nindex = index)
-          }
-)
-
-# TODO: Might be able to simplify to DelayedArray:::subset_by_Nindex() if
+# TODO: Could simplify to subset_by_Nindex,ANY-method if
 #       `[`,RleArraySeed-method is defined, e.g., via
 #       DelayedArray:::to_linear_index() like in the below
-setMethod("subset_simple_seed_as_seed_class", "SolidRleArraySeed",
-          function(seed, index) {
-            seed_dim <- dim(seed)
-            i <- DelayedArray:::to_linear_index(Nindex = index,
-                                                dim = seed_dim)
-            rle <- seed@rle[i]
-            dim <- DelayedArray:::get_Nindex_lengths(Nindex = index,
-                                                     dim = seed_dim)
-            # TODO: Need to subset dimnames and pass to constructor
-            dimnames <- list(
-              DelayedArray:::get_Nindex_names_along(Nindex = index,
-                                                    dimnames = seed@dimnames,
-                                                    along = 1L),
-              DelayedArray:::get_Nindex_names_along(Nindex = index,
-                                                    dimnames = seed@dimnames,
-                                                    along = 2L))
+setMethod("subset_by_Nindex", "SolidRleArraySeed",
+          function(x, Nindex) {
+            x_dim <- dim(x)
+            x_dimnames <- dimnames(x)
+            i <- DelayedArray:::to_linear_index(Nindex = Nindex,
+                                                dim = x_dim)
+            rle <- x@rle[i]
+            dim <- DelayedArray:::get_Nindex_lengths(Nindex = Nindex,
+                                                     dim = x_dim)
+            if (is.null(x_dimnames)) {
+              dimnames <- x_dimnames
+            } else {
+              dimnames <- lapply(seq_along(x_dimnames), function(along) {
+                DelayedArray:::get_Nindex_names_along(Nindex = Nindex,
+                                                      dimnames = x_dimnames,
+                                                      along = along)
+              })
+            }
             DelayedArray:::RleArraySeed(rle, dim, dimnames)
           }
 )
 
-# TODO: subset_simple_seed_as_seed_class,ChunkedRleArraySeed-method
-#       (see subset_seed_as_array,ChunkedRleArraySeed-method)
+# TODO: subset_by_Nindex,ChunkedRleArraySeed-method
+#       (see extract_array,ChunkedRleArraySeed-method)?
+# TODO: subset_by_Nindex,ConformableSeedCombiner-method
+#       (see extract_array,ConformableSeedCombiner-method)?
+# TODO: subset_by_Nindex,SeedBinder-method
+#       (see extract_array,SeedBinder-method)?
