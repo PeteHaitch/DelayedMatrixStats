@@ -10,6 +10,7 @@
 # subset_by_Nindex()
 #
 
+<<<<<<< HEAD
 #' `subset_by_Nindex`
 #'
 #' `subset_by_Nindex()` is an internal generic function not aimed to be used
