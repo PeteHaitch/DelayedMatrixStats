@@ -15,7 +15,7 @@ test_that("DMS has equal output to mS", {
   #            if (type(object) != "integer") {
   #              # NOTE: matrixStats::rowTabulates() doesn't work with numeric
   #              #       matrices, so should produce an error
-  #              expect_error()
+  #              expect_error(rowTabulates(object))
   #            } else {
   #              expect_equal(rowTabulates(object), expected)
   #            }
@@ -36,7 +36,7 @@ test_that("DMS has equal output to mS", {
              if (type(object) != "integer") {
                # NOTE: matrixStats::rowTabulates() doesn't work with numeric
                #       matrices, so should produce an error
-               expect_error()
+               expect_error(rowTabulates(object, values = values))
              } else {
                expect_equal(rowTabulates(object, values = values), expected)
              }
@@ -58,7 +58,7 @@ test_that("DMS has equal output to mS: subsetting and delayed ops", {
       if (type(f(object[i, j])) != "integer") {
         # NOTE: matrixStats::rowTabulates() doesn't work with numeric
         #       matrices, so should produce an error
-        expect_error()
+        expect_error(rowTabulates(f(object[i, j])))
       } else {
         expect_equal(rowTabulates(f(object[i, j])), expected)
       }
@@ -76,7 +76,7 @@ test_that("DMS has equal output to mS: subsetting and delayed ops", {
       if (type(f(object[i, j])) != "integer") {
         # NOTE: matrixStats::rowTabulates() doesn't work with numeric
         #       matrices, so should produce an error
-        expect_error()
+        expect_error(rowTabulates(f(object[i, j])))
       } else {
         expect_equal(rowTabulates(f(object[i, j]), values = values), expected)
       }
@@ -96,7 +96,7 @@ test_that("DMS has equal output to mS: non-NULL rows and cols", {
       if (type(object) != "integer") {
         # NOTE: matrixStats::rowTabulates() doesn't work with numeric
         #       matrices, so should produce an error
-        expect_error()
+        expect_error(rowTabulates(object, rows, cols))
       } else {
         expect_equal(rowTabulates(object, rows, cols), expected)
       }
@@ -113,7 +113,7 @@ test_that("DMS has equal output to mS: non-NULL rows and cols", {
       if (type(object) != "integer") {
         # NOTE: matrixStats::rowTabulates() doesn't work with numeric
         #       matrices, so should produce an error
-        expect_error()
+        expect_error(rowTabulates(object, rows, cols, values))
       } else {
         expect_equal(rowTabulates(object, rows, cols, values), expected)
       }
