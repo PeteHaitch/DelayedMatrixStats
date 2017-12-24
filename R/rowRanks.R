@@ -14,7 +14,6 @@
     # Check input type
     ties.method <- match.arg(ties.method)
     stopifnot(is(x, "DelayedMatrix"))
-    stopifnot(!x@is_transposed)
     DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
 
     # Subset

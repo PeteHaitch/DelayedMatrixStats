@@ -13,7 +13,6 @@
                                                ...) {
   # Check input type
   stopifnot(is(lx, "DelayedMatrix"))
-  stopifnot(!lx@is_transposed)
   DelayedArray:::.get_ans_type(lx, must.be.numeric = TRUE)
 
   # Subset

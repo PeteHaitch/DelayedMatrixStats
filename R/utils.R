@@ -107,28 +107,15 @@ from_DelayedArray_to_simple_seed_class <- function(x, drop = FALSE,
   # TODO: Need a dim,RleArraySeed-method
   if (!is.data.frame(ans) && !is(ans, "RleArraySeed") &&
       !is(ans, "DataFrame")) {
-    dim(ans) <- DelayedArray:::.get_DelayedArray_dim_before_transpose(x)
+    ans <- DelayedArray:::set_dim(ans, dim(x))
   }
-  ans <- .execute_delayed_ops(ans, x@delayed_ops)
+  ans <- DelayedArray:::.execute_delayed_ops(ans, x@delayed_ops)
   # TODO: Need a dimnames,RleArraySeed-method
   if (!is(ans, "RleArraySeed")) {
-    dimnames(ans) <-
-      DelayedArray:::.get_DelayedArray_dimnames_before_transpose(x)
+    ans <- DelayedArray:::set_dimnames(ans, dimnames(x))
   }
   if (drop) {
     ans <- DelayedArray:::.reduce_array_dimensions(ans)
-  }
-  # NOTE: Base R doesn't support transposition of an array of arbitrary
-  #       dimension (generalized transposition) so the call to t() below will
-  #       fail if 'ans' has more than 2 dimensions. If we want as.array() to
-  #       work on a transposed DelayedArray object of arbitrary dimension, we
-  #       need to implement our own generalized transposition of an ordinary
-  #       array [NOTE copied from DelayedArray]
-  if (x@is_transposed && do_transpose) {
-    if (length(dim(ans)) > 2L) {
-      stop("can't do as.array() on this object, sorry")
-    }
-    ans <- t(ans)
   }
   ans
 }

@@ -12,7 +12,6 @@
                                            na.rm = FALSE, dim. = dim(x), ...) {
   # Check input
   stopifnot(is(x, "DelayedMatrix"))
-  stopifnot(!x@is_transposed)
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
 
   # Subset

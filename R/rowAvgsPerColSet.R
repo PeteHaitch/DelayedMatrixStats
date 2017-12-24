@@ -21,7 +21,6 @@
     warning("'S' will be realised in-memory as a matrix")
     S <- as.matrix(S)
   }
-  stopifnot(!X@is_transposed)
   DelayedArray:::.get_ans_type(X, must.be.numeric = TRUE)
 
   # Subset
