@@ -10,8 +10,7 @@
 #' @inherit matrixStats::rowMads
 .DelayedMatrix_block_rowMads <- function(x, rows = NULL, cols = NULL,
                                          center = NULL, constant = 1.4826,
-                                         na.rm = FALSE, dim. = dim(x),
-                                         centers = NULL, ...) {
+                                         na.rm = FALSE, dim. = dim(x), ...) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -25,7 +24,6 @@
                         center = center,
                         constant = constant,
                         na.rm = na.rm,
-                        centers = centers,
                         ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
@@ -51,7 +49,7 @@
 setMethod("rowMads", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, center = NULL,
                    constant = 1.4826, na.rm = FALSE, dim. = dim(x),
-                   centers = NULL, force_block_processing = FALSE, ...) {
+                   force_block_processing = FALSE, ...) {
             if (!hasMethod("rowMads", class(seed(x))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
@@ -62,7 +60,6 @@ setMethod("rowMads", "DelayedMatrix",
                                                   constant = constant,
                                                   na.rm = na.rm,
                                                   dim. = dim.,
-                                                  centers = centers,
                                                   ...))
             }
 
@@ -84,7 +81,6 @@ setMethod("rowMads", "DelayedMatrix",
                                constant = constant,
                                na.rm = na.rm,
                                dim. = dim.,
-                               centers = centers,
                                force_block_processing = TRUE,
                                ...))
               }
@@ -96,7 +92,6 @@ setMethod("rowMads", "DelayedMatrix",
                     constant = constant,
                     na.rm = na.rm,
                     dim. = dim.,
-                    centers = centers,
                     ...)
           }
 )
