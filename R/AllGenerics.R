@@ -185,8 +185,7 @@ setGeneric("colMadDiffs", signature = "x",
 setGeneric("colMads", signature = "x",
            function(x, rows = NULL, cols = NULL, center = NULL,
                     constant = 1.4826, na.rm = FALSE,
-                    dim. = dim(x), centers = NULL,
-                    ...) standardGeneric("colMads")
+                    dim. = dim(x), ...) standardGeneric("colMads")
 )
 
 # TODO: Need to think about interaction with methods and docs in DelayedArray
@@ -465,8 +464,7 @@ setGeneric("rowMadDiffs", signature = "x",
 setGeneric("rowMads", signature = "x",
            function(x, rows = NULL, cols = NULL, center = NULL,
                     constant = 1.4826, na.rm = FALSE,
-                    dim. = dim(x), centers = NULL,
-                    ...) standardGeneric("rowMads")
+                    dim. = dim(x), ...) standardGeneric("rowMads")
 )
 
 # TODO: Need to think about interaction with methods and docs in DelayedArray
