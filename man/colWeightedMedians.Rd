@@ -70,6 +70,7 @@ dm_Rle <- RleArray(Rle(c(rep(1L, 5),
 colWeightedMedians(dm_Rle, w = 1 / rowMads(dm_Rle))
 }
 \seealso{
-See \code{\link{rowMedians}}() and \code{colMedians()} for
-non-weighted medians.  Internally, \code{\link{weightedMedian}}() is used.
+Internally, \code{\link{weightedMedian}}() is used.
+See \code{\link{rowMedians}}() and \code{colMedians()} for non-weighted
+medians.
 }

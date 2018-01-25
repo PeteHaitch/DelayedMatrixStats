@@ -14,25 +14,25 @@
 \title{Standard deviation estimates for each row (column) in a matrix}
 \usage{
 colMads(x, rows = NULL, cols = NULL, center = NULL, constant = 1.4826,
-  na.rm = FALSE, dim. = dim(x), centers = NULL, ...)
+  na.rm = FALSE, dim. = dim(x), ...)
 
 colSds(x, rows = NULL, cols = NULL, ...)
 
 rowMads(x, rows = NULL, cols = NULL, center = NULL, constant = 1.4826,
-  na.rm = FALSE, dim. = dim(x), centers = NULL, ...)
+  na.rm = FALSE, dim. = dim(x), ...)
 
 rowSds(x, rows = NULL, cols = NULL, ...)
 
 \S4method{colMads}{DelayedMatrix}(x, rows = NULL, cols = NULL,
   center = NULL, constant = 1.4826, na.rm = FALSE, dim. = dim(x),
-  centers = NULL, force_block_processing = FALSE, ...)
+  force_block_processing = FALSE, ...)
 
 \S4method{colSds}{DelayedMatrix}(x, rows = NULL, cols = NULL,
   force_block_processing = FALSE, ...)
 
 \S4method{rowMads}{DelayedMatrix}(x, rows = NULL, cols = NULL,
   center = NULL, constant = 1.4826, na.rm = FALSE, dim. = dim(x),
-  centers = NULL, force_block_processing = FALSE, ...)
+  force_block_processing = FALSE, ...)
 
 \S4method{rowSds}{DelayedMatrix}(x, rows = NULL, cols = NULL,
   force_block_processing = FALSE, ...)
@@ -60,8 +60,6 @@ first, otherwise not.}
 \item{dim.}{An \code{\link[base]{integer}} \code{\link[base]{vector}} of
 length two specifying the dimension of \code{x}, also when not a
 \code{\link[base]{matrix}}.}
-
-\item{centers}{(deprectated) use \code{center} instead.}
 
 \item{...}{Additional arguments passed to specific methods.}
 
