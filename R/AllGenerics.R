@@ -97,16 +97,14 @@ setGeneric("colAnys", signature = "x",
                     dim. = dim(x), ...) standardGeneric("colAnys")
 )
 
-# TODO: Awaiting https://github.com/HenrikBengtsson/matrixStats/issues/110
-#       being available via CRAN (v > 0.52.2 of matrixStats)
 # TODO: Check with Henrik why first arg is `X` and not `x`
-# #' @inherit matrixStats::colAvgsPerRowSet
-# #' @rdname colAvgsPerRowSet
-# #' @export
-# setGeneric("colAvgsPerRowSet", signature = "X",
-#            function(X, W = NULL, cols = NULL, S, FUN = colMeans, tFUN = FALSE,
-#                     ...) standardGeneric("colAvgsPerRowSet")
-# )
+#' @inherit matrixStats::colAvgsPerRowSet
+#' @rdname colAvgsPerRowSet
+#' @export
+setGeneric("colAvgsPerRowSet", signature = "X",
+           function(X, W = NULL, cols = NULL, S, FUN = colMeans, ...,
+                    tFUN = FALSE) standardGeneric("colAvgsPerRowSet")
+)
 
 #' @inherit matrixStats::colCollapse
 #' @rdname colCollapse
@@ -386,11 +384,8 @@ setGeneric("rowAnys", signature = "x",
                     dim. = dim(x), ...) standardGeneric("rowAnys")
 )
 
-# # TODO: Check with Henrik why `...` appear in different place in signature for
-# #       colAvgsPerRowSet and rowAvgsPerColSet
-# # TODO: Check with Henrik why first arg is `X` and not `x`
-#' @inherit matrixStats::colAvgsPerRowSet
-#' @rdname rowAvgsPerColSet
+# TODO: Check with Henrik why first arg is `X` and not `x`
+#' @rdname colAvgsPerRowSet
 #' @export
 setGeneric("rowAvgsPerColSet", signature = "X",
            function(X, W = NULL, rows = NULL, S, FUN = rowMeans, ...,

@@ -1,15 +1,15 @@
 ### ============================================================================
-### rowAvgsPerColSet
+### colAvgsPerRowSet
 ###
 
 ### ----------------------------------------------------------------------------
 ### Non-exported methods
 ###
 
-#' `rowAvgsPerColSet()` block-processing internal helper
-#' @inherit matrixStats::rowAvgsPerColSet
-.DelayedMatrix_block_rowAvgsPerColSet <- function(X, W = NULL, rows = NULL, S,
-                                                  FUN = rowMeans, ...,
+#' `colAvgsPerRowSet()` block-processing internal helper
+#' @inherit matrixStats::colAvgsPerRowSet
+.DelayedMatrix_block_colAvgsPerRowSet <- function(X, W = NULL, cols = NULL, S,
+                                                  FUN = colMeans, ...,
                                                   tFUN = FALSE) {
   # Check input type
   stopifnot(is(X, "DelayedMatrix"))
@@ -24,27 +24,26 @@
   DelayedArray:::.get_ans_type(X, must.be.numeric = TRUE)
 
   # Subset
-  X <- ..subset(X, rows = rows)
+  X <- ..subset(X, cols = cols)
 
   # Compute result
-  # NOTE: Can't use DelayedArray:::colblock_APPLY() because it may process as
-  #       few as 1 column per iteration (and rowAvgsPerColSet() may require
-  #       access to multiple columns)
+  # NOTE: Can't use rowblock_APPLY() because it may process as few as 1 row per
+  #       iteration (and colAvgsPerRowSet() may require access to multiple rows)
   val <- lapply(seq_len(ncol(S)), function(k) {
     if (!is.null(W)) {
       W <- W[, k]
     }
-    matrixStats::rowAvgsPerColSet(as.matrix(X[, S[, k]]),
+    matrixStats::colAvgsPerRowSet(as.matrix(X[S[, k], ]),
                                   W = W,
                                   S = matrix(seq_len(nrow(S))),
                                   FUN = FUN,
                                   tFUN = tFUN)
   })
   if (length(val) == 0L) {
-    return(matrix(numeric(ncol(X)), ncol = ncol(X)))
+    return(matrix(numeric(nrow(X)), nrow = nrow(X)))
   }
-  # NOTE: Return value of matrixStats::rowAvgsPerColSet() has rownames
-  do.call(cbind, val)
+  # NOTE: Return value of matrixStats::colAvgsPerRowSet() has rownames
+  do.call(rbind, val)
 }
 
 ### ----------------------------------------------------------------------------
@@ -57,19 +56,21 @@
 
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colAvgsPerRowSet
+#' @template common_params
+#' @template uppercase_X
 #' @export
+#' @template example_dm_S4VectorsDF
 #' @examples
-#'
-#' rowAvgsPerColSet(dm_DF, S = matrix(1:2, ncol = 1))
-setMethod("rowAvgsPerColSet", "DelayedMatrix",
-          function(X, W = NULL, rows = NULL, S, FUN = rowMeans, ...,
+#' colAvgsPerRowSet(dm_DF, S = matrix(1:2, ncol = 2))
+setMethod("colAvgsPerRowSet", "DelayedMatrix",
+          function(X, W = NULL, cols = NULL, S, FUN = colMeans, ...,
                    force_block_processing = FALSE, tFUN = FALSE) {
-            if (!hasMethod("rowAvgsPerColSet", class(seed(X))) ||
+            if (!hasMethod("colAvgsPerRowSet", class(seed(X))) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_rowAvgsPerColSet(X = X,
+              return(.DelayedMatrix_block_colAvgsPerRowSet(X = X,
                                                            W = W,
-                                                           rows = rows,
+                                                           cols = cols,
                                                            S = S,
                                                            FUN = FUN,
                                                            ...,
@@ -87,9 +88,9 @@ setMethod("rowAvgsPerColSet", "DelayedMatrix",
                                    silent = TRUE)
               if (is(simple_seed_X, "try-error")) {
                 message2("Unable to coerce to seed class", get_verbose())
-                return(rowAvgsPerColSet(X = X,
+                return(colAvgsPerRowSet(X = X,
                                         W = W,
-                                        rows = rows,
+                                        cols = cols,
                                         S = S,
                                         FUN = FUN,
                                         ...,
@@ -98,9 +99,9 @@ setMethod("rowAvgsPerColSet", "DelayedMatrix",
               }
             }
 
-            rowAvgsPerColSet(X = simple_seed_X,
+            colAvgsPerRowSet(X = simple_seed_X,
                              W = W,
-                             rows = rows,
+                             cols = cols,
                              S = S,
                              FUN = FUN,
                              ...,
@@ -113,4 +114,4 @@ setMethod("rowAvgsPerColSet", "DelayedMatrix",
 #
 
 #' @export
-setMethod("rowAvgsPerColSet", "matrix", matrixStats::rowAvgsPerColSet)
+setMethod("colAvgsPerRowSet", "matrix", matrixStats::colAvgsPerRowSet)

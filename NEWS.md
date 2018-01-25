@@ -1,3 +1,12 @@
+# DelayedMatrixStats 1.1.6
+
+* Add `colAvgsPerRowSet()`
+
+# DelayedMatrixStats 1.1.5
+
+* Defunct argument 'centers' for `colMads()`/`rowMads()` as of **matrixStats** v0.53.0
+* Sync documentation with **matrixStats** v0.53.0
+
 # DelayedMatrixStats 0.99.2
 
 * Fix typos in vignette
