@@ -1,7 +1,7 @@
 ---
 title: "Overview of DelayedMatrixStats"
 author: "Peter Hickey"
-date: "Modified: 05 Oct 2017. Compiled: `r format(Sys.Date(), '%d %b %Y')`"
+date: "Modified: 26 Jan 2018. Compiled: `r format(Sys.Date(), '%d %b %Y')`"
 output: BiocStyle::html_document
 vignette: >
   %\VignetteIndexEntry{Overview of DelayedMatrixStats}
@@ -116,32 +116,34 @@ transition period from *matrix*-based to *DelayeMatrix*-based objects.
 # Supported methods
 
 The initial release of `r Biocpkg("DelayedMatrixStats")` supports the complete 
-set of column-wise and row-wise `r CRANpkg("matrixStats")` API[^api]. Please 
+column-wise and row-wise API `r CRANpkg("matrixStats")` API[^api]. Please 
 see the `r CRANpkg("matrixStats")` vignette 
 ([available online](https://cran.r-project.org/package=matrixStats/vignettes/matrixStats-methods.html)) 
 for a summary these methods. The following table documents the API coverage and 
 availability of ['seed-aware' methods](#seed_aware_methods) in the current 
-version of `r Biocpkg("DelayedMatrixStats")`.
+version of `r Biocpkg("DelayedMatrixStats")`, where:
 
-[^api]: **NOTE:** `colWeightedSds()`, `colWeightedVars()`, `rowWeightedSds()`, and 
-`rowWeightedVars()` will be implemented/reinstated after resolving 
-[a bug in `matrixStats::weightedVar()`](https://github.com/HenrikBengtsson/matrixStats/issues/105). `colAvgsPerRowSet()` will be implemented/reinstated upon the next CRAN release of **matrixStats** ([https://github.com/PeteHaitch/DelayedMatrixStats/issues/34](https://github.com/PeteHaitch/DelayedMatrixStats/issues/34))
+- ✔ = Implemented in `r Biocpkg("DelayedMatrixStats")`
+- ☑️ = Implemented in `r Biocpkg("DelayedArray")`
+- ❌ = Not yet impelemented
+
+[^api]: Some of the API is covered via inheritance to functionality in `r Biocpkg("DelayedArray")`
+
 
 ```{r API, echo = FALSE}
 matrixStats <- sort(grep("^(col|row)", 
                          getNamespaceExports("matrixStats"), 
                          value = TRUE))
-# TODO: A better way of parsing DelayedMatrixStats NAMESPACE to get exported 
-#       functions (will also need internal functions for api_df)
-DelayedMatrixStats <- sort(grep("^(col|row)", 
-                         getNamespaceExports("DelayedMatrixStats"), 
-                         value = TRUE))
+DelayedMatrixStats <- getNamespaceExports("DelayedMatrixStats")
+DelayedArray <- getNamespaceExports("DelayedArray")
 
 api_df <- data.frame(
   Method = paste0("`", matrixStats, "()`"),
   `Block processing` = ifelse(matrixStats %in% DelayedMatrixStats,
                               "✔",
-                              "❌"),
+                              ifelse(matrixStats %in% DelayedArray, 
+                                     "☑️",
+                                     "❌")),
   `_base::matrix_ optimized` = 
     ifelse(sapply(matrixStats, existsMethod, signature = "matrix"), 
            "✔", 

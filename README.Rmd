@@ -113,11 +113,9 @@ An extensive set of benchmarks is under development at [http://peterhickey.org/B
 
 ## API coverage
 
-- **NOTE:** `colWeightedSds()`, `colWeightedVars()`, `rowWeightedSds()`, and 
-`rowWeightedVars()` will be implemented/reinstated after resolving 
-[a bug in `matrixStats::weightedVar()`](https://github.com/HenrikBengtsson/matrixStats/issues/105)
-- **NOTE:** `colAvgsPerRowSet()` will be implemented/reinstated upon the next CRAN release of **matrixStats** ([https://github.com/PeteHaitch/DelayedMatrixStats/issues/34](https://github.com/PeteHaitch/DelayedMatrixStats/issues/34))
-
+- ✔ = Implemented in **DelayedMatrixStats**
+- ☑️ = Implemented in [**DelayedArray**](http://bioconductor.org/packages/DelayedArray/)
+- ❌: = Not yet impelemented
 
 ```{r, echo = FALSE, comment="", results = "asis"}
 matrixStats <- sort(grep("^(col|row)", 
@@ -131,12 +129,15 @@ DelayedMatrixStats <- gsub("exportMethods|\\(|\\)",
                            grep("^exportMethods", 
                                 DelayedMatrixStats, 
                                 value = TRUE))
+DelayedArray <- getNamespaceExports("DelayedArray")
 
 api_df <- data.frame(
   Method = paste0("`", matrixStats, "()`"),
   `Block processing` = ifelse(matrixStats %in% DelayedMatrixStats,
                               "✔",
-                              "❌"),
+                              ifelse(matrixStats %in% DelayedArray, 
+                                     "☑️",
+                                     "❌")),
   `_base::matrix_ optimized` = 
     ifelse(sapply(matrixStats, existsMethod, signature = "matrix"), 
            "✔", 
