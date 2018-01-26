@@ -97,7 +97,6 @@ setGeneric("colAnys", signature = "x",
                     dim. = dim(x), ...) standardGeneric("colAnys")
 )
 
-# TODO: Check with Henrik why first arg is `X` and not `x`
 #' @inherit matrixStats::colAvgsPerRowSet
 #' @rdname colAvgsPerRowSet
 #' @export
@@ -398,7 +397,6 @@ setGeneric("rowAnys", signature = "x",
                     dim. = dim(x), ...) standardGeneric("rowAnys")
 )
 
-# TODO: Check with Henrik why first arg is `X` and not `x`
 #' @rdname colAvgsPerRowSet
 #' @export
 setGeneric("rowAvgsPerColSet", signature = "X",
