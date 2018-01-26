@@ -122,7 +122,6 @@ setGeneric("colCounts", signature = "x",
                     dim. = dim(x), ...) standardGeneric("colCounts")
 )
 
-# TODO: Ask Henrik why na.rm isn't an argument?
 #' @inherit matrixStats::colCummaxs
 #' @rdname colCummaxs
 #' @export
@@ -131,7 +130,6 @@ setGeneric("colCummaxs", signature = "x",
                     ...) standardGeneric("colCummaxs")
 )
 
-# TODO: Ask Henrik why na.rm isn't an argument?
 #' @inherit matrixStats::colCummins
 #' @rdname colCummaxs
 #' @export
@@ -235,7 +233,6 @@ setGeneric("colMedians", signature = "x",
 # #' @inherit matrixStats::colMins
 # #' @importMethodsFrom DelayedArray colMins
 
-# TODO: Ask Henrik why na.rm isn't an argument (this is noted in docs)
 #' @inherit matrixStats::colOrderStats
 #' @rdname colOrderStats
 #' @export
@@ -423,7 +420,6 @@ setGeneric("rowCounts", signature = "x",
                     dim. = dim(x), ...) standardGeneric("rowCounts")
 )
 
-# TODO: Ask Henrik why na.rm isn't an argument?
 #' @rdname colCummaxs
 #' @export
 setGeneric("rowCummaxs", signature = "x",
@@ -431,7 +427,6 @@ setGeneric("rowCummaxs", signature = "x",
                     ...) standardGeneric("rowCummaxs")
 )
 
-# TODO: Ask Henrik why na.rm isn't an argument?
 #' @rdname colCummaxs
 #' @export
 setGeneric("rowCummins", signature = "x",
@@ -526,7 +521,6 @@ setGeneric("rowMedians", signature = "x",
 # #' @rdname colMins
 # #' @importMethodsFrom DelayedArray rowMins
 
-# TODO: Ask Henrik why na.rm isn't an argument (this is noted in docs)
 #' @rdname colOrderStats
 #' @export
 setGeneric("rowOrderStats", signature = "x",
