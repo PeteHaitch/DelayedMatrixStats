@@ -161,7 +161,6 @@ setGeneric("colDiffs", signature = "x",
                     dim. = dim(x), ...) standardGeneric("colDiffs")
 )
 
-# TODO: Ask Henrik why this function keep colnames whereas most don't
 #' @inherit matrixStats::colIQRDiffs
 #' @rdname colIQRDiffs
 #' @export
@@ -186,7 +185,6 @@ setGeneric("colLogSumExps", signature = "lx",
                     dim. = dim(lx), ...) standardGeneric("colLogSumExps")
 )
 
-# TODO: Ask Henrik why this function keep colnames whereas most don't
 #' @inherit matrixStats::colMadDiffs
 #' @rdname colIQRDiffs
 #' @export
@@ -453,7 +451,6 @@ setGeneric("rowDiffs", signature = "x",
                     dim. = dim(x), ...) standardGeneric("rowDiffs")
 )
 
-# TODO: Ask Henrik why this function keep colnames whereas most don't
 #' @rdname colIQRDiffs
 #' @export
 setGeneric("rowIQRDiffs", signature = "x",
@@ -475,7 +472,6 @@ setGeneric("rowLogSumExps", signature = "lx",
                     dim. = dim(lx), ...) standardGeneric("rowLogSumExps")
 )
 
-# TODO: Ask Henrik why this function keep colnames whereas most don't
 #' @rdname colIQRDiffs
 #' @export
 setGeneric("rowMadDiffs", signature = "x",
