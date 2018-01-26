@@ -31,13 +31,15 @@
       return(numeric(ncol(x)))
     }
     # NOTE: Return value of matrixStats::rowQuantiles() is a vector if input is
-    #       a row vector (matrix with 1 row)
+    #       a row vector (matrix with 1 row);
+    #       see https://github.com/HenrikBengtsson/matrixStats/issues/123
     if (nrow(x) == 1L) {
       return(unlist(val))
     }
     val <- do.call(rbind, val)
     # NOTE: Return value of matrixStats::rowQuantiles() has rownames if
-    #       return value is a matrix and does not have NA/NaN row
+    #       return value is a matrix and does not have NA/NaN row;
+    #       see https://github.com/HenrikBengtsson/matrixStats/issues/123
     if (!any(rowAlls(val, value = NA))) {
       rownames(val) <- rownames(x)
     }
