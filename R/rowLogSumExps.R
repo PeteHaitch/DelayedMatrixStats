@@ -43,8 +43,7 @@
 #' @export
 #'
 #' @examples
-#'
-#' rowLogSumExps(dm_HDF5 + 0.1)
+#' rowLogSumExps(log(x))
 setMethod("rowLogSumExps", "DelayedMatrix",
           function(lx, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(lx),
                    force_block_processing = FALSE, ...) {

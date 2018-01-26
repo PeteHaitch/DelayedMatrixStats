@@ -468,8 +468,6 @@ setGeneric("rowIQRs", signature = "x",
                     ...) standardGeneric("rowIQRs")
 )
 
-# TODO: Ask Henrik why matrixStats::colLogSumExps() and
-#       matrixStats::rowLogSumExps() don't work with integer input
 #' @rdname colLogSumExps
 #' @export
 setGeneric("rowLogSumExps", signature = "lx",

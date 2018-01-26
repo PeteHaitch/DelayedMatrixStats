@@ -43,11 +43,9 @@
 #' @template common_params
 #' @template lx
 #' @export
-#' @template example_dm_matrix
-#' @template example_dm_HDF5
 #' @examples
-#'
-#' colLogSumExps(dm_matrix + 0.1)
+#' x <- DelayedArray(matrix(runif(10), ncol = 2))
+#' colLogSumExps(log(x))
 setMethod("colLogSumExps", "DelayedMatrix",
           function(lx, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(lx),
                    force_block_processing = FALSE, ...) {

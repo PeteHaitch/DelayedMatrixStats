@@ -1,4 +1,4 @@
 # TODO: Per https://github.com/klutometis/roxygen/issues/594 have to include
 #       @md tag
 #' @md
-#' @param lx A \eqn{N \times M} \linkS4class{DelayedMatrix}.
+#' @param lx A NxK \linkS4class{DelayedMatrix}. Typically, `lx` are \eqn{log(x)} values.

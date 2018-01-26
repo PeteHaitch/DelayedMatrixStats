@@ -23,7 +23,7 @@ rowLogSumExps(lx, rows = NULL, cols = NULL, na.rm = FALSE,
   na.rm = FALSE, dim. = dim(lx), force_block_processing = FALSE, ...)
 }
 \arguments{
-\item{lx}{A \eqn{N \times M} \linkS4class{DelayedMatrix}.}
+\item{lx}{A NxK \linkS4class{DelayedMatrix}. Typically, \code{lx} are \eqn{log(x)} values.}
 
 \item{rows}{A \code{\link[base]{vector}} indicating subset of rows
 (and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
@@ -66,22 +66,9 @@ speed and memory.
 }
 
 \examples{
-# A DelayedMatrix with a 'matrix' seed
-dm_matrix <- DelayedArray(matrix(c(rep(1L, 5),
-                                   as.integer((0:4) ^ 2),
-                                   seq(-5L, -1L, 1L)),
-                                 ncol = 3))
-# A DelayedMatrix with a 'HDF5ArraySeed' seed
-# NOTE: Requires that the HDF5Array package is installed
-library(HDF5Array)
-dm_HDF5 <- writeHDF5Array(matrix(c(rep(1L, 5),
-                                   as.integer((0:4) ^ 2),
-                                   seq(-5L, -1L, 1L)),
-                                 ncol = 3))
-
-colLogSumExps(dm_matrix + 0.1)
-
-rowLogSumExps(dm_HDF5 + 0.1)
+x <- DelayedArray(matrix(runif(10), ncol = 2))
+colLogSumExps(log(x))
+rowLogSumExps(log(x))
 }
 \seealso{
 To calculate the same on vectors, \code{\link{logSumExp}}().

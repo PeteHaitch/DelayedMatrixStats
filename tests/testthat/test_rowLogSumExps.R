@@ -1,7 +1,7 @@
 context("rowLogSumExps")
 
 test_that("DMS has equal output to mS", {
-  # NOTE: Drop integer matrices, which aren't supported by
+  # NOTE: Don't test integer matrices, which aren't supported by
   #       matrixStats::rowLogSumExps()
   list_of_matrix[["integer"]] <- NULL
   list_of_DelayedMatrix <- lapply(list_of_DelayedMatrix, function(x) {
@@ -21,7 +21,7 @@ test_that("DMS has equal output to mS", {
 })
 
 test_that("DMS has equal output to mS: subsetting and delayed ops", {
-  # NOTE: Drop integer matrices, which aren't supported by
+  # NOTE: Don't test integer matrices, which aren't supported by
   #       matrixStats::rowLogSumExps()
   list_of_matrix[["integer"]] <- NULL
   list_of_DelayedMatrix <- lapply(list_of_DelayedMatrix, function(x) {
