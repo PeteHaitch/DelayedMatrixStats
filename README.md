@@ -86,11 +86,11 @@ microbenchmark(DelayedArray::colSums(dense_matrix),
                times = 10)
 #> Unit: milliseconds
 #>                                        expr       min        lq      mean
-#>         DelayedArray::colSums(dense_matrix) 176.00000 189.52841 226.05474
-#>  DelayedMatrixStats::colSums2(dense_matrix)  15.98911  16.75859  17.97084
-#>     median       uq       max neval cld
-#>  200.33245 257.1828 326.33785    10   b
-#>   17.34318  18.1237  25.02328    10  a
+#>         DelayedArray::colSums(dense_matrix) 212.49779 240.46065 278.60798
+#>  DelayedMatrixStats::colSums2(dense_matrix)  15.82333  16.36321  21.20456
+#>     median        uq       max neval cld
+#>  263.96493 317.96150 372.02820    10   b
+#>   20.71465  25.70868  28.96168    10  a
 profmem::total(profmem::profmem(DelayedArray::colSums(dense_matrix)))
 #> [1] 98181864
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(dense_matrix)))
@@ -123,12 +123,12 @@ microbenchmark(DelayedArray::colSums(sparse_matrix),
                DelayedMatrixStats::colSums2(sparse_matrix),
                times = 10)
 #> Unit: milliseconds
-#>                                         expr       min        lq      mean
-#>         DelayedArray::colSums(sparse_matrix) 478.27320 490.58929 503.98216
-#>  DelayedMatrixStats::colSums2(sparse_matrix)  12.31997  12.58333  13.68134
-#>     median        uq       max neval cld
-#>  497.44043 515.56913 550.92534    10   b
-#>   12.86313  13.51632  17.47639    10  a
+#>                                         expr       min       lq     mean
+#>         DelayedArray::colSums(sparse_matrix) 619.44443 663.8738 734.8609
+#>  DelayedMatrixStats::colSums2(sparse_matrix)  13.32498  14.5905  20.2016
+#>     median        uq        max neval cld
+#>  700.36643 747.43615 1050.36135    10   b
+#>   18.69154  26.46147   31.23654    10  a
 profmem::total(profmem::profmem(DelayedArray::colSums(sparse_matrix)))
 #> [1] 250024784
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(sparse_matrix)))
@@ -159,12 +159,12 @@ microbenchmark(DelayedArray::colSums(rle_matrix),
                DelayedMatrixStats::colSums2(rle_matrix),
                times = 10)
 #> Unit: milliseconds
-#>                                      expr         min         lq
-#>         DelayedArray::colSums(rle_matrix) 1212.360459 1223.18755
-#>  DelayedMatrixStats::colSums2(rle_matrix)    4.941142    5.42788
+#>                                      expr         min          lq
+#>         DelayedArray::colSums(rle_matrix) 1349.767891 1397.736853
+#>  DelayedMatrixStats::colSums2(rle_matrix)    4.534607    5.104996
 #>        mean      median          uq        max neval cld
-#>  1277.52444 1239.183933 1259.681393 1558.18970    10   b
-#>    11.76656    6.265401    8.040409   53.14054    10  a
+#>  1476.39958 1472.473776 1535.197175 1652.66007    10   b
+#>    12.59868    5.280532    7.624562   59.06429    10  a
 profmem::total(profmem::profmem(DelayedArray::colSums(rle_matrix)))
 #> [1] 496058696
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(rle_matrix)))
@@ -223,8 +223,8 @@ An extensive set of benchmarks is under development at
 | `colWeightedMads()`    | ✔                | ✔                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colWeightedMeans()`   | ✔                | ✔                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colWeightedMedians()` | ✔                | ✔                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
-| `colWeightedSds()`     | ❌                | ❌                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
-| `colWeightedVars()`    | ❌                | ❌                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
+| `colWeightedSds()`     | ✔                | ✔                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
+| `colWeightedVars()`    | ✔                | ✔                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowAlls()`            | ✔                | ✔                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowAnyMissings()`     | ✔                | ✔                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowAnyNAs()`          | ✔                | ✔                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
@@ -260,5 +260,5 @@ An extensive set of benchmarks is under development at
 | `rowWeightedMads()`    | ✔                | ✔                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowWeightedMeans()`   | ✔                | ✔                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `rowWeightedMedians()` | ✔                | ✔                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
-| `rowWeightedSds()`     | ❌                | ❌                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
-| `rowWeightedVars()`    | ❌                | ❌                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
+| `rowWeightedSds()`     | ✔                | ✔                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
+| `rowWeightedVars()`    | ✔                | ✔                        | ❌                          | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |

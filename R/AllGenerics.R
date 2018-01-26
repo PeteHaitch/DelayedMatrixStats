@@ -288,6 +288,7 @@ setGeneric("colSdDiffs", signature = "x",
                     trim = 0, ...) standardGeneric("colSdDiffs")
 )
 
+# TODO: Ask Henrik why colSds() doesn't have na.rm arg whereas colVars() does
 #' @inherit matrixStats::colSds
 #' @rdname colMads
 #' @export
@@ -350,6 +351,22 @@ setGeneric("colWeightedMeans", signature = "x",
 setGeneric("colWeightedMedians", signature = "x",
            function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                     ...) standardGeneric("colWeightedMedians")
+)
+
+#' @inherit matrixStats::colWeightedVars
+#' @rdname colWeightedVars
+#' @export
+setGeneric("colWeightedSds", signature = "x",
+           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
+                    ...) standardGeneric("colWeightedSds")
+)
+
+#' @inherit matrixStats::colWeightedVars
+#' @rdname colWeightedVars
+#' @export
+setGeneric("colWeightedVars", signature = "x",
+           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
+                    ...) standardGeneric("colWeightedVars")
 )
 
 # ------------------------------------------------------------------------------
@@ -558,6 +575,7 @@ setGeneric("rowSdDiffs", signature = "x",
                     trim = 0, ...) standardGeneric("rowSdDiffs")
 )
 
+# TODO: Ask Henrik why rowSds() doesn't have na.rm arg whereas rowVars() does
 #' @rdname colMads
 #' @export
 setGeneric("rowSds", signature = "x",
@@ -612,4 +630,18 @@ setGeneric("rowWeightedMeans", signature = "x",
 setGeneric("rowWeightedMedians", signature = "x",
            function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                     ...) standardGeneric("rowWeightedMedians")
+)
+
+#' @rdname colWeightedVars
+#' @export
+setGeneric("rowWeightedSds", signature = "x",
+           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
+                    ...) standardGeneric("rowWeightedSds")
+)
+
+#' @rdname colWeightedVars
+#' @export
+setGeneric("rowWeightedVars", signature = "x",
+           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
+                    ...) standardGeneric("rowWeightedVars")
 )

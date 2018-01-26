@@ -1,5 +1,9 @@
 # DelayedMatrixStats 1.1.6
 
+* Add `colWeightedSds()`, `colWeightedVars()`, `rowWeightedSds()`,  and `rowWeightedVars()`
+
+# DelayedMatrixStats 1.1.6
+
 * Add `colAvgsPerRowSet()`
 
 # DelayedMatrixStats 1.1.5
