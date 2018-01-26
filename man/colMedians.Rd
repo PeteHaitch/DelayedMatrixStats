@@ -76,7 +76,8 @@ colMedians(dm_Matrix)
 rowMedians(dm_Matrix)
 }
 \seealso{
-See \code{\link{rowMedians}}() and \code{colMedians()} for weighted
-medians.  For mean estimates, see \code{rowMeans()} in
-\code{\link[base]{colSums}}().
+See \code{\link{rowWeightedMedians}()} and
+\code{colWeightedMedians()} for weighted medians.
+For mean estimates, see \code{\link{rowMeans2}()} and
+\code{\link[base:colSums]{rowMeans}()}.
 }
