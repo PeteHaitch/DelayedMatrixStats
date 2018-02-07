@@ -538,7 +538,6 @@ setGeneric("rowQuantiles", signature = "x",
 # #' @rdname colRanges
 # #' @importMethodsFrom DelayedArray rowRanges
 
-# TODO: Ask Henrik why rowRanks() does not have the preserveShape argument
 #' @rdname colRanks
 #' @export
 setGeneric("rowRanks", signature = "x",
