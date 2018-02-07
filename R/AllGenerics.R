@@ -525,9 +525,6 @@ setGeneric("rowProds", signature = "x",
                     ...) standardGeneric("rowProds")
 )
 
-# TODO: Ask Henrik why matrixStats::rowQuantiles() returns rownames in certain
-#       circumstances but not others (e.g., 1-column matrix has not dimnames,
-#       if matrix has NA/NaN)
 #' @rdname colQuantiles
 #' @export
 setGeneric("rowQuantiles", signature = "x",
