@@ -279,7 +279,6 @@ setGeneric("colSdDiffs", signature = "x",
                     trim = 0, ...) standardGeneric("colSdDiffs")
 )
 
-# TODO: Ask Henrik why colSds() doesn't have na.rm arg whereas colVars() does
 #' @inherit matrixStats::colSds
 #' @rdname colMads
 #' @export
@@ -555,7 +554,6 @@ setGeneric("rowSdDiffs", signature = "x",
                     trim = 0, ...) standardGeneric("rowSdDiffs")
 )
 
-# TODO: Ask Henrik why rowSds() doesn't have na.rm arg whereas rowVars() does
 #' @rdname colMads
 #' @export
 setGeneric("rowSds", signature = "x",
