@@ -1,3 +1,9 @@
+# DelayedMatrixStats 1.1.8
+
+* Sync API with **matrixStats** v0.53.1
+  * Add explicit arguments to col-/rowSds()
+* Sync documentation with **matrixStats** v0.53.1
+
 # DelayedMatrixStats 1.1.7
 
 * Add `colWeightedSds()`, `colWeightedVars()`, `rowWeightedSds()`,  and `rowWeightedVars()`
