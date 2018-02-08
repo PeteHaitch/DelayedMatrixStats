@@ -2,9 +2,7 @@ context("colAvgsPerRowSet.R")
 
 test_that("DMS has equal output to mS", {
   S <- matrix(c(1, 3), nrow = 2, ncol = 1)
-  # TODO: Remove -c(2, 8) which is a hack to avoid triggering an error in the
-  #       CRAN version of matrixStats (0.52.2)
-  expecteds <- lapply(unlist(list_of_matrix, recursive = FALSE)[-c(2, 8)],
+  expecteds <- lapply(unlist(list_of_matrix, recursive = FALSE),
                       function(x) {
                         matrixStats::colAvgsPerRowSet(
                           x,
@@ -12,9 +10,6 @@ test_that("DMS has equal output to mS", {
                       })
   lapply(list_of_DelayedMatrix, function(list_of_objects) {
     objects <- unlist(list_of_objects, recursive = FALSE)
-    # TODO: Remove next line which is a hack to avoid triggering an error in
-    #       the CRAN version of matrixStats (0.52.2)
-    objects <- objects[sapply(objects, ncol) > 1]
     expecteds <- expecteds[match(names(objects), names(expecteds))]
     mapply(function(object, expected) {
       expect_equal(colAvgsPerRowSet(
