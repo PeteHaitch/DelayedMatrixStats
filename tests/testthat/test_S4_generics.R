@@ -12,5 +12,3 @@ test_that("Formals of S4 generic matches matrixStats function", {
     expect_identical(formals(dms_generic), formals(ms_fun))
   })
 })
-
-# TODO: Test S4 methods have same args as generic?
