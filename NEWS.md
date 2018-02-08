@@ -1,4 +1,4 @@
-# DelayedMatrixStats 1.1.6
+# DelayedMatrixStats 1.1.7
 
 * Add `colWeightedSds()`, `colWeightedVars()`, `rowWeightedSds()`,  and `rowWeightedVars()`
 
