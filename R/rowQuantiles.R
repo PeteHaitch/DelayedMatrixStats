@@ -37,11 +37,7 @@
       return(unlist(val))
     }
     val <- do.call(rbind, val)
-    # NOTE: Return value of matrixStats::rowQuantiles() has rownames if
-    #       return value is a matrix and does not have NA/NaN row
-    if (!any(rowAlls(val, value = NA))) {
-      rownames(val) <- rownames(x)
-    }
+    rownames(val) <- rownames(x)
     val
   }
 
