@@ -21,7 +21,7 @@ Depends:
   DelayedArray (>= 0.5.11)
 Imports:
   methods,
-  matrixStats (>= 0.53.0-9000),
+  matrixStats (>= 0.53.1),
   Matrix,
   S4Vectors (>= 0.17.5),
   IRanges
@@ -38,4 +38,3 @@ VignetteBuilder: knitr
 URL: https://github.com/PeteHaitch/DelayedMatrixStats
 BugReports: https://github.com/PeteHaitch/DelayedMatrixStats/issues
 biocViews: Infrastructure, DataRepresentation, Software
-Remotes: HenrikBengtsson/matrixStats@develop
