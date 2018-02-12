@@ -1,26 +1,24 @@
 context("rowTabulates")
 
 test_that("DMS has equal output to mS", {
-  # TODO: Remove comment around test that fails due to bug in rowTabulates()
-  #       from  CRAN version of matrixStats (0.52.2)
-  # # NOTE: matrixStats::rowTabulates() doesn't work with numeric matrices
-  # expecteds <- lapply(unlist(list_of_matrix, recursive = FALSE), function(x) {
-  #   try(matrixStats::rowTabulates(x), silent = TRUE)
-  # })
-  # lapply(list_of_DelayedMatrix,
-  #        function(list_of_objects) {
-  #          objects <- unlist(list_of_objects, recursive = FALSE)
-  #          expecteds <- expecteds[match(names(objects), names(expecteds))]
-  #          mapply(function(object, expected) {
-  #            if (type(object) != "integer") {
-  #              # NOTE: matrixStats::rowTabulates() doesn't work with numeric
-  #              #       matrices, so should produce an error
-  #              expect_error(rowTabulates(object))
-  #            } else {
-  #              expect_equal(rowTabulates(object), expected)
-  #            }
-  #          }, object = objects, expected = expecteds)
-  #        })
+  # NOTE: matrixStats::rowTabulates() doesn't work with numeric matrices
+  expecteds <- lapply(unlist(list_of_matrix, recursive = FALSE), function(x) {
+    try(matrixStats::rowTabulates(x), silent = TRUE)
+  })
+  lapply(list_of_DelayedMatrix,
+         function(list_of_objects) {
+           objects <- unlist(list_of_objects, recursive = FALSE)
+           expecteds <- expecteds[match(names(objects), names(expecteds))]
+           mapply(function(object, expected) {
+             if (type(object) != "integer") {
+               # NOTE: matrixStats::rowTabulates() doesn't work with numeric
+               #       matrices, so should produce an error
+               expect_error(rowTabulates(object))
+             } else {
+               expect_equal(rowTabulates(object), expected)
+             }
+           }, object = objects, expected = expecteds)
+         })
 
   values <- c(1, 10)
   # NOTE: matrixStats::rowTabulates() doesn't work with numeric matrices, so
