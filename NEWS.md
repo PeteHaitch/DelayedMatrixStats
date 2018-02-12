@@ -1,7 +1,8 @@
-# DelayedMatrixStats 1.1.8
+# DelayedMatrixStats 1.1.9
 
 * Sync API with **matrixStats** v0.53.1
   * Add explicit arguments to col-/rowSds()
+  * Fix dimnames for col-/rowQuantiles()
 * Sync documentation with **matrixStats** v0.53.1
 
 # DelayedMatrixStats 1.1.7
