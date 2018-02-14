@@ -273,7 +273,9 @@ setGeneric("colSdDiffs", signature = "x",
 #' @rdname colMads
 #' @export
 setGeneric("colSds", signature = "x",
-           function(x, rows = NULL, cols = NULL, ...) standardGeneric("colSds")
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
+                    center = NULL, dim. = dim(x),
+                    ...) standardGeneric("colSds")
 )
 
 #' @inherit matrixStats::colSums2
@@ -545,7 +547,9 @@ setGeneric("rowSdDiffs", signature = "x",
 #' @rdname colMads
 #' @export
 setGeneric("rowSds", signature = "x",
-           function(x, rows = NULL, cols = NULL, ...) standardGeneric("rowSds")
+           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
+                    center = NULL, dim. = dim(x),
+                    ...) standardGeneric("rowSds")
 )
 
 #' @rdname colSums2
