@@ -3,7 +3,7 @@
 ###
 
 # NOTE: Adapted from DelayedArray:::block_APPLY(), adds the `MARGIN` argument
-#' @importFrom DelayedArray ArrayRegularGrid
+#' @importFrom DelayedArray RegularArrayGrid
 #' @importMethodsFrom DelayedArray type write_block_to_sink
 #' @importFrom S4Vectors isSingleNumber
 #' @keywords internal
@@ -19,17 +19,20 @@ block_APPLY <- function(x, APPLY, MARGIN, ..., sink = NULL,
   if (!is.integer(MARGIN)) {
     MARGIN <- as.integer(MARGIN)
   }
+  get_spacings_for_capped_length_blocks <-
+    DelayedArray:::get_spacings_for_capped_length_blocks
   if (MARGIN == 1L) {
-    spacings <- DelayedArray:::get_max_spacings_for_linear_blocks(rev(dim(x)),
-                                                                  max_block_len)
-    grid <- ArrayRegularGrid(dim(x), rev(spacings))
+    spacings <- rev(get_spacings_for_capped_length_blocks(rev(dim(x)),
+                                                          max_block_len,
+                                                          block_shape="linear"))
   } else if (MARGIN == 2L) {
-    spacings <- DelayedArray:::get_max_spacings_for_linear_blocks(dim(x),
-                                                                  max_block_len)
-    grid <- ArrayRegularGrid(dim(x), spacings)
+    spacings <- get_spacings_for_capped_length_blocks(dim(x),
+                                                      max_block_len,
+                                                      block_shape="linear")
   } else {
     stop("'MARGIN' must be 1L or 2L")
   }
+  grid <- RegularArrayGrid(dim(x), spacings)
   nblock <- length(grid)
   lapply(seq_len(nblock), function(b) {
     if (DelayedArray:::get_verbose_block_processing()) {
