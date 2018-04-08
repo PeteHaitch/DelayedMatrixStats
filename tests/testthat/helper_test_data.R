@@ -103,7 +103,7 @@ seed_types <- c("matrix", "Matrix",
                 "SolidRleArraySeed", "ChunkedRleArraySeed",
                 "HDF5ArraySeed",
                 # "matterArraySeed",
-                "SeedBinder")
+                "DelayedOp")
 names(seed_types) <- seed_types
 
 list_of_seeds <- lapply(seed_types, function(seed_type) {
@@ -175,10 +175,15 @@ list_of_seeds <- lapply(seed_types, function(seed_type) {
              })
            }),
            nm = modes),
-         SeedBinder = setNames(
+         DelayedOp = setNames(
            object = lapply(modes, function(mode) {
              lapply(list_of_matrix[[mode]], function(x) {
-               DelayedArray:::new_SeedBinder(list(x), along = 1L)
+               # NOTE: Conceptually, t(DelayedArray(t(x))) is the same as
+               #       DelayedArray(x), but this registers the 'outer' t() as
+               #       a delayed operation whereas t(t(DelayedArray(x)))
+               #       is recognised by DelayedArray as a no-op
+               #       and so these operations are removed from the tree
+               t(DelayedArray(t(x)))
              })
            }),
            nm = modes)
