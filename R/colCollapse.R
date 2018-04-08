@@ -24,7 +24,7 @@
   # NOTE: This uses a hacky implementation of DelayedArray:::colblock_MAPPLY()
   IDXS <- rep_len(idxs, ncol(x))
   val <- lapply(seq_along(IDXS), function(i) {
-    DelayedArray:::colblock_APPLY(x = x[, i],
+    DelayedArray:::colblock_APPLY(x = x[, i, drop = FALSE],
                                   APPLY = matrixStats::colCollapse,
                                   idxs = IDXS[i],
                                   ...)

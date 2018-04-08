@@ -34,7 +34,7 @@
     if (!is.null(W)) {
       W <- W[, k]
     }
-    matrixStats::rowAvgsPerColSet(as.matrix(X[, S[, k]]),
+    matrixStats::rowAvgsPerColSet(as.matrix(X[, S[, k], drop = FALSE]),
                                   W = W,
                                   S = matrix(seq_len(nrow(S))),
                                   FUN = FUN,
