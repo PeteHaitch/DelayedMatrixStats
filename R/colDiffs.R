@@ -53,7 +53,7 @@
 setMethod("colDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, lag = 1L, differences = 1L,
                    dim. = dim(x), force_block_processing = FALSE, ...) {
-            if (!hasMethod("colDiffs", class(seed(x))) ||
+            if (!hasMethod("colDiffs", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_colDiffs(x = x,

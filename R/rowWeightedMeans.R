@@ -50,7 +50,7 @@
 setMethod("rowWeightedMeans", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("rowWeightedMeans", class(seed(x))) ||
+            if (!hasMethod("rowWeightedMeans", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_rowWeightedMeans(x = x,

@@ -49,7 +49,7 @@
 setMethod("colCummaxs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, dim. = dim(x),
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colCummaxs", class(seed(x))) ||
+            if (!hasMethod("colCummaxs", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_colCummaxs(x = x,

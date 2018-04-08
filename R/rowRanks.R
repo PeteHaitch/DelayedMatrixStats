@@ -50,7 +50,7 @@ setMethod("rowRanks", "DelayedMatrix",
                    ties.method = c("max", "average", "min"), dim. = dim(x),
                    force_block_processing = FALSE, ...) {
             ties.method <- match.arg(ties.method)
-            if (!hasMethod("rowRanks", class(seed(x))) ||
+            if (!hasMethod("rowRanks", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(

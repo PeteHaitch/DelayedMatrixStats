@@ -51,7 +51,7 @@
 setMethod("colIQRs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colIQRs", class(seed(x))) ||
+            if (!hasMethod("colIQRs", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_colIQRs(x = x,

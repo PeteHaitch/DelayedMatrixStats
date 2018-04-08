@@ -64,7 +64,7 @@ setMethod("colQuantiles", "DelayedMatrix",
                    probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE,
                    type = 7L, force_block_processing = FALSE, ...,
                    drop = TRUE) {
-            if (!hasMethod("colQuantiles", class(seed(x))) ||
+            if (!hasMethod("colQuantiles", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_colQuantiles(x = x,

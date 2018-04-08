@@ -1,6 +1,18 @@
-### =============================================================================
+### ============================================================================
 ### Utility functions that probably belong in DelayedArray package
 ###
+
+#' Get the class of the seed of a DelayedArray
+#'
+#' @note Can't use `class(seed(x))` because `seed(x)` will return an error if
+#' the seed is a [DelayedArray::DelayedOp-class].
+#' @param x A [DelayedArray::DelayedArray-class].
+#' @return The class of the seed of the [DelayedArray::DelayedArray-class]
+#' object.
+#' @keywords internal
+seedClass <- function(x) {
+  class(x@seed)
+}
 
 # NOTE: Adapted from DelayedArray:::block_APPLY(), adds the `MARGIN` argument
 #' @importFrom DelayedArray RegularArrayGrid

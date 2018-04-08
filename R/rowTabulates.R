@@ -61,7 +61,7 @@ setMethod("rowTabulates", "DelayedMatrix",
               stop("Argument 'x' is not of type integer, logical, or raw",
                    " (type = ", type(x), ")")
             }
-            if (!hasMethod("rowTabulates", class(seed(x))) ||
+            if (!hasMethod("rowTabulates", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_rowTabulates(x = x,

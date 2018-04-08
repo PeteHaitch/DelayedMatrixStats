@@ -48,7 +48,7 @@
 setMethod("rowOrderStats", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, which, dim. = dim(x),
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("rowOrderStats", class(seed(x))) ||
+            if (!hasMethod("rowOrderStats", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_rowOrderStats(x = x,

@@ -47,7 +47,7 @@
 setMethod("rowLogSumExps", "DelayedMatrix",
           function(lx, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(lx),
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("rowLogSumExps", class(seed(lx))) ||
+            if (!hasMethod("rowLogSumExps", seedClass(lx)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_rowLogSumExps(lx = lx,

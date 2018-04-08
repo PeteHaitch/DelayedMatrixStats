@@ -50,7 +50,7 @@
 setMethod("colMeans2", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colMeans2", class(seed(x))) ||
+            if (!hasMethod("colMeans2", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_colMeans2(x = x,

@@ -45,7 +45,7 @@
 setMethod("colCumprods", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, dim. = dim(x),
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colCumprods", class(seed(x))) ||
+            if (!hasMethod("colCumprods", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_colCumprods(x = x,

@@ -54,7 +54,7 @@
 setMethod("colWeightedVars", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colWeightedVars", class(seed(x))) ||
+            if (!hasMethod("colWeightedVars", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_colWeightedVars(x = x,

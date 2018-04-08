@@ -48,7 +48,7 @@
 setMethod("rowVars", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, center = NULL,
                    dim. = dim(x), force_block_processing = FALSE, ...) {
-            if (!hasMethod("rowVars", class(seed(x))) ||
+            if (!hasMethod("rowVars", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_rowVars(x = x,

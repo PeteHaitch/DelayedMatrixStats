@@ -51,7 +51,7 @@ setMethod("colProds", "DelayedMatrix",
                    method = c("direct", "expSumLog"),
                    force_block_processing = FALSE, ...) {
             method <- match.arg(method)
-            if (!hasMethod("colProds", class(seed(x))) ||
+            if (!hasMethod("colProds", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_colProds(x = x,

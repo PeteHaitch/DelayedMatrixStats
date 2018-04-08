@@ -50,7 +50,7 @@ setMethod("rowMads", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, center = NULL,
                    constant = 1.4826, na.rm = FALSE, dim. = dim(x),
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("rowMads", class(seed(x))) ||
+            if (!hasMethod("rowMads", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_rowMads(x = x,

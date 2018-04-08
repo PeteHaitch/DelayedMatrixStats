@@ -50,7 +50,7 @@
 setMethod("rowIQRDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
                    trim = 0, force_block_processing = FALSE, ...) {
-            if (!hasMethod("rowIQRDiffs", class(seed(x))) ||
+            if (!hasMethod("rowIQRDiffs", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_rowIQRDiffs(x = x,

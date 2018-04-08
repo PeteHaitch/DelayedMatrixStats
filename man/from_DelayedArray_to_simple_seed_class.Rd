@@ -14,14 +14,14 @@ from_DelayedArray_to_simple_seed_class(x, drop = FALSE, do_transpose = TRUE)
 \item{do_transpose}{Should transposed input be physically transposed?}
 }
 \value{
-An object of the same class as \code{class(seed(x))}.
+An object of the same class as \code{seedClass(x)}.
 }
 \description{
 Coerce DelayedArray to its 'simple seed' form
 }
 \details{
 Like \code{DelayedArray:::.from_DelayedArray_to_array} but returning an
-object of the same class as \code{class(seed(x))} instead of an \emph{array}. In
+object of the same class as \code{seedClass(x)} instead of an \emph{array}. In
 doing so, all delayed operations are realised (including subsetting).
 }
 \note{

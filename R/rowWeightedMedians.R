@@ -48,7 +48,7 @@
 setMethod("rowWeightedMedians", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("rowWeightedMedians", class(seed(x))) ||
+            if (!hasMethod("rowWeightedMedians", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_rowWeightedMedians(x = x,

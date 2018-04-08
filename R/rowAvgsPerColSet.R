@@ -64,7 +64,7 @@
 setMethod("rowAvgsPerColSet", "DelayedMatrix",
           function(X, W = NULL, rows = NULL, S, FUN = rowMeans, ...,
                    force_block_processing = FALSE, tFUN = FALSE) {
-            if (!hasMethod("rowAvgsPerColSet", class(seed(X))) ||
+            if (!hasMethod("rowAvgsPerColSet", seedClass(X)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_rowAvgsPerColSet(X = X,

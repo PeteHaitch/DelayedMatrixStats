@@ -75,14 +75,14 @@ message2 <- function(msg, verbose = FALSE) {
 
 #' Coerce DelayedArray to its 'simple seed' form
 #' @details Like `DelayedArray:::.from_DelayedArray_to_array` but returning an
-#' object of the same class as `class(seed(x))` instead of an _array_. In
+#' object of the same class as `seedClass(x)` instead of an _array_. In
 #' doing so, all delayed operations are realised (including subsetting).
 #'
 #' @param x A \linkS4class{DelayedArray}
 #' @param drop If `TRUE` the result is coerced to the lowest possible dimension
 #' @param do_transpose Should transposed input be physically transposed?
 #'
-#' @return An object of the same class as `class(seed(x))`.
+#' @return An object of the same class as `seedClass(x)`.
 #'
 #' @note Can be more efficient to leave the transpose implicit
 #' (`do_transpose = FALSE`) and switch from a `row*()` method to a `col*()`
@@ -231,5 +231,5 @@ setMethod("subset_by_Nindex", "SolidRleArraySeed",
 #       (see extract_array,ChunkedRleArraySeed-method)?
 # TODO: subset_by_Nindex,ConformableSeedCombiner-method
 #       (see extract_array,ConformableSeedCombiner-method)?
-# TODO: subset_by_Nindex,SeedBinder-method
-#       (see extract_array,SeedBinder-method)?
+# TODO: subset_by_Nindex,DelayedOp-method
+#       (see extract_array,DelayedOp-method)?

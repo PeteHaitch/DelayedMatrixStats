@@ -54,7 +54,7 @@ setMethod("colMads", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, center = NULL,
                    constant = 1.4826, na.rm = FALSE, dim. = dim(x),
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colMads", class(seed(x))) ||
+            if (!hasMethod("colMads", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_colMads(x = x,

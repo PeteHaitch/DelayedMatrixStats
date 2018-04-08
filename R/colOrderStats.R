@@ -49,7 +49,7 @@
 setMethod("colOrderStats", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, which, dim. = dim(x),
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colOrderStats", class(seed(x))) ||
+            if (!hasMethod("colOrderStats", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_colOrderStats(x = x,

@@ -50,7 +50,7 @@
 setMethod("rowVarDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
                    trim = 0, force_block_processing = FALSE, ...) {
-            if (!hasMethod("rowVarDiffs", class(seed(x))) ||
+            if (!hasMethod("rowVarDiffs", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
               return(.DelayedMatrix_block_rowVarDiffs(x = x,
