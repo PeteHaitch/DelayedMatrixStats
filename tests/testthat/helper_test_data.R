@@ -3,207 +3,213 @@
 ###
 
 ### ----------------------------------------------------------------------------
-### Setup
-###
-
-library(Matrix)
-
-set_verbose(TRUE)
-
-nrow <- 3L
-ncol <- 4L
-max_x <- nrow * ncol * 10L
-modes <- c("integer", "double")
-names(modes) <- modes
-
-### ----------------------------------------------------------------------------
 ### List of matrix objects
-### Adapted from those used in unit tests of matrixStats
 ###
 
-list_of_matrix <- lapply(modes, function(mode) {
-  # Base case: nrow * ncol matrix with no NA elements and with dimnames
-  x <- matrix(seq_len(nrow * ncol) + 0.1, nrow, ncol,
-              dimnames = list(paste0("R", seq_len(nrow)),
-                              paste0("C", seq_len(ncol))))
-  storage.mode(x) <- mode
+# NOTE: These examples, adapted from those used in unit tests of matrixStats,
+#       are chosen to cover various corner cases sometimes encountered when
+#       operating on matrices.
 
-  # Special case: Single-element matrix
-  x_1x1 <- x[1, 1, drop = FALSE]
+modes <- c("integer", "double", "logical")
+names(modes) <- modes
+# NOTE: Largest matrix has `nrow` rows and `ncol` columns
+matrix_list <- unlist(
+  x = lapply(modes, function(mode, nrow = 3L, ncol = 4L) {
 
-  # Special case: Empty matrix
-  x_empty <- x[0, 0]
+    # Base case: nrow * ncol matrix with no NA elements and with dimnames
+    x <- matrix(
+      data = seq(1 - (nrow * ncol) / 2, (nrow * ncol) / 2),
+      nrow = nrow,
+      ncol = ncol,
+      dimnames = list(paste0("R", seq_len(nrow)), paste0("C", seq_len(ncol))))
+    storage.mode(x) <- mode
 
-  # Special case: All NAs
-  x_all_NA <- matrix(NA, nrow, ncol,
-                     dimnames = list(paste0("R", seq_len(nrow)),
-                                     paste0("C", seq_len(ncol))))
-  storage.mode(x_all_NA) <- mode
+    # Special case: Single-element matrix
+    x_1x1 <- x[1, 1, drop = FALSE]
 
-  # Special case: All NaNs
-  x_all_NaN <- matrix(NaN, nrow, ncol,
-                      dimnames = list(paste0("R", seq_len(nrow)),
-                                      paste0("C", seq_len(ncol))))
-  storage.mode(x_all_NaN) <- mode
+    # Special case: Empty matrix
+    x_empty <- x[0, 0]
 
-  # Special case: All NAs and NaNs
-  x_all_NA_or_NaN <- matrix(c(NA, NaN), nrow, ncol,
-                            dimnames = list(paste0("R", seq_len(nrow)),
-                                            paste0("C", seq_len(ncol))))
-  storage.mode(x_all_NA_or_NaN) <- mode
+    # Special case: All NAs
+    x_all_NA <- matrix(
+      data = NA,
+      nrow = nrow,
+      ncol = ncol,
+      dimnames = list(paste0("R", seq_len(nrow)), paste0("C", seq_len(ncol))))
+    storage.mode(x_all_NA) <- mode
 
-  if (mode == "double") {
-    # Special case: All Inf
-    x_all_Inf <- matrix(Inf, nrow, ncol,
-                        dimnames = list(paste0("R", seq_len(nrow)),
-                                        paste0("C", seq_len(ncol))))
-    storage.mode(x_all_Inf) <- mode
+    # Special case: All NaNs
+    x_all_NaN <- matrix(
+      data = NaN,
+      nrow = nrow,
+      ncol = ncol,
+      dimnames = list(paste0("R", seq_len(nrow)), paste0("C", seq_len(ncol))))
+    storage.mode(x_all_NaN) <- mode
 
-    # Special case: All -Inf
-    x_all_neg_Inf <- matrix(-Inf, nrow, ncol,
-                            dimnames = list(paste0("R", seq_len(nrow)),
-                                            paste0("C", seq_len(ncol))))
-    storage.mode(x_all_neg_Inf) <- mode
+    # Special case: All NAs and NaNs
+    x_all_NA_or_NaN <- matrix(
+      data = c(NA, NaN),
+      nrow = nrow,
+      ncol = ncol,
+      dimnames = list(paste0("R", seq_len(nrow)), paste0("C", seq_len(ncol))))
+    storage.mode(x_all_NA_or_NaN) <- mode
 
-    # Special case: Inf and -Inf
-    x_all_Inf_or_neg_Inf <- matrix(c(Inf, -Inf), nrow, ncol,
-                                   dimnames = list(paste0("R", seq_len(nrow)),
-                                                   paste0("C", seq_len(ncol))))
-    storage.mode(x_all_Inf_or_neg_Inf) <- mode
+    if (mode == "double") {
+      # Special case: All Inf
+      x_all_Inf <- matrix(
+        data = Inf,
+        nrow = nrow,
+        ncol = ncol,
+        dimnames = list(paste0("R", seq_len(nrow)), paste0("C", seq_len(ncol))))
+      storage.mode(x_all_Inf) <- mode
 
-    val <- list("base_case" = x,
-                "1x1" = x_1x1,
-                "empty" = x_empty,
-                "all_NA" = x_all_NA,
-                "all_NaN" = x_all_NaN,
-                "all_Inf" = x_all_Inf,
-                "all_neg_Inf" = x_all_neg_Inf,
-                "all_Inf_or_neg_Inf" = x_all_Inf_or_neg_Inf,
-                "all_NA_or_NaN" = x_all_NA_or_NaN)
-  } else {
-    val <- list("base_case" = x,
-                "1x1" = x_1x1,
-                "empty" = x_empty,
-                "all_NA" = x_all_NA,
-                "all_NaN" = x_all_NaN,
-                "all_NA_or_NaN" = x_all_NA_or_NaN)
-  }
-})
+      # Special case: All -Inf
+      x_all_neg_Inf <- matrix(
+        data = -Inf,
+        nrow = nrow,
+        ncol = ncol,
+        dimnames = list(paste0("R", seq_len(nrow)), paste0("C", seq_len(ncol))))
+      storage.mode(x_all_neg_Inf) <- mode
 
-list_of_matrix_base_case <- lapply(list_of_matrix, "[[", "base_case")
+      # Special case: Inf and -Inf
+      x_all_Inf_or_neg_Inf <- matrix(
+        data = c(Inf, -Inf),
+        nrow = nrow,
+        ncol = ncol,
+        dimnames = list(paste0("R", seq_len(nrow)), paste0("C", seq_len(ncol))))
+      storage.mode(x_all_Inf_or_neg_Inf) <- mode
 
-### ----------------------------------------------------------------------------
-### List of supported matrix-like objects that can be used as seeds of a
-### DelayedArray
-###
-
-# TODO: Not testing matterArraySeed until these methods added to pkg
-seed_types <- c("matrix", "Matrix",
-                "data.frame", "DataFrame",
-                "SolidRleArraySeed", "ChunkedRleArraySeed",
-                "HDF5ArraySeed",
-                # "matterArraySeed",
-                "DelayedOp")
-names(seed_types) <- seed_types
-
-list_of_seeds <- lapply(seed_types, function(seed_type) {
-  modes <- names(list_of_matrix)
-  switch(seed_type,
-         matrix = list_of_matrix,
-         Matrix = setNames(
-           object = lapply(modes, function(mode) {
-             lapply(list_of_matrix[[mode]], as, Class = "dgCMatrix")
-           }),
-           nm = modes),
-         data.frame = setNames(
-           object = lapply(modes, function(mode) {
-             # NOTE: Drop empty data.frame, which doesn't work work as a seed
-             tmp <- list_of_matrix[[mode]]
-             tmp <- tmp[-match("empty", names(tmp))]
-             lapply(tmp, as.data.frame)
-           }),
-           nm = modes),
-         DataFrame = setNames(
-           object = lapply(modes, function(mode) {
-             # NOTE: Drop empty DataFrame, which doesn't work work as a seed
-             tmp <- list_of_matrix[[mode]]
-             tmp <- tmp[-match("empty", names(tmp))]
-             lapply(tmp, as, "DataFrame")
-           }),
-           nm = modes),
-         SolidRleArraySeed = setNames(
-           object = lapply(modes, function(mode) {
-             lapply(list_of_matrix[[mode]], function(x) {
-               DelayedArray:::RleArraySeed(
-                 rle = Rle(x),
-                 dim = dim(x),
-                 dimnames = dimnames(x),
-                 chunksize = NULL)
-             })
-           }),
-           nm = modes),
-         ChunkedRleArraySeed = setNames(
-           object = lapply(modes, function(mode) {
-             lapply(list_of_matrix[[mode]], function(x) {
-               DelayedArray:::RleArraySeed(
-                 rle = Rle(x),
-                 dim = dim(x),
-                 dimnames = dimnames(x),
-                 chunksize = nrow(x))
-             })
-           }),
-           nm = modes),
-         HDF5ArraySeed = setNames(
-           object = lapply(modes, function(mode) {
-             lapply(list_of_matrix[[mode]], function(x) {
-               seed(realize(x, "HDF5Array"))
-             })
-           }),
-           nm = modes),
-         matterArraySeed = setNames(
-           object = lapply(modes, function(mode) {
-             # NOTE: Drop empty matrix, which doesn't work work as a matter_mat
-             tmp <- list_of_matrix[[mode]]
-             tmp <- tmp[-match("empty", names(tmp))]
-             lapply(tmp, function(x) {
-               matterArray::matterArraySeed(
-                 matter::matter_mat(data = x,
-                                    datamode = mode,
-                                    nrow = nrow(x),
-                                    ncol = ncol(x),
-                                    dimnames = dimnames(x)))
-             })
-           }),
-           nm = modes),
-         DelayedOp = setNames(
-           object = lapply(modes, function(mode) {
-             lapply(list_of_matrix[[mode]], function(x) {
-               # NOTE: Conceptually, t(DelayedArray(t(x))) is the same as
-               #       DelayedArray(x), but this registers the 'outer' t() as
-               #       a delayed operation whereas t(t(DelayedArray(x)))
-               #       is recognised by DelayedArray as a no-op
-               #       and so these operations are removed from the tree
-               t(DelayedArray(t(x)))
-             })
-           }),
-           nm = modes)
-  )
-})
-
-### ----------------------------------------------------------------------------
-### List of DelayedMatrix objects with different seed types
-###
-
-list_of_DelayedMatrix <- setNames(
-  lapply(names(list_of_seeds), function(seed_type) {
-    seeds <- list_of_seeds[[seed_type]]
-    setNames(lapply(names(seeds), function(mode) {
-      lapply(seeds[[mode]], DelayedArray)
-    }),
-    names(seeds))
+      val <- list(
+        "base_case" = x,
+        "1x1" = x_1x1,
+        "empty" = x_empty,
+        "all_NA" = x_all_NA,
+        "all_NaN" = x_all_NaN,
+        "all_Inf" = x_all_Inf,
+        "all_neg_Inf" = x_all_neg_Inf,
+        "all_Inf_or_neg_Inf" = x_all_Inf_or_neg_Inf,
+        "all_NA_or_NaN" = x_all_NA_or_NaN)
+    } else {
+      val <- list(
+        "base_case" = x,
+        "1x1" = x_1x1,
+        "empty" = x_empty,
+        "all_NA" = x_all_NA,
+        "all_NaN" = x_all_NaN,
+        "all_NA_or_NaN" = x_all_NA_or_NaN)
+    }
   }),
-  names(list_of_seeds))
+  recursive = FALSE)
 
-list_of_DelayedMatrix_base_case <- lapply(list_of_DelayedMatrix, function(x) {
-  lapply(x, "[[", "base_case")
-})
+### ----------------------------------------------------------------------------
+### List of objects to be used as seeds
+###
+
+# NOTE: The classes of objects that can be used as a seed can be divided into
+#       two camps:
+#       1. Data seeds: These store matrix-like data, where the data is
+#       in-memory or on-disk.
+#       2. DelayedOp seeds: These store delayed operations.
+
+data_seeds <- c(
+  "matrix",
+  "Matrix",
+  "sparseMatrix",
+  "SolidRleArraySeed",
+  "ChunkedRleArraySeed",
+  "HDF5ArraySeed")
+delayed_op_seeds <- c(
+  "DelayedSubset",
+  "DelayedAperm",
+  "DelayedUnaryIsoOp",
+  "DelayedDimnames",
+  "DelayedNaryIsoOp",
+  "DelayedAbind")
+seed_classes <- data_seeds
+seed_classes <- c(data_seeds, delayed_op_seeds)
+names(seed_classes) <- seed_classes
+
+seedFunFactory <- function(seed_class) {
+  # NOTE: All DelayedOps are designed to be no-ops
+  switch(
+    seed_class,
+    "matrix" = identity,
+    "Matrix" = function(x) {
+      if (identical(dim(x), c(1L, 1L))) {
+        # NOTE: This is a workaround for a bug in Matrix() that makes all 1x1
+        #       matrices into a symmetric matrix while not preserving dimnames.
+        if (is.logical(x)) {
+          return(as(x, "lgeMatrix"))
+        } else {
+          return(as(x, "dgeMatrix"))
+        }
+      }
+      Matrix::Matrix(x)
+    },
+    "sparseMatrix" = function(x) {
+      if (identical(dim(x), c(1L, 1L))) {
+        # NOTE: This is a workaround for a bug in Matrix() that makes all 1x1
+        #       matrices into a symmetric matrix while not preserving dimnames.
+        if (is.logical(x)) {
+          return(as(x, "lgCMatrix"))
+        } else {
+          return(as(x, "dgCMatrix"))
+        }
+      }
+      Matrix::Matrix(x, sparse = TRUE)
+    },
+    "SolidRleArraySeed" = function(x) {
+      seed(RleArray(Rle(x), dim(x), dimnames(x), chunksize = NULL))
+    },
+    "ChunkedRleArraySeed" = function(x) {
+      seed(RleArray(Rle(x), dim(x), dimnames(x), chunksize = nrow(x)))
+    },
+    "HDF5ArraySeed" = function(x) seed(realize(x = x, BACKEND = "HDF5Array")),
+    "DelayedSubset" = DelayedArray:::new_DelayedSubset,
+    "DelayedAperm" = DelayedArray:::new_DelayedAperm,
+    "DelayedUnaryIsoOp" = DelayedArray:::new_DelayedUnaryIsoOp,
+    "DelayedDimnames" = function(x) {
+      DelayedArray:::new_DelayedDimnames(seed = x, dimnames = dimnames(x))
+    },
+    "DelayedNaryIsoOp" = DelayedArray:::new_DelayedNaryIsoOp,
+    "DelayedAbind" = function(x) {
+      if (nrow(x)) {
+        seeds <- list(
+          x[seq_len(nrow(x) - 1), , drop = FALSE],
+          x[nrow(x), , drop = FALSE])
+      } else {
+        seeds <- list(x, x)
+      }
+      DelayedArray:::new_DelayedAbind(seeds = seeds, along = 1L)
+    }
+  )
+}
+
+seed_funs <- Map(seedFunFactory, seed_classes)
+seed_list <- unlist(
+  x = Map(function(f) Map(f, matrix_list), seed_funs),
+  recursive = FALSE)
+
+### ----------------------------------------------------------------------------
+### List of DelayedMatrix objects
+###
+
+# NOTE: Temporarily disable seed simplification to ensure DelayedOps are
+#       "simplified away".
+options("DelayedArray.simplify" = FALSE)
+DelayedMatrix_list <- Map(DelayedArray, seed_list)
+options("DelayedArray.simplify" = TRUE)
+
+# ### ----------------------------------------------------------------------------
+# ### Check all DelayedMatrix objects match the matrix when as.matrix()
+# ###
+#
+# TODO: Should this be a formal test? Not all tests will pass, e.g.,
+#       HDF5ArraySeed don't carry dimnames
+# a <- Map(
+#   all.equal,
+#   Map(as.matrix, DelayedMatrix_list),
+#   matrix_list)
+# i <- !sapply(a, isTRUE)
+# # TODO: Look at all these failures and fix
+# names(a[i])
