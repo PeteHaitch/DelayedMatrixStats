@@ -23,7 +23,7 @@ block_APPLY <- function(x, APPLY, MARGIN, ..., sink = NULL,
                         max_block_len = NULL) {
   APPLY <- match.fun(APPLY)
   if (is.null(max_block_len)) {
-    max_block_len <- DelayedArray:::get_max_block_length(type(x))
+    max_block_len <- DelayedArray:::get_default_block_maxlength(type(x))
   }
   if (!isSingleNumber(MARGIN)) {
     stop("'MARGIN' must be a single integer")
@@ -79,7 +79,7 @@ rowblock_APPLY <- function(x, APPLY, ..., sink = NULL) {
     stop("'x' must be a matrix-like object")
   }
   APPLY <- match.fun(APPLY)
-  max_block_len <- max(DelayedArray:::get_max_block_length(type(x)),
+  max_block_len <- max(DelayedArray:::get_default_block_maxlength(type(x)),
                        x_dim[[2L]])
   block_APPLY(x, APPLY, MARGIN = 1, ..., sink = sink,
               max_block_len = max_block_len)
