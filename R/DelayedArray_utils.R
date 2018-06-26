@@ -16,7 +16,7 @@ seedClass <- function(x) {
 
 # NOTE: Adapted from DelayedArray:::block_APPLY(), adds the `MARGIN` argument
 #' @importFrom DelayedArray RegularArrayGrid
-#' @importMethodsFrom DelayedArray type write_block_to_sink
+#' @importMethodsFrom DelayedArray type write_block
 #' @importFrom S4Vectors isSingleNumber
 #' @keywords internal
 block_APPLY <- function(x, APPLY, MARGIN, ..., sink = NULL,
@@ -58,7 +58,7 @@ block_APPLY <- function(x, APPLY, MARGIN, ..., sink = NULL,
     }
     block_ans <- APPLY(block, ...)
     if (!is.null(sink)) {
-      write_block_to_sink(block_ans, sink, viewport)
+      write_block(sink, viewport, block_ans)
       block_ans <- NULL
     }
     if (DelayedArray:::get_verbose_block_processing()) {
