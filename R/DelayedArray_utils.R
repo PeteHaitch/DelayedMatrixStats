@@ -32,13 +32,14 @@ block_APPLY <- function(x, APPLY, MARGIN, ..., sink = NULL,
     MARGIN <- as.integer(MARGIN)
   }
   if (MARGIN == 1L) {
-    spacings <- rev(makeCappedVolumeBox(max_block_len, rev(dim(x)), "linear"))
+    viewport_shape <- "last-dim-grows-first"
   } else if (MARGIN == 2L) {
-    spacings <- makeCappedVolumeBox(max_block_len, dim(x), "linear")
+    viewport_shape <- "first-dim-grows-first"
   } else {
     stop("'MARGIN' must be 1L or 2L")
   }
-  grid <- RegularArrayGrid(dim(x), spacings)
+  grid <- makeRegularArrayGridOfCappedLengthViewports(dim(x), max_block_len,
+                                                      viewport_shape)
   nblock <- length(grid)
   lapply(seq_len(nblock), function(b) {
     if (DelayedArray:::get_verbose_block_processing()) {
