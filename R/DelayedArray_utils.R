@@ -15,7 +15,12 @@ seedClass <- function(x) {
 }
 
 # NOTE: Adapted from DelayedArray:::block_APPLY(), adds the `MARGIN` argument
-#' @importFrom DelayedArray makeCappedVolumeBox RegularArrayGrid
+# NOTE: Not using rowGrid() or colGrid(), which load are used when an entire
+#       row or column need to be loaded into memory, because block_APPLY()
+#       might be used when you can only load a subset of a row or column into
+#       memory.
+#' @importFrom DelayedArray makeRegularArrayGridOfCappedLengthViewports
+#' @importFrom DelayedArray RegularArrayGrid
 #' @importMethodsFrom DelayedArray type read_block write_block
 #' @importFrom S4Vectors isSingleNumber
 #' @keywords internal
@@ -75,4 +80,36 @@ rowblock_APPLY <- function(x, APPLY, ..., sink = NULL) {
                        x_dim[[2L]])
   block_APPLY(x, APPLY, MARGIN = 1, ..., sink = sink,
               max_block_len = max_block_len)
+}
+
+# ------------------------------------------------------------------------------
+# Exported functions
+#
+
+# Helper functions for setting up ArrayGrid instances
+
+# TODO: Document
+#' @importFrom DelayedArray makeRegularArrayGridOfCappedLengthViewports
+#' @export
+colGrid <- function(x) {
+  block_maxlen <- max(
+    nrow(x),
+    DelayedArray:::get_default_block_maxlength(type(x)))
+  makeRegularArrayGridOfCappedLengthViewports(
+    refdim = dim(x),
+    viewport_maxlen = block_maxlen,
+    viewport_shape = "first-dim-grows-first")
+}
+
+# TODO: Document
+#' @importFrom DelayedArray makeRegularArrayGridOfCappedLengthViewports
+#' @export
+rowGrid <- function(x) {
+  block_maxlen <- max(
+    ncol(x),
+    DelayedArray:::get_default_block_maxlength(type(x)))
+  makeRegularArrayGridOfCappedLengthViewports(
+    refdim = dim(x),
+    viewport_maxlen = block_maxlen,
+    "last-dim-grows-first")
 }
