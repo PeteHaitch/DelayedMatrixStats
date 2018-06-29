@@ -31,16 +31,10 @@ block_APPLY <- function(x, APPLY, MARGIN, ..., sink = NULL,
   if (!is.integer(MARGIN)) {
     MARGIN <- as.integer(MARGIN)
   }
-  get_spacings_for_capped_length_blocks <-
-    DelayedArray:::get_spacings_for_capped_length_blocks
   if (MARGIN == 1L) {
-    spacings <- rev(get_spacings_for_capped_length_blocks(rev(dim(x)),
-                                                          max_block_len,
-                                                          block_shape="linear"))
+    spacings <- rev(makeCappedVolumeBox(max_block_len, rev(dim(x)), "linear"))
   } else if (MARGIN == 2L) {
-    spacings <- get_spacings_for_capped_length_blocks(dim(x),
-                                                      max_block_len,
-                                                      block_shape="linear")
+    spacings <- makeCappedVolumeBox(max_block_len, dim(x), "linear")
   } else {
     stop("'MARGIN' must be 1L or 2L")
   }

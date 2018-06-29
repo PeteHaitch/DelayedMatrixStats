@@ -1,7 +1,7 @@
 Package: DelayedMatrixStats
 Type: Package
 Title: Functions that Apply to Rows and Columns of 'DelayedMatrix' Objects
-Version: 1.3.2
+Version: 1.3.3
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"))
 Author: Peter Hickey <peter.hickey@gmail.com>
@@ -18,7 +18,7 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
 Depends:
-  DelayedArray (>= 0.7.15)
+  DelayedArray (>= 0.7.17)
 Imports:
   methods,
   matrixStats (>= 0.53.1),
