@@ -15,7 +15,7 @@ seedClass <- function(x) {
 }
 
 # NOTE: Adapted from DelayedArray:::block_APPLY(), adds the `MARGIN` argument
-#' @importFrom DelayedArray RegularArrayGrid
+#' @importFrom DelayedArray makeCappedVolumeBox RegularArrayGrid
 #' @importMethodsFrom DelayedArray type read_block write_block
 #' @importFrom S4Vectors isSingleNumber
 #' @keywords internal
