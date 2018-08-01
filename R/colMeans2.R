@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colMeans2()` block-processing internal helper
-#' @inherit matrixStats::colMeans2
 .DelayedMatrix_block_colMeans2 <- function(x, rows = NULL, cols = NULL,
                                            na.rm = FALSE, dim. = dim(x), ...) {
   # Check input

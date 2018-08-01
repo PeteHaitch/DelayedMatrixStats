@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colDiffs()` block-processing internal helper
-#' @inherit matrixStats::colDiffs
 .DelayedMatrix_block_colDiffs <- function(x, rows = NULL, cols = NULL, lag = 1L,
                                           differences = 1L, dim. = dim(x),
                                           ...) {

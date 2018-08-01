@@ -13,17 +13,17 @@
 \alias{rowWeightedVars,DelayedMatrix-method}
 \title{Weighted variance and weighted standard deviation}
 \usage{
-colWeightedSds(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-  ...)
+colWeightedSds(x, w = NULL, rows = NULL, cols = NULL,
+  na.rm = FALSE, ...)
 
-colWeightedVars(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-  ...)
+colWeightedVars(x, w = NULL, rows = NULL, cols = NULL,
+  na.rm = FALSE, ...)
 
-rowWeightedSds(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-  ...)
+rowWeightedSds(x, w = NULL, rows = NULL, cols = NULL,
+  na.rm = FALSE, ...)
 
-rowWeightedVars(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-  ...)
+rowWeightedVars(x, w = NULL, rows = NULL, cols = NULL,
+  na.rm = FALSE, ...)
 
 \S4method{colWeightedSds}{DelayedMatrix}(x, w = NULL, rows = NULL,
   cols = NULL, na.rm = FALSE, force_block_processing = FALSE, ...)

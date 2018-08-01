@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `rowAlls()` block-processing internal helper
-#' @inherit matrixStats::rowAlls
 .DelayedMatrix_block_rowAlls <- function(x, rows = NULL, cols = NULL,
                                          value = TRUE, na.rm = FALSE,
                                          dim. = dim(x), ...) {

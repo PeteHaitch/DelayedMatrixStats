@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `rowQuantiles()` block-processing internal helper
-#' @inherit matrixStats::rowQuantiles
 .DelayedMatrix_block_rowQuantiles <-
   function(x, rows = NULL, cols = NULL,
            probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE, type = 7L,

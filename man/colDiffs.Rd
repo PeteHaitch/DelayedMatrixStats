@@ -14,11 +14,13 @@ colDiffs(x, rows = NULL, cols = NULL, lag = 1L, differences = 1L,
 rowDiffs(x, rows = NULL, cols = NULL, lag = 1L, differences = 1L,
   dim. = dim(x), ...)
 
-\S4method{colDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL, lag = 1L,
-  differences = 1L, dim. = dim(x), force_block_processing = FALSE, ...)
+\S4method{colDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
+  lag = 1L, differences = 1L, dim. = dim(x),
+  force_block_processing = FALSE, ...)
 
-\S4method{rowDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL, lag = 1L,
-  differences = 1L, dim. = dim(x), force_block_processing = FALSE, ...)
+\S4method{rowDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
+  lag = 1L, differences = 1L, dim. = dim(x),
+  force_block_processing = FALSE, ...)
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}

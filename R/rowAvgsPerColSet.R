@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `rowAvgsPerColSet()` block-processing internal helper
-#' @inherit matrixStats::rowAvgsPerColSet
 .DelayedMatrix_block_rowAvgsPerColSet <- function(X, W = NULL, rows = NULL, S,
                                                   FUN = rowMeans, ...,
                                                   tFUN = FALSE) {

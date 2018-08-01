@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `rowRanks()` block-processing internal helper
-#' @inherit matrixStats::rowRanks
 .DelayedMatrix_block_rowRanks <-
   function(x, rows = NULL, cols = NULL,
            ties.method = c("max", "average", "min"), dim. = dim(x), ...) {

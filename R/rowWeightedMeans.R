@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `rowWeightedMeans()` block-processing internal helper
-#' @inherit matrixStats::rowWeightedMeans
 .DelayedMatrix_block_rowWeightedMeans <- function(x, w = NULL, rows = NULL,
                                                   cols = NULL, na.rm = FALSE,
                                                   ...) {

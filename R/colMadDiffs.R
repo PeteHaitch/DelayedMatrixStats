@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colMadDiffs()` block-processing internal helper
-#' @inherit matrixStats::colMadDiffs
 .DelayedMatrix_block_colMadDiffs <- function(x, rows = NULL, cols = NULL,
                                              na.rm = FALSE, diff = 1L,
                                              trim = 0, ...) {

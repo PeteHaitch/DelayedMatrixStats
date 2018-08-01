@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colIQRDiffs()` block-processing internal helper
-#' @inherit matrixStats::colIQRDiffs
 .DelayedMatrix_block_colIQRDiffs <- function(x, rows = NULL, cols = NULL,
                                              na.rm = FALSE, diff = 1L,
                                              trim = 0, ...) {

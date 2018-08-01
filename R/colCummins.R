@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colCummins()` block-processing internal helper
-#' @inherit matrixStats::colCummins
 .DelayedMatrix_block_colCummins <- function(x, rows = NULL, cols = NULL,
                                             dim. = dim(x), ...) {
   # Check input type

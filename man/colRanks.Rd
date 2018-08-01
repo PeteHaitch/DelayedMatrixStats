@@ -8,11 +8,11 @@
 \alias{rowRanks,DelayedMatrix-method}
 \title{Gets the rank of each row (column) of a matrix}
 \usage{
-colRanks(x, rows = NULL, cols = NULL, ties.method = c("max", "average",
-  "min"), dim. = dim(x), preserveShape = FALSE, ...)
+colRanks(x, rows = NULL, cols = NULL, ties.method = c("max",
+  "average", "min"), dim. = dim(x), preserveShape = FALSE, ...)
 
-rowRanks(x, rows = NULL, cols = NULL, ties.method = c("max", "average",
-  "min"), dim. = dim(x), ...)
+rowRanks(x, rows = NULL, cols = NULL, ties.method = c("max",
+  "average", "min"), dim. = dim(x), ...)
 
 \S4method{colRanks}{DelayedMatrix}(x, rows = NULL, cols = NULL,
   ties.method = c("max", "average", "min"), dim. = dim(x),
@@ -62,8 +62,8 @@ whose ranks are calculated.
 The \code{colRanks()} function returns an NxK \code{\link[base]{matrix}}, if
 \code{preserveShape = TRUE}, otherwise a KxN \code{\link[base]{matrix}}.
 
-\%\% The mode of the returned matrix is \code{\link[base]{integer}}, except
-for \%\% \code{ties.method == "average"} when it is
+%% The mode of the returned matrix is \code{\link[base]{integer}}, except
+for %% \code{ties.method == "average"} when it is
 \code{\link[base]{double}}.
 }
 \description{

@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `rowVars()` block-processing internal helper
-#' @inherit matrixStats::rowVars
 .DelayedMatrix_block_rowVars <- function(x, rows = NULL, cols = NULL,
                                          na.rm = FALSE, center = NULL,
                                          dim. = dim(x), ...) {

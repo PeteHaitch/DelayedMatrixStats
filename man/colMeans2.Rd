@@ -11,17 +11,17 @@
 \alias{rowMeans2,Matrix-method}
 \title{Calculates the mean for each row (column) in a matrix}
 \usage{
-colMeans2(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-  ...)
+colMeans2(x, rows = NULL, cols = NULL, na.rm = FALSE,
+  dim. = dim(x), ...)
 
-rowMeans2(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-  ...)
+rowMeans2(x, rows = NULL, cols = NULL, na.rm = FALSE,
+  dim. = dim(x), ...)
 
 \S4method{colMeans2}{DelayedMatrix}(x, rows = NULL, cols = NULL,
   na.rm = FALSE, dim. = dim(x), force_block_processing = FALSE, ...)
 
-\S4method{colMeans2}{Matrix}(x, rows = NULL, cols = NULL, na.rm = FALSE,
-  dim. = dim(x), ...)
+\S4method{colMeans2}{Matrix}(x, rows = NULL, cols = NULL,
+  na.rm = FALSE, dim. = dim(x), ...)
 
 \S4method{colMeans2}{SolidRleArraySeed}(x, rows = NULL, cols = NULL,
   na.rm = FALSE, dim. = dim(x), ...)
@@ -29,8 +29,8 @@ rowMeans2(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
 \S4method{rowMeans2}{DelayedMatrix}(x, rows = NULL, cols = NULL,
   na.rm = FALSE, dim. = dim(x), force_block_processing = FALSE, ...)
 
-\S4method{rowMeans2}{Matrix}(x, rows = NULL, cols = NULL, na.rm = FALSE,
-  dim. = dim(x), ...)
+\S4method{rowMeans2}{Matrix}(x, rows = NULL, cols = NULL,
+  na.rm = FALSE, dim. = dim(x), ...)
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}

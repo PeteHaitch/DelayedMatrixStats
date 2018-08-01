@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colAnys()` block-processing internal helper
-#' @inherit matrixStats::colAnys
 .DelayedMatrix_block_colAnys <- function(x, rows = NULL, cols = NULL,
                                          value = TRUE, na.rm = FALSE,
                                          dim. = dim(x), ...) {

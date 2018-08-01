@@ -12,11 +12,11 @@ colCollapse(x, idxs, cols = NULL, dim. = dim(x), ...)
 
 rowCollapse(x, idxs, rows = NULL, dim. = dim(x), ...)
 
-\S4method{colCollapse}{DelayedMatrix}(x, idxs, cols = NULL, dim. = dim(x),
-  force_block_processing = FALSE, ...)
+\S4method{colCollapse}{DelayedMatrix}(x, idxs, cols = NULL,
+  dim. = dim(x), force_block_processing = FALSE, ...)
 
-\S4method{rowCollapse}{DelayedMatrix}(x, idxs, rows = NULL, dim. = dim(x),
-  force_block_processing = FALSE, ...)
+\S4method{rowCollapse}{DelayedMatrix}(x, idxs, rows = NULL,
+  dim. = dim(x), force_block_processing = FALSE, ...)
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}

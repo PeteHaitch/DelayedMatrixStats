@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colWeightedVars()` block-processing internal helper
-#' @inherit matrixStats::colWeightedVars
 .DelayedMatrix_block_colWeightedVars <- function(x, w = NULL, rows = NULL,
                                                     cols = NULL, na.rm = FALSE,
                                                     ...) {

@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `rowVarDiffs()` block-processing internal helper
-#' @inherit matrixStats::rowVarDiffs
 .DelayedMatrix_block_rowVarDiffs <- function(x, rows = NULL, cols = NULL,
                                              na.rm = FALSE, diff = 1L,
                                              trim = 0, ...) {

@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colIQRs()` block-processing internal helper
-#' @inherit matrixStats::colIQRs
 .DelayedMatrix_block_colIQRs <- function(x, rows = NULL, cols = NULL,
                                          na.rm = FALSE, ...) {
   # Check input type

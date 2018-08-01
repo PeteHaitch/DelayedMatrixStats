@@ -47,36 +47,36 @@ rowVarDiffs(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
   trim = 0, ...)
 
 \S4method{colIQRDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0, force_block_processing = FALSE,
-  ...)
+  na.rm = FALSE, diff = 1L, trim = 0,
+  force_block_processing = FALSE, ...)
 
 \S4method{colMadDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0, force_block_processing = FALSE,
-  ...)
+  na.rm = FALSE, diff = 1L, trim = 0,
+  force_block_processing = FALSE, ...)
 
 \S4method{colSdDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0, force_block_processing = FALSE,
-  ...)
+  na.rm = FALSE, diff = 1L, trim = 0,
+  force_block_processing = FALSE, ...)
 
 \S4method{colVarDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0, force_block_processing = FALSE,
-  ...)
+  na.rm = FALSE, diff = 1L, trim = 0,
+  force_block_processing = FALSE, ...)
 
 \S4method{rowIQRDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0, force_block_processing = FALSE,
-  ...)
+  na.rm = FALSE, diff = 1L, trim = 0,
+  force_block_processing = FALSE, ...)
 
 \S4method{rowMadDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0, force_block_processing = FALSE,
-  ...)
+  na.rm = FALSE, diff = 1L, trim = 0,
+  force_block_processing = FALSE, ...)
 
 \S4method{rowSdDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0, force_block_processing = FALSE,
-  ...)
+  na.rm = FALSE, diff = 1L, trim = 0,
+  force_block_processing = FALSE, ...)
 
 \S4method{rowVarDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0, force_block_processing = FALSE,
-  ...)
+  na.rm = FALSE, diff = 1L, trim = 0,
+  force_block_processing = FALSE, ...)
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}

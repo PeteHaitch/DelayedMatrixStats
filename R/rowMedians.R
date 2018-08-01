@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `rowMedians()` block-processing internal helper
-#' @inherit matrixStats::rowMedians
 .DelayedMatrix_block_rowMedians <- function(x, rows = NULL, cols = NULL,
                                             na.rm = FALSE, dim. = dim(x), ...) {
   # Check input type

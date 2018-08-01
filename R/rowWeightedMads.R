@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `rowWeightedMads()` block-processing internal helper
-#' @inherit matrixStats::rowWeightedMads
 .DelayedMatrix_block_rowWeightedMads <- function(x, w = NULL, rows = NULL,
                                                  cols = NULL, na.rm = FALSE,
                                                  constant = 1.4826,

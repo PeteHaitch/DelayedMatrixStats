@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colWeightedMedians()` block-processing internal helper
-#' @inherit matrixStats::colWeightedMedians
 .DelayedMatrix_block_colWeightedMedians <- function(x, w = NULL, rows = NULL,
                                                     cols = NULL, na.rm = FALSE,
                                                     ...) {

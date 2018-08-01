@@ -9,11 +9,11 @@
 \alias{rowQuantiles,DelayedMatrix-method}
 \title{Estimates quantiles for each row (column) in a matrix}
 \usage{
-colQuantiles(x, rows = NULL, cols = NULL, probs = seq(from = 0, to = 1, by
-  = 0.25), na.rm = FALSE, type = 7L, ..., drop = TRUE)
+colQuantiles(x, rows = NULL, cols = NULL, probs = seq(from = 0, to =
+  1, by = 0.25), na.rm = FALSE, type = 7L, ..., drop = TRUE)
 
-rowQuantiles(x, rows = NULL, cols = NULL, probs = seq(from = 0, to = 1, by
-  = 0.25), na.rm = FALSE, type = 7L, ..., drop = TRUE)
+rowQuantiles(x, rows = NULL, cols = NULL, probs = seq(from = 0, to =
+  1, by = 0.25), na.rm = FALSE, type = 7L, ..., drop = TRUE)
 
 \S4method{colQuantiles}{DelayedMatrix}(x, rows = NULL, cols = NULL,
   probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE, type = 7L,

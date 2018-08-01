@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colCummaxs()` block-processing internal helper
-#' @inherit matrixStats::colCummaxs
 .DelayedMatrix_block_colCummaxs <- function(x, rows = NULL, cols = NULL,
                                             dim. = dim(x), ...) {
   # Check input type

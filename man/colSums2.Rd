@@ -11,15 +11,17 @@
 \alias{rowSums2,Matrix-method}
 \title{Calculates the sum for each row (column) in a matrix}
 \usage{
-colSums2(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x), ...)
+colSums2(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
+  ...)
 
-rowSums2(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x), ...)
+rowSums2(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
+  ...)
 
 \S4method{colSums2}{DelayedMatrix}(x, rows = NULL, cols = NULL,
   na.rm = FALSE, dim. = dim(x), force_block_processing = FALSE, ...)
 
-\S4method{colSums2}{Matrix}(x, rows = NULL, cols = NULL, na.rm = FALSE,
-  dim. = dim(x), ...)
+\S4method{colSums2}{Matrix}(x, rows = NULL, cols = NULL,
+  na.rm = FALSE, dim. = dim(x), ...)
 
 \S4method{colSums2}{SolidRleArraySeed}(x, rows = NULL, cols = NULL,
   na.rm = FALSE, dim. = dim(x), ...)
@@ -27,8 +29,8 @@ rowSums2(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x), ...)
 \S4method{rowSums2}{DelayedMatrix}(x, rows = NULL, cols = NULL,
   na.rm = FALSE, dim. = dim(x), force_block_processing = FALSE, ...)
 
-\S4method{rowSums2}{Matrix}(x, rows = NULL, cols = NULL, na.rm = FALSE,
-  dim. = dim(x), ...)
+\S4method{rowSums2}{Matrix}(x, rows = NULL, cols = NULL,
+  na.rm = FALSE, dim. = dim(x), ...)
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}

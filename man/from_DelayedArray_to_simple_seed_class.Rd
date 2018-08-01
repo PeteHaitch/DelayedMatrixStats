@@ -4,7 +4,8 @@
 \alias{from_DelayedArray_to_simple_seed_class}
 \title{Coerce DelayedArray to its 'simple seed' form}
 \usage{
-from_DelayedArray_to_simple_seed_class(x, drop = FALSE, do_transpose = TRUE)
+from_DelayedArray_to_simple_seed_class(x, drop = FALSE,
+  do_transpose = TRUE)
 }
 \arguments{
 \item{x}{A \linkS4class{DelayedArray}}

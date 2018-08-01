@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colCollapse()` block-processing internal helper
-#' @inherit matrixStats::colCollapse
 .DelayedMatrix_block_colCollapse <- function(x, idxs, cols = NULL,
                                              dim. = dim(x), ...) {
   # Check input

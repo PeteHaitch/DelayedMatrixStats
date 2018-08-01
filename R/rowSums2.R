@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `rowSums2()` block-processing internal helper
-#' @inherit matrixStats::rowSums2
 .DelayedMatrix_block_rowSums2 <- function(x, rows = NULL, cols = NULL,
                                           na.rm = FALSE, dim. = dim(x), ...) {
   # Check input

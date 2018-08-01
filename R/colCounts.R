@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colCounts()` block-processing internal helper
-#' @inherit matrixStats::colCounts
 .DelayedMatrix_block_colCounts <- function(x, rows = NULL, cols = NULL,
                                            value = TRUE, na.rm = FALSE,
                                            dim. = dim(x), ...) {

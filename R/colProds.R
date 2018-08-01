@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colProds()` block-processing internal helper
-#' @inherit matrixStats::colProds
 .DelayedMatrix_block_colProds <- function(x, rows = NULL, cols = NULL,
                                           na.rm = FALSE,
                                           method = c("direct", "expSumLog"),

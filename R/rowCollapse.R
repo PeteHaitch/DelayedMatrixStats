@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `rowCollapse()` block-processing internal helper
-#' @inherit matrixStats::rowCollapse
 #' @importMethodsFrom DelayedArray t
 .DelayedMatrix_block_rowCollapse <- function(x, idxs, rows = NULL,
                                              dim. = dim(x), ...) {

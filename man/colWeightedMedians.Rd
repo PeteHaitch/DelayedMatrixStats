@@ -9,11 +9,11 @@
 \alias{rowWeightedMedians,DelayedMatrix-method}
 \title{Calculates the weighted medians for each row (column) in a matrix}
 \usage{
-colWeightedMedians(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-  ...)
+colWeightedMedians(x, w = NULL, rows = NULL, cols = NULL,
+  na.rm = FALSE, ...)
 
-rowWeightedMedians(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-  ...)
+rowWeightedMedians(x, w = NULL, rows = NULL, cols = NULL,
+  na.rm = FALSE, ...)
 
 \S4method{colWeightedMedians}{DelayedMatrix}(x, w = NULL, rows = NULL,
   cols = NULL, na.rm = FALSE, force_block_processing = FALSE, ...)

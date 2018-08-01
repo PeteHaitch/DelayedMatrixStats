@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `rowTabulates()` block-processing internal helper
-#' @inherit matrixStats::rowTabulates
 .DelayedMatrix_block_rowTabulates <- function(x, rows = NULL, cols = NULL,
                                               values = NULL, ...) {
   # Check input type

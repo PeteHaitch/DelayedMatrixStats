@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `rowCumsums()` block-processing internal helper
-#' @inherit matrixStats::rowCumsums
 .DelayedMatrix_block_rowCumsums <- function(x, rows = NULL, cols = NULL,
                                             dim. = dim(x), ...) {
   # Check input type

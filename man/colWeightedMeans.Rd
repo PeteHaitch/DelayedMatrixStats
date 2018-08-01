@@ -9,11 +9,11 @@
 \alias{rowWeightedMeans,DelayedMatrix-method}
 \title{Calculates the weighted means for each row (column) in a matrix}
 \usage{
-colWeightedMeans(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-  ...)
+colWeightedMeans(x, w = NULL, rows = NULL, cols = NULL,
+  na.rm = FALSE, ...)
 
-rowWeightedMeans(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-  ...)
+rowWeightedMeans(x, w = NULL, rows = NULL, cols = NULL,
+  na.rm = FALSE, ...)
 
 \S4method{colWeightedMeans}{DelayedMatrix}(x, w = NULL, rows = NULL,
   cols = NULL, na.rm = FALSE, force_block_processing = FALSE, ...)

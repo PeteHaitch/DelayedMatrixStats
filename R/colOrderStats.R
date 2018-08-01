@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colOrderStats()` block-processing internal helper
-#' @inherit matrixStats::colOrderStats
 .DelayedMatrix_block_colOrderStats <- function(x, rows = NULL, cols = NULL,
                                                which, dim. = dim(x), ...) {
   # Check input type

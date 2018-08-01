@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colMads()` block-processing internal helper
-#' @inherit matrixStats::colMads
 .DelayedMatrix_block_colMads <- function(x, rows = NULL, cols = NULL,
                                          center = NULL, constant = 1.4826,
                                          na.rm = FALSE, dim. = dim(x), ...) {

@@ -13,11 +13,11 @@ colOrderStats(x, rows = NULL, cols = NULL, which, dim. = dim(x), ...)
 
 rowOrderStats(x, rows = NULL, cols = NULL, which, dim. = dim(x), ...)
 
-\S4method{colOrderStats}{DelayedMatrix}(x, rows = NULL, cols = NULL, which,
-  dim. = dim(x), force_block_processing = FALSE, ...)
+\S4method{colOrderStats}{DelayedMatrix}(x, rows = NULL, cols = NULL,
+  which, dim. = dim(x), force_block_processing = FALSE, ...)
 
-\S4method{rowOrderStats}{DelayedMatrix}(x, rows = NULL, cols = NULL, which,
-  dim. = dim(x), force_block_processing = FALSE, ...)
+\S4method{rowOrderStats}{DelayedMatrix}(x, rows = NULL, cols = NULL,
+  which, dim. = dim(x), force_block_processing = FALSE, ...)
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}

@@ -6,8 +6,6 @@
 ### Non-exported methods
 ###
 
-#' `colLogSumExps()` block-processing internal helper
-#' @inherit matrixStats::colLogSumExps
 .DelayedMatrix_block_colLogSumExps <- function(lx, rows = NULL, cols = NULL,
                                                na.rm = FALSE, dim. = dim(lx),
                                                ...) {

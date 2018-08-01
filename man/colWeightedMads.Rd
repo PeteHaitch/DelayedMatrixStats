@@ -9,11 +9,11 @@
 \alias{rowWeightedMads,DelayedMatrix-method}
 \title{Weighted Median Absolute Deviation (MAD)}
 \usage{
-colWeightedMads(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-  constant = 1.4826, center = NULL, ...)
+colWeightedMads(x, w = NULL, rows = NULL, cols = NULL,
+  na.rm = FALSE, constant = 1.4826, center = NULL, ...)
 
-rowWeightedMads(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-  constant = 1.4826, center = NULL, ...)
+rowWeightedMads(x, w = NULL, rows = NULL, cols = NULL,
+  na.rm = FALSE, constant = 1.4826, center = NULL, ...)
 
 \S4method{colWeightedMads}{DelayedMatrix}(x, w = NULL, rows = NULL,
   cols = NULL, na.rm = FALSE, constant = 1.4826, center = NULL,

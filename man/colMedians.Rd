@@ -8,11 +8,11 @@
 \alias{rowMedians,DelayedMatrix-method}
 \title{Calculates the median for each row (column) in a matrix}
 \usage{
-colMedians(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-  ...)
+colMedians(x, rows = NULL, cols = NULL, na.rm = FALSE,
+  dim. = dim(x), ...)
 
-rowMedians(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-  ...)
+rowMedians(x, rows = NULL, cols = NULL, na.rm = FALSE,
+  dim. = dim(x), ...)
 
 \S4method{colMedians}{DelayedMatrix}(x, rows = NULL, cols = NULL,
   na.rm = FALSE, dim. = dim(x), force_block_processing = FALSE, ...)
