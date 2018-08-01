@@ -118,9 +118,10 @@ An extensive set of benchmarks is under development at [http://peterhickey.org/B
 - ❌: = Not yet impelemented
 
 ```{r, echo = FALSE, comment="", results = "asis"}
-matrixStats <- sort(grep("^(col|row)", 
-                         getNamespaceExports("matrixStats"), 
-                         value = TRUE))
+matrixStats <- sort(
+  c("colsum", "rowsum", grep("^(col|row)", 
+                             getNamespaceExports("matrixStats"), 
+                             value = TRUE)))
 # TODO: A better way of parsing DelayedMatrixStats NAMESPACE to get exported 
 #       functions (will also need internal functions for api_df)
 DelayedMatrixStats <- readLines("NAMESPACE")

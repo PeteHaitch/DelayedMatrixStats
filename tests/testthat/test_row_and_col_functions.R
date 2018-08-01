@@ -69,6 +69,24 @@ testNonNullRowsAndCols <- function(matrix_list, DelayedMatrix_list) {
   })
 }
 
+testGroup <- function(matrix_list, DelayedMatrix_list) {
+  test_that("Default arguments (group)", {
+    # NOTE: Only run these tests on 'base_case'
+    matrix_list <- matrix_list[grep("base_case", names(matrix_list))]
+    DelayedMatrix_list <- DelayedMatrix_list[
+      grep("base_case", names(DelayedMatrix_list))]
+    check.attributes <- checkAttributes(DelayedMatrix_list)
+    if (any(grepl("col", body(dms_f)))) {
+      group_list <- list(c(1, 2, 2, 2))
+    } else {
+      group_list <- list(c(1, 1, 2))
+    }
+    expecteds <- Map(ms_f, matrix_list, group = group_list)
+    observeds <- Map(dms_f, DelayedMatrix_list, group = group_list)
+    Map(expect_equal, observeds, expecteds, check.attributes = check.attributes)
+  })
+}
+
 # ------------------------------------------------------------------------------
 # Run unit tests
 #
@@ -77,9 +95,14 @@ for (i in seq_len(nrow(test_manifest))) {
 
   # Get the function to be tested
   f <- test_manifest[i, "Function"]
-  # TODO: This is a clunky hack to get matrixStats::f; what's the proper way?
-  ms_f <- get(f, envir = environment(sum2))
-  dms_f <- match.fun(f)
+  # TODO: This is a clunky hack to get matrixStats::f or base::f; what's the
+  #       proper way?
+  if (f == "rowsum" || f == "colsum") {
+    ms_f <- get(f)
+  } else {
+    ms_f <- get(f, envir = environment(sum2))
+  }
+  dms_f <- get(f)
   context(f)
 
   # Filter out those storage modes not to be tested
@@ -103,6 +126,9 @@ for (i in seq_len(nrow(test_manifest))) {
   }
   if (test_manifest[i, "testNonNullRowsAndCols"]) {
     testNonNullRowsAndCols(filtered_matrix_list, filtered_DelayedMatrix_list)
+  }
+  if (test_manifest[i, "testGroup"]) {
+    testGroup(filtered_matrix_list, filtered_DelayedMatrix_list)
   }
 }
 

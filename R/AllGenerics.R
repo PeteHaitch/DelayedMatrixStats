@@ -288,6 +288,11 @@ setGeneric("colSds", signature = "x",
                     ...) standardGeneric("colSds")
 )
 
+#' @rdname colsum
+#' @export
+setGeneric("colsum", signature = "x",
+           function(x, group, reorder = TRUE, ...) standardGeneric("colsum"))
+
 #' @inherit matrixStats::colSums2
 #' @rdname colSums2
 #' @export
@@ -562,6 +567,12 @@ setGeneric("rowSds", signature = "x",
                     center = NULL, dim. = dim(x),
                     ...) standardGeneric("rowSds")
 )
+
+#' @inherit base::rowsum
+#' @rdname colsum
+#' @export
+setGeneric("rowsum", signature = "x",
+           function(x, group, reorder = TRUE, ...) standardGeneric("rowsum"))
 
 #' @rdname colSums2
 #' @export
