@@ -5,8 +5,10 @@
 \alias{colsum}
 \alias{rowsum}
 \alias{colsum,ANY-method}
+\alias{colsum,HDF5Matrix-method}
 \alias{rowsum,DelayedMatrix-method}
 \alias{rowsum,matrix-method}
+\alias{rowsum,HDF5Matrix-method}
 \title{Give Column/Row Sums of a Matrix or Data Frame Based on a Grouping Variable}
 \usage{
 colsum(x, group, reorder = TRUE, ...)
@@ -15,10 +17,18 @@ rowsum(x, group, reorder = TRUE, ...)
 
 \S4method{colsum}{ANY}(x, group, reorder = TRUE, ...)
 
+\S4method{colsum}{HDF5Matrix}(x, group, reorder = TRUE,
+  filepath = NULL, name = NULL, chunkdim = NULL, level = NULL,
+  type = c("double", "integer"), BPPARAM = bpparam())
+
 \S4method{rowsum}{DelayedMatrix}(x, group, reorder = TRUE,
   force_block_processing = FALSE, ...)
 
 \S4method{rowsum}{matrix}(x, group, reorder = TRUE, ...)
+
+\S4method{rowsum}{HDF5Matrix}(x, group, reorder = TRUE,
+  filepath = NULL, name = NULL, chunkdim = NULL, level = NULL,
+  type = c("double", "integer"), BPPARAM = bpparam())
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}

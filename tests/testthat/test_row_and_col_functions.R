@@ -33,6 +33,10 @@ checkAttributes <- function(DelayedMatrix_list) {
     DelayedMatrix_list)
 }
 
+expect_equal_DA <- function(object, expected, ...) {
+  expect_equal(as.matrix(object), as.matrix(expected), ...)
+}
+
 # ------------------------------------------------------------------------------
 # Unit test functions
 #
@@ -83,7 +87,8 @@ testGroup <- function(matrix_list, DelayedMatrix_list) {
     }
     expecteds <- Map(ms_f, matrix_list, group = group_list)
     observeds <- Map(dms_f, DelayedMatrix_list, group = group_list)
-    Map(expect_equal, observeds, expecteds, check.attributes = check.attributes)
+    Map(expect_equal_DA, observeds, expecteds,
+        check.attributes = check.attributes)
   })
 }
 
