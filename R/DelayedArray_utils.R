@@ -28,7 +28,7 @@ block_APPLY <- function(x, APPLY, MARGIN, ..., sink = NULL,
                         max_block_len = NULL) {
   APPLY <- match.fun(APPLY)
   if (is.null(max_block_len)) {
-    max_block_len <- DelayedArray:::get_default_block_maxlength(type(x))
+    max_block_len <- getDefaultBlockLength(type(x))
   }
   if (!isSingleNumber(MARGIN)) {
     stop("'MARGIN' must be a single integer")
@@ -76,7 +76,7 @@ rowblock_APPLY <- function(x, APPLY, ..., sink = NULL) {
     stop("'x' must be a matrix-like object")
   }
   APPLY <- match.fun(APPLY)
-  max_block_len <- max(DelayedArray:::get_default_block_maxlength(type(x)),
+  max_block_len <- max(getDefaultBlockLength(type(x)),
                        x_dim[[2L]])
   block_APPLY(x, APPLY, MARGIN = 1, ..., sink = sink,
               max_block_len = max_block_len)
@@ -92,12 +92,12 @@ rowblock_APPLY <- function(x, APPLY, ..., sink = NULL) {
 #' @importFrom DelayedArray makeRegularArrayGridOfCappedLengthViewports
 #' @export
 colGrid <- function(x) {
-  block_maxlen <- max(
+  block_len <- max(
     nrow(x),
-    DelayedArray:::get_default_block_maxlength(type(x)))
+    getDefaultBlockLength(type(x)))
   makeRegularArrayGridOfCappedLengthViewports(
     refdim = dim(x),
-    viewport_maxlen = block_maxlen,
+    viewport_len = block_len,
     viewport_shape = "first-dim-grows-first")
 }
 
@@ -105,11 +105,11 @@ colGrid <- function(x) {
 #' @importFrom DelayedArray makeRegularArrayGridOfCappedLengthViewports
 #' @export
 rowGrid <- function(x) {
-  block_maxlen <- max(
+  block_len <- max(
     ncol(x),
-    DelayedArray:::get_default_block_maxlength(type(x)))
+    getDefaultBlockLength(type(x)))
   makeRegularArrayGridOfCappedLengthViewports(
     refdim = dim(x),
-    viewport_maxlen = block_maxlen,
+    viewport_len = block_len,
     "last-dim-grows-first")
 }

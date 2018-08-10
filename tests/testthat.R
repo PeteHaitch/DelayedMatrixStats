@@ -2,5 +2,5 @@ library(testthat)
 library(DelayedMatrixStats)
 
 test_check("DelayedMatrixStats")
-options(DelayedArray.block.size = 8L)
+setDefaultBlockSize(8)
 test_check("DelayedMatrixStats")
