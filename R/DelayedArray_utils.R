@@ -19,8 +19,8 @@ seedClass <- function(x) {
 #       row or column need to be loaded into memory, because block_APPLY()
 #       might be used when you can only load a subset of a row or column into
 #       memory.
+#' @importFrom DelayedArray getDefaultBlockLength
 #' @importFrom DelayedArray makeRegularArrayGridOfCappedLengthViewports
-#' @importFrom DelayedArray RegularArrayGrid
 #' @importMethodsFrom DelayedArray type read_block write_block
 #' @importFrom S4Vectors isSingleNumber
 #' @keywords internal
@@ -66,6 +66,7 @@ block_APPLY <- function(x, APPLY, MARGIN, ..., sink = NULL,
 }
 
 #' Adapted from `DelayedArray:::colblock_APPLY()`
+#' @importFrom DelayedArray getDefaultBlockLength
 #' @importMethodsFrom DelayedArray type
 #' @keywords internal
 #' @return A list of length equal to `ncol(x)`, each list element storing the
@@ -89,7 +90,9 @@ rowblock_APPLY <- function(x, APPLY, ..., sink = NULL) {
 # Helper functions for setting up ArrayGrid instances
 
 # TODO: Document
+#' @importFrom DelayedArray getDefaultBlockLength
 #' @importFrom DelayedArray makeRegularArrayGridOfCappedLengthViewports
+#' @importMethodsFrom DelayedArray type
 #' @export
 colGrid <- function(x) {
   block_len <- max(
@@ -102,7 +105,9 @@ colGrid <- function(x) {
 }
 
 # TODO: Document
+#' @importFrom DelayedArray getDefaultBlockLength
 #' @importFrom DelayedArray makeRegularArrayGridOfCappedLengthViewports
+#' @importMethodsFrom DelayedArray type
 #' @export
 rowGrid <- function(x) {
   block_len <- max(
