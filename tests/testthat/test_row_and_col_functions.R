@@ -96,7 +96,8 @@ testGroup <- function(matrix_list, DelayedMatrix_list) {
 # Run unit tests
 #
 
-for (i in seq_len(nrow(test_manifest))) {
+# for (i in seq_len(nrow(test_manifest))) {
+for (i in 67) {
 
   # Get the function to be tested
   f <- test_manifest[i, "Function"]

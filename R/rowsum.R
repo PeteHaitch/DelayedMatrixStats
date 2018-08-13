@@ -3,7 +3,8 @@
 ###
 
 # TODO: Add `rows` and `cols` args?
-.DelayedMatrix_block_rowsum <- function(x, group, reorder = TRUE, ...) {
+.DelayedMatrix_block_rowsum <- function(x, group, reorder = TRUE,
+                                        na.rm = FALSE, ...) {
   # Check input
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -13,6 +14,7 @@
                         APPLY = base::rowsum.default,
                         group = group,
                         reorder = reorder,
+                        na.rm = na.rm,
                         ...)
   if (length(val) == 0L) {
     return(numeric(nrow(x)))
@@ -28,15 +30,25 @@
 # General method
 #
 
+#' Give Column and Row Sums of an *DelayedMatrix* Based on a Grouping Variable
+#'
+#' @description Compute column and row sums across rows or columns of a numeric
+#' [DelayedArray::DelayedMatrix] object for each level of a grouping variable
+#' using block-processing.
+#'
+#' @param x An [DelayedArray::DelayedMatrix-class] object.
+#' @inheritParams rowsum
+#' @param na.rm logical (`TRUE` or `FALSE`). Should `NA` (including `NaN`)
+#' values be discarded?
+#' @template common_params
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colsum
 #' @export
 #' @examples
 #'
-#' rowsum(dm_HDF5, group = c(1, 1, 1, 2, 2))
+#' rowsum(dm_Matrix, group = c(1, 1, 1, 2, 2))
 setMethod("rowsum", "DelayedMatrix",
-          function(x, group, reorder = TRUE, force_block_processing = FALSE,
-                   ...) {
+          function(x, group, reorder = TRUE, na.rm = FALSE,
+                   force_block_processing = FALSE, ...) {
             if (!existsMethod("rowsum", seedClass(x)) ||
                 force_block_processing) {
               message2("Block processing", get_verbose())
@@ -60,6 +72,7 @@ setMethod("rowsum", "DelayedMatrix",
                 return(rowsum(x = x,
                               group = group,
                               reorder = reorder,
+                              na.rm = na.rm,
                               force_block_processing = TRUE,
                               ...))
               }
@@ -68,6 +81,7 @@ setMethod("rowsum", "DelayedMatrix",
             rowsum(x = simple_seed_x,
                    group = group,
                    reorder = reorder,
+                   na.rm = na.rm,
                    ...)
           }
 )
@@ -76,22 +90,29 @@ setMethod("rowsum", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @rdname colsum
 #' @export
 setMethod("rowsum", "matrix", base::rowsum)
 
-#' @rdname colsum
+# ------------------------------------------------------------------------------
+# Class-aware methods
+#
+
+# NOTE: Class-aware is a more restrictive definition than 'seed-aware'.
+
+#' @importFrom BiocParallel bplapply bpparam ipcid ipclock ipcremove ipcunlock
+#' @importFrom HDF5Array HDF5RealizationSink
+#' @rdname colsum-HDF5Matrix-method
 #' @export
 setMethod(
   "rowsum",
   "HDF5Matrix",
-  function(x, group, reorder = TRUE, filepath = NULL, name = NULL,
-           chunkdim = NULL, level = NULL, type = c("double", "integer"),
-           BPPARAM = bpparam()) {
+  function(x, group, reorder = TRUE, na.rm = FALSE, filepath = NULL,
+           name = NULL, chunkdim = NULL, level = NULL,
+           type = c("double", "integer"), BPPARAM = bpparam()) {
 
     # Check arguments ----------------------------------------------------------
 
-    if (!type(x) %in% c("integer", "double")) {
+    if (any(!c(type(x), type) %in% c("integer", "double"))) {
       stop("'type(x)' must be 'integer' or 'double'.")
     }
     if (length(group) != NROW(x)) {
@@ -104,7 +125,7 @@ setMethod(
     if (reorder) {
       ugroup <- sort(ugroup, na.last = TRUE, method = "quick")
     }
-    # TODO: Default is type = "double" because colSums2() returns numeric, but
+    # NOTE: Default is type = "double" because colSums2() returns numeric, but
     #       it can be useful to manually override this when you know the result
     #       is integer.
     type <- match.arg(type)
@@ -140,8 +161,11 @@ setMethod(
         rows <- list_of_rows[[b]]
         if (length(rows) == 1L) {
           ans <- as.matrix(x[rows, , drop = FALSE])
+          if (na.rm) {
+            ans[is.na(ans)] <- 0L
+          }
         } else {
-          ans <- matrix(colSums2(x, rows = rows), nrow = 1)
+          ans <- matrix(colSums2(x, rows = rows, na.rm = na.rm), nrow = 1)
         }
         ipclock(sink_lock)
         write_block(x = sink, viewport = sink_grid[[b]], block = ans)

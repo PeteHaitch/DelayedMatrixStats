@@ -6,42 +6,79 @@
 # General method
 #
 
-#' Give Column/Row Sums of a Matrix or Data Frame Based on a Grouping Variable
-#'
-#' @description Compute column (row) sums across rows (columns) of a numeric
-#' matrix-like object for each level of a grouping variable. `colsum()` and
-#' `rowsum()` are generic, with a method for \linkS4class{DelayedMatrix},
-#' data frames, and a default method for vectors and matrices.
-#' @rdname colsum
-#' @template common_params
-#' @template lowercase_x
-#' @template example_dm_HDF5
-#' @export
-#' @examples
-#'
-#' colsum(dm_HDF5, group = c(1, 1, 2))
-setMethod("colsum", "ANY",
-          function(x, group, reorder = TRUE, ...) {
-            t(rowsum(t(x), group = group, reorder = reorder, ...))
-          }
+setMethod(
+  "colsum",
+  "ANY",
+  function(x, group, reorder = TRUE, na.rm = FALSE...) {
+    t(rowsum(t(x), group = group, reorder = reorder, na.rm = na.rm, ...))
+  }
 )
 
 # ------------------------------------------------------------------------------
-# Seed-aware methods
+# Class-aware methods
 #
 
-#' @rdname colsum
+# NOTE: Class-aware is a more restrictive definition than 'seed-aware'.
+
+#' Give Column and Row Sums of an *HDF5Matrix* Based on a Grouping Variable
+#'
+#' @description Compute column and row sums across rows or columns of a numeric
+#' [HDF5Array::HDF5Matrix] object for each level of a grouping variable.
+#'
+#' @details **NOTE**: Unlike [`base::rowsum()`], the result is a
+#' [`base::double`] unless `type = "integer"` is specified. Notably, compared
+#' to [`base::rowsum()`], this means that there are not the same issues with
+#' over/underflow in forming the sum results for integer arguments.
+#'
+#' @param x An [HDF5Array::HDF5Matrix-class] object.
+#' @inheritParams colsum
+#' @param na.rm logical (`TRUE` or `FALSE`). Should `NA` (including `NaN`)
+#' values be discarded?
+#' @param filepath `NULL` or the path (as a single string) to the (new or
+#' existing) HDF5 file where to write the dataset. If `NULL`, then the dataset
+#' will be written to the current *HDF5 dump file* i.e. the path returned by
+#' [`HDF5Array::getHDF5DumpFile()`] will be used.
+#' @param name `NULL` or the name of the HDF5 dataset to write. If `NULL`, then
+#' the name returned by `[HDF5Array::getHDF5DumpName()]` will be used.
+#' @param chunkdim The dimensions of the chunks to use for writing the data to
+#' disk. By default,
+#' `HDF5Array::getHDF5DumpChunkDim(dim(ans))` will be
+#' used, where `ans` is the returned object. See
+#' `?`[`HDF5Array::getHDF5DumpChunkDim()`] for more information.
+#' @param level The compression level to use for writing the data to disk. By
+#' default, [`HDF5Array::getHDF5DumpCompressionLevel()`] will be used. See
+#' `?`[`HDF5Array::getHDF5DumpCompressionLevel()`] for more information.
+#' @param type The type of the data that will be written to the
+#' [HDF5Array][HDF5RealizationSink-class] object to create the result. If the
+#' result is known *a priori* to be `integer`, then it is recommended to set
+#' `type = "integer"`.
+#' @param BPPARAM An optional [BiocParallel][BiocParallelParam] instance
+#' determining the parallel back-end to be used during evaluation, or a list of
+#' [BiocParallel][BiocParallelParam] instances, to be applied in sequence for
+#' nested calls to **BiocParallel** functions.
+#'
+#' @template example_dm_HDF5
+#' @examples
+#' group <- c(1, 1, 2)
+#'
+#' # Compute the sums and store them in an HDF5-backed DelayedMatrix.
+#' xsum <- colsum(dm_HDF5, group)
+#' class(seed(xsum))
+#'
+#' @importFrom BiocParallel bplapply bpparam ipcid ipclock ipcremove ipcunlock
+#' @importFrom HDF5Array HDF5RealizationSink
 #' @export
 setMethod(
   "colsum",
   "HDF5Matrix",
-  function(x, group, reorder = TRUE, filepath = NULL, name = NULL,
-           chunkdim = NULL, level = NULL, type = c("double", "integer"),
-           BPPARAM = bpparam()) {
+  function(x, group, reorder = TRUE, na.rm = FALSE, filepath = NULL,
+           name = NULL, chunkdim = NULL, level = NULL,
+           type = c("double", "integer"), BPPARAM = bpparam()) {
 
     # Check arguments ----------------------------------------------------------
 
-    if (!type(x) %in% c("integer", "double")) {
+    type <- match.arg(type)
+    if (any(!c(type(x), type) %in% c("integer", "double"))) {
       stop("'type(x)' must be 'integer' or 'double'.")
     }
     if (length(group) != NCOL(x)) {
@@ -57,7 +94,6 @@ setMethod(
     # TODO: Default is type = "double" because rowSums2() returns numeric, but
     #       it can be useful to manually override this when you know the result
     #       is integer.
-    type <- match.arg(type)
 
     # Construct RealizationSink --------------------------------------------
 
@@ -90,8 +126,11 @@ setMethod(
         cols <- list_of_cols[[b]]
         if (length(cols) == 1L) {
           ans <- as.matrix(x[, cols, drop = FALSE])
+          if (na.rm) {
+            ans[is.na(ans)] <- 0L
+          }
         } else {
-          ans <- matrix(rowSums2(x, cols = cols), ncol = 1)
+          ans <- matrix(rowSums2(x, cols = cols, na.rm = na.rm), ncol = 1)
         }
         ipclock(sink_lock)
         write_block(x = sink, viewport = sink_grid[[b]], block = ans)

@@ -25,7 +25,8 @@ Imports:
   Matrix,
   S4Vectors (>= 0.17.5),
   IRanges,
-  HDF5Array (>= 1.7.10)
+  HDF5Array (>= 1.7.10),
+  BiocParallel
 Suggests:
   testthat,
   knitr,

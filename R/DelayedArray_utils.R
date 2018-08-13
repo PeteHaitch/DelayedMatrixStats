@@ -81,35 +81,3 @@ rowblock_APPLY <- function(x, APPLY, ..., sink = NULL) {
   block_APPLY(x, APPLY, MARGIN = 1, ..., sink = sink,
               max_block_len = max_block_len)
 }
-
-# ------------------------------------------------------------------------------
-# Exported functions
-#
-
-# Helper functions for setting up ArrayGrid instances
-
-# TODO: Document
-#' @importFrom DelayedArray makeRegularArrayGridOfCappedLengthViewports
-#' @export
-colGrid <- function(x) {
-  block_maxlen <- max(
-    nrow(x),
-    DelayedArray:::get_default_block_maxlength(type(x)))
-  makeRegularArrayGridOfCappedLengthViewports(
-    refdim = dim(x),
-    viewport_maxlen = block_maxlen,
-    viewport_shape = "first-dim-grows-first")
-}
-
-# TODO: Document
-#' @importFrom DelayedArray makeRegularArrayGridOfCappedLengthViewports
-#' @export
-rowGrid <- function(x) {
-  block_maxlen <- max(
-    ncol(x),
-    DelayedArray:::get_default_block_maxlength(type(x)))
-  makeRegularArrayGridOfCappedLengthViewports(
-    refdim = dim(x),
-    viewport_maxlen = block_maxlen,
-    "last-dim-grows-first")
-}
