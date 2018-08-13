@@ -6,10 +6,13 @@
 # General method
 #
 
+#' @rdname colsum
+#' @param na.rm logical (`TRUE` or `FALSE`). Should `NA` (including `NaN`)
+#' values be discarded?
 setMethod(
   "colsum",
   "ANY",
-  function(x, group, reorder = TRUE, na.rm = FALSE...) {
+  function(x, group, reorder = TRUE, na.rm = FALSE, ...) {
     t(rowsum(t(x), group = group, reorder = reorder, na.rm = na.rm, ...))
   }
 )
@@ -66,6 +69,7 @@ setMethod(
 #' class(seed(xsum))
 #'
 #' @importFrom BiocParallel bplapply bpparam ipcid ipclock ipcremove ipcunlock
+#' @importFrom DelayedArray colGrid
 #' @importFrom HDF5Array HDF5RealizationSink
 #' @export
 setMethod(
@@ -115,7 +119,7 @@ setMethod(
 
     # Construct ArrayGrid ------------------------------------------------------
 
-    sink_grid <- RegularArrayGrid(refdim = dim(sink), spacings = c(nrow(x), 1L))
+    sink_grid <- colGrid(x = sink, ncol = 1L)
     list_of_cols <- split(seq_along(group), group)[ugroup]
 
     # Compute colsum() ---------------------------------------------------------

@@ -1,4 +1,4 @@
-# DelayedMatrixStats 1.3.5
+# DelayedMatrixStats 1.3.6
 
 * Add `rowsum()` (based on `base::rowsum()`) and `colsum()` (not found in base R or **matrixStats**)
 

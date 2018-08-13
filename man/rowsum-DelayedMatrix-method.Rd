@@ -37,6 +37,11 @@ Compute column and row sums across rows or columns of a numeric
 using block-processing.
 }
 \examples{
+# A DelayedMatrix with a 'Matrix' seed
+dm_Matrix <- DelayedArray(Matrix::Matrix(c(rep(1L, 5),
+                                           as.integer((0:4) ^ 2),
+                                           seq(-5L, -1L, 1L)),
+                                         ncol = 3))
 
 rowsum(dm_Matrix, group = c(1, 1, 1, 2, 2))
 }

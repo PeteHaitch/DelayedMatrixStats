@@ -43,6 +43,7 @@
 #' @template common_params
 #' @importMethodsFrom DelayedArray seed
 #' @export
+#' @template example_dm_MatrixMatrix
 #' @examples
 #'
 #' rowsum(dm_Matrix, group = c(1, 1, 1, 2, 2))
@@ -100,6 +101,7 @@ setMethod("rowsum", "matrix", base::rowsum)
 # NOTE: Class-aware is a more restrictive definition than 'seed-aware'.
 
 #' @importFrom BiocParallel bplapply bpparam ipcid ipclock ipcremove ipcunlock
+#' @importFrom DelayedArray rowGrid
 #' @importFrom HDF5Array HDF5RealizationSink
 #' @rdname colsum-HDF5Matrix-method
 #' @export
@@ -150,7 +152,7 @@ setMethod(
 
     # Construct ArrayGrid ------------------------------------------------------
 
-    sink_grid <- RegularArrayGrid(refdim = dim(sink), spacings = c(1L, ncol(x)))
+    sink_grid <- rowGrid(x = sink, nrow = 1L)
     list_of_rows <- split(seq_along(group), group)[as.character(ugroup)]
 
     # Compute colsum() ---------------------------------------------------------
