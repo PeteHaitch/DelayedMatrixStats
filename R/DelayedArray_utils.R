@@ -19,8 +19,8 @@ seedClass <- function(x) {
 #       row or column need to be loaded into memory, because block_APPLY()
 #       might be used when you can only load a subset of a row or column into
 #       memory.
+#' @importFrom DelayedArray getDefaultBlockLength
 #' @importFrom DelayedArray makeRegularArrayGridOfCappedLengthViewports
-#' @importFrom DelayedArray RegularArrayGrid
 #' @importMethodsFrom DelayedArray type read_block write_block
 #' @importFrom S4Vectors isSingleNumber
 #' @keywords internal
@@ -28,7 +28,7 @@ block_APPLY <- function(x, APPLY, MARGIN, ..., sink = NULL,
                         max_block_len = NULL) {
   APPLY <- match.fun(APPLY)
   if (is.null(max_block_len)) {
-    max_block_len <- DelayedArray:::get_default_block_maxlength(type(x))
+    max_block_len <- getDefaultBlockLength(type(x))
   }
   if (!isSingleNumber(MARGIN)) {
     stop("'MARGIN' must be a single integer")
@@ -66,6 +66,7 @@ block_APPLY <- function(x, APPLY, MARGIN, ..., sink = NULL,
 }
 
 #' Adapted from `DelayedArray:::colblock_APPLY()`
+#' @importFrom DelayedArray getDefaultBlockLength
 #' @importMethodsFrom DelayedArray type
 #' @keywords internal
 #' @return A list of length equal to `ncol(x)`, each list element storing the
@@ -76,7 +77,7 @@ rowblock_APPLY <- function(x, APPLY, ..., sink = NULL) {
     stop("'x' must be a matrix-like object")
   }
   APPLY <- match.fun(APPLY)
-  max_block_len <- max(DelayedArray:::get_default_block_maxlength(type(x)),
+  max_block_len <- max(getDefaultBlockLength(type(x)),
                        x_dim[[2L]])
   block_APPLY(x, APPLY, MARGIN = 1, ..., sink = sink,
               max_block_len = max_block_len)

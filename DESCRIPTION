@@ -18,7 +18,7 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.0
 Depends:
-  DelayedArray (>= 0.7.17)
+  DelayedArray (>= 0.7.27)
 Imports:
   methods,
   matrixStats (>= 0.53.1),
