@@ -66,7 +66,7 @@ block_APPLY <- function(x, APPLY, MARGIN, ..., sink = NULL,
 }
 
 #' Adapted from `DelayedArray:::colblock_APPLY()`
-#' @importFrom DelayedArray getDefaultBlockLength
+#' @importFrom DelayedArray getDefaultBlockLength get_type_size
 #' @importMethodsFrom DelayedArray type
 #' @keywords internal
 #' @return A list of length equal to `ncol(x)`, each list element storing the
@@ -77,8 +77,9 @@ rowblock_APPLY <- function(x, APPLY, ..., sink = NULL) {
     stop("'x' must be a matrix-like object")
   }
   APPLY <- match.fun(APPLY)
-  max_block_len <- max(getDefaultBlockLength(type(x)),
-                       x_dim[[2L]])
+  max_block_len <- max(
+    getDefaultBlockLength(type(x)),
+    x_dim[[2L]] * get_type_size(type(x)))
   block_APPLY(x, APPLY, MARGIN = 1, ..., sink = sink,
               max_block_len = max_block_len)
 }
