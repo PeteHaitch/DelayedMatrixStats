@@ -26,7 +26,7 @@ values be discarded?}
 seed-aware, optimised method is used (if available). This can be overridden
 to use the general block-processing strategy by setting this to \code{TRUE}
 (typically not advised). The block-processing strategy loads one or more
-(depending on \code{getOption("DelayedArray.block.size")}) columns (\code{colFoo()})
+(depending on \code{\link[DelayedArray]{getDefaultBlockSize}()}) columns (\code{colFoo()})
 or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::array}.}
 
 \item{...}{Additional arguments passed to specific methods.}
@@ -35,12 +35,6 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 Compute column and row sums across rows or columns of a numeric
 \link[DelayedArray:DelayedMatrix]{DelayedArray::DelayedMatrix} object for each level of a grouping variable
 using block-processing.
-}
-\details{
-\strong{NOTE}: Unlike \code{\link[base:rowsum]{base::rowsum()}}, the result is a
-\code{\link[base:double]{base::double}} unless \code{type = "integer"} is specified. Notably, compared
-to \code{\link[base:rowsum]{base::rowsum()}}, this means that there are not the same issues with
-over/underflow in forming the sum results for integer arguments.
 }
 \examples{
 
