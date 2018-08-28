@@ -121,7 +121,8 @@ data_seeds <- c(
 delayed_op_seeds <- c(
   "DelayedSubset",
   "DelayedAperm",
-  "DelayedUnaryIsoOp",
+  "DelayedUnaryIsoOpStack",
+  "DelayedUnaryIsoOpWithArgs",
   "DelayedDimnames",
   "DelayedNaryIsoOp",
   "DelayedAbind")
@@ -167,7 +168,8 @@ seedFunFactory <- function(seed_class) {
     "HDF5ArraySeed" = function(x) seed(realize(x = x, BACKEND = "HDF5Array")),
     "DelayedSubset" = DelayedArray:::new_DelayedSubset,
     "DelayedAperm" = DelayedArray:::new_DelayedAperm,
-    "DelayedUnaryIsoOp" = DelayedArray:::new_DelayedUnaryIsoOp,
+    "DelayedUnaryIsoOpStack" = DelayedArray:::new_DelayedUnaryIsoOpStack,
+    "DelayedUnaryIsoOpWithArgs" = DelayedArray:::new_DelayedUnaryIsoOpWithArgs,
     "DelayedDimnames" = function(x) {
       DelayedArray:::new_DelayedDimnames(seed = x, dimnames = dimnames(x))
     },
