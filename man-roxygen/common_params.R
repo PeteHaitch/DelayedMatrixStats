@@ -8,6 +8,6 @@
 #' seed-aware, optimised method is used (if available). This can be overridden
 #' to use the general block-processing strategy by setting this to `TRUE`
 #' (typically not advised). The block-processing strategy loads one or more
-#' (depending on `\link[DelayedArray]{getDefaultBlockSize}()`) columns (`colFoo()`)
+#' (depending on `\link[DelayedArray]{getAutoBlockSize}()`) columns (`colFoo()`)
 #' or rows (`rowFoo()`) into memory as an ordinary [base::array].
 #' @param ... Additional arguments passed to specific methods.

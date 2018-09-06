@@ -94,7 +94,7 @@ entire data into memory at once[^block_size]:
 [^speed]: In fact, it currently uses `matrixStats::rowSds()` under the hood.
 [^block_size]: In this case, it loads blocks of data row-by-row. The amount of 
 data loaded into memory at any one time is controlled by the 
-*default block size* global setting; see `?DelayedArray::getDefaultBlockSize`
+*default block size* global setting; see `?DelayedArray::getAutoBlockSize`
 for details. Notably, if the data are small enough (and the default block size
 is large enough) then all the data is loaded as a single block, but this
 approach  generalizes and still works when the data are too large to be

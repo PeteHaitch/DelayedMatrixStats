@@ -173,7 +173,7 @@ seedFunFactory <- function(seed_class) {
     "DelayedDimnames" = function(x) {
       DelayedArray:::new_DelayedDimnames(seed = x, dimnames = dimnames(x))
     },
-    "DelayedNaryIsoOp" = DelayedArray:::new_DelayedNaryIsoOp,
+    "DelayedNaryIsoOp" = function(x) DelayedArray:::new_DelayedNaryIsoOp(seed=x),
     "DelayedAbind" = function(x) {
       if (nrow(x)) {
         seeds <- list(
