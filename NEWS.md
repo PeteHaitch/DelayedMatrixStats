@@ -1,3 +1,7 @@
+# DelayedMatrixStats 1.3.9
+
+* Fix bug in `rowsum()` reported by @MalteThodberg (https://github.com/PeteHaitch/DelayedMatrixStats/issues/54)
+
 # DelayedMatrixStats 1.3.6
 
 * Add `rowsum()` (based on `base::rowsum()`) and `colsum()` (not found in base R or **matrixStats**)

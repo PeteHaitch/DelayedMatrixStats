@@ -10,16 +10,16 @@
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
 
   # Compute result
-  val <- rowblock_APPLY(x = x,
-                        APPLY = base::rowsum.default,
-                        group = group,
-                        reorder = reorder,
-                        na.rm = na.rm,
-                        ...)
+  val <- DelayedArray:::colblock_APPLY(x = x,
+                                       APPLY = base::rowsum.default,
+                                       group = group,
+                                       reorder = reorder,
+                                       na.rm = na.rm,
+                                       ...)
   if (length(val) == 0L) {
-    return(numeric(nrow(x)))
+    return(numeric(ncol(x)))
   }
-  do.call("rbind", val)
+  do.call("cbind", val)
 }
 
 ### ----------------------------------------------------------------------------
