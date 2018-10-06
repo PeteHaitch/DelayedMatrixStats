@@ -4,6 +4,7 @@ test_that("Issue 54 is fixed", {
   # NOTE: This is a slow-ish test, so don't test when running tests with small
   #       block size.
   skip_if(getAutoBlockSize() == 8)
+  skip_on_os("windows")
 
   # Small normal matrix
   m1 <- DelayedArray(as.matrix(iris[, 1:4]))
