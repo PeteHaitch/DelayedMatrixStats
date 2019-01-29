@@ -2,27 +2,6 @@
 ### Exported methods
 ###
 
-# ------------------------------------------------------------------------------
-# General method
-#
-
-#' @rdname colsum
-#' @param na.rm logical (`TRUE` or `FALSE`). Should `NA` (including `NaN`)
-#' values be discarded?
-setMethod(
-  "colsum",
-  "ANY",
-  function(x, group, reorder = TRUE, na.rm = FALSE, ...) {
-    t(rowsum(t(x), group = group, reorder = reorder, na.rm = na.rm, ...))
-  }
-)
-
-# ------------------------------------------------------------------------------
-# Class-aware methods
-#
-
-# NOTE: Class-aware is a more restrictive definition than 'seed-aware'.
-
 #' Give Column and Row Sums of an *HDF5Matrix* Based on a Grouping Variable
 #'
 #' @description Compute column and row sums across rows or columns of a numeric
@@ -69,7 +48,7 @@ setMethod(
 #' class(seed(xsum))
 #'
 #' @importFrom BiocParallel bplapply bpparam ipcid ipclock ipcremove ipcunlock
-#' @importFrom DelayedArray colGrid
+#' @importFrom DelayedArray colsum colGrid
 #' @importFrom HDF5Array HDF5RealizationSink
 #' @export
 setMethod(

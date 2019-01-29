@@ -288,64 +288,6 @@ setGeneric("colSds", signature = "x",
                     ...) standardGeneric("colSds")
 )
 
-#' Give Column and Row Sums of a Matrix-Like Object Based on a Grouping Variable
-#'
-#' @description Compute column and row sums across rows or columns of a numeric
-#' matrix-like object for each level of a grouping variable.
-#'
-#' **NOTE**: This man page is for the `colsum()` and `rowsum()`
-#' *S4 generic functions* defined in the **DelayedMatrixStats** package. See
-#' [`base::rowsum()`] for the default method of `rowsum()` (defined in the
-#' **base**) package. The `colsum()` generic is the natural extension of
-#' `rowsum()` but has no equivalent in the **base** package.
-#' Bioconductor packages can define specific methods for objects (typically
-#' matrix-like) not supported by the default method.
-#' @param x A matrix-like object. Missing values are allowed. A numeric vector
-#' will be treated as a column vector.
-#' @param group A vector or factor giving the grouping, with one element per
-#' row of `x` for `rowsum()` or one element per column of `x` for `colsum()`.
-#' Missing values will be treated as another group and a warning will be given.
-#' @param reorder If `TRUE`, then the result will be in order of
-#' `sort(unique(group))`. If `FALSE`, it will be in the order that groups are
-#' encountered.
-#' @param ... Additional arguments passed to specific methods.
-#'
-#' @details
-#' The default is for `rowsum()` (resp. `colsum()`) to reorder the rows
-#' (columns) to agree with [`base::tapply()`] as in the example below.
-#' Reordering should not add noticeably to the time except when there are very
-#' many distinct values of `group` and `x` has few columns (rows).
-#'
-#' To sum over all the rows (columns) of a matrix (i.e. a single group) use
-#' [`colSums()`] ([`rowSums()`]), which should be even faster. To sum over a
-#' subset of rows and/or columns of a matrix (i.e. a subset of a single group)
-#' use [`colSums2()`] ([`rowSums2()`]).
-#'
-#' @return A matrix-like object containing the sums. For `rowsum()`, there will
-#' be one row per unique value of `group`. For `colsum()`, there will be one
-#' column per unique value of `group`.
-#'
-#' See [`base::rowsum()`] for the value returned by the default `rowsum()`
-#' method.
-#'
-#' Specific methods defined in Bioconductor packages will typically return an
-#' object of the same class as the input object.
-#'
-#' @seealso
-#' * [`base::rowsum()`] for the default `rowsum()` method.
-#' * [`methods::showMethods()`] for displaying a summary of the methods defined for a given generic function.
-#' * [`methods::selectMethod()`] for getting the definition of a specific method.
-#'
-#' @examples
-#' rowsum
-#' showMethods("rowsum")
-#' selectMethod("rowsum", "ANY") # the default method
-#'
-#' @rdname colsum
-#' @export
-setGeneric("colsum", signature = "x",
-           function(x, group, reorder = TRUE, ...) standardGeneric("colsum"))
-
 #' @inherit matrixStats::colSums2
 #' @rdname colSums2
 #' @export
@@ -620,11 +562,6 @@ setGeneric("rowSds", signature = "x",
                     center = NULL, dim. = dim(x),
                     ...) standardGeneric("rowSds")
 )
-
-#' @rdname colsum
-#' @export
-setGeneric("rowsum", signature = "x",
-           function(x, group, reorder = TRUE, ...) standardGeneric("rowsum"))
 
 #' @rdname colSums2
 #' @export
