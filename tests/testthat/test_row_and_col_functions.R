@@ -102,11 +102,7 @@ for (i in seq_len(nrow(test_manifest))) {
   f <- test_manifest[i, "Function"]
   # TODO: This is a clunky hack to get matrixStats::f or base::f; what's the
   #       proper way?
-  if (f == "rowsum" || f == "colsum") {
-    ms_f <- get(f)
-  } else {
-    ms_f <- get(f, envir = environment(sum2))
-  }
+  ms_f <- get(f, envir = environment(sum2))
   dms_f <- get(f)
   context(f)
 
