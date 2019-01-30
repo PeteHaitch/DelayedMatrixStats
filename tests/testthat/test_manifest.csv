@@ -27,7 +27,6 @@ colRanges,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,DelayedArray::colRanges() doesn't sup
 colRanks,TRUE,TRUE,FALSE,TRUE,TRUE,FALSE,
 colSdDiffs,TRUE,TRUE,FALSE,TRUE,TRUE,FALSE,
 colSds,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,
-colsum,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,Default doesn't work because no default `group`; colsum() doesn't support `cols` or `rows`
 colSums2,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,
 colTabulates,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,"colTabulates() only accepts integer, logical, and raw. When the DelayedMatrix seed is a Matrix, there is integer matrices are using doubles"
 colVarDiffs,TRUE,TRUE,FALSE,TRUE,TRUE,FALSE,
@@ -65,7 +64,6 @@ rowRanges,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,DelayedArray::colRanges() doesn't sup
 rowRanks,TRUE,TRUE,FALSE,TRUE,TRUE,FALSE,
 rowSdDiffs,TRUE,TRUE,FALSE,TRUE,TRUE,FALSE,
 rowSds,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,
-rowsum,TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,Default doesn't work because no default `group`; rowsum() doesn't support `cols` or `rows`
 rowSums2,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,
 rowTabulates,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,"colTabulates() only accepts integer, logical, and raw. When the DelayedMatrix seed is a Matrix, there is integer matrices are using doubles"
 rowVarDiffs,TRUE,TRUE,FALSE,TRUE,TRUE,FALSE,

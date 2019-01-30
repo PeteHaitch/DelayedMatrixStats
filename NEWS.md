@@ -1,3 +1,7 @@
+# DelayedMatrixStats 1.5.1
+
+* Move `rowsum()` and `colsum()` to **DelayedArray** package. Thanks @hpages (https://github.com/PeteHaitch/DelayedMatrixStats/pull/56).
+
 # DelayedMatrixStats 1.3.9
 
 * Fix bug in `rowsum()` reported by @MalteThodberg (https://github.com/PeteHaitch/DelayedMatrixStats/issues/54)
