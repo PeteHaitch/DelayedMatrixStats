@@ -45,17 +45,17 @@ message2 <- function(msg, verbose = FALSE) {
   .is_simple_seed(seed(x))
 }
 
-# NOTE: A basic wrapper around DelayedArray:::.execute_delayed_ops() that also
+# NOTE: A basic wrapper around .DelayedArray_execute_delayed_ops() that also
 #       handles seed instance of class RleArraySeed
 # TODO: Make generic and implement methods
 #' @importFrom S4Vectors endoapply
 .execute_delayed_ops <- function(seed, delayed_ops) {
   if (is(seed, "RleArraySeed")) {
-    seed@rle <- DelayedArray:::.execute_delayed_ops(seed@rle, delayed_ops)
+    seed@rle <- .DelayedArray_execute_delayed_ops(seed@rle, delayed_ops)
   } else if (is(seed, "DataFrame")) {
-    seed <- endoapply(seed, DelayedArray:::.execute_delayed_ops, delayed_ops)
+    seed <- endoapply(seed, .DelayedArray_execute_delayed_ops, delayed_ops)
   } else {
-    seed <- DelayedArray:::.execute_delayed_ops(seed, delayed_ops)
+    seed <- .DelayedArray_execute_delayed_ops(seed, delayed_ops)
   }
   seed
 }
@@ -109,7 +109,7 @@ from_DelayedArray_to_simple_seed_class <- function(x, drop = FALSE,
       !is(ans, "DataFrame")) {
     ans <- DelayedArray:::set_dim(ans, dim(x))
   }
-  ans <- DelayedArray:::.execute_delayed_ops(ans, x@delayed_ops)
+  ans <- .DelayedArray_execute_delayed_ops(ans, x@delayed_ops)
   # TODO: Need a dimnames,RleArraySeed-method
   if (!is(ans, "RleArraySeed")) {
     ans <- DelayedArray:::set_dimnames(ans, dimnames(x))
@@ -192,6 +192,78 @@ get_Nindex_as_IRangesList <- function(Nindex, dim) {
        partitioning = partitioning)
 }
 
+# TODO: This was removed from DelayedArray in (https://github.com/Bioconductor/DelayedArray/commit/6a3febf165f15101036a7adf6fb9a4830bda35f2);
+#       I've added it back here to restore some broken functionality but
+#       ultimately need to fix the root cause by refactoring code that uses
+#       this function.
+### 'dimnames' must be NULL or a list of the same length as 'Nindex'.
+### 'along' must be an integer >= 1 and <= length(Nindex).
+get_Nindex_names_along <- function(Nindex, dimnames, along) {
+  stopifnot(is.list(Nindex))
+  i <- Nindex[[along]]
+  if (is.null(i))
+    return(dimnames[[along]])
+  names(i)
+}
+
+# TODO: This was removed from DelayedArray in (https://github.com/Bioconductor/DelayedArray/commit/6a3febf165f15101036a7adf6fb9a4830bda35f2);
+#       I've added it back here to restore some broken functionality but
+#       ultimately need to fix the root cause by refactoring code that uses
+#       this function.
+### 'a' is the ordinary array returned by the "combining" operator.
+.DelayedArray_execute_delayed_ops <- function(a, delayed_ops) {
+  a_dim <- dim(a)
+  first_dim <- a_dim[[1L]]
+  a_len <- length(a)
+  if (a_len == 0L) {
+    p1 <- 0L
+  } else {
+    p1 <- a_len / first_dim
+  }
+
+  recycle_arg <- function(partially_recycled_arg) {
+    stopifnot(length(partially_recycled_arg) == first_dim)
+    rep.int(partially_recycled_arg, p1)
+  }
+
+  prepare_call_args <- function(a, delayed_op) {
+    Largs <- delayed_op[[2L]]
+    Rargs <- delayed_op[[3L]]
+    recycle_along_first_dim <- delayed_op[[4L]]
+    if (recycle_along_first_dim) {
+      nLargs <- length(Largs)
+      nRargs <- length(Rargs)
+      stopifnot(nLargs + nRargs == 1L)
+      if (nLargs == 1L) {
+        Largs <- list(recycle_arg(Largs[[1L]]))
+      } else {
+        Rargs <- list(recycle_arg(Rargs[[1L]]))
+      }
+    }
+    c(Largs, list(a), Rargs)
+  }
+
+  for (delayed_op in delayed_ops) {
+    FUN <- delayed_op[[1L]]
+    call_args <- prepare_call_args(a, delayed_op)
+
+    ## Perform the delayed operation.
+    a <- do.call(FUN, call_args)
+
+    ## Some vectorized operations on an ordinary array can drop the dim
+    ## attribute (e.g. comparing a zero-col matrix with an atomic vector).
+    a_new_dim <- dim(a)
+    if (is.null(a_new_dim)) {
+      ## Restore the dim attribute.
+      a <- DelayedArray:::set_dim(a, a_dim)
+    } else {
+      ## Sanity check.
+      stopifnot(identical(a_dim, a_new_dim))
+    }
+  }
+  a
+}
+
 # ------------------------------------------------------------------------------
 # Non-exported methods
 #
@@ -218,9 +290,10 @@ setMethod("subset_by_Nindex", "SolidRleArraySeed",
               dimnames <- x_dimnames
             } else {
               dimnames <- lapply(seq_along(x_dimnames), function(along) {
-                DelayedArray:::get_Nindex_names_along(Nindex = Nindex,
-                                                      dimnames = x_dimnames,
-                                                      along = along)
+                get_Nindex_names_along(
+                  Nindex = Nindex,
+                  dimnames = x_dimnames,
+                  along = along)
               })
             }
             DelayedArray:::RleArraySeed(rle, dim, dimnames)
