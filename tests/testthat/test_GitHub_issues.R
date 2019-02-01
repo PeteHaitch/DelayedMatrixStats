@@ -29,6 +29,9 @@ test_that("Issue 54 is fixed", {
     rowsum(m4, S))
 
   # RleMatrix
+  # NOTE: This test fails on 32-bit Windows because it can't allocate a ~150 Mb
+  #       vector.
+  skip_on_os("windows")
   m3 <- as(m2, "RleMatrix")
   S <- sample(1:1000, nrow(m3), replace = TRUE)
   expect_equal(
