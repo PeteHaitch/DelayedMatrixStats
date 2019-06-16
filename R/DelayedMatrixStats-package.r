@@ -14,4 +14,5 @@
 #' @name DelayedMatrixStats
 #' @docType package
 #' @import methods
+#' @importFrom DelayedArray isPristine
 NULL

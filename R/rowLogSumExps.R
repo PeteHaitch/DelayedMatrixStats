@@ -57,7 +57,7 @@ setMethod("rowLogSumExps", "DelayedMatrix",
             }
 
             message2("Has seed-aware method", get_verbose())
-            if (DelayedArray:::is_pristine(lx)) {
+            if (isPristine(lx)) {
               message2("Pristine", get_verbose())
               simple_seed_lx <- seed(lx)
             } else {

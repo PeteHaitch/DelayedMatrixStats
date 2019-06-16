@@ -60,7 +60,7 @@ setMethod("colSdDiffs", "DelayedMatrix",
             }
 
             message2("Has seed-aware method", get_verbose())
-            if (DelayedArray:::is_pristine(x)) {
+            if (isPristine(x)) {
               message2("Pristine", get_verbose())
               simple_seed_x <- seed(x)
             } else {

@@ -76,7 +76,7 @@ setMethod("colAvgsPerRowSet", "DelayedMatrix",
             }
 
             message2("Has seed-aware method", get_verbose())
-            if (DelayedArray:::is_pristine(X)) {
+            if (isPristine(X)) {
               message2("Pristine", get_verbose())
               simple_seed_X <- seed(X)
             } else {
