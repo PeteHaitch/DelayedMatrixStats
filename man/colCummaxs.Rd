@@ -89,7 +89,9 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 }
 \value{
 Returns a \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}}
-of the same mode as \code{x}.
+of the same mode as \code{x}, except when \code{x} is of mode
+\code{\link[base]{logical}}, then the return type is
+\code{\link[base]{integer}}.
 }
 \description{
 Cumulative sums, products, minima and maxima for each row (column) in a
