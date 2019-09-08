@@ -8,7 +8,7 @@
 
 .DelayedMatrix_block_rowRanks <-
   function(x, rows = NULL, cols = NULL,
-           ties.method = c("max", "average", "min"), dim. = dim(x), ...) {
+           ties.method = c("max", "average", "first", "last", "random", "max", "min", "dense"), dim. = dim(x), ...) {
     # Check input type
     ties.method <- match.arg(ties.method)
     stopifnot(is(x, "DelayedMatrix"))
@@ -45,8 +45,8 @@
 #' rowRanks(dm_Matrix)
 setMethod("rowRanks", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
-                   ties.method = c("max", "average", "min"), dim. = dim(x),
-                   force_block_processing = FALSE, ...) {
+                   ties.method = c("max", "average", "first", "last", "random", "max", "min", "dense"),
+                   dim. = dim(x), force_block_processing = FALSE, ...) {
             ties.method <- match.arg(ties.method)
             if (!hasMethod("rowRanks", seedClass(x)) ||
                 force_block_processing) {

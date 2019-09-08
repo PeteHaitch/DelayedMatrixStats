@@ -267,7 +267,8 @@ setGeneric("colQuantiles", signature = "x",
 #' @export
 setGeneric("colRanks", signature = "x",
            function(x, rows = NULL, cols = NULL,
-                    ties.method = c("max", "average", "min"), dim. = dim(x),
+                    ties.method = c("max", "average", "first", "last", "random", "max", "min", "dense"),
+                    dim. = dim(x),
                     preserveShape = FALSE, ...) standardGeneric("colRanks")
 )
 
@@ -544,8 +545,8 @@ setGeneric("rowQuantiles", signature = "x",
 #' @export
 setGeneric("rowRanks", signature = "x",
            function(x, rows = NULL, cols = NULL,
-                    ties.method = c("max", "average", "min"), dim. = dim(x),
-                    ...) standardGeneric("rowRanks")
+                    ties.method = c("max", "average", "first", "last", "random", "max", "min", "dense"),
+                    dim. = dim(x),  ...) standardGeneric("rowRanks")
 )
 
 #' @rdname colIQRDiffs
