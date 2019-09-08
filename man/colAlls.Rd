@@ -91,7 +91,7 @@ only for these calculations.
 
 When \code{value} is logical, the result is as if the function is applied
 on \code{as.logical(x)}.  More specifically, if \code{x} is numeric, then
-all zeros are treates as \code{FALSE}, non-zero values as \code{TRUE},
+all zeros are treated as \code{FALSE}, non-zero values as \code{TRUE},
 and all missing values as \code{NA}.
 
 
@@ -99,7 +99,7 @@ and all missing values as \code{NA}.
 
 When \code{value} is logical, the result is as if the function is applied
 on \code{as.logical(x)}.  More specifically, if \code{x} is numeric, then
-all zeros are treates as \code{FALSE}, non-zero values as \code{TRUE},
+all zeros are treated as \code{FALSE}, non-zero values as \code{TRUE},
 and all missing values as \code{NA}.
 
 }
