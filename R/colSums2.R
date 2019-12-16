@@ -35,6 +35,7 @@
 # General method
 #
 
+#' @inherit matrixStats::colSums2
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colSums2
 #' @template common_params
@@ -91,9 +92,6 @@ setMethod("colSums2", "DelayedMatrix",
 # ------------------------------------------------------------------------------
 # Seed-aware methods
 #
-
-#' @export
-setMethod("colSums2", "matrix", matrixStats::colSums2)
 
 #' @importMethodsFrom Matrix colSums
 #' @rdname colSums2

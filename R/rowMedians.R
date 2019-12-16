@@ -84,10 +84,3 @@ setMethod("rowMedians", "DelayedMatrix",
                        ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowMedians", "matrix", matrixStats::rowMedians)

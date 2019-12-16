@@ -89,10 +89,3 @@ setMethod("rowVars", "DelayedMatrix",
                     ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowVars", "matrix", matrixStats::rowVars)

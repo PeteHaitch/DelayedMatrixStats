@@ -96,9 +96,6 @@ setMethod("rowSums2", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @export
-setMethod("rowSums2", "matrix", matrixStats::rowSums2)
-
 #' @importMethodsFrom Matrix rowSums
 #' @rdname colSums2
 #' @export

@@ -29,10 +29,3 @@ setMethod("rowSds", "DelayedMatrix",
                          ...))
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowSds", "matrix", matrixStats::rowSds)

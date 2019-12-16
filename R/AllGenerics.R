@@ -209,14 +209,6 @@ setGeneric("colMads", signature = "x",
 # #' @importMethodsFrom DelayedArray colMaxs
 
 
-#' @inherit matrixStats::colMedians
-#' @rdname colMedians
-#' @export
-setGeneric("colMedians", signature = "x",
-           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                    ...) standardGeneric("colMedians")
-)
-
 # TODO: Need to think about interaction with methods and docs in DelayedArray
 # NOTE: colMins S4 generic and colMins,DelayedMatrix-method, already defined in
 #       DelayedArray
@@ -273,22 +265,6 @@ setGeneric("colSdDiffs", signature = "x",
                     trim = 0, ...) standardGeneric("colSdDiffs")
 )
 
-#' @inherit matrixStats::colSds
-#' @rdname colMads
-#' @export
-setGeneric("colSds", signature = "x",
-           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
-                    center = NULL, dim. = dim(x),
-                    ...) standardGeneric("colSds")
-)
-
-#' @inherit matrixStats::colSums2
-#' @rdname colSums2
-#' @export
-setGeneric("colSums2", signature = "x",
-           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                    ...) standardGeneric("colSums2")
-)
 
 #' @inherit matrixStats::colTabulates
 #' @rdname colTabulates
@@ -306,13 +282,6 @@ setGeneric("colVarDiffs", signature = "x",
                     trim = 0, ...) standardGeneric("colVarDiffs")
 )
 
-#' @inherit matrixStats::colVars
-#' @rdname colVars
-#' @export
-setGeneric("colVars", signature = "x",
-           function(x, rows = NULL, cols = NULL, na.rm = FALSE, center = NULL,
-                    dim. = dim(x), ...) standardGeneric("colVars")
-)
 
 #' @inherit matrixStats::colWeightedMads
 #' @rdname colWeightedMads
@@ -485,13 +454,6 @@ setGeneric("rowMads", signature = "x",
 # #' @rdname colMaxs
 # #' @importMethodsFrom DelayedArray rowMaxs
 
-#' @rdname colMedians
-#' @export
-setGeneric("rowMedians", signature = "x",
-           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                    ...) standardGeneric("rowMedians")
-)
-
 # TODO: Need to think about interaction with methods and docs in DelayedArray
 # NOTE: rowMins S4 generic and rowMins,DelayedMatrix-method, already defined in
 #       DelayedArray
@@ -542,21 +504,6 @@ setGeneric("rowSdDiffs", signature = "x",
                     trim = 0, ...) standardGeneric("rowSdDiffs")
 )
 
-#' @rdname colMads
-#' @export
-setGeneric("rowSds", signature = "x",
-           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
-                    center = NULL, dim. = dim(x),
-                    ...) standardGeneric("rowSds")
-)
-
-#' @rdname colSums2
-#' @export
-setGeneric("rowSums2", signature = "x",
-           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                    ...) standardGeneric("rowSums2")
-)
-
 #' @rdname colTabulates
 #' @export
 setGeneric("rowTabulates", signature = "x",
@@ -569,13 +516,6 @@ setGeneric("rowTabulates", signature = "x",
 setGeneric("rowVarDiffs", signature = "x",
            function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
                     trim = 0, ...) standardGeneric("rowVarDiffs")
-)
-
-#' @rdname colVars
-#' @export
-setGeneric("rowVars", signature = "x",
-           function(x, rows = NULL, cols = NULL, na.rm = FALSE, center = NULL,
-                    dim. = dim(x), ...) standardGeneric("rowVars")
 )
 
 #' @rdname colWeightedMads

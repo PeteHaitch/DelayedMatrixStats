@@ -4,9 +4,7 @@
 \docType{methods}
 \name{colMads}
 \alias{colMads}
-\alias{colSds}
 \alias{rowMads}
-\alias{rowSds}
 \alias{colMads,DelayedMatrix-method}
 \alias{colSds,DelayedMatrix-method}
 \alias{rowMads,DelayedMatrix-method}
@@ -16,14 +14,8 @@
 colMads(x, rows = NULL, cols = NULL, center = NULL,
   constant = 1.4826, na.rm = FALSE, dim. = dim(x), ...)
 
-colSds(x, rows = NULL, cols = NULL, na.rm = FALSE, center = NULL,
-  dim. = dim(x), ...)
-
 rowMads(x, rows = NULL, cols = NULL, center = NULL,
   constant = 1.4826, na.rm = FALSE, dim. = dim(x), ...)
-
-rowSds(x, rows = NULL, cols = NULL, na.rm = FALSE, center = NULL,
-  dim. = dim(x), ...)
 
 \S4method{colMads}{DelayedMatrix}(x, rows = NULL, cols = NULL,
   center = NULL, constant = 1.4826, na.rm = FALSE, dim. = dim(x),
