@@ -208,13 +208,6 @@ setGeneric("colMads", signature = "x",
 # #' @inherit matrixStats::colMaxs
 # #' @importMethodsFrom DelayedArray colMaxs
 
-#' @inherit matrixStats::colMeans2
-#' @rdname colMeans2
-#' @export
-setGeneric("colMeans2", signature = "x",
-           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                    ...) standardGeneric("colMeans2")
-)
 
 #' @inherit matrixStats::colMedians
 #' @rdname colMedians
@@ -491,13 +484,6 @@ setGeneric("rowMads", signature = "x",
 #       DelayedArray
 # #' @rdname colMaxs
 # #' @importMethodsFrom DelayedArray rowMaxs
-
-#' @rdname colMeans2
-#' @export
-setGeneric("rowMeans2", signature = "x",
-           function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
-                    ...) standardGeneric("rowMeans2")
-)
 
 #' @rdname colMedians
 #' @export

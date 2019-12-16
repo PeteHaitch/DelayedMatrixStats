@@ -97,9 +97,6 @@ setMethod("rowMeans2", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @export
-setMethod("rowMeans2", "matrix", matrixStats::rowMeans2)
-
 #' @importMethodsFrom Matrix rowMeans
 #' @rdname colMeans2
 #' @export
