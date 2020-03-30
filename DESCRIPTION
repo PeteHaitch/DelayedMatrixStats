@@ -22,7 +22,7 @@ Depends:
   DelayedArray (>= 0.11.1)
 Imports:
   methods,
-  matrixStats (>= 0.55.0),
+  matrixStats (>= 0.56.0),
   Matrix,
   S4Vectors (>= 0.17.5),
   IRanges,
