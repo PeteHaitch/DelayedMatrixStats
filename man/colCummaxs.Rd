@@ -2,7 +2,6 @@
 % Please edit documentation in R/AllGenerics.R, R/colCummaxs.R, R/colCummins.R,
 %   R/colCumprods.R, R/colCumsums.R, R/rowCummaxs.R, R/rowCummins.R,
 %   R/rowCumprods.R, R/rowCumsums.R
-\docType{methods}
 \name{colCummaxs}
 \alias{colCummaxs}
 \alias{colCummins}
@@ -39,29 +38,77 @@ rowCumprods(x, rows = NULL, cols = NULL, dim. = dim(x), ...)
 
 rowCumsums(x, rows = NULL, cols = NULL, dim. = dim(x), ...)
 
-\S4method{colCummaxs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  dim. = dim(x), force_block_processing = FALSE, ...)
+\S4method{colCummaxs}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  dim. = dim(x),
+  force_block_processing = FALSE,
+  ...
+)
 
-\S4method{colCummins}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  dim. = dim(x), force_block_processing = FALSE, ...)
+\S4method{colCummins}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  dim. = dim(x),
+  force_block_processing = FALSE,
+  ...
+)
 
-\S4method{colCumprods}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  dim. = dim(x), force_block_processing = FALSE, ...)
+\S4method{colCumprods}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  dim. = dim(x),
+  force_block_processing = FALSE,
+  ...
+)
 
-\S4method{colCumsums}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  dim. = dim(x), force_block_processing = FALSE, ...)
+\S4method{colCumsums}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  dim. = dim(x),
+  force_block_processing = FALSE,
+  ...
+)
 
-\S4method{rowCummaxs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  dim. = dim(x), force_block_processing = FALSE, ...)
+\S4method{rowCummaxs}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  dim. = dim(x),
+  force_block_processing = FALSE,
+  ...
+)
 
-\S4method{rowCummins}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  dim. = dim(x), force_block_processing = FALSE, ...)
+\S4method{rowCummins}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  dim. = dim(x),
+  force_block_processing = FALSE,
+  ...
+)
 
-\S4method{rowCumprods}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  dim. = dim(x), force_block_processing = FALSE, ...)
+\S4method{rowCumprods}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  dim. = dim(x),
+  force_block_processing = FALSE,
+  ...
+)
 
-\S4method{rowCumsums}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  dim. = dim(x), force_block_processing = FALSE, ...)
+\S4method{rowCumsums}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  dim. = dim(x),
+  force_block_processing = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
@@ -84,7 +131,7 @@ length two specifying the dimension of \code{x}, also when not a
 seed-aware, optimised method is used (if available). This can be overridden
 to use the general block-processing strategy by setting this to \code{TRUE}
 (typically not advised). The block-processing strategy loads one or more
-(depending on \code{\link[DelayedArray]{getAutoBlockSize}()}) columns (\code{colFoo()})
+(depending on \verb{\link[DelayedArray]\{getAutoBlockSize\}()}) columns (\code{colFoo()})
 or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::array}.}
 }
 \value{
@@ -132,4 +179,13 @@ rowCumsums(dm_Matrix, rows = 2:4)
 \seealso{
 See \code{\link[base]{cumsum}}(), \code{\link[base]{cumprod}}(),
 \code{\link[base]{cummin}}(), and \code{\link[base]{cummax}}().
+}
+\author{
+Peter Hickey
+
+Peter Hickey
+
+Peter Hickey
+
+Peter Hickey
 }

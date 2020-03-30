@@ -2,7 +2,6 @@
 % Please edit documentation in R/AllGenerics.R, R/colIQRDiffs.R,
 %   R/colMadDiffs.R, R/colSdDiffs.R, R/colVarDiffs.R, R/rowIQRDiffs.R,
 %   R/rowMadDiffs.R, R/rowSdDiffs.R, R/rowVarDiffs.R
-\docType{methods}
 \name{colIQRDiffs}
 \alias{colIQRDiffs}
 \alias{colMadDiffs}
@@ -22,61 +21,173 @@
 \alias{rowVarDiffs,DelayedMatrix-method}
 \title{Estimation of scale based on sequential-order differences}
 \usage{
-colIQRDiffs(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
-  trim = 0, ...)
+colIQRDiffs(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  ...
+)
 
-colMadDiffs(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
-  trim = 0, ...)
+colMadDiffs(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  ...
+)
 
-colSdDiffs(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
-  trim = 0, ...)
+colSdDiffs(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  ...
+)
 
-colVarDiffs(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
-  trim = 0, ...)
+colVarDiffs(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  ...
+)
 
-rowIQRDiffs(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
-  trim = 0, ...)
+rowIQRDiffs(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  ...
+)
 
-rowMadDiffs(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
-  trim = 0, ...)
+rowMadDiffs(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  ...
+)
 
-rowSdDiffs(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
-  trim = 0, ...)
+rowSdDiffs(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  ...
+)
 
-rowVarDiffs(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
-  trim = 0, ...)
+rowVarDiffs(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  ...
+)
 
-\S4method{colIQRDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0,
-  force_block_processing = FALSE, ...)
+\S4method{colIQRDiffs}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  force_block_processing = FALSE,
+  ...
+)
 
-\S4method{colMadDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0,
-  force_block_processing = FALSE, ...)
+\S4method{colMadDiffs}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  force_block_processing = FALSE,
+  ...
+)
 
-\S4method{colSdDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0,
-  force_block_processing = FALSE, ...)
+\S4method{colSdDiffs}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  force_block_processing = FALSE,
+  ...
+)
 
-\S4method{colVarDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0,
-  force_block_processing = FALSE, ...)
+\S4method{colVarDiffs}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  force_block_processing = FALSE,
+  ...
+)
 
-\S4method{rowIQRDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0,
-  force_block_processing = FALSE, ...)
+\S4method{rowIQRDiffs}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  force_block_processing = FALSE,
+  ...
+)
 
-\S4method{rowMadDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0,
-  force_block_processing = FALSE, ...)
+\S4method{rowMadDiffs}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  force_block_processing = FALSE,
+  ...
+)
 
-\S4method{rowSdDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0,
-  force_block_processing = FALSE, ...)
+\S4method{rowSdDiffs}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  force_block_processing = FALSE,
+  ...
+)
 
-\S4method{rowVarDiffs}{DelayedMatrix}(x, rows = NULL, cols = NULL,
-  na.rm = FALSE, diff = 1L, trim = 0,
-  force_block_processing = FALSE, ...)
+\S4method{rowVarDiffs}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  na.rm = FALSE,
+  diff = 1L,
+  trim = 0,
+  force_block_processing = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
@@ -105,7 +216,7 @@ estimation.}
 seed-aware, optimised method is used (if available). This can be overridden
 to use the general block-processing strategy by setting this to \code{TRUE}
 (typically not advised). The block-processing strategy loads one or more
-(depending on \code{\link[DelayedArray]{getAutoBlockSize}()}) columns (\code{colFoo()})
+(depending on \verb{\link[DelayedArray]\{getAutoBlockSize\}()}) columns (\code{colFoo()})
 or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::array}.}
 }
 \value{
@@ -170,6 +281,15 @@ difference}.  Annals of Mathematical Statistics, 1941, 12, 153-162.\cr
 \seealso{
 For the corresponding non-differentiated estimates, see
 \code{\link[stats]{var}}, \code{\link[stats]{sd}}, \code{\link[stats]{mad}}
-and \code{\link[stats]{IQR}}.  Internally, \code{\link{diff2}}() is used
+and \code{\link[stats]{IQR}}.  Internally, \code{\link[matrixStats]{diff2}}() is used
 which is a faster version of \code{\link[base]{diff}}().
+}
+\author{
+Peter Hickey
+
+Peter Hickey
+
+Peter Hickey
+
+Peter Hickey
 }

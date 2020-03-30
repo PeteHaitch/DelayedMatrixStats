@@ -3,14 +3,13 @@
 \docType{package}
 \name{DelayedMatrixStats}
 \alias{DelayedMatrixStats}
-\alias{DelayedMatrixStats-package}
 \title{DelayedMatrixStats: Functions that apply to rows and columns of
 \emph{DelayedMatrix} objects.}
 \description{
 \strong{DelayedMatrixStats} is a port of the
-\href{https://CRAN.R-project.org/package=matrixStats}{matrixStats} API to
+\href{https://CRAN.R-project.org/package=matrixStats}{\strong{matrixStats}} API to
 work with \emph{DelayedMatrix} objects from the
-\href{http://bioconductor.org/packages/DelayedArray/}{DelayedArray}
+\href{http://bioconductor.org/packages/DelayedArray/}{\strong{DelayedArray}}
 package. High-performing functions operating on rows and columns of
 \emph{DelayedMatrix} objects, e.g. \code{colMedians()} / \code{rowMedians()},
 \code{colRanks()} / \code{rowRanks()}, and \code{colSds()} / \code{rowSds()}. Functions

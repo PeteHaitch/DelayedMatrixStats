@@ -18,7 +18,7 @@ non-positive values.}
 \value{
 A object of class \code{class(x)} of the appropriate type (e.g., integer,
 double, etc.). For example, if \code{x} is a \link{data.frame} representing an M x N
-matrix of integers, \code{subset_by_Nindex(x, list(NULL, 2L)} must return its 2nd
+matrix of integers, \verb{subset_by_Nindex(x, list(NULL, 2L)} must return its 2nd
 column as a \link{data.frame} with M rows and 1 column of type integer.
 }
 \description{

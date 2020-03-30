@@ -4,8 +4,7 @@
 \alias{from_DelayedArray_to_simple_seed_class}
 \title{Coerce DelayedArray to its 'simple seed' form}
 \usage{
-from_DelayedArray_to_simple_seed_class(x, drop = FALSE,
-  do_transpose = TRUE)
+from_DelayedArray_to_simple_seed_class(x, drop = FALSE, do_transpose = TRUE)
 }
 \arguments{
 \item{x}{A \linkS4class{DelayedArray}}
@@ -27,7 +26,7 @@ doing so, all delayed operations are realised (including subsetting).
 }
 \note{
 Can be more efficient to leave the transpose implicit
-(\code{do_transpose = FALSE}) and switch from a \code{row*()} method to a \code{col*()}
+(\code{do_transpose = FALSE}) and switch from a \verb{row*()} method to a \verb{col*()}
 method (or vice versa).
 
 Only works on \linkS4class{DelayedArray} objects with 'simple seeds'
