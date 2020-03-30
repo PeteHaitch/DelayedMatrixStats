@@ -38,11 +38,13 @@ be optimized with additional information about `x`. I'll refer to these
 
 ## Installation
 
-You can install **DelayedMatrixStats** from github with:
+You can install **DelayedMatrixStats** from Bioconductor with:
 
 ```{r gh-installation, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("PeteHaitch/DelayedMatrixStats")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+BiocManager::install("DelayedMatrixStats")
 ```
 
 ## Example
