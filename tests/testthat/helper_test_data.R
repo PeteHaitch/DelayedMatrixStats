@@ -116,8 +116,10 @@ data_seeds <- c(
   "Matrix",
   "sparseMatrix",
   "SolidRleArraySeed",
-  "ChunkedRleArraySeed",
-  "HDF5ArraySeed")
+  "ChunkedRleArraySeed")
+  # TODO: Uncomment once https://github.com/Bioconductor/HDF5Array/issues/28
+  #       is fixed.
+  # "HDF5ArraySeed")
 delayed_op_seeds <- c(
   "DelayedSubset",
   "DelayedAperm",
@@ -165,7 +167,9 @@ seedFunFactory <- function(seed_class) {
     "ChunkedRleArraySeed" = function(x) {
       seed(RleArray(Rle(x), dim(x), dimnames(x), chunksize = nrow(x)))
     },
-    "HDF5ArraySeed" = function(x) seed(realize(x = x, BACKEND = "HDF5Array")),
+    # TODO: Uncomment once https://github.com/Bioconductor/HDF5Array/issues/28
+    #       is fixed.
+    # "HDF5ArraySeed" = function(x) seed(realize(x = x, BACKEND = "HDF5Array")),
     "DelayedSubset" = DelayedArray:::new_DelayedSubset,
     "DelayedAperm" = DelayedArray:::new_DelayedAperm,
     "DelayedUnaryIsoOpStack" = DelayedArray:::new_DelayedUnaryIsoOpStack,
@@ -213,5 +217,5 @@ options("DelayedArray.simplify" = TRUE)
 #   Map(as.matrix, DelayedMatrix_list),
 #   matrix_list)
 # i <- !sapply(a, isTRUE)
-# # TODO: Look at all these failures and fix
+# TODO: Look at all these failures and fix
 # names(a[i])
