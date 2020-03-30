@@ -52,6 +52,7 @@
 #' @template lowercase_x
 #' @export
 #' @template example_dm_S4VectorsDF
+#' @author Peter Hickey
 #' @examples
 #'
 #' colTabulates(dm_DF)

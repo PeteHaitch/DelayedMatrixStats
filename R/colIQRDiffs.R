@@ -45,6 +45,7 @@
 #' @export
 #' @template example_dm_MatrixMatrix
 #' @template example_dm_Rle
+#' @author Peter Hickey
 #' @examples
 #'
 #' colIQRDiffs(dm_Matrix)

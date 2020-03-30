@@ -41,6 +41,7 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colIQRDiffs
 #' @export
+#' @author Peter Hickey
 #' @examples
 #'
 #' colSdDiffs(dm_Matrix)

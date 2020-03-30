@@ -41,6 +41,7 @@
 #' @template lowercase_x
 #' @export
 #' @template example_dm_MatrixMatrix
+#' @author Peter Hickey
 #' @examples
 #' # Only using columns 2-3
 #' colOrderStats(dm_Matrix, cols = 2:3, which = 1)

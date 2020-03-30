@@ -41,6 +41,7 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colAlls
 #' @export
+#' @author Peter Hickey
 #' @examples
 #' colAnys(dm_matrix, value = 2)
 setMethod("colAnys", "DelayedMatrix",

@@ -42,6 +42,7 @@
 #' @export
 #' @template example_dm_matrix
 #' @template example_dm_Rle
+#' @author Peter Hickey
 #' @examples
 #'
 #' colMeans2(dm_matrix)

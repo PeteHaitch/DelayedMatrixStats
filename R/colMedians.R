@@ -41,6 +41,7 @@
 #' @template lowercase_x
 #' @export
 #' @template example_dm_MatrixMatrix
+#' @author Peter Hickey
 #' @examples
 #'
 #' colMedians(dm_Matrix)

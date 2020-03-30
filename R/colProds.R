@@ -43,6 +43,7 @@
 #' @rdname colProds
 #' @template common_params
 #' @template lowercase_x
+#' @author Peter Hickey
 #' @export
 setMethod("colProds", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,

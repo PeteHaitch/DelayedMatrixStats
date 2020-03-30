@@ -42,7 +42,7 @@
 #' @export
 #' @template example_dm_matrix
 #' @template example_dm_MatrixMatrix
-#'
+#' @author Peter Hickey
 #' @examples
 #'
 #' colIQRs(dm_matrix)

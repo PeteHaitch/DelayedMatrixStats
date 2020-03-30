@@ -44,6 +44,7 @@
 #' @export
 #' @template example_dm_matrix
 #' @template example_dm_Rle
+#' @author Peter Hickey
 #' @examples
 #'
 #' colAlls(dm_matrix, value = 1)

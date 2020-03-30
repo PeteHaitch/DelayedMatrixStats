@@ -37,6 +37,7 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colCummaxs
 #' @export
+#' @author Peter Hickey
 #' @examples
 #'
 #' colCummins(dm_matrix)

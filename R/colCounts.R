@@ -44,6 +44,7 @@
 #' @export
 #' @template example_dm_matrix
 #' @template example_dm_S4VectorsDF
+#' @author Peter Hickey
 #' @examples
 #'
 #' colCounts(dm_matrix, value = 1)

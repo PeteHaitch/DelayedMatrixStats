@@ -41,6 +41,7 @@
 #' @template common_params
 #' @template lx
 #' @export
+#' @author Peter Hickey
 #' @examples
 #' x <- DelayedArray(matrix(runif(10), ncol = 2))
 #' colLogSumExps(log(x))

@@ -58,6 +58,7 @@
 #' @template uppercase_X
 #' @export
 #' @template example_dm_S4VectorsDF
+#' @author Peter Hickey
 #' @examples
 #' colAvgsPerRowSet(dm_DF, S = matrix(1:2, ncol = 2))
 setMethod("colAvgsPerRowSet", "DelayedMatrix",

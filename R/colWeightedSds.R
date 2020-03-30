@@ -14,6 +14,7 @@
 #' @rdname colWeightedVars
 #' @export
 #' @template example_dm_Rle
+#' @author Peter Hickey
 #' @examples
 #'
 #' colWeightedSds(dm_Rle, w = 1 / rowMeans2(dm_Rle))

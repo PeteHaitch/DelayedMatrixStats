@@ -49,6 +49,7 @@
 #' @export
 #' @template example_dm_matrix
 #' @template example_dm_HDF5
+#' @author Peter Hickey
 #' @examples
 #'
 #' # Extract the 4th row as a vector

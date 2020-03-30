@@ -46,6 +46,7 @@
 #' @template lowercase_x
 #' @export
 #' @template example_dm_Rle
+#' @author Peter Hickey
 #' @examples
 #'
 #' # Specifying weights inversely proportional to rowwise MADs

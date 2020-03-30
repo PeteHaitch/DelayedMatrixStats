@@ -45,6 +45,7 @@
 #' @export
 #' @template example_dm_df
 #' @template example_dm_S4VectorsDF
+#' @author Peter Hickey
 #' @examples
 #'
 #' colMads(dm_df)

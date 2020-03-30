@@ -53,6 +53,7 @@
 #' @template lowercase_x
 #' @export
 #' @template example_dm_df
+#' @author Peter Hickey
 #' @examples
 #'
 #' # colnames, if present, are preserved as rownames on output

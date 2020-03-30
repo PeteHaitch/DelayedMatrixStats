@@ -49,6 +49,7 @@
 #' @template lowercase_x
 #' @export
 #' @template example_dm_matrix
+#' @author Peter Hickey
 #' @examples
 #'
 #' colWeightedMads(dm_matrix, w = 1:5)

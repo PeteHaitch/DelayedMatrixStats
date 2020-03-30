@@ -44,6 +44,7 @@
 #' @export
 #' @template example_dm_matrix
 #' @template example_dm_HDF5
+#' @author Peter Hickey
 #' @examples
 #'
 #' colVars(dm_matrix)

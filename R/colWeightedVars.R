@@ -45,6 +45,7 @@
 #' @template common_params
 #' @template lowercase_x
 #' @export
+#' @author Peter Hickey
 #' @examples
 #'
 #' # Specifying weights inversely proportional to rowwise means

@@ -13,6 +13,7 @@
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colMads
 #' @export
+#' @author Peter Hickey
 #' @examples
 #'
 #' colSds(dm_df)

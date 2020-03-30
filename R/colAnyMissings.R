@@ -12,6 +12,7 @@
 
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colAnyNAs
+#' @author Peter Hickey
 #' @export
 setMethod("colAnyMissings", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, force_block_processing = FALSE,

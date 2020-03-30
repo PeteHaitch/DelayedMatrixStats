@@ -42,6 +42,7 @@
 #' @export
 #' @template example_dm_matrix
 #' @template example_dm_MatrixMatrix
+#' @author Peter Hickey
 #' @examples
 #'
 #' colSums2(dm_matrix)
