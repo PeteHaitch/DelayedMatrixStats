@@ -41,6 +41,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::rowCollapse
+#' @importFrom MatrixGenerics rowCollapse
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colCollapse
 #' @export
@@ -91,10 +93,3 @@ setMethod("rowCollapse", "DelayedMatrix",
                         ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowCollapse", "matrix", matrixStats::rowCollapse)

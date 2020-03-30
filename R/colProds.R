@@ -39,6 +39,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::colProds
+#' @importFrom MatrixGenerics colProds
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colProds
 #' @template common_params
@@ -93,9 +95,6 @@ setMethod("colProds", "DelayedMatrix",
 # ------------------------------------------------------------------------------
 # Seed-aware methods
 #
-
-#' @export
-setMethod("colProds", "matrix", matrixStats::colProds)
 
 #' @importMethodsFrom IRanges Views viewApply
 #' @rdname colProds

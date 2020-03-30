@@ -34,9 +34,12 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::rowCumsums
+#' @importFrom MatrixGenerics rowCumsums
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colCummaxs
+#' @rdname colCumsums
 #' @export
+#' @template example_dm_MatrixMatrix
 #' @examples
 #'
 #' # Only use rows 2-4
@@ -81,10 +84,3 @@ setMethod("rowCumsums", "DelayedMatrix",
                        ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowCumsums", "matrix", matrixStats::rowCumsums)

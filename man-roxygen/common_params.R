@@ -5,6 +5,7 @@
 #' seed-aware, optimised method is used (if available). This can be overridden
 #' to use the general block-processing strategy by setting this to `TRUE`
 #' (typically not advised). The block-processing strategy loads one or more
-#' (depending on `\link[DelayedArray]{getAutoBlockSize}()`) columns (`colFoo()`)
-#' or rows (`rowFoo()`) into memory as an ordinary [base::array].
+#' columns (`colFoo()`) or rows (`rowFoo()`) into memory as an ordinary
+#' [base::array], with the number of columns/rows depending on
+#' \link[DelayedArray]{getAutoBlockSize}()).
 #' @param ... Additional arguments passed to specific methods.

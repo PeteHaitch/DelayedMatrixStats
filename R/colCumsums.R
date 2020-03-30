@@ -34,10 +34,15 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::colCumsums
+#' @importFrom MatrixGenerics colCumsums
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colCummaxs
+#' @rdname colCumsums
+#' @template common_params
+#' @template lowercase_x
 #' @export
 #' @author Peter Hickey
+#' @template example_dm_matrix
 #' @examples
 #'
 #' colCumsums(dm_matrix)
@@ -81,10 +86,3 @@ setMethod("colCumsums", "DelayedMatrix",
                        ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colCumsums", "matrix", matrixStats::colCumsums)

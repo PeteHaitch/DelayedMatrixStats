@@ -34,9 +34,12 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::rowCummins
+#' @importFrom MatrixGenerics rowCummins
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colCummaxs
+#' @rdname colCummins
 #' @export
+#' @template example_dm_MatrixMatrix
 #' @examples
 #'
 #' # Only use rows 2-4
@@ -79,10 +82,3 @@ setMethod("rowCummins", "DelayedMatrix",
                        dim. = dim., ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowCummins", "matrix", matrixStats::rowCummins)

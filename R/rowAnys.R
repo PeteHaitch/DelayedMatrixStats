@@ -38,6 +38,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::rowAnys
+#' @importFrom MatrixGenerics rowAnys
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colAlls
 #' @export
@@ -89,10 +91,3 @@ setMethod("rowAnys", "DelayedMatrix",
                     ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowAnys", "matrix", matrixStats::rowAnys)

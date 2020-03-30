@@ -52,6 +52,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::colAvgsPerRowSet
+#' @importFrom MatrixGenerics colAvgsPerRowSet
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colAvgsPerRowSet
 #' @template common_params
@@ -107,10 +109,3 @@ setMethod("colAvgsPerRowSet", "DelayedMatrix",
                              tFUN = tFUN)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colAvgsPerRowSet", "matrix", matrixStats::colAvgsPerRowSet)

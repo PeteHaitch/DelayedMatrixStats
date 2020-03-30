@@ -46,6 +46,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::colTabulates
+#' @importFrom MatrixGenerics colTabulates
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colTabulates
 #' @template common_params
@@ -104,6 +106,3 @@ setMethod("colTabulates", "DelayedMatrix",
 # ------------------------------------------------------------------------------
 # Seed-aware methods
 #
-
-#' @export
-setMethod("colTabulates", "matrix", matrixStats::colTabulates)

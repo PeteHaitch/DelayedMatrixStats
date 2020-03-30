@@ -34,14 +34,15 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::colCummaxs
+#' @importFrom MatrixGenerics colCummaxs
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colCummaxs
 #' @template common_params
 #' @template lowercase_x
 #' @export
-#' @template example_dm_matrix
-#' @template example_dm_MatrixMatrix
 #' @author Peter Hickey
+#' @template example_dm_matrix
 #' @examples
 #'
 #' colCummaxs(dm_matrix)
@@ -85,10 +86,3 @@ setMethod("colCummaxs", "DelayedMatrix",
                        ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colCummaxs", "matrix", matrixStats::colCummaxs)

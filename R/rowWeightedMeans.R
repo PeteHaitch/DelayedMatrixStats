@@ -40,6 +40,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::rowWeightedMeans
+#' @importFrom MatrixGenerics rowWeightedMeans
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedMeans
 #' @export
@@ -88,10 +90,3 @@ setMethod("rowWeightedMeans", "DelayedMatrix",
                              ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowWeightedMeans", "matrix", matrixStats::rowWeightedMeans)

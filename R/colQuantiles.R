@@ -47,6 +47,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::colQuantiles
+#' @importFrom MatrixGenerics colQuantiles
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colQuantiles
 #' @template common_params
@@ -109,10 +111,3 @@ setMethod("colQuantiles", "DelayedMatrix",
                          drop = drop)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colQuantiles", "matrix", matrixStats::colQuantiles)

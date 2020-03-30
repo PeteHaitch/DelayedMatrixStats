@@ -38,6 +38,8 @@
 # General method
 #
 
+#' @inherit matrixStats::colAnys
+#' @importFrom MatrixGenerics colAnys
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colAlls
 #' @export

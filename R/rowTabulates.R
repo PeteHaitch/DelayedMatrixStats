@@ -46,6 +46,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::rowTabulates
+#' @importFrom MatrixGenerics rowTabulates
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colTabulates
 #' @export
@@ -96,10 +98,3 @@ setMethod("rowTabulates", "DelayedMatrix",
                          ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowTabulates", "matrix", matrixStats::rowTabulates)

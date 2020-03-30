@@ -35,6 +35,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::colOrderStats
+#' @importFrom MatrixGenerics colOrderStats
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colOrderStats
 #' @template common_params
@@ -88,10 +90,3 @@ setMethod("colOrderStats", "DelayedMatrix",
                           ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colOrderStats", "matrix", matrixStats::colOrderStats)

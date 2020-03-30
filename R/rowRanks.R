@@ -37,6 +37,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::rowRanks
+#' @importFrom MatrixGenerics rowRanks
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colRanks
 #' @export
@@ -89,10 +91,3 @@ setMethod("rowRanks", "DelayedMatrix",
                      ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowRanks", "matrix", matrixStats::rowRanks)

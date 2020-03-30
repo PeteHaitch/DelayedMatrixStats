@@ -34,10 +34,15 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::colCummins
+#' @importFrom MatrixGenerics colCummins
 #' @importMethodsFrom DelayedArray seed
-#' @rdname colCummaxs
+#' @rdname colCummins
+#' @template common_params
+#' @template lowercase_x
 #' @export
 #' @author Peter Hickey
+#' @template example_dm_matrix
 #' @examples
 #'
 #' colCummins(dm_matrix)
@@ -79,10 +84,3 @@ setMethod("colCummins", "DelayedMatrix",
                        dim. = dim., ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colCummins", "matrix", matrixStats::colCummins)

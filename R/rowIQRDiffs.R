@@ -38,6 +38,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::rowIQRDiffs
+#' @importFrom MatrixGenerics rowIQRDiffs
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colIQRDiffs
 #' @export
@@ -91,10 +93,3 @@ setMethod("rowIQRDiffs", "DelayedMatrix",
                         ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowIQRDiffs", "matrix", matrixStats::rowIQRDiffs)

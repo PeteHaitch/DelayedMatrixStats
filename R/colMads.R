@@ -38,6 +38,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::colMads
+#' @importFrom MatrixGenerics colMads
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colMads
 #' @template common_params
@@ -98,10 +100,3 @@ setMethod("colMads", "DelayedMatrix",
                     ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colMads", "matrix", matrixStats::colMads)

@@ -43,6 +43,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::rowWeightedMads
+#' @importFrom MatrixGenerics rowWeightedMads
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedMads
 #' @export
@@ -99,10 +101,3 @@ setMethod("rowWeightedMads", "DelayedMatrix",
                             ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowWeightedMads", "matrix", matrixStats::rowWeightedMads)

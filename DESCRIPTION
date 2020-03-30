@@ -16,7 +16,7 @@ Description: A port of the 'matrixStats' API for use with DelayedMatrix objects
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
+Roxygen: list(markdown = TRUE, old_usage = TRUE)
 RoxygenNote: 7.1.0
 Depends:
   DelayedArray (>= 0.11.1)
@@ -27,7 +27,8 @@ Imports:
   S4Vectors (>= 0.17.5),
   IRanges,
   HDF5Array (>= 1.7.10),
-  BiocParallel
+  BiocParallel,
+  MatrixGenerics
 Suggests:
   testthat,
   knitr,

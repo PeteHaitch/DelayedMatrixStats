@@ -10,6 +10,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::rowAnyNAs
+#' @importFrom MatrixGenerics rowAnyNAs
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colAnyNAs
 #' @export
@@ -24,10 +26,3 @@ setMethod("rowAnyNAs", "DelayedMatrix",
                     ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowAnyNAs", "matrix", matrixStats::rowAnyNAs)

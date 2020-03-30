@@ -35,6 +35,8 @@
 # General method
 #
 
+#' @inherit MatrixGenerics::colIQRs
+#' @importFrom MatrixGenerics colIQRs
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colIQRs
 #' @template common_params
@@ -86,10 +88,3 @@ setMethod("colIQRs", "DelayedMatrix",
                     ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colIQRs", "matrix", matrixStats::colIQRs)
