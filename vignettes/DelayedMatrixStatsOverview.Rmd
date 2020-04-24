@@ -48,7 +48,6 @@ library(DelayedArray)
 x <- do.call(cbind, lapply(1:20, function(j) {
   rpois(n = 10000, lambda = sample(20:40, 10000, replace = TRUE))
 }))
-colnames(x) <- paste0("S", 1:20)
 x <- realize(x, "HDF5Array")
 x
 ```
