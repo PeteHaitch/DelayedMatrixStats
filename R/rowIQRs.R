@@ -35,6 +35,7 @@
 # General method
 #
 
+#' @inherit matrixStats::rowIQRs
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colIQRs
 #' @export
@@ -82,10 +83,3 @@ setMethod("rowIQRs", "DelayedMatrix",
                     ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowIQRs", "matrix", matrixStats::rowIQRs)

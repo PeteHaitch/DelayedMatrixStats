@@ -15,4 +15,5 @@
 #' @docType package
 #' @import methods
 #' @importFrom DelayedArray isPristine
+#' @import MatrixGenerics
 NULL

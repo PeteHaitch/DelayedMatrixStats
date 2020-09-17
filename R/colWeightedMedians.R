@@ -40,6 +40,7 @@
 # General method
 #
 
+#' @inherit matrixStats::colWeightedMedians
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedMedians
 #' @template common_params
@@ -94,10 +95,3 @@ setMethod("colWeightedMedians", "DelayedMatrix",
                                ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colWeightedMedians", "matrix", matrixStats::colWeightedMedians)

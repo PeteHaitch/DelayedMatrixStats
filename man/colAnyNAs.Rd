@@ -3,9 +3,7 @@
 %   R/colAnyNAs.R, R/rowAnyMissings.R, R/rowAnyNAs.R
 \name{colAnyMissings}
 \alias{colAnyMissings}
-\alias{colAnyNAs}
 \alias{rowAnyMissings}
-\alias{rowAnyNAs}
 \alias{colAnyMissings,DelayedMatrix-method}
 \alias{colAnyNAs,DelayedMatrix-method}
 \alias{rowAnyMissings,DelayedMatrix-method}
@@ -14,11 +12,7 @@
 \usage{
 colAnyMissings(x, rows = NULL, cols = NULL, ...)
 
-colAnyNAs(x, rows = NULL, cols = NULL, ...)
-
 rowAnyMissings(x, rows = NULL, cols = NULL, ...)
-
-rowAnyNAs(x, rows = NULL, cols = NULL, ...)
 
 \S4method{colAnyMissings}{DelayedMatrix}(
   x,

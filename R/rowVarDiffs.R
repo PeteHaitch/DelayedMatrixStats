@@ -38,6 +38,7 @@
 # General method
 #
 
+#' @inherit matrixStats::rowVarDiffs
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colIQRDiffs
 #' @export
@@ -91,10 +92,3 @@ setMethod("rowVarDiffs", "DelayedMatrix",
                         ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowVarDiffs", "matrix", matrixStats::rowVarDiffs)

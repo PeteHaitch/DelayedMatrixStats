@@ -34,6 +34,7 @@
 # General method
 #
 
+#' @inherit matrixStats::colCummaxs
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colCummaxs
 #' @template common_params
@@ -85,10 +86,3 @@ setMethod("colCummaxs", "DelayedMatrix",
                        ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colCummaxs", "matrix", matrixStats::colCummaxs)

@@ -47,6 +47,7 @@
 # General method
 #
 
+#' @inherit matrixStats::rowQuantiles
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colQuantiles
 #' @export
@@ -105,10 +106,3 @@ setMethod("rowQuantiles", "DelayedMatrix",
                          drop = drop)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowQuantiles", "matrix", matrixStats::rowQuantiles)

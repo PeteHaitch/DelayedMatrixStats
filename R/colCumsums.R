@@ -34,6 +34,7 @@
 # General method
 #
 
+#' @inherit matrixStats::colCumsums
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colCummaxs
 #' @export
@@ -81,10 +82,3 @@ setMethod("colCumsums", "DelayedMatrix",
                        ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colCumsums", "matrix", matrixStats::colCumsums)

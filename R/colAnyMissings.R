@@ -10,6 +10,7 @@
 # General method
 #
 
+#' @inherit matrixStats::colAnyNAs
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colAnyNAs
 #' @author Peter Hickey
