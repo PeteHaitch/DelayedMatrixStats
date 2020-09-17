@@ -36,6 +36,7 @@
 # General method
 #
 
+#' @inherit matrixStats::colLogSumExps
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colLogSumExps
 #' @template common_params
@@ -88,10 +89,3 @@ setMethod("colLogSumExps", "DelayedMatrix",
                           ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colLogSumExps", "matrix", matrixStats::colLogSumExps)

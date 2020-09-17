@@ -10,6 +10,7 @@
 # General method
 #
 
+#' @inherit matrixStats::rowAnyMissings
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colAnyNAs
 #' @export

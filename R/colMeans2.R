@@ -35,6 +35,7 @@
 # General method
 #
 
+#' @inherit matrixStats::colMeans2
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colMeans2
 #' @template common_params
@@ -93,9 +94,6 @@ setMethod("colMeans2", "DelayedMatrix",
 # ------------------------------------------------------------------------------
 # Seed-aware methods
 #
-
-#' @export
-setMethod("colMeans2", "matrix", matrixStats::colMeans2)
 
 #' @importMethodsFrom Matrix colMeans
 #' @rdname colMeans2

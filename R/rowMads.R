@@ -38,6 +38,7 @@
 # General method
 #
 
+#' @inherit matrixStats::rowMads
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colMads
 #' @export
@@ -93,10 +94,3 @@ setMethod("rowMads", "DelayedMatrix",
                     ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowMads", "matrix", matrixStats::rowMads)

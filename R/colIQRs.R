@@ -35,6 +35,7 @@
 # General method
 #
 
+#' @inherit matrixStats::colIQRs
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colIQRs
 #' @template common_params

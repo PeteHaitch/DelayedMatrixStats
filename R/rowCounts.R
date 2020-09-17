@@ -37,6 +37,7 @@
 # General method
 #
 
+#' @inherit matrixStats::rowCounts
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colCounts
 #' @export
@@ -91,10 +92,3 @@ setMethod("rowCounts", "DelayedMatrix",
                       ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowCounts", "matrix", matrixStats::rowCounts)

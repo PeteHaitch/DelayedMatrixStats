@@ -40,6 +40,7 @@
 # General method
 #
 
+#' @inherit matrixStats::colWeightedVars
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedVars
 #' @template common_params
@@ -93,10 +94,3 @@ setMethod("colWeightedVars", "DelayedMatrix",
                                ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colWeightedVars", "matrix", matrixStats::colWeightedVars)

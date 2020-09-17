@@ -35,6 +35,7 @@
 # General method
 #
 
+#' @inherit matrixStats::rowMedians
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colMedians
 #' @export
@@ -84,10 +85,3 @@ setMethod("rowMedians", "DelayedMatrix",
                        ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowMedians", "matrix", matrixStats::rowMedians)

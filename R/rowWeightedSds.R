@@ -10,6 +10,7 @@
 # General method
 #
 
+#' @inherit matrixStats::rowWeightedSds
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedVars
 #' @export
@@ -30,10 +31,3 @@ setMethod("rowWeightedSds", "DelayedMatrix",
               ...))
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("rowWeightedSds", "matrix", matrixStats::rowWeightedSds)
