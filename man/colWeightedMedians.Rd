@@ -3,7 +3,7 @@
 \name{colWeightedMedians,DelayedMatrix-method}
 \alias{colWeightedMedians,DelayedMatrix-method}
 \alias{rowWeightedMedians,DelayedMatrix-method}
-\title{Calculates the weighted medians for each row (column) in a matrix}
+\title{Calculates the weighted median for each row (column) of a matrix-like object}
 \usage{
 \S4method{colWeightedMedians}{DelayedMatrix}(
   x,
@@ -28,19 +28,19 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{w}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length
-K (N).}
+\item{w}{A \code{\link{numeric}} vector of length K (N) that specifies by
+how much each element is weighted.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, missing values are
-excluded from the calculation, otherwise not.}
+\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
+are excluded first, otherwise not.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -52,16 +52,16 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-Returns a \code{\link[base]{numeric}} \code{\link[base]{vector}} of
-length N (K).
+Returns a \code{\link{numeric}} \code{\link{vector}} of length N (K).
 }
 \description{
-Calculates the weighted medians for each row (column) in a matrix.
+Calculates the weighted median for each row (column) of a matrix-like object.
 }
 \details{
-The implementations of these methods are optimized for both speed and
-memory.  If no weights are given, the corresponding
-\code{\link[matrixStats]{rowMedians}}()/\code{colMedians()} is used.
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowWeightedMedians}
+/ \code{matrixStats::colWeightedMedians}.
 }
 \examples{
 # A DelayedMatrix with a 'SolidRleArraySeed' seed
@@ -74,9 +74,12 @@ dm_Rle <- RleArray(Rle(c(rep(1L, 5),
 colWeightedMedians(dm_Rle, w = 1 / rowMads(dm_Rle))
 }
 \seealso{
-Internally, \code{\link[matrixStats]{weightedMedian}}() is used.
-See \code{\link[matrixStats]{rowMedians}}() and \code{colMedians()} for non-weighted
-medians.
+\itemize{
+\item \code{matrixStats::\link[matrixStats]{rowWeightedMedians}()} and
+\code{matrixStats::\link[matrixStats:rowWeightedMedians]{colWeightedMedians}()}
+which are used when the input is a \code{matrix} or \code{numeric} vector.
+\item See also \link[MatrixGenerics]{rowMedians} for the corresponding unweighted function.
+}
 }
 \author{
 Peter Hickey

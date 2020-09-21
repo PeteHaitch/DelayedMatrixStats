@@ -11,7 +11,8 @@
 \alias{rowMadDiffs,DelayedMatrix-method}
 \alias{rowSdDiffs,DelayedMatrix-method}
 \alias{rowVarDiffs,DelayedMatrix-method}
-\title{Estimation of scale based on sequential-order differences}
+\title{Calculates the interquartile range of the difference between each element of
+a row (column) of a matrix-like object}
 \usage{
 \S4method{colIQRDiffs}{DelayedMatrix}(
   x,
@@ -104,23 +105,21 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of
-elements (or rows and/or columns) to operate over. If
-\code{\link[base]{NULL}}, no subsetting is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of
-elements (or rows and/or columns) to operate over. If
-\code{\link[base]{NULL}}, no subsetting is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link[base]{NA}}s
-are excluded, otherwise not.}
+\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
+are excluded first, otherwise not.}
 
-\item{diff}{The positional distance of elements for which the difference
-should be calculated.}
+\item{diff}{An integer specifying the order of difference.}
 
-\item{trim}{A \code{\link[base]{double}} in [0,1/2] specifying the fraction
-of observations to be trimmed from each end of (sorted) \code{x} before
-estimation.}
+\item{trim}{A double in [0,1/2] specifying the fraction of observations to
+be trimmed from each end of (sorted) x before estimation.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -132,27 +131,17 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-Returns a \code{\link[base]{numeric}} \code{\link[base]{vector}} of
-length 1, length N, or length K.
+Returns a \code{\link{numeric}} \code{\link{vector}} of length N (K).
 }
 \description{
-Estimation of scale based on sequential-order differences, corresponding to
-the scale estimates provided by \code{\link[stats]{var}},
-\code{\link[stats]{sd}}, \code{\link[stats]{mad}} and
-\code{\link[stats]{IQR}}.
+Calculates the interquartile range of the difference between each element of
+a row (column) of a matrix-like object.
 }
 \details{
-Note that n-order difference MAD estimates, just like the ordinary MAD
-estimate by \code{\link[stats]{mad}}, apply a correction factor such that
-the estimates are consistent with the standard deviation under Gaussian
-distributions.
-
-The interquartile range (IQR) estimates does \emph{not} apply such a
-correction factor.  If asymptotically normal consistency is wanted, the
-correction factor for IQR estimate is \code{1 / (2 * qnorm(3/4))}, which is
-half of that used for MAD estimates, which is \code{1 / qnorm(3/4)}.  This
-correction factor needs to be applied manually, i.e. there is no
-\code{constant} argument for the IQR functions.
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowIQRDiffs}
+/ \code{matrixStats::colIQRDiffs}.
 }
 \examples{
 # A DelayedMatrix with a 'Matrix' seed
@@ -186,15 +175,13 @@ rowSdDiffs(dm_Rle, rows = 2:4)
 # Only using rows 2-4
 rowVarDiffs(dm_Rle, rows = 2:4)
 }
-\references{
-[1] J. von Neumann et al., \emph{The mean square successive
-difference}.  Annals of Mathematical Statistics, 1941, 12, 153-162.\cr
-}
 \seealso{
-For the corresponding non-differentiated estimates, see
-\code{\link[stats]{var}}, \code{\link[stats]{sd}}, \code{\link[stats]{mad}}
-and \code{\link[stats]{IQR}}.  Internally, \code{\link[matrixStats]{diff2}}() is used
-which is a faster version of \code{\link[base]{diff}}().
+\itemize{
+\item \code{matrixStats::\link[matrixStats:varDiff]{rowIQRDiffs}()} and
+\code{matrixStats::\link[matrixStats:varDiff]{colIQRDiffs}()} which
+are used when the input is a \code{matrix} or \code{numeric} vector.
+\item For the direct interquartile range see also \link[MatrixGenerics]{rowIQRs}.
+}
 }
 \author{
 Peter Hickey

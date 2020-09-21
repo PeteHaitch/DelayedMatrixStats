@@ -6,7 +6,8 @@
 \alias{colWeightedVars,DelayedMatrix-method}
 \alias{rowWeightedSds,DelayedMatrix-method}
 \alias{rowWeightedVars,DelayedMatrix-method}
-\title{Weighted variance and weighted standard deviation}
+\title{Calculates the weighted standard deviation for each row (column) of a
+matrix-like object}
 \usage{
 \S4method{colWeightedSds}{DelayedMatrix}(
   x,
@@ -51,22 +52,19 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{w}{a vector of weights the same length as \code{x} giving the weights
-to use for each element of \code{x}. Negative weights are treated as zero
-weights. Default value is equal weight to all values.}
+\item{w}{A \code{\link{numeric}} vector of length K (N) that specifies by
+how much each element is weighted.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of
-elements (or rows and/or columns) to operate over. If
-\code{\link[base]{NULL}}, no subsetting is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of
-elements (or rows and/or columns) to operate over. If
-\code{\link[base]{NULL}}, no subsetting is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{na.rm}{a logical value indicating whether \code{\link[base]{NA}}
-values in \code{x} should be stripped before the computation proceeds, or
-not.  If \code{\link[base]{NA}}, no check at all for \code{\link[base]{NA}}s
-is done.  Default value is \code{\link[base]{NA}} (for efficiency).}
+\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
+are excluded first, otherwise not.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -78,71 +76,18 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-Returns a \code{\link[base]{numeric}} scalar.
+Returns a \code{\link{numeric}} \code{\link{vector}} of length N (K).
 }
 \description{
-Computes a weighted variance / standard deviation of a numeric vector or
-across rows or columns of a matrix.
+Calculates the weighted standard deviation for each row (column) of a
+matrix-like object.
 }
 \details{
-The estimator used here is the same as the one used by the "unbiased"
-estimator of the \bold{Hmisc} package. More specifically,
-\code{weightedVar(x, w = w) == Hmisc::wtd.var(x, weights = w)},
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowWeightedSds}
+/ \code{matrixStats::colWeightedSds}.
 }
-\section{Missing values}{
-
-
-This function handles missing values consistently with
-\code{\link[matrixStats]{weightedMean}}().
-More precisely, if \code{na.rm = FALSE}, then any missing values in either
-\code{x} or \code{w} will give result \code{NA_real_}.
-If \code{na.rm = TRUE}, then all \code{(x, w)} data points for which
-\code{x} is missing are skipped.  Note that if both \code{x} and \code{w}
-are missing for a data points, then it is also skipped (by the same rule).
-However, if only \code{w} is missing, then the final results will always
-be \code{NA_real_} regardless of \code{na.rm}.
-
-
-
-
-This function handles missing values consistently with
-\code{\link[matrixStats]{weightedMean}}().
-More precisely, if \code{na.rm = FALSE}, then any missing values in either
-\code{x} or \code{w} will give result \code{NA_real_}.
-If \code{na.rm = TRUE}, then all \code{(x, w)} data points for which
-\code{x} is missing are skipped.  Note that if both \code{x} and \code{w}
-are missing for a data points, then it is also skipped (by the same rule).
-However, if only \code{w} is missing, then the final results will always
-be \code{NA_real_} regardless of \code{na.rm}.
-
-
-
-
-This function handles missing values consistently with
-\code{\link[matrixStats]{weightedMean}}().
-More precisely, if \code{na.rm = FALSE}, then any missing values in either
-\code{x} or \code{w} will give result \code{NA_real_}.
-If \code{na.rm = TRUE}, then all \code{(x, w)} data points for which
-\code{x} is missing are skipped.  Note that if both \code{x} and \code{w}
-are missing for a data points, then it is also skipped (by the same rule).
-However, if only \code{w} is missing, then the final results will always
-be \code{NA_real_} regardless of \code{na.rm}.
-
-
-
-
-This function handles missing values consistently with
-\code{\link[matrixStats]{weightedMean}}().
-More precisely, if \code{na.rm = FALSE}, then any missing values in either
-\code{x} or \code{w} will give result \code{NA_real_}.
-If \code{na.rm = TRUE}, then all \code{(x, w)} data points for which
-\code{x} is missing are skipped.  Note that if both \code{x} and \code{w}
-are missing for a data points, then it is also skipped (by the same rule).
-However, if only \code{w} is missing, then the final results will always
-be \code{NA_real_} regardless of \code{na.rm}.
-
-}
-
 \examples{
 # A DelayedMatrix with a 'SolidRleArraySeed' seed
 dm_Rle <- RleArray(Rle(c(rep(1L, 5),
@@ -162,7 +107,12 @@ rowWeightedSds(dm_Rle, w = 1 / colMeans2(dm_Rle))
 rowWeightedVars(dm_Rle, w = 1 / colMeans2(dm_Rle))
 }
 \seealso{
-For the non-weighted variance, see \code{\link[stats]{var}}.
+\itemize{
+\item \code{matrixStats::\link[matrixStats:weightedVar]{rowWeightedSds}()} and
+\code{matrixStats::\link[matrixStats:weightedVar]{colWeightedSds}()}
+which are used when the input is a \code{matrix} or \code{numeric} vector.
+\item See also \link[MatrixGenerics]{rowSds} for the corresponding unweighted function.
+}
 }
 \author{
 Peter Hickey

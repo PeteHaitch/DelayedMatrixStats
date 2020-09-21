@@ -47,7 +47,7 @@
 # General method
 #
 
-#' @inherit matrixStats::rowQuantiles
+#' @inherit MatrixGenerics::rowQuantiles
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colQuantiles
 #' @export

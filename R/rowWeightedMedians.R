@@ -40,7 +40,7 @@
 # General method
 #
 
-#' @inherit matrixStats::rowWeightedMedians
+#' @inherit MatrixGenerics::rowWeightedMedians
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedMedians
 #' @export

@@ -6,7 +6,7 @@
 \alias{colMeans2,SolidRleArraySeed-method}
 \alias{rowMeans2,DelayedMatrix-method}
 \alias{rowMeans2,Matrix-method}
-\title{Calculates the mean for each row (column) in a matrix}
+\title{Calculates the mean for each row (column) of a matrix-like object}
 \usage{
 \S4method{colMeans2}{DelayedMatrix}(
   x,
@@ -37,20 +37,21 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link[base]{NA}}s
+\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
 are excluded first, otherwise not.}
 
-\item{dim.}{An \code{\link[base]{integer}} \code{\link[base]{vector}} of
-length two specifying the dimension of \code{x}, also when not a
-\code{\link[base]{matrix}}.}
+\item{dim.}{An \code{\link{integer}} \code{\link{vector}} of length two
+specifying the dimension of \code{x}, essential when x is a
+\code{\link{numeric}} vector. Note, that this is not a generic
+argument and not all methods need provide it.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -62,15 +63,16 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-Returns a \code{\link[base]{numeric}} \code{\link[base]{vector}} of
-length N (K).
+Returns a \code{\link{numeric}} \code{\link{vector}} of length N (K).
 }
 \description{
-Calculates the mean for each row (column) in a matrix.
+Calculates the mean for each row (column) of a matrix-like object.
 }
 \details{
-The implementation of \code{rowMeans2()} and \code{colMeans2()} is
-optimized for both speed and memory.
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowMeans2}
+/ \code{matrixStats::colMeans2}.
 }
 \examples{
 # A DelayedMatrix with a 'matrix' seed
@@ -95,6 +97,17 @@ rowMeans2(dm_Rle)
 # Alternatively, can use the block-processing strategy
 rowMeans2(dm_Rle, force_block_processing = TRUE)
 options(DelayedMatrixStats.verbose = FALSE)
+}
+\seealso{
+\itemize{
+\item \code{matrixStats::\link[matrixStats]{rowMeans2}()} and
+\code{matrixStats::\link[matrixStats:rowMeans2]{colMeans2}()} which are
+used when the input is a \code{matrix} or \code{numeric} vector.
+\item See also \code{\link[base:colSums]{rowMeans}()} for the
+corresponding function in base R.
+\item For variance estimates, see \code{\link[MatrixGenerics]{rowVars}()}.
+\item See also the base R version \code{base::\link{rowMeans}()}.
+}
 }
 \author{
 Peter Hickey

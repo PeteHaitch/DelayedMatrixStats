@@ -38,7 +38,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colMads
+#' @inherit MatrixGenerics::colMads
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colMads
 #' @template common_params

@@ -40,7 +40,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colWeightedVars
+#' @inherit MatrixGenerics::colWeightedVars
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedVars
 #' @template common_params

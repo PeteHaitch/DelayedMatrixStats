@@ -37,7 +37,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colCounts
+#' @inherit MatrixGenerics::colCounts
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colCounts
 #' @template common_params

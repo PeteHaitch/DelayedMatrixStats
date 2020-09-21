@@ -35,7 +35,7 @@
 # General method
 #
 
-#' @inherit matrixStats::rowIQRs
+#' @inherit MatrixGenerics::rowIQRs
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colIQRs
 #' @export

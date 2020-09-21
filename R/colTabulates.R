@@ -46,7 +46,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colTabulates
+#' @inherit MatrixGenerics::colTabulates
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colTabulates
 #' @template common_params

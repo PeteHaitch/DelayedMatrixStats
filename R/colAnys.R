@@ -38,7 +38,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colAnys
+#' @inherit MatrixGenerics::colAnys
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colAlls
 #' @export

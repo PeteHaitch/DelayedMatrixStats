@@ -42,7 +42,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colCollapse
+#' @inherit MatrixGenerics::colCollapse
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colCollapse
 #' @template common_params

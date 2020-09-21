@@ -3,7 +3,8 @@
 \name{colIQRs,DelayedMatrix-method}
 \alias{colIQRs,DelayedMatrix-method}
 \alias{rowIQRs,DelayedMatrix-method}
-\title{Estimates of the interquartile range for each row (column) in a matrix}
+\title{Calculates the interquartile range for each row (column) of a matrix-like
+object}
 \usage{
 \S4method{colIQRs}{DelayedMatrix}(
   x,
@@ -26,16 +27,16 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of
-elements (or rows and/or columns) to operate over. If
-\code{\link[base]{NULL}}, no subsetting is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of
-elements (or rows and/or columns) to operate over. If
-\code{\link[base]{NULL}}, no subsetting is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, missing values are dropped
-first, otherwise not.}
+\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
+are excluded first, otherwise not.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -47,28 +48,18 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-Returns a \code{\link[base]{numeric}} \code{\link[base]{vector}} of
-length N (K).
+Returns a \code{\link{numeric}} \code{\link{vector}} of length N (K).
 }
 \description{
-Estimates of the interquartile range for each row (column) in a matrix.
+Calculates the interquartile range for each row (column) of a matrix-like
+object.
 }
-\section{Missing values}{
-
- Contrary to \code{\link[stats]{IQR}}, which gives
-an error if there are missing values and \code{na.rm = FALSE}, \code{iqr()}
-and its corresponding row and column-specific functions return
-\code{\link[base]{NA}}_real_.
-
-
-
- Contrary to \code{\link[stats]{IQR}}, which gives
-an error if there are missing values and \code{na.rm = FALSE}, \code{iqr()}
-and its corresponding row and column-specific functions return
-\code{\link[base]{NA}}_real_.
-
+\details{
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowIQRs}
+/ \code{matrixStats::colIQRs}.
 }
-
 \examples{
 # A DelayedMatrix with a 'matrix' seed
 dm_matrix <- DelayedArray(matrix(c(rep(1L, 5),
@@ -87,7 +78,14 @@ colIQRs(dm_matrix)
 rowIQRs(dm_matrix, rows = 2:4)
 }
 \seealso{
-See \code{\link[stats]{IQR}}.  See \code{\link[matrixStats]{rowSds}}().
+\itemize{
+\item \code{matrixStats::\link[matrixStats]{rowIQRs}()} and
+\code{matrixStats::\link[matrixStats:rowIQRs]{colIQRs}()} which are used
+when the input is a \code{matrix} or \code{numeric} vector.
+\item For a non-robust analog, see \code{\link[MatrixGenerics]{rowSds}()}. For a more
+robust version see \code{\link[MatrixGenerics:rowMads]{rowMads()}}
+\item \code{stats::\link[stats]{IQR}()}.
+}
 }
 \author{
 Peter Hickey

@@ -5,7 +5,8 @@
 \alias{colSds,DelayedMatrix-method}
 \alias{rowMads,DelayedMatrix-method}
 \alias{rowSds,DelayedMatrix-method}
-\title{Standard deviation estimates for each row (column) in a matrix}
+\title{Calculates the median absolute deviation for each row (column) of a
+matrix-like object}
 \usage{
 \S4method{colMads}{DelayedMatrix}(
   x,
@@ -56,25 +57,26 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{center}{(optional) The center, defaults to the row means for the
-SD estimators and row medians for the MAD estimators.}
+\item{center}{(optional) the center, defaults to the row means}
 
-\item{constant}{A scale factor.  See \code{\link[stats]{mad}} for details.}
+\item{constant}{A scale factor. See \code{stats::\link[stats]{mad}()} for
+details.}
 
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link[base]{NA}}s
+\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
 are excluded first, otherwise not.}
 
-\item{dim.}{An \code{\link[base]{integer}} \code{\link[base]{vector}} of
-length two specifying the dimension of \code{x}, also when not a
-\code{\link[base]{matrix}}.}
+\item{dim.}{An \code{\link{integer}} \code{\link{vector}} of length two
+specifying the dimension of \code{x}, essential when x is a
+\code{\link{numeric}} vector. Note, that this is not a generic
+argument and not all methods need provide it.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -86,11 +88,17 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-Returns a \code{\link[base]{numeric}} \code{\link[base]{vector}} of
-length N (K).
+Returns a \code{\link{numeric}} \code{\link{vector}} of length N (K).
 }
 \description{
-Standard deviation estimates for each row (column) in a matrix.
+Calculates the median absolute deviation for each row (column) of a
+matrix-like object.
+}
+\details{
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowMads}
+/ \code{matrixStats::colMads}.
 }
 \examples{
 # A DelayedMatrix with a 'data.frame' seed
@@ -111,8 +119,15 @@ rowMads(dm_DF)
 rowSds(dm_DF)
 }
 \seealso{
-\code{\link[stats]{sd}}, \code{\link[stats]{mad}} and
-\code{\link[stats:cor]{var}}.  \code{\link[matrixStats]{rowIQRs}}().
+\itemize{
+\item \code{matrixStats::\link[matrixStats:rowSds]{rowMads}()} and
+\code{matrixStats::\link[matrixStats:rowSds]{colMads}()} which are used
+when  the input is a \code{matrix} or \code{numeric} vector.
+\item For mean estimates, see \code{\link[MatrixGenerics]{rowMeans2}()} and
+\code{\link[base:colSums]{rowMeans}()}.
+\item For non-robust standard deviation estimates, see
+\code{\link[MatrixGenerics]{rowSds}()}.
+}
 }
 \author{
 Peter Hickey

@@ -36,7 +36,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colLogSumExps
+#' @inherit MatrixGenerics::colLogSumExps
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colLogSumExps
 #' @template common_params

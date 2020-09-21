@@ -3,7 +3,7 @@
 \name{colOrderStats,DelayedMatrix-method}
 \alias{colOrderStats,DelayedMatrix-method}
 \alias{rowOrderStats,DelayedMatrix-method}
-\title{Gets an order statistic for each row (column) in a matrix}
+\title{Calculates an order statistic for each row (column) of a matrix-like object}
 \usage{
 \S4method{colOrderStats}{DelayedMatrix}(
   x,
@@ -28,20 +28,21 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{which}{An \code{\link[base]{integer}} index in [1,K] ([1,N])
-indicating which order statistic to be returned.}
+\item{which}{An integer index in [1,K] ([1,N]) indicating which order
+statistic to be returned}
 
-\item{dim.}{An \code{\link[base]{integer}} \code{\link[base]{vector}} of
-length two specifying the dimension of \code{x}, also when not a
-\code{\link[base]{matrix}}.}
+\item{dim.}{An \code{\link{integer}} \code{\link{vector}} of length two
+specifying the dimension of \code{x}, essential when x is a
+\code{\link{numeric}} vector. Note, that this is not a generic
+argument and not all methods need provide it.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -53,32 +54,17 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-Returns a \code{\link[base]{numeric}} \code{\link[base]{vector}} of
-length N (K).
+Returns a \code{\link{numeric}} \code{\link{vector}} of length N (K).
 }
 \description{
-Gets an order statistic for each row (column) in a matrix.
+Calculates an order statistic for each row (column) of a matrix-like object.
 }
 \details{
-The implementation of \code{rowOrderStats()} is optimized for both speed and
-memory.  To avoid coercing to \code{\link[base]{double}}s (and hence memory
-allocation), there is a unique implementation for
-\code{\link[base]{integer}} matrices.
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowOrderStats}
+/ \code{matrixStats::colOrderStats}.
 }
-\section{Missing values}{
-
- This method does \emph{not} handle missing values,
-that is, the result corresponds to having \code{na.rm = FALSE} (if such an
-argument would be available).
-
-
-
- This method does \emph{not} handle missing values,
-that is, the result corresponds to having \code{na.rm = FALSE} (if such an
-argument would be available).
-
-}
-
 \examples{
 # A DelayedMatrix with a 'Matrix' seed
 dm_Matrix <- DelayedArray(Matrix::Matrix(c(rep(1L, 5),
@@ -93,7 +79,11 @@ rowOrderStats(dm_Matrix, which = 1)
 rowOrderStats(dm_Matrix, which = 2)
 }
 \seealso{
-See \code{rowMeans()} in \code{\link[base]{colSums}}().
+\itemize{
+\item \code{matrixStats::\link[matrixStats]{rowOrderStats}()} and
+\code{matrixStats::\link[matrixStats:rowOrderStats]{colOrderStats}()}
+which are used when the input is a \code{matrix} or \code{numeric} vector.
+}
 }
 \author{
 Peter Hickey

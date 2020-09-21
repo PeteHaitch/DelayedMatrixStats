@@ -10,7 +10,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colAnyNAs
+#' @inherit MatrixGenerics::colAnyNAs
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colAnyNAs
 #' @template common_params

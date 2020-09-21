@@ -35,7 +35,7 @@
 # General method
 #
 
-#' @inherit matrixStats::rowOrderStats
+#' @inherit MatrixGenerics::rowOrderStats
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colOrderStats
 #' @export

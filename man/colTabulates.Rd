@@ -3,7 +3,7 @@
 \name{colTabulates,DelayedMatrix-method}
 \alias{colTabulates,DelayedMatrix-method}
 \alias{rowTabulates,DelayedMatrix-method}
-\title{Tabulates the values in a matrix by row (column).}
+\title{Tabulates the values in a matrix-like object by row (column)}
 \usage{
 \S4method{colTabulates}{DelayedMatrix}(
   x,
@@ -26,16 +26,15 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{values}{An \code{\link[base]{vector}} of J values of count. If
-\code{\link[base]{NULL}}, all (unique) values are counted.}
+\item{values}{the values to search for.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -47,23 +46,18 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-Returns a NxJ (KxJ) \code{\link[base]{matrix}} where N (K) is the
-number of row (column) \code{\link[base]{vector}}s tabulated and J is the
-number of values counted.
+a \code{\link{numeric}} \code{NxJ} (\code{KxJ})
+\code{\link{matrix}}, where N (K) is the number of rows (columns) for
+which the J values are calculated.
 }
 \description{
-Tabulates the values in a matrix by row (column).
+Tabulates the values in a matrix-like object by row (column).
 }
 \details{
-An alternative to these functions, is to use \code{table(x, row(x))}
-and \code{table(x, col(x))}, with the exception that the latter do not
-support the \code{\link[base]{raw}} data type.
-When there are no missing values in \code{x}, we have that
-\code{all(rowTabulates(x) == t(table(x, row(x))))} and
-\code{all(colTabulates(x) == t(table(x, col(x))))}.
-When there are missing values, we have that
-\code{all(rowTabulates(x) == t(table(x, row(x), useNA = "always")[, seq_len(nrow(x))]))} and
-\code{all(colTabulates(x) == t(table(x, col(x), useNA = "always")[, seq_len(ncol(x))]))}.
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowTabulates}
+/ \code{matrixStats::colTabulates}.
 }
 \examples{
 # A DelayedMatrix with a 'DataFrame' seed
@@ -74,6 +68,14 @@ dm_DF <- DelayedArray(S4Vectors::DataFrame(C1 = rep(1L, 5),
 colTabulates(dm_DF)
 
 rowTabulates(dm_DF)
+}
+\seealso{
+\itemize{
+\item \code{matrixStats::\link[matrixStats]{rowTabulates}()} and
+\code{matrixStats::\link[matrixStats:rowTabulates]{colTabulates}()} which
+are used when the input is a \code{matrix} or \code{numeric} vector.
+\item \code{base::\link{table}()}
+}
 }
 \author{
 Peter Hickey

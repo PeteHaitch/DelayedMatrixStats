@@ -35,7 +35,7 @@
 # General method
 #
 
-#' @inherit matrixStats::rowSums2
+#' @inherit MatrixGenerics::rowSums2
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colSums2
 #' @export
