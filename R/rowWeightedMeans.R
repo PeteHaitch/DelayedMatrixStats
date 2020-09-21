@@ -40,7 +40,7 @@
 # General method
 #
 
-#' @inherit matrixStats::rowWeightedMeans
+#' @inherit MatrixGenerics::rowWeightedMeans
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedMeans
 #' @export

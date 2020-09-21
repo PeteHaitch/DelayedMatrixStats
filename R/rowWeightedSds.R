@@ -10,7 +10,7 @@
 # General method
 #
 
-#' @inherit matrixStats::rowWeightedSds
+#' @inherit MatrixGenerics::rowWeightedSds
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedVars
 #' @export

@@ -3,7 +3,8 @@
 \name{colWeightedMads,DelayedMatrix-method}
 \alias{colWeightedMads,DelayedMatrix-method}
 \alias{rowWeightedMads,DelayedMatrix-method}
-\title{Weighted Median Absolute Deviation (MAD)}
+\title{Calculates the weighted median absolute deviation for each row (column) of a
+matrix-like object}
 \usage{
 \S4method{colWeightedMads}{DelayedMatrix}(
   x,
@@ -32,29 +33,24 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{w}{a vector of weights the same length as \code{x} giving the weights
-to use for each element of \code{x}. Negative weights are treated as zero
-weights. Default value is equal weight to all values.}
+\item{w}{A \code{\link{numeric}} vector of length K (N) that specifies by
+how much each element is weighted.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of
-elements (or rows and/or columns) to operate over. If
-\code{\link[base]{NULL}}, no subsetting is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of
-elements (or rows and/or columns) to operate over. If
-\code{\link[base]{NULL}}, no subsetting is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{na.rm}{a logical value indicating whether \code{\link[base]{NA}}
-values in \code{x} should be stripped before the computation proceeds, or
-not.  If \code{\link[base]{NA}}, no check at all for \code{\link[base]{NA}}s
-is done.  Default value is \code{\link[base]{NA}} (for efficiency).}
+\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
+are excluded first, otherwise not.}
 
-\item{constant}{A \code{\link[base]{numeric}} scale factor, cf.
-\code{\link[stats]{mad}}.}
+\item{constant}{A scale factor. See \code{stats::\link[stats]{mad}()} for
+details.}
 
-\item{center}{Optional \code{\link[base]{numeric}} scalar specifying the
-center location of the data.  If \code{\link[base]{NULL}}, it is estimated
-from data.}
+\item{center}{(optional) the center, defaults to the row means}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -66,23 +62,18 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-Returns a \code{\link[base]{numeric}} scalar.
+Returns a \code{\link{numeric}} \code{\link{vector}} of length N (K).
 }
 \description{
-Computes a weighted MAD of a numeric vector.
+Calculates the weighted  median absolute deviation for each row (column) of
+a matrix-like object.
 }
-\section{Missing values}{
-
- Missing values are dropped at the very beginning,
-if argument \code{na.rm} is \code{\link[base:logical]{TRUE}}, otherwise not.
-
-
-
- Missing values are dropped at the very beginning,
-if argument \code{na.rm} is \code{\link[base:logical]{TRUE}}, otherwise not.
-
+\details{
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowWeightedMads}
+/ \code{matrixStats::colWeightedMads}.
 }
-
 \examples{
 # A DelayedMatrix with a 'matrix' seed
 dm_matrix <- DelayedArray(matrix(c(rep(1L, 5),
@@ -95,8 +86,12 @@ colWeightedMads(dm_matrix, w = 1:5)
 rowWeightedMads(dm_matrix, w = 3:1)
 }
 \seealso{
-For the non-weighted MAD, see \code{\link[stats]{mad}}.  Internally
-\code{\link[matrixStats]{weightedMedian}}() is used to calculate the weighted median.
+\itemize{
+\item \code{matrixStats::\link[matrixStats:weightedMad]{rowWeightedMads}()} and
+\code{matrixStats::\link[matrixStats:weightedMad]{colWeightedMads}()}
+which are used when the input is a \code{matrix} or \code{numeric} vector.
+\item See also \link[MatrixGenerics]{rowMads} for the corresponding unweighted function.
+}
 }
 \author{
 Peter Hickey

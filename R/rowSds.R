@@ -10,7 +10,7 @@
 # General method
 #
 
-#' @inherit matrixStats::rowSds
+#' @inherit MatrixGenerics::rowSds
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colMads
 #' @export

@@ -3,7 +3,7 @@
 \name{colCollapse,DelayedMatrix-method}
 \alias{colCollapse,DelayedMatrix-method}
 \alias{rowCollapse,DelayedMatrix-method}
-\title{Extracts one cell per row (column) from a matrix}
+\title{Extract one cell from each row (column) of a matrix-like object}
 \usage{
 \S4method{colCollapse}{DelayedMatrix}(
   x,
@@ -26,16 +26,17 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{idxs}{An index \code{\link[base]{vector}} of (maximum) length N (K)
-specifying the columns (rows) to be extracted.}
+\item{idxs}{An index \code{\link{vector}} with the position to extract.
+It is recycled to match the number of rows (column)}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{dim.}{An \code{\link[base]{integer}} \code{\link[base]{vector}} of
-length two specifying the dimension of \code{x}, also when not a
-\code{\link[base]{matrix}}.}
+\item{dim.}{An \code{\link{integer}} \code{\link{vector}} of length two
+specifying the dimension of \code{x}, essential when x is a
+\code{\link{numeric}} vector. Note, that this is not a generic
+argument and not all methods need provide it.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -46,16 +47,21 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 
 \item{...}{Additional arguments passed to specific methods.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 }
 \value{
-Returns a \code{\link[base]{vector}} of length N (K).
+Returns a \code{\link{numeric}} \code{\link{vector}} of length N (K).
 }
 \description{
-Extracts one cell per row (column) from a matrix.  The implementation is
-optimized for memory and speed.
+Extract one cell from each row (column) of a matrix-like object.
+}
+\details{
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowCollapse}
+/ \code{matrixStats::colCollapse}.
 }
 \examples{
 # A DelayedMatrix with a 'matrix' seed
@@ -84,8 +90,11 @@ rowCollapse(dm_matrix, 2)
 rowCollapse(dm_HDF5, 2)
 }
 \seealso{
-\emph{Matrix indexing} to index elements in matrices and arrays,
-cf. \code{\link[base]{[}}().
+\itemize{
+\item \code{matrixStats::\link[matrixStats]{rowCollapse}()} and
+\code{matrixStats::\link[matrixStats:rowCollapse]{colCollapse}()}
+which are used when the input is a \code{matrix} or \code{numeric} vector.
+}
 }
 \author{
 Peter Hickey

@@ -43,7 +43,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colWeightedMads
+#' @inherit MatrixGenerics::colWeightedMads
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedMads
 #' @template common_params

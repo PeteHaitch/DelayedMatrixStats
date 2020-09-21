@@ -38,7 +38,7 @@
 # General method
 #
 
-#' @inherit matrixStats::rowMadDiffs
+#' @inherit MatrixGenerics::rowMadDiffs
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colIQRDiffs
 #' @export

@@ -3,7 +3,7 @@
 \name{colQuantiles,DelayedMatrix-method}
 \alias{colQuantiles,DelayedMatrix-method}
 \alias{rowQuantiles,DelayedMatrix-method}
-\title{Estimates quantiles for each row (column) in a matrix}
+\title{Calculates quantiles for each row (column) of a matrix-like object}
 \usage{
 \S4method{colQuantiles}{DelayedMatrix}(
   x,
@@ -32,22 +32,23 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{probs}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of J
-probabilities in [0, 1].}
+\item{probs}{A numeric vector of J probabilities in [0, 1].}
 
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link[base]{NA}}s
+\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
 are excluded first, otherwise not.}
 
-\item{type}{An \code{\link[base]{integer}} specify the type of estimator.
-See \code{\link[stats]{quantile}} for more details.}
+\item{type}{An integer specifying the type of estimator. See
+\code{stats::\link[stats]{quantile}()}. for more details. Note, that this
+is not a generic argument and not all implementation of this function have
+to provide it.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -58,16 +59,23 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 
 \item{...}{Additional arguments passed to specific methods.}
 
-\item{drop}{If TRUE, singleton dimensions in the result are dropped,
-otherwise not.}
+\item{drop}{If \code{TRUE} a vector is returned if \code{J == 1}.
+Note, that this is not a generic argument and not all implementation of
+this function have to provide it.}
 }
 \value{
-Returns a NxJ (KxJ) \code{\link[base]{matrix}}, where N (K) is the
-number of rows (columns) for which the J quantiles are calculated.
-The return type is either integer or numeric depending on \code{type}.
+a \code{\link{numeric}} \code{NxJ} (\code{KxJ})
+\code{\link{matrix}}, where N (K) is the number of rows (columns) for
+which the J values are calculated.
 }
 \description{
-Estimates quantiles for each row (column) in a matrix.
+Calculates quantiles for each row (column) of a matrix-like object.
+}
+\details{
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowQuantiles}
+/ \code{matrixStats::colQuantiles}.
 }
 \examples{
 # A DelayedMatrix with a 'data.frame' seed
@@ -82,7 +90,12 @@ colQuantiles(dm_df)
 rowQuantiles(dm_df)
 }
 \seealso{
-\code{\link[stats]{quantile}}.
+\itemize{
+\item \code{matrixStats::\link[matrixStats]{rowQuantiles}()} and
+\code{matrixStats::\link[matrixStats:rowQuantiles]{colQuantiles}()} which
+are used when the input is a \code{matrix} or \code{numeric} vector.
+\item \link[stats:quantile]{stats::quantile}
+}
 }
 \author{
 Peter Hickey

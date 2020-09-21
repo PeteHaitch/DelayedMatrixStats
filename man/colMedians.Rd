@@ -3,7 +3,7 @@
 \name{colMedians,DelayedMatrix-method}
 \alias{colMedians,DelayedMatrix-method}
 \alias{rowMedians,DelayedMatrix-method}
-\title{Calculates the median for each row (column) in a matrix}
+\title{Calculates the median for each row (column) of a matrix-like object}
 \usage{
 \S4method{colMedians}{DelayedMatrix}(
   x,
@@ -28,20 +28,21 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link[base]{NA}}s
+\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
 are excluded first, otherwise not.}
 
-\item{dim.}{An \code{\link[base]{integer}} \code{\link[base]{vector}} of
-length two specifying the dimension of \code{x}, also when not a
-\code{\link[base]{matrix}}.}
+\item{dim.}{An \code{\link{integer}} \code{\link{vector}} of length two
+specifying the dimension of \code{x}, essential when x is a
+\code{\link{numeric}} vector. Note, that this is not a generic
+argument and not all methods need provide it.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -53,21 +54,16 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-Returns a \code{\link[base]{numeric}} \code{\link[base]{vector}} of
-length N (K).
+Returns a \code{\link{numeric}} \code{\link{vector}} of length N (K).
 }
 \description{
-Calculates the median for each row (column) in a matrix.
+Calculates the median for each row (column) of a matrix-like object.
 }
 \details{
-The implementation of \code{rowMedians()} and \code{colMedians()} is
-optimized for both speed and memory.  To avoid coercing to
-\code{\link[base]{double}}s (and hence memory allocation), there is a
-special implementation for \code{\link[base]{integer}} matrices.  That is,
-if \code{x} is an \code{\link[base]{integer}} \code{\link[base]{matrix}},
-then \code{rowMedians(as.double(x))} (\code{rowMedians(as.double(x))}) would
-require three times the memory of \code{rowMedians(x)}
-(\code{colMedians(x)}), but all this is avoided.
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowMedians}
+/ \code{matrixStats::colMedians}.
 }
 \examples{
 # A DelayedMatrix with a 'Matrix' seed
@@ -81,10 +77,13 @@ colMedians(dm_Matrix)
 rowMedians(dm_Matrix)
 }
 \seealso{
-See \code{\link[matrixStats]{rowWeightedMedians}()} and
-\code{colWeightedMedians()} for weighted medians.
-For mean estimates, see \code{\link[matrixStats]{rowMeans2}()} and
+\itemize{
+\item \code{matrixStats::\link[matrixStats]{rowMedians}()} and
+\code{matrixStats::\link[matrixStats:rowMedians]{colMedians}()} which are
+used when the input is a \code{matrix} or \code{numeric} vector.
+\item For mean estimates, see \code{\link[MatrixGenerics]{rowMeans2}()} and
 \code{\link[base:colSums]{rowMeans}()}.
+}
 }
 \author{
 Peter Hickey

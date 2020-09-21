@@ -53,7 +53,7 @@
 # General method
 #
 
-#' @inherit matrixStats::rowAvgsPerColSet
+#' @inherit MatrixGenerics::rowAvgsPerColSet
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colAvgsPerRowSet
 #' @export

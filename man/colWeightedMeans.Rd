@@ -3,7 +3,7 @@
 \name{colWeightedMeans,DelayedMatrix-method}
 \alias{colWeightedMeans,DelayedMatrix-method}
 \alias{rowWeightedMeans,DelayedMatrix-method}
-\title{Calculates the weighted means for each row (column) in a matrix}
+\title{Calculates the weighted mean for each row (column) of a matrix-like object}
 \usage{
 \S4method{colWeightedMeans}{DelayedMatrix}(
   x,
@@ -28,19 +28,19 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{w}{A \code{\link[base]{numeric}} \code{\link[base]{vector}} of length
-K (N).}
+\item{w}{A \code{\link{numeric}} vector of length K (N) that specifies by
+how much each element is weighted.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, missing values are
-excluded from the calculation, otherwise not.}
+\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
+are excluded first, otherwise not.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -52,16 +52,16 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-Returns a \code{\link[base]{numeric}} \code{\link[base]{vector}} of
-length N (K).
+Returns a \code{\link{numeric}} \code{\link{vector}} of length N (K).
 }
 \description{
-Calculates the weighted means for each row (column) in a matrix.
+Calculates the weighted  mean for each row (column) of a matrix-like object.
 }
 \details{
-The implementations of these methods are optimized for both speed and
-memory.  If no weights are given, the corresponding
-\code{rowMeans()}/\code{colMeans()} is used.
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowWeightedMeans}
+/ \code{matrixStats::colWeightedMeans}.
 }
 \examples{
 # A DelayedMatrix with a 'Matrix' seed
@@ -76,9 +76,12 @@ colWeightedMeans(dm_Matrix, w = 1 / rowVars(dm_Matrix))
 rowWeightedMeans(dm_Matrix, w = 1:3)
 }
 \seealso{
-See \code{rowMeans()} and \code{colMeans()} in
-\code{\link[base]{colSums}}() for non-weighted means.  See also
-\code{\link[stats]{weighted.mean}}.
+\itemize{
+\item \code{matrixStats::\link[matrixStats]{rowWeightedMeans}()} and
+\code{matrixStats::\link[matrixStats:rowWeightedMeans]{colWeightedMeans}()}
+which are used when the input is a \code{matrix} or \code{numeric} vector.
+\item See also \link[MatrixGenerics]{rowMeans2} for the corresponding unweighted function.
+}
 }
 \author{
 Peter Hickey

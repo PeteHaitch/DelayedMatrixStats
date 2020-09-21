@@ -39,7 +39,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colProds
+#' @inherit MatrixGenerics::colProds
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colProds
 #' @template common_params

@@ -34,7 +34,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colCumprods
+#' @inherit MatrixGenerics::colCumprods
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colCummaxs
 #' @export

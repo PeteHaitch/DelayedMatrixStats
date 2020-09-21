@@ -35,7 +35,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colMedians
+#' @inherit MatrixGenerics::colMedians
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colMedians
 #' @template common_params

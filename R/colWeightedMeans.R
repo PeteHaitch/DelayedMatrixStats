@@ -40,7 +40,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colWeightedMeans
+#' @inherit MatrixGenerics::colWeightedMeans
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colWeightedMeans
 #' @template common_params

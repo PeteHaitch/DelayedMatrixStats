@@ -35,7 +35,7 @@
 # General method
 #
 
-#' @inherit matrixStats::rowMedians
+#' @inherit MatrixGenerics::rowMedians
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colMedians
 #' @export

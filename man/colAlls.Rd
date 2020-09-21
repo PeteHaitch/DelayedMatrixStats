@@ -6,7 +6,8 @@
 \alias{colAnys,DelayedMatrix-method}
 \alias{rowAlls,DelayedMatrix-method}
 \alias{rowAnys,DelayedMatrix-method}
-\title{Checks if a value exists / does not exist in each row (column) of a matrix}
+\title{Check if all elements in a row (column) of a matrix-like object are equal to
+a value}
 \usage{
 \S4method{colAlls}{DelayedMatrix}(
   x,
@@ -55,22 +56,23 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of
-elements (or rows and/or columns) to operate over. If
-\code{\link[base]{NULL}}, no subsetting is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of
-elements (or rows and/or columns) to operate over. If
-\code{\link[base]{NULL}}, no subsetting is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{value}{A value to search for.}
+\item{value}{The value to search for.}
 
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link[base]{NA}}s
+\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
 are excluded first, otherwise not.}
 
-\item{dim.}{An \code{\link[base]{integer}} \code{\link[base]{vector}} of
-length two specifying the dimension of \code{x}, also when not a
-\code{\link[base]{matrix}}.}
+\item{dim.}{An \code{\link{integer}} \code{\link{vector}} of length two
+specifying the dimension of \code{x}, essential when x is a
+\code{\link{numeric}} vector. Note, that this is not a generic
+argument and not all methods need provide it.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -82,55 +84,18 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-\code{rowAlls()} (\code{colAlls()}) returns an
-\code{\link[base]{logical}} \code{\link[base]{vector}} of length N (K).
-Analogously for \code{rowAnys()} (\code{rowAlls()}).
+Returns a \code{\link{logical}} \code{\link{vector}} of length N (K).
 }
 \description{
-Checks if a value exists / does not exist in each row (column) of a matrix.
+Check if all elements in a row (column) of a matrix-like object are equal to
+a value.
 }
 \details{
-These functions takes either a matrix or a vector as input. If a vector,
-then argument \code{dim.} must be specified and fulfill \code{prod(dim.) ==
-length(x)}.  The result will be identical to the results obtained when
-passing \code{matrix(x, nrow = dim.[1L], ncol = dim.[2L])}, but avoids
-having to temporarily create/allocate a matrix, if only such is needed
-only for these calculations.
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowAlls}
+/ \code{matrixStats::colAlls}.
 }
-\section{Logical \code{value}}{
-
-
-When \code{value} is logical, the result is as if the function is applied
-on \code{as.logical(x)}.  More specifically, if \code{x} is numeric, then
-all zeros are treated as \code{FALSE}, non-zero values as \code{TRUE},
-and all missing values as \code{NA}.
-
-
-
-
-When \code{value} is logical, the result is as if the function is applied
-on \code{as.logical(x)}.  More specifically, if \code{x} is numeric, then
-all zeros are treated as \code{FALSE}, non-zero values as \code{TRUE},
-and all missing values as \code{NA}.
-
-
-
-
-When \code{value} is logical, the result is as if the function is applied
-on \code{as.logical(x)}.  More specifically, if \code{x} is numeric, then
-all zeros are treated as \code{FALSE}, non-zero values as \code{TRUE},
-and all missing values as \code{NA}.
-
-
-
-
-When \code{value} is logical, the result is as if the function is applied
-on \code{as.logical(x)}.  More specifically, if \code{x} is numeric, then
-all zeros are treated as \code{FALSE}, non-zero values as \code{TRUE},
-and all missing values as \code{NA}.
-
-}
-
 \examples{
 # A DelayedMatrix with a 'matrix' seed
 dm_matrix <- DelayedArray(matrix(c(rep(1L, 5),
@@ -149,7 +114,15 @@ rowAlls(dm_Rle, value = 1)
 rowAnys(dm_Rle, value = 2)
 }
 \seealso{
-rowCounts
+\itemize{
+\item \code{matrixStats::\link[matrixStats]{rowAlls}()} and
+\code{matrixStats::\link[matrixStats:rowAlls]{colAlls}()} which are used
+when the input is a \code{\link{matrix}}, \code{\link{array}},
+or \code{\link{numeric}} vector.
+\item For checks if \emph{any} element is equal to a value, see
+\code{\link[MatrixGenerics]{rowAnys}()}.
+\item \code{base::\link{all}()}.
+}
 }
 \author{
 Peter Hickey

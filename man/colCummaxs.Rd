@@ -11,8 +11,8 @@
 \alias{rowCummins,DelayedMatrix-method}
 \alias{rowCumprods,DelayedMatrix-method}
 \alias{rowCumsums,DelayedMatrix-method}
-\title{Cumulative sums, products, minima and maxima for each row (column) in a
-matrix}
+\title{Calculates the cumulative maxima for each row (column) of a matrix-like
+object}
 \usage{
 \S4method{colCummaxs}{DelayedMatrix}(
   x,
@@ -89,17 +89,18 @@ matrix}
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of elements
-(or rows and/or columns) to operate over. If \code{\link[base]{NULL}}, no
-subsetting is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of elements
-(or rows and/or columns) to operate over. If \code{\link[base]{NULL}}, no
-subsetting is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{dim.}{An \code{\link[base]{integer}} \code{\link[base]{vector}} of
-length two specifying the dimension of \code{x}, also when not a
-\code{\link[base]{matrix}}.}
+\item{dim.}{An \code{\link{integer}} \code{\link{vector}} of length two
+specifying the dimension of \code{x}, essential when x is a
+\code{\link{numeric}} vector. Note, that this is not a generic
+argument and not all methods need provide it.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -111,14 +112,18 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-Returns a \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}}
-of the same mode as \code{x}, except when \code{x} is of mode
-\code{\link[base]{logical}}, then the return type is
-\code{\link[base]{integer}}.
+Returns a \code{\link{numeric}} \code{\link{matrix}}with the same
+dimensions as \code{x}.
 }
 \description{
-Cumulative sums, products, minima and maxima for each row (column) in a
-matrix.
+Calculates the cumulative maxima for each row (column) of a matrix-like
+object.
+}
+\details{
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowCummaxs}
+/ \code{matrixStats::colCummaxs}.
 }
 \examples{
 # A DelayedMatrix with a 'matrix' seed
@@ -153,8 +158,13 @@ rowCumprods(dm_Matrix, rows = 2:4)
 rowCumsums(dm_Matrix, rows = 2:4)
 }
 \seealso{
-See \code{\link[base]{cumsum}}(), \code{\link[base]{cumprod}}(),
-\code{\link[base]{cummin}}(), and \code{\link[base]{cummax}}().
+\itemize{
+\item \code{matrixStats::\link[matrixStats:rowCumsums]{rowCummaxs}()} and
+\code{matrixStats::\link[matrixStats:rowCumsums]{colCummaxs}()} which are
+used when the input is a \code{matrix} or \code{numeric} vector.
+\item For single maximum estimates, see \code{\link[MatrixGenerics]{rowMaxs}()}.
+\item \code{base::\link{cummax}()}.
+}
 }
 \author{
 Peter Hickey

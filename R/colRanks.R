@@ -39,7 +39,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colRanks
+#' @inherit MatrixGenerics::colRanks
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colRanks
 #' @template common_params

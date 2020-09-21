@@ -3,7 +3,8 @@
 \name{colRanks,DelayedMatrix-method}
 \alias{colRanks,DelayedMatrix-method}
 \alias{rowRanks,DelayedMatrix-method}
-\title{Gets the rank of the elements in each row (column) of a matrix}
+\title{Calculates the rank of the elements for each row (column) of a matrix-like
+object}
 \usage{
 \S4method{colRanks}{DelayedMatrix}(
   x,
@@ -29,24 +30,26 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{ties.method}{A \code{\link[base]{character}} string specifying how
-ties are treated.  For details, see below.}
+\item{ties.method}{A character string specifying how ties are treated. Note
+that the default specifies fewer options than the original matrixStats
+package.}
 
-\item{dim.}{An \code{\link[base]{integer}} \code{\link[base]{vector}} of
-length two specifying the dimension of \code{x}, also when not a
-\code{\link[base]{matrix}}.}
+\item{dim.}{An \code{\link{integer}} \code{\link{vector}} of length two
+specifying the dimension of \code{x}, essential when x is a
+\code{\link{numeric}} vector. Note, that this is not a generic
+argument and not all methods need provide it.}
 
-\item{preserveShape}{A \code{\link[base]{logical}} specifying whether the
-\code{\link[base]{matrix}} returned should preserve the input shape of
-\code{x}, or not.}
+\item{preserveShape}{If \code{TRUE} the output matrix has the same shape as the
+input x. Note, that this is not a generic argument and not all
+implementation of this function have to provide it.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -58,93 +61,33 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-A \code{\link[base]{matrix}} of type \code{\link[base]{integer}} is
-returned, unless \code{ties.method = "average"} when it is of type
-\code{\link[base]{numeric}}.
-
-The \code{rowRanks()} function always returns an NxK
-\code{\link[base]{matrix}}, where N (K) is the number of rows (columns)
-whose ranks are calculated.
-
-The \code{colRanks()} function returns an NxK \code{\link[base]{matrix}}, if
-\code{preserveShape = TRUE}, otherwise a KxN \code{\link[base]{matrix}}.
-
-Any \code{\link[base]{names}} of \code{x} are ignored and absent in the
-result.
+a matrix of type \code{\link{integer}} is returned unless
+\code{ties.method = "average"}. Ithas dimensions` \code{NxJ} (\code{KxJ})
+\code{\link{matrix}}, where N (K) is the number of rows (columns) of the
+input x.
 }
 \description{
-Gets the rank of the elements in each row (column) of a matrix.
+Calculates the rank of the elements for each row (column) of a matrix-like
+object.
 }
 \details{
-These functions rank values and treats missing values the same way as
-\code{\link[base]{rank}}().
-For equal values ("ties"), argument \code{ties.method} determines how these
-are ranked among each other.  More precisely, for the following values of
-\code{ties.method}, each index set of ties consists of:
-\itemize{
- \item{\code{"first"} - increasing values that are all unique}
- \item{\code{"last"} - decreasing values that are all unique}
- \item{\code{"min"} - identical values equaling the minimum of
-    their original ranks}
- \item{\code{"max"} - identical values equaling the maximum of
-    their original ranks}
- \item{\code{"average"} - identical values that equal the sample mean of
-    their original ranks. Because the average is calculated, the returned
-    ranks may be non-integer values}
- \item{\code{"random"} - randomly shuffled values of their original ranks.}
- \item{\code{"dense"} - increasing values that are all unique and,
-    contrary to \code{"first"}, never contain any gaps}
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowRanks}
+/ \code{matrixStats::colRanks}.
+
+The \code{matrixStats::rowRanks()} function can handle a lot of different
+values for the \code{ties.method} argument. Users of the generic function
+should however only rely on \code{max} and \code{average} because the other ones
+are not guaranteed to be implemented:
+\describe{
+\item{\code{max}}{for values with identical values the maximum rank is
+returned}
+\item{\code{average}}{for values with identical values the average of the
+ranks they cover is returned. Note, that in this case the return
+value is of type \code{numeric}.}
 }
-For more information on \code{ties.method = "dense"}, see \code{frank()} of
-the \pkg{data.table} package.
-For more information on the other alternatives, see \code{\link[base]{rank}}().
-
-Note that, due to different randomization strategies, the shuffling order
-produced by these functions when using \code{ties.method = "random"} does
-not reproduce that of \code{\link[base]{rank}}().
-
-\emph{WARNING: For backward-compatibility reasons, the default is
-\code{ties.method = "max"}, which differs from \code{\link[base]{rank}}()
-which uses \code{ties.method = "average"} by default.
-Since we plan to change the default behavior in a future version, we recommend
-to explicitly specify the intended value of argument \code{ties.method}.}
 }
-\section{Missing values}{
-
-
-Missing values are ranked as \code{NA_integer_}, as with \code{na.last = "keep"}
-in the \code{\link[base]{rank}}() function.
-
-
-
-
-Missing values are ranked as \code{NA_integer_}, as with \code{na.last = "keep"}
-in the \code{\link[base]{rank}}() function.
-
-}
-
-\section{Performance}{
-
-
-The implementation is optimized for both speed and memory.  To avoid
-coercing to \code{\link[base]{double}}s (and hence memory allocation),
-there is a unique implementation for \code{\link[base]{integer}} matrices.
-Furthermore, it is more memory efficient to do
-\code{colRanks(x, preserveShape = TRUE)} than
-\code{t(colRanks(x, preserveShape = FALSE))}.
-
-
-
-
-The implementation is optimized for both speed and memory.  To avoid
-coercing to \code{\link[base]{double}}s (and hence memory allocation),
-there is a unique implementation for \code{\link[base]{integer}} matrices.
-Furthermore, it is more memory efficient to do
-\code{colRanks(x, preserveShape = TRUE)} than
-\code{t(colRanks(x, preserveShape = FALSE))}.
-
-}
-
 \examples{
 # A DelayedMatrix with a 'Matrix' seed
 dm_Matrix <- DelayedArray(Matrix::Matrix(c(rep(1L, 5),
@@ -157,9 +100,12 @@ colRanks(dm_Matrix)
 rowRanks(dm_Matrix)
 }
 \seealso{
-For developers, see also Section Utility functions' in 
-'Writing R Extensions manual', particularly the
-native functions \code{R_qsort_I()} and \code{R_qsort_int_I()}.
+\itemize{
+\item \code{matrixStats::\link[matrixStats]{rowRanks}()} and
+\code{matrixStats::\link[matrixStats:rowRanks]{colRanks}()} which are used
+when the input is a \code{matrix} or \code{numeric} vector.
+\item \link[base:rank]{base::rank}
+}
 }
 \author{
 Peter Hickey

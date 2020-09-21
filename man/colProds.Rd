@@ -4,7 +4,7 @@
 \alias{colProds,DelayedMatrix-method}
 \alias{colProds,SolidRleArraySeed-method}
 \alias{rowProds,DelayedMatrix-method}
-\title{Calculates the product for each row (column) in a matrix}
+\title{Calculates the product for each row (column) of a matrix-like object}
 \usage{
 \S4method{colProds}{DelayedMatrix}(
   x,
@@ -38,19 +38,20 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of
-elements (or rows and/or columns) to operate over. If
-\code{\link[base]{NULL}}, no subsetting is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of
-elements (or rows and/or columns) to operate over. If
-\code{\link[base]{NULL}}, no subsetting is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset of rows
+(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, missing values are
-ignored, otherwise not.}
+\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
+are excluded first, otherwise not.}
 
-\item{method}{A \code{\link[base]{character}} string specifying how each
-product is calculated.}
+\item{method}{A character vector of length one that specifies the
+how the product is calculated. Note, that this is not a generic
+argument and not all implementation have to provide it.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -62,43 +63,17 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{...}{Additional arguments passed to specific methods.}
 }
 \value{
-Returns a \code{\link[base]{numeric}} \code{\link[base]{vector}} of
-length N (K).
+Returns a \code{\link{numeric}} \code{\link{vector}} of length N (K).
 }
 \description{
-Calculates the product for each row (column) in a matrix.
+Calculates the product for each row (column) of a matrix-like object.
 }
 \details{
-If \code{method = "expSumLog"}, then then \code{\link[matrixStats]{product}}() function is
-used, which calculates the produce via the logarithmic transform (treating
-negative values specially).  This improves the precision and lowers the risk
-for numeric overflow.  If \code{method = "direct"}, the direct product is
-calculated via the \code{\link[base]{prod}}() function.
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowProds}
+/ \code{matrixStats::colProds}.
 }
-\section{Missing values}{
-
-
-Note, if \code{method = "expSumLog"}, \code{na.rm = FALSE}, and \code{x}
-contains missing values (\code{\link[base]{NA}} or
-\code{\link[base:is.finite]{NaN}}), then the calculated value is also
-missing value.  Note that it depends on platform whether
-\code{\link[base:is.finite]{NaN}} or \code{\link[base]{NA}} is returned
-when an \code{\link[base:is.finite]{NaN}} exists, cf.
-\code{\link[base]{is.nan}}().
-
-
-
-
-Note, if \code{method = "expSumLog"}, \code{na.rm = FALSE}, and \code{x}
-contains missing values (\code{\link[base]{NA}} or
-\code{\link[base:is.finite]{NaN}}), then the calculated value is also
-missing value.  Note that it depends on platform whether
-\code{\link[base:is.finite]{NaN}} or \code{\link[base]{NA}} is returned
-when an \code{\link[base:is.finite]{NaN}} exists, cf.
-\code{\link[base]{is.nan}}().
-
-}
-
 \examples{
 # A DelayedMatrix with a 'matrix' seed
 dm_matrix <- DelayedArray(matrix(c(rep(1L, 5),
@@ -116,6 +91,16 @@ dm_HDF5 <- writeHDF5Array(matrix(c(rep(1L, 5),
 colProds(dm_matrix)
 
 rowProds(dm_matrix)
+}
+\seealso{
+\itemize{
+\item \code{matrixStats::\link[matrixStats]{rowProds}()} and
+\code{matrixStats::\link[matrixStats:rowProds]{colProds}()} which are used
+when the input is a \code{matrix} or \code{numeric} vector.
+\item For sums across rows (columns), see
+\code{\link[MatrixGenerics]{rowSums2}()} (\code{\link[MatrixGenerics:rowSums2]{colSums2()}})
+\item \code{base::\link{prod}()}.
+}
 }
 \author{
 Peter Hickey

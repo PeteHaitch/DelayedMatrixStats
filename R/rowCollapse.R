@@ -41,7 +41,7 @@
 # General method
 #
 
-#' @inherit matrixStats::rowCollapse
+#' @inherit MatrixGenerics::rowCollapse
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colCollapse
 #' @export

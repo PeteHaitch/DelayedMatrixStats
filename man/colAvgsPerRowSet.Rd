@@ -3,8 +3,8 @@
 \name{colAvgsPerRowSet,DelayedMatrix-method}
 \alias{colAvgsPerRowSet,DelayedMatrix-method}
 \alias{rowAvgsPerColSet,DelayedMatrix-method}
-\title{Applies a row-by-row (column-by-column) averaging function to equally-sized
-subsets of matrix columns (rows)}
+\title{Calculates for each row (column) a summary statistic for equally sized
+subsets of columns (rows)}
 \usage{
 \S4method{colAvgsPerRowSet}{DelayedMatrix}(
   X,
@@ -31,23 +31,18 @@ subsets of matrix columns (rows)}
 \arguments{
 \item{X}{A NxM \linkS4class{DelayedMatrix}.}
 
-\item{W}{An optional \code{\link[base]{numeric}} NxM
-\code{\link[base]{matrix}} of weights.}
+\item{W}{An optional numeric \code{NxM} matrix of weights.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{cols}{A \code{\link{vector}} indicating the subset (and/or
+columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 
-\item{S}{An \code{\link[base]{integer}} KxJ \code{\link[base]{matrix}}
-specifying the J subsets.  Each column holds K column (row) indices for the
-corresponding subset.}
+\item{S}{An \link{integer} \code{KxJ} matrix that specifying the \code{J} subsets. Each
+column hold \code{K} column (row) indices for the corresponding subset. The
+range of values is [1, M] ([1,N]).}
 
-\item{FUN}{The row-by-row (column-by-column) \code{\link[base]{function}}
-used to average over each subset of \code{X}.  This function must accept a
-\code{\link[base]{numeric}} NxK (KxM) \code{\link[base]{matrix}} and the
-\code{\link[base]{logical}} argument \code{na.rm} (which is automatically
-set), and return a \code{\link[base]{numeric}} \code{\link[base]{vector}} of
-length N (M).}
+\item{FUN}{A row-by-row (column-by-column) summary statistic function. It is
+applied to to each column (row) subset of \code{X} that is specified by \code{S}.}
 
 \item{...}{Additional arguments passed to specific methods.}
 
@@ -58,28 +53,24 @@ to use the general block-processing strategy by setting this to \code{TRUE}
 (depending on \verb{\link[DelayedArray]\{getAutoBlockSize\}()}) columns (\code{colFoo()})
 or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::array}.}
 
-\item{tFUN}{If \code{\link[base:logical]{TRUE}}, the NxK (KxM)
-\code{\link[base]{matrix}} passed to \code{FUN()} is transposed first.}
+\item{tFUN}{If \code{TRUE}, \code{X} is transposed before it is passed to \code{FUN}.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of rows
-(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
-is done.}
+\item{rows}{A \code{\link{vector}} indicating the subset (and/or
+columns) to operate over. If \code{\link{NULL}}, no subsetting is
+done.}
 }
 \value{
-Returns a \code{\link[base]{numeric}} JxN (MxJ)
-\code{\link[base]{matrix}}, where row names equal \code{rownames(X)}
-(\code{colnames(S)}) and column names \code{colnames(S)}
-(\code{colnames(X)}).
+Returns a numeric \code{JxN} (\code{MxJ}) matrix.
 }
 \description{
-Applies a row-by-row (column-by-column) averaging function to equally-sized
-subsets of matrix columns (rows).  Each subset is averaged independently of
-the others.
+Calculates for each row (column) a summary statistic for equally sized
+subsets of columns (rows).
 }
 \details{
-If argument \code{S} is a single column vector with indices \code{1:N}, then
-\code{rowAvgsPerColSet(X, S = S, FUN = rowMeans)} gives the same result as
-\code{rowMeans(X)}.  Analogously, for \code{colAvgsPerRowSet()}.
+The S4 methods for \code{x} of type \code{\link{matrix}},
+\code{\link{array}}, or \code{\link{numeric}} call
+\code{matrixStats::rowAvgsPerColSet}
+/ \code{matrixStats::colAvgsPerRowSet}.
 }
 \examples{
 # A DelayedMatrix with a 'DataFrame' seed
@@ -89,6 +80,13 @@ dm_DF <- DelayedArray(S4Vectors::DataFrame(C1 = rep(1L, 5),
 colAvgsPerRowSet(dm_DF, S = matrix(1:2, ncol = 2))
 
 rowAvgsPerColSet(dm_DF, S = matrix(1:2, ncol = 1))
+}
+\seealso{
+\itemize{
+\item \code{matrixStats::\link[matrixStats]{rowAvgsPerColSet}()} and
+\code{matrixStats::\link[matrixStats:rowAvgsPerColSet]{colAvgsPerRowSet}()}
+which are used when the input is a \code{matrix} or \code{numeric} vector.
+}
 }
 \author{
 Peter Hickey

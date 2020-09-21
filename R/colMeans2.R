@@ -35,7 +35,7 @@
 # General method
 #
 
-#' @inherit matrixStats::colMeans2
+#' @inherit MatrixGenerics::colMeans2
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colMeans2
 #' @template common_params
