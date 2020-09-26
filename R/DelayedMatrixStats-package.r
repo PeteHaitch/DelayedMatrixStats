@@ -16,4 +16,5 @@
 #' @import methods
 #' @importFrom DelayedArray isPristine
 #' @import MatrixGenerics
+#' @import sparseMatrixStats
 NULL
