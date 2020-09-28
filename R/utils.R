@@ -306,3 +306,14 @@ setMethod("subset_by_Nindex", "SolidRleArraySeed",
 #       (see extract_array,ConformableSeedCombiner-method)?
 # TODO: subset_by_Nindex,DelayedOp-method
 #       (see extract_array,DelayedOp-method)?
+
+.smart_seed_dispatcher <- function(x, generic, blockfun, ..., force_block_processing = FALSE) {
+  if (isPristine(x) && !force_block_processing) {
+    S <- seed(x)
+    candidate <- selectMethod(generic, class(S)[1], optional=TRUE)
+    if (!is.null(candidate)) {
+       return(candidate(S, ...))
+    }
+  }
+  blockfun(x, ...)
+}

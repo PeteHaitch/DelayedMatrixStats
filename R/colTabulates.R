@@ -64,40 +64,12 @@ setMethod("colTabulates", "DelayedMatrix",
               stop("Argument 'x' is not of type integer, logical, or raw",
                    " (type = ", type(x), ")")
             }
-            if (!hasMethod("colTabulates", seedClass(x)) ||
-                force_block_processing) {
-              message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colTabulates(x = x,
-                                                       rows = rows,
-                                                       cols = cols,
-                                                       values = values,
-                                                       ...))
-            }
-
-            message2("Has seed-aware method", get_verbose())
-            if (isPristine(x)) {
-              message2("Pristine", get_verbose())
-              simple_seed_x <- seed(x)
-            } else {
-              message2("Coercing to seed class", get_verbose())
-              # TODO: do_transpose trick
-              simple_seed_x <- try(from_DelayedArray_to_simple_seed_class(x),
-                                   silent = TRUE)
-              if (is(simple_seed_x, "try-error")) {
-                message2("Unable to coerce to seed class", get_verbose())
-                return(colTabulates(x = x,
-                                    rows = rows,
-                                    cols = cols,
-                                    values = values,
-                                    force_block_processing = TRUE,
-                                    ...))
-              }
-            }
-
-            colTabulates(x = simple_seed_x,
-                         rows = rows,
-                         cols = cols,
-                         values = values,
-                         ...)
+            .smart_seed_dispatcher(x, generic = "colTabulates", 
+                                   blockfun = .DelayedMatrix_block_colTabulates,
+                                   force_block_processing = force_block_processing,
+                                   rows = rows,
+                                   cols = cols,
+                                   values = values,
+                                   ...)
           }
 )

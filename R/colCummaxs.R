@@ -7,7 +7,7 @@
 ###
 
 .DelayedMatrix_block_colCummaxs <- function(x, rows = NULL, cols = NULL,
-                                            dim. = dim(x), ...) {
+                                            ...) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -47,42 +47,13 @@
 #'
 #' colCummaxs(dm_matrix)
 setMethod("colCummaxs", "DelayedMatrix",
-          function(x, rows = NULL, cols = NULL, dim. = dim(x),
+          function(x, rows = NULL, cols = NULL,
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colCummaxs", seedClass(x)) ||
-                force_block_processing) {
-              message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colCummaxs(x = x,
-                                                     rows = rows,
-                                                     cols = cols,
-                                                     dim. = dim.,
-                                                     ...))
-            }
-
-            message2("Has seed-aware method", get_verbose())
-            if (isPristine(x)) {
-              message2("Pristine", get_verbose())
-              simple_seed_x <- seed(x)
-            } else {
-              message2("Coercing to seed class", get_verbose())
-              # TODO: do_transpose trick
-              simple_seed_x <- try(from_DelayedArray_to_simple_seed_class(x),
-                                   silent = TRUE)
-              if (is(simple_seed_x, "try-error")) {
-                message2("Unable to coerce to seed class", get_verbose())
-                return(colCummaxs(x = x,
-                                  rows = rows,
-                                  cols = cols,
-                                  dim. = dim.,
-                                  force_block_processing = TRUE,
-                                  ...))
-              }
-            }
-
-            colCummaxs(x = simple_seed_x,
-                       rows = rows,
-                       cols = cols,
-                       dim. = dim.,
-                       ...)
+            .smart_seed_dispatcher(x, generic = "colCummaxs", 
+                                   blockfun = .DelayedMatrix_block_colCummaxs,
+                                   force_block_processing = force_block_processing,
+                                   rows = rows,
+                                   cols = cols,
+                                   ...)
           }
 )

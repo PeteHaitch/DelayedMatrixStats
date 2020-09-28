@@ -7,7 +7,7 @@
 ###
 
 .DelayedMatrix_block_rowDiffs <- function(x, rows = NULL, cols = NULL, lag = 1L,
-                                          differences = 1L, dim. = dim(x),
+                                          differences = 1L,
                                           ...) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
@@ -49,47 +49,14 @@
 #' rowDiffs(dm_HDF5, cols = seq(ncol(dm_HDF5), 1, -1))
 setMethod("rowDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, lag = 1L, differences = 1L,
-                   dim. = dim(x), force_block_processing = FALSE, ...) {
-            if (!hasMethod("rowDiffs", seedClass(x)) ||
-                force_block_processing) {
-              message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_rowDiffs(x = x,
-                                                   rows = rows,
-                                                   cols = cols,
-                                                   lag = lag,
-                                                   differences = differences,
-                                                   dim. = dim.,
-                                                   ...))
-            }
-
-            message2("Has seed-aware method", get_verbose())
-            if (isPristine(x)) {
-              message2("Pristine", get_verbose())
-              simple_seed_x <- seed(x)
-            } else {
-              message2("Coercing to seed class", get_verbose())
-              # TODO: do_transpose trick
-              simple_seed_x <- try(from_DelayedArray_to_simple_seed_class(x),
-                                   silent = TRUE)
-              if (is(simple_seed_x, "try-error")) {
-                message2("Unable to coerce to seed class", get_verbose())
-                return(rowDiffs(x = x,
-                                rows = rows,
-                                cols = cols,
-                                lag = lag,
-                                differences = differences,
-                                dim. = dim.,
-                                force_block_processing = TRUE,
-                                ...))
-              }
-            }
-
-            rowDiffs(x = simple_seed_x,
-                     rows = rows,
-                     cols = cols,
-                     lag = lag,
-                     differences = differences,
-                     dim. = dim.,
-                     ...)
+                   force_block_processing = FALSE, ...) {
+            .smart_seed_dispatcher(x, generic = "rowDiffs", 
+                                   blockfun = .DelayedMatrix_block_rowDiffs,
+                                   force_block_processing = force_block_processing,
+                                   rows = rows,
+                                   cols = cols,
+                                   lag = lag,
+                                   differences = differences,
+                                   ...)
           }
 )

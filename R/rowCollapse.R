@@ -8,7 +8,7 @@
 
 #' @importMethodsFrom DelayedArray t
 .DelayedMatrix_block_rowCollapse <- function(x, idxs, rows = NULL,
-                                             dim. = dim(x), ...) {
+                                             ...) {
   # Check input
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -53,42 +53,13 @@
 #' rowCollapse(dm_matrix, 2)
 #' rowCollapse(dm_HDF5, 2)
 setMethod("rowCollapse", "DelayedMatrix",
-          function(x, idxs, rows = NULL, dim. = dim(x),
+          function(x, idxs, rows = NULL, 
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("rowCollapse", seedClass(x)) ||
-                force_block_processing) {
-              message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_rowCollapse(x = x,
-                                                      idxs = idxs,
-                                                      rows = rows,
-                                                      dim. = dim.,
-                                                      ...))
-            }
-
-            message2("Has seed-aware method", get_verbose())
-            if (isPristine(x)) {
-              message2("Pristine", get_verbose())
-              simple_seed_x <- seed(x)
-            } else {
-              message2("Coercing to seed class", get_verbose())
-              # TODO: do_transpose trick
-              simple_seed_x <- try(from_DelayedArray_to_simple_seed_class(x),
-                                   silent = TRUE)
-              if (is(simple_seed_x, "try-error")) {
-                message2("Unable to coerce to seed class", get_verbose())
-                return(rowCollapse(x = x,
+            .smart_seed_dispatcher(x, generic = "rowCollapse", 
+                                   blockfun = .DelayedMatrix_block_rowCollapse,
+                                   force_block_processing = force_block_processing,
                                    idxs = idxs,
                                    rows = rows,
-                                   dim. = dim.,
-                                   force_block_processing = TRUE,
-                                   ...))
-              }
-            }
-
-            rowCollapse(x = simple_seed_x,
-                        idxs = idxs,
-                        rows = rows,
-                        dim. = dim.,
-                        ...)
+                                   ...)
           }
 )

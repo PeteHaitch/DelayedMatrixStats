@@ -50,47 +50,12 @@
 setMethod("colIQRs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colIQRs", seedClass(x)) ||
-                force_block_processing) {
-              message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colIQRs(x = x,
-                                                  rows = rows,
-                                                  cols = cols,
-                                                  na.rm = na.rm,
-                                                  ...))
-            }
-
-            message2("Has seed-aware method", get_verbose())
-            if (isPristine(x)) {
-              message2("Pristine", get_verbose())
-              simple_seed_x <- seed(x)
-            } else {
-              message2("Coercing to seed class", get_verbose())
-              # TODO: do_transpose trick
-              simple_seed_x <- try(from_DelayedArray_to_simple_seed_class(x),
-                                   silent = TRUE)
-              if (is(simple_seed_x, "try-error")) {
-                message2("Unable to coerce to seed class", get_verbose())
-                return(colIQRs(x = x,
-                               rows = rows,
-                               cols = cols,
-                               na.rm = na.rm,
-                               force_block_processing = TRUE,
-                               ...))
-              }
-            }
-
-            colIQRs(x = simple_seed_x,
-                    rows = rows,
-                    cols = cols,
-                    na.rm = na.rm,
-                    ...)
+            .smart_seed_dispatcher(x, generic = "colIQRs", 
+                                   blockfun = .DelayedMatrix_block_colIQRs,
+                                   force_block_processing = force_block_processing,
+                                   rows = rows,
+                                   cols = cols,
+                                   na.rm = na.rm,
+                                   ...)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colIQRs", "matrix", matrixStats::colIQRs)

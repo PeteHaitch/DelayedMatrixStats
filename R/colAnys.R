@@ -8,7 +8,7 @@
 
 .DelayedMatrix_block_colAnys <- function(x, rows = NULL, cols = NULL,
                                          value = TRUE, na.rm = FALSE,
-                                         dim. = dim(x), ...) {
+                                         ...) {
   # Check input
   stopifnot(is(x, "DelayedMatrix"))
   # TODO: Answer is always logical, so this might not be appropriate
@@ -47,47 +47,14 @@
 #' colAnys(dm_matrix, value = 2)
 setMethod("colAnys", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
-                   dim. = dim(x), force_block_processing = FALSE, ...) {
-            if (!hasMethod("colAnys", seedClass(x)) ||
-                force_block_processing) {
-              message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colAnys(x = x,
-                                                  rows = rows,
-                                                  cols = cols,
-                                                  value = value,
-                                                  na.rm = na.rm,
-                                                  dim. = dim.,
-                                                  ...))
-            }
-
-            message2("Has seed-aware method", get_verbose())
-            if (isPristine(x)) {
-              message2("Pristine", get_verbose())
-              simple_seed_x <- seed(x)
-            } else {
-              message2("Coercing to seed class", get_verbose())
-              # TODO: do_transpose trick
-              simple_seed_x <- try(from_DelayedArray_to_simple_seed_class(x),
-                                   silent = TRUE)
-              if (is(simple_seed_x, "try-error")) {
-                message2("Unable to coerce to seed class", get_verbose())
-                return(colAnys(x = x,
-                               rows = rows,
-                               cols = cols,
-                               value = value,
-                               na.rm = na.rm,
-                               dim. = dim.,
-                               force_block_processing = TRUE,
-                               ...))
-              }
-            }
-
-            colAnys(x = simple_seed_x,
-                    rows = rows,
-                    cols = cols,
-                    value = value,
-                    na.rm = na.rm,
-                    dim. = dim.,
-                    ...)
+                   force_block_processing = FALSE, ...) {
+            .smart_seed_dispatcher(x, generic = "colAnys", 
+                                   blockfun = .DelayedMatrix_block_colAnys,
+                                   force_block_processing = force_block_processing,
+                                   rows = rows,
+                                   cols = cols,
+                                   value = value,
+                                   na.rm = na.rm,
+                                   ...)
           }
 )

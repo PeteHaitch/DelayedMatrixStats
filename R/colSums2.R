@@ -7,7 +7,7 @@
 ###
 
 .DelayedMatrix_block_colSums2 <- function(x, rows = NULL, cols = NULL,
-                                          na.rm = FALSE, dim. = dim(x), ...) {
+                                          na.rm = FALSE, ...) {
   # Check input
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -48,45 +48,15 @@
 #'
 #' colSums2(dm_matrix)
 setMethod("colSums2", "DelayedMatrix",
-          function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
+          function(x, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("colSums2", seedClass(x)) ||
-                force_block_processing) {
-              message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colSums2(x = x,
-                                                   rows = rows,
-                                                   cols = cols,
-                                                   na.rm = na.rm,
-                                                   dim. = dim.))
-            }
-
-            message2("Has seed-aware method", get_verbose())
-            if (isPristine(x)) {
-              message2("Pristine", get_verbose())
-              simple_seed_x <- seed(x)
-            } else {
-              message2("Coercing to seed class", get_verbose())
-              # TODO: do_transpose trick
-              simple_seed_x <- try(from_DelayedArray_to_simple_seed_class(x),
-                                   silent = TRUE)
-              if (is(simple_seed_x, "try-error")) {
-                message2("Unable to coerce to seed class", get_verbose())
-                return(colSums2(x = x,
-                                rows = rows,
-                                cols = cols,
-                                na.rm = na.rm,
-                                dim. = dim.,
-                                force_block_processing = TRUE,
-                                ...))
-              }
-            }
-
-            colSums2(x = simple_seed_x,
-                     rows = rows,
-                     cols = cols,
-                     na.rm = na.rm,
-                     dim. = dim.,
-                     ...)
+            .smart_seed_dispatcher(x, generic = "colSums2", 
+                                   blockfun = .DelayedMatrix_block_colSums2,
+                                   force_block_processing = force_block_processing,
+                                   rows = rows,
+                                   cols = cols,
+                                   na.rm = na.rm,
+                                   ...)
           }
 )
 
@@ -98,7 +68,7 @@ setMethod("colSums2", "DelayedMatrix",
 #' @rdname colSums2
 #' @export
 setMethod("colSums2", "Matrix",
-          function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
+          function(x, rows = NULL, cols = NULL, na.rm = FALSE,
                    ...) {
             message2(class(x), get_verbose())
             x <- ..subset(x, rows, cols)
@@ -111,7 +81,7 @@ setMethod("colSums2", "Matrix",
 #' @rdname colSums2
 #' @export
 setMethod("colSums2", "SolidRleArraySeed",
-          function(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x),
+          function(x, rows = NULL, cols = NULL, na.rm = FALSE,
                    ...) {
             message2(class(x), get_verbose())
             irl <- get_Nindex_as_IRangesList(Nindex = list(rows, cols),

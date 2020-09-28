@@ -9,7 +9,7 @@
 .DelayedMatrix_block_colRanks <-
   function(x, rows = NULL, cols = NULL,
            ties.method = c("max", "average", "first", "last", "random", "max", "min", "dense"),
-           dim. = dim(x), preserveShape = FALSE, ...) {
+           preserveShape = FALSE, ...) {
     # Check input type
     ties.method <- match.arg(ties.method)
     stopifnot(is(x, "DelayedMatrix"))
@@ -53,50 +53,16 @@
 setMethod("colRanks", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
                    ties.method = c("max", "average", "first", "last", "random", "max", "min", "dense"),
-                   dim. = dim(x), preserveShape = FALSE,
+                   preserveShape = FALSE,
                    force_block_processing = FALSE, ...) {
             ties.method <- match.arg(ties.method)
-            if (!hasMethod("colRanks", seedClass(x)) ||
-                force_block_processing) {
-              message2("Block processing", get_verbose())
-              return(
-                .DelayedMatrix_block_colRanks(x = x,
-                                              rows = rows,
-                                              cols = cols,
-                                              ties.method = ties.method,
-                                              dim. = dim.,
-                                              preserveShape = preserveShape,
-                                              ...))
-            }
-
-            message2("Has seed-aware method", get_verbose())
-            if (isPristine(x)) {
-              message2("Pristine", get_verbose())
-              simple_seed_x <- seed(x)
-            } else {
-              message2("Coercing to seed class", get_verbose())
-              # TODO: do_transpose trick
-              simple_seed_x <- try(from_DelayedArray_to_simple_seed_class(x),
-                                   silent = TRUE)
-              if (is(simple_seed_x, "try-error")) {
-                message2("Unable to coerce to seed class", get_verbose())
-                return(colRanks(x = x,
-                                rows = rows,
-                                cols = cols,
-                                ties.method = ties.method,
-                                dim. = dim.,
-                                preserveShape = preserveShape,
-                                force_block_processing = TRUE,
-                                ...))
-              }
-            }
-
-            colRanks(x = simple_seed_x,
-                     rows = rows,
-                     cols = cols,
-                     ties.method = ties.method,
-                     dim. = dim.,
-                     preserveShape = preserveShape,
-                     ...)
+            .smart_seed_dispatcher(x, generic = "colRanks", 
+                                   blockfun = .DelayedMatrix_block_colRanks,
+                                   force_block_processing = force_block_processing,
+                                   rows = rows,
+                                   cols = cols,
+                                   ties.method = ties.method,
+                                   # preserveShape = preserveShape, # TODO: wait for a fix in SMS.
+                                   ...)
           }
 )
