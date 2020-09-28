@@ -11,7 +11,6 @@ object}
   rows = NULL,
   cols = NULL,
   ties.method = c("max", "average", "first", "last", "random", "max", "min", "dense"),
-  dim. = dim(x),
   preserveShape = FALSE,
   force_block_processing = FALSE,
   ...
@@ -22,7 +21,6 @@ object}
   rows = NULL,
   cols = NULL,
   ties.method = c("max", "average", "first", "last", "random", "max", "min", "dense"),
-  dim. = dim(x),
   force_block_processing = FALSE,
   ...
 )
@@ -41,11 +39,6 @@ done.}
 \item{ties.method}{A character string specifying how ties are treated. Note
 that the default specifies fewer options than the original matrixStats
 package.}
-
-\item{dim.}{An \code{\link{integer}} \code{\link{vector}} of length two
-specifying the dimension of \code{x}, essential when x is a
-\code{\link{numeric}} vector. Note, that this is not a generic
-argument and not all methods need provide it.}
 
 \item{preserveShape}{If \code{TRUE} the output matrix has the same shape as the
 input x. Note, that this is not a generic argument and not all

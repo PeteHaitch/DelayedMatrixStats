@@ -51,43 +51,13 @@
 setMethod("rowWeightedVars", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("rowWeightedVars", seedClass(x)) ||
-                force_block_processing) {
-              message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_rowWeightedVars(x = x,
-                                                             w = w,
-                                                             rows = rows,
-                                                             cols = cols,
-                                                             na.rm = na.rm,
-                                                             ...))
-            }
-
-            message2("Has seed-aware method", get_verbose())
-            if (isPristine(x)) {
-              message2("Pristine", get_verbose())
-              simple_seed_x <- seed(x)
-            } else {
-              message2("Coercing to seed class", get_verbose())
-              # TODO: do_transpose trick
-              simple_seed_x <- try(from_DelayedArray_to_simple_seed_class(x),
-                                   silent = TRUE)
-              if (is(simple_seed_x, "try-error")) {
-                message2("Unable to coerce to seed class", get_verbose())
-                return(rowWeightedVars(x = x,
-                                          w = w,
-                                          rows = rows,
-                                          cols = cols,
-                                          na.rm = na.rm,
-                                          force_block_processing = TRUE,
-                                          ...))
-              }
-            }
-
-            rowWeightedVars(x = simple_seed_x,
-                               w = w,
-                               rows = rows,
-                               cols = cols,
-                               na.rm = na.rm,
-                               ...)
+            .smart_seed_dispatcher(x, generic = "rowWeightedVars", 
+                                   blockfun = .DelayedMatrix_block_rowWeightedVars,
+                                   force_block_processing = force_block_processing,
+                                   w = w,
+                                   rows = rows,
+                                   cols = cols,
+                                   na.rm = na.rm,
+                                   ...)
           }
 )

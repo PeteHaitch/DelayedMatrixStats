@@ -11,7 +11,6 @@
   cols = NULL,
   na.rm = FALSE,
   center = NULL,
-  dim. = dim(x),
   force_block_processing = FALSE,
   ...
 )
@@ -22,7 +21,6 @@
   cols = NULL,
   na.rm = FALSE,
   center = NULL,
-  dim. = dim(x),
   force_block_processing = FALSE,
   ...
 )
@@ -42,11 +40,6 @@ done.}
 are excluded first, otherwise not.}
 
 \item{center}{(optional) the center, defaults to the row means.}
-
-\item{dim.}{An \code{\link{integer}} \code{\link{vector}} of length two
-specifying the dimension of \code{x}, essential when x is a
-\code{\link{numeric}} vector. Note, that this is not a generic
-argument and not all methods need provide it.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden

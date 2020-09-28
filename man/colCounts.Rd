@@ -12,7 +12,6 @@ equal to a value}
   cols = NULL,
   value = TRUE,
   na.rm = FALSE,
-  dim. = dim(x),
   force_block_processing = FALSE,
   ...
 )
@@ -23,7 +22,6 @@ equal to a value}
   cols = NULL,
   value = TRUE,
   na.rm = FALSE,
-  dim. = dim(x),
   force_block_processing = FALSE,
   ...
 )
@@ -43,11 +41,6 @@ done.}
 
 \item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
 are excluded first, otherwise not.}
-
-\item{dim.}{An \code{\link{integer}} \code{\link{vector}} of length two
-specifying the dimension of \code{x}, essential when x is a
-\code{\link{numeric}} vector. Note, that this is not a generic
-argument and not all methods need provide it.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden

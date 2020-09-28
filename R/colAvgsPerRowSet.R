@@ -65,46 +65,14 @@
 setMethod("colAvgsPerRowSet", "DelayedMatrix",
           function(X, W = NULL, cols = NULL, S, FUN = colMeans, ...,
                    force_block_processing = FALSE, tFUN = FALSE) {
-            if (!hasMethod("colAvgsPerRowSet", seedClass(X)) ||
-                force_block_processing) {
-              message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colAvgsPerRowSet(X = X,
-                                                           W = W,
-                                                           cols = cols,
-                                                           S = S,
-                                                           FUN = FUN,
-                                                           ...,
-                                                           tFUN = tFUN))
-            }
-
-            message2("Has seed-aware method", get_verbose())
-            if (isPristine(X)) {
-              message2("Pristine", get_verbose())
-              simple_seed_X <- seed(X)
-            } else {
-              message2("Coercing to seed class", get_verbose())
-              # TODO: do_transpose trick
-              simple_seed_X <- try(from_DelayedArray_to_simple_seed_class(X),
-                                   silent = TRUE)
-              if (is(simple_seed_X, "try-error")) {
-                message2("Unable to coerce to seed class", get_verbose())
-                return(colAvgsPerRowSet(X = X,
-                                        W = W,
-                                        cols = cols,
-                                        S = S,
-                                        FUN = FUN,
-                                        ...,
-                                        force_block_processing = TRUE,
-                                        tFUN = tFUN))
-              }
-            }
-
-            colAvgsPerRowSet(X = simple_seed_X,
-                             W = W,
-                             cols = cols,
-                             S = S,
-                             FUN = FUN,
-                             ...,
-                             tFUN = tFUN)
+            .smart_seed_dispatcher(X, generic = "colAvgsPerRowSet", 
+                                   blockfun = .DelayedMatrix_block_colAvgsPerRowSet,
+                                   force_block_processing = force_block_processing,
+                                   W = W,
+                                   cols = cols,
+                                   S = S,
+                                   FUN = FUN,
+                                   ...,
+                                   tFUN = tFUN)
           }
 )

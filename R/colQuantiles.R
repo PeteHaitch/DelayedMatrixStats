@@ -64,49 +64,15 @@ setMethod("colQuantiles", "DelayedMatrix",
                    probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE,
                    type = 7L, force_block_processing = FALSE, ...,
                    drop = TRUE) {
-            if (!hasMethod("colQuantiles", seedClass(x)) ||
-                force_block_processing) {
-              message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_colQuantiles(x = x,
-                                                       rows = rows,
-                                                       cols = cols,
-                                                       probs = probs,
-                                                       na.rm = na.rm,
-                                                       type = type,
-                                                       ...,
-                                                       drop = drop))
-            }
-
-            message2("Has seed-aware method", get_verbose())
-            if (isPristine(x)) {
-              message2("Pristine", get_verbose())
-              simple_seed_x <- seed(x)
-            } else {
-              message2("Coercing to seed class", get_verbose())
-              # TODO: do_transpose trick
-              simple_seed_x <- try(from_DelayedArray_to_simple_seed_class(x),
-                                   silent = TRUE)
-              if (is(simple_seed_x, "try-error")) {
-                message2("Unable to coerce to seed class", get_verbose())
-                return(colQuantiles(x = x,
-                                    rows = rows,
-                                    cols = cols,
-                                    probs = probs,
-                                    na.rm = na.rm,
-                                    type = type,
-                                    force_block_processing = TRUE,
-                                    ...,
-                                    drop = drop))
-              }
-            }
-
-            colQuantiles(x = simple_seed_x,
-                         rows = rows,
-                         cols = cols,
-                         probs = probs,
-                         na.rm = na.rm,
-                         type = type,
-                         ...,
-                         drop = drop)
+            .smart_seed_dispatcher(x, generic = "colQuantiles", 
+                                   blockfun = .DelayedMatrix_block_colQuantiles,
+                                   force_block_processing = force_block_processing,
+                                   rows = rows,
+                                   cols = cols,
+                                   probs = probs,
+                                   na.rm = na.rm,
+                                   # type = type, # TODO: wait for SMS to fix.
+                                   ...,
+                                   drop = drop)
           }
 )

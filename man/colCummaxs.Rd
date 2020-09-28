@@ -14,77 +14,21 @@
 \title{Calculates the cumulative maxima for each row (column) of a matrix-like
 object}
 \usage{
-\S4method{colCummaxs}{DelayedMatrix}(
-  x,
-  rows = NULL,
-  cols = NULL,
-  dim. = dim(x),
-  force_block_processing = FALSE,
-  ...
-)
+\S4method{colCummaxs}{DelayedMatrix}(x, rows = NULL, cols = NULL, force_block_processing = FALSE, ...)
 
-\S4method{colCummins}{DelayedMatrix}(
-  x,
-  rows = NULL,
-  cols = NULL,
-  dim. = dim(x),
-  force_block_processing = FALSE,
-  ...
-)
+\S4method{colCummins}{DelayedMatrix}(x, rows = NULL, cols = NULL, force_block_processing = FALSE, ...)
 
-\S4method{colCumprods}{DelayedMatrix}(
-  x,
-  rows = NULL,
-  cols = NULL,
-  dim. = dim(x),
-  force_block_processing = FALSE,
-  ...
-)
+\S4method{colCumprods}{DelayedMatrix}(x, rows = NULL, cols = NULL, force_block_processing = FALSE, ...)
 
-\S4method{colCumsums}{DelayedMatrix}(
-  x,
-  rows = NULL,
-  cols = NULL,
-  dim. = dim(x),
-  force_block_processing = FALSE,
-  ...
-)
+\S4method{colCumsums}{DelayedMatrix}(x, rows = NULL, cols = NULL, force_block_processing = FALSE, ...)
 
-\S4method{rowCummaxs}{DelayedMatrix}(
-  x,
-  rows = NULL,
-  cols = NULL,
-  dim. = dim(x),
-  force_block_processing = FALSE,
-  ...
-)
+\S4method{rowCummaxs}{DelayedMatrix}(x, rows = NULL, cols = NULL, force_block_processing = FALSE, ...)
 
-\S4method{rowCummins}{DelayedMatrix}(
-  x,
-  rows = NULL,
-  cols = NULL,
-  dim. = dim(x),
-  force_block_processing = FALSE,
-  ...
-)
+\S4method{rowCummins}{DelayedMatrix}(x, rows = NULL, cols = NULL, force_block_processing = FALSE, ...)
 
-\S4method{rowCumprods}{DelayedMatrix}(
-  x,
-  rows = NULL,
-  cols = NULL,
-  dim. = dim(x),
-  force_block_processing = FALSE,
-  ...
-)
+\S4method{rowCumprods}{DelayedMatrix}(x, rows = NULL, cols = NULL, force_block_processing = FALSE, ...)
 
-\S4method{rowCumsums}{DelayedMatrix}(
-  x,
-  rows = NULL,
-  cols = NULL,
-  dim. = dim(x),
-  force_block_processing = FALSE,
-  ...
-)
+\S4method{rowCumsums}{DelayedMatrix}(x, rows = NULL, cols = NULL, force_block_processing = FALSE, ...)
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
@@ -96,11 +40,6 @@ done.}
 \item{cols}{A \code{\link{vector}} indicating the subset of rows
 (and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
 done.}
-
-\item{dim.}{An \code{\link{integer}} \code{\link{vector}} of length two
-specifying the dimension of \code{x}, essential when x is a
-\code{\link{numeric}} vector. Note, that this is not a generic
-argument and not all methods need provide it.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
