@@ -4,7 +4,7 @@ Title: Functions that Apply to Rows and Columns of 'DelayedMatrix' Objects
 Version: 1.11.1
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"),
-    person("Hervé", "Pagès", role = "ctb", email = "hpages@fredhutch.org"))
+    person("Hervé", "Pagès", role = "ctb", email = "hpages.on.github@gmail.com"))
 Author: Peter Hickey <peter.hickey@gmail.com>
 Maintainer: Peter Hickey <peter.hickey@gmail.com>
 Description: A port of the 'matrixStats' API for use with DelayedMatrix objects 
