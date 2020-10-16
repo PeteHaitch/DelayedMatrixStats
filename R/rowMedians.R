@@ -17,7 +17,7 @@
 
   # Compute result
   val <- rowblock_APPLY(x = x,
-                        APPLY = matrixStats::rowMedians,
+                        FUN = matrixStats::rowMedians,
                         na.rm = na.rm,
                         ...)
   if (length(val) == 0L) {

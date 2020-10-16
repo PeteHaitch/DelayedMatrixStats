@@ -17,11 +17,11 @@
   x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x = x,
-                                       APPLY = matrixStats::colVars,
-                                       na.rm = na.rm,
-                                       center = center,
-                                       ...)
+  val <- colblock_APPLY(x = x,
+                        FUN = matrixStats::colVars,
+                        na.rm = na.rm,
+                        center = center,
+                        ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }

@@ -20,17 +20,25 @@
   }
 
   # Compute result
-  # NOTE: Use colCollapse() on transposed input
-  val <- DelayedArray:::colblock_APPLY(x = t(x),
-                                       APPLY = matrixStats::colCollapse,
-                                       idxs = idxs,
-                                       ...)
-
+  IDXS <- rep_len(idxs, nrow(x))
+  val <- rowblock_APPLY(x = x,
+                        FUN = .rowCollapse_internal,
+                        idxs = IDXS,
+                        ...)
   if (length(val) == 0L) {
     return(numeric(nrow(x)))
   }
   # NOTE: Return value of matrixStats::rowCollapse() has no names
   unlist(val, recursive = TRUE, use.names = FALSE)
+}
+
+.rowCollapse_internal <- function(x, idxs, ...) {
+    vp <- currentViewport()
+    subset <- makeNindexFromArrayViewport(vp)[[1]]
+    if (!is.null(subset)) {
+        idxs <- idxs[subset]
+    }
+    matrixStats::rowCollapse(x, idxs, ...)
 }
 
 ### ----------------------------------------------------------------------------

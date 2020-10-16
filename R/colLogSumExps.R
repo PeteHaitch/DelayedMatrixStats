@@ -17,10 +17,10 @@
   lx <- ..subset(lx, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x = lx,
-                                       APPLY = matrixStats::colLogSumExps,
-                                       na.rm = na.rm,
-                                       ...)
+  val <- colblock_APPLY(x = lx,
+                        FUN = matrixStats::colLogSumExps,
+                        na.rm = na.rm,
+                        ...)
   if (length(val) == 0L) {
     return(numeric(ncol(lx)))
   }

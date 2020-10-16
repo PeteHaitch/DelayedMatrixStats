@@ -19,7 +19,7 @@
 
   # Compute result
   val <- rowblock_APPLY(x = x,
-                        APPLY = matrixStats::rowAnys,
+                        FUN = matrixStats::rowAnys,
                         value = value,
                         na.rm = na.rm,
                         ...)

@@ -16,9 +16,9 @@
   x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x = x,
-                                       APPLY = matrixStats::colCumsums,
-                                       ...)
+  val <- colblock_APPLY(x = x,
+                        FUN = matrixStats::colCumsums,
+                        ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }

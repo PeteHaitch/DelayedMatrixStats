@@ -18,13 +18,13 @@
     x <- ..subset(x, rows, cols)
 
     # Compute result
-    val <- DelayedArray:::colblock_APPLY(x = x,
-                                         APPLY = matrixStats::colQuantiles,
-                                         probs = probs,
-                                         na.rm = na.rm,
-                                         type = type,
-                                         ...,
-                                         drop = drop)
+    val <- colblock_APPLY(x = x,
+                          FUN = matrixStats::colQuantiles,
+                          probs = probs,
+                          na.rm = na.rm,
+                          type = type,
+                          ...,
+                          drop = drop)
     if (length(val) == 0L) {
       return(numeric(ncol(x)))
     }

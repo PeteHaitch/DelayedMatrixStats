@@ -17,7 +17,7 @@
 
   # Compute result
   val <- rowblock_APPLY(x = x,
-                        APPLY = matrixStats::rowIQRs,
+                        FUN = matrixStats::rowIQRs,
                         na.rm = na.rm,
                         ...)
   if (length(val) == 0L) {

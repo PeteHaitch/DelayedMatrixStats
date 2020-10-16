@@ -16,10 +16,10 @@
   x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x = x,
-                                       APPLY = matrixStats::colOrderStats,
-                                       which = which,
-                                       ...)
+  val <- colblock_APPLY(x = x,
+                        FUN = matrixStats::colOrderStats,
+                        which = which,
+                        ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }

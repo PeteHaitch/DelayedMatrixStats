@@ -17,7 +17,7 @@
 
   # Compute result
   val <- rowblock_APPLY(x = x,
-                        APPLY = matrixStats::rowOrderStats,
+                        FUN = matrixStats::rowOrderStats,
                         which = which,
                         ...)
   if (length(val) == 0L) {

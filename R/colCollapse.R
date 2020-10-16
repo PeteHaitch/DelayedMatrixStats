@@ -19,19 +19,25 @@
   }
 
   # Compute result
-  # NOTE: This uses a hacky implementation of DelayedArray:::colblock_MAPPLY()
   IDXS <- rep_len(idxs, ncol(x))
-  val <- lapply(seq_along(IDXS), function(i) {
-    DelayedArray:::colblock_APPLY(x = x[, i, drop = FALSE],
-                                  APPLY = matrixStats::colCollapse,
-                                  idxs = IDXS[i],
-                                  ...)
-  })
+  val <- colblock_APPLY(x = x, 
+                        FUN = .colCollapse_internal, 
+                        idxs = IDXS, 
+                        ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
   # NOTE: Return value of matrixStats::colCollapse() has no names
   unlist(val, recursive = TRUE, use.names = FALSE)
+}
+
+.colCollapse_internal <- function(x, idxs, ...) {
+    vp <- currentViewport()
+    subset <- makeNindexFromArrayViewport(vp)[[2]]
+    if (!is.null(subset)) {
+        idxs <- idxs[subset]
+    }
+    matrixStats::colCollapse(x, idxs, ...)
 }
 
 ### ----------------------------------------------------------------------------

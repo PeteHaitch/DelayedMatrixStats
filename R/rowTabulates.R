@@ -20,22 +20,22 @@
     # NOTE: Need to compute values from entire x (not block-by-block)
     values <- sort(
       unique(
-        unlist(DelayedArray:::colblock_APPLY(x = x,
-                                             APPLY = function(x) {
-                                               unique(as.vector(x))
-                                             }),
+        unlist(rowblock_APPLY(x = x,
+                              FUN = function(x) {
+                                unique(as.vector(x))
+                              }),
                use.names = FALSE)),
       na.last = TRUE)
   }
-  val <- DelayedArray:::colblock_APPLY(x = x,
-                                       APPLY = matrixStats::rowTabulates,
-                                       values = values,
-                                       ...)
+  val <- rowblock_APPLY(x = x,
+                        FUN = matrixStats::rowTabulates,
+                        values = values,
+                        ...)
   if (length(val) == 0L) {
-    return(numeric(ncol(x)))
+    return(matrix(0L,0,0))
   }
   # NOTE: Return value of matrixStats::rowTabulates() has names
-  Reduce(`+`, val)
+  do.call(rbind, val)
 }
 
 ### ----------------------------------------------------------------------------
