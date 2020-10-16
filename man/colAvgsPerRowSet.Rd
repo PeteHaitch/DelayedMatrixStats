@@ -83,8 +83,8 @@ rowAvgsPerColSet(dm_DF, S = matrix(1:2, ncol = 1))
 }
 \seealso{
 \itemize{
-\item \code{matrixStats::\link[matrixStats]{rowAvgsPerColSet}()} and
-\code{matrixStats::\link[matrixStats:rowAvgsPerColSet]{colAvgsPerRowSet}()}
+\item \code{matrixStats::\link[matrixStats:rowAvgsPerColSet]{rowAvgsPerColSet}()}
+and \code{matrixStats::\link[matrixStats:rowAvgsPerColSet]{colAvgsPerRowSet}()}
 which are used when the input is a \code{matrix} or \code{numeric} vector.
 }
 }
