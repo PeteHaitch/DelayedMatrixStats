@@ -47,6 +47,7 @@
 #
 
 #' @inherit MatrixGenerics::rowTabulates
+#' @importFrom DelayedArray type
 #' @importMethodsFrom DelayedArray seed
 #' @rdname colTabulates
 #' @export

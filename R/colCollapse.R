@@ -31,6 +31,7 @@
   unlist(val, recursive = TRUE, use.names = FALSE)
 }
 
+#' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
 .colCollapse_internal <- function(x, idxs, ...) {
     vp <- currentViewport()
     subset <- makeNindexFromArrayViewport(vp)[[2]]

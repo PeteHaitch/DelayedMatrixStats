@@ -323,10 +323,12 @@ setMethod("subset_by_Nindex", "SolidRleArraySeed",
     identical(as(candidate, "function"), ANY_method)
 }
 
+#' @importFrom DelayedArray blockApply colAutoGrid
 colblock_APPLY <- function(x, ...) {
     blockApply(x, ..., grid=colAutoGrid(x))
 }
 
+#' @importFrom DelayedArray blockApply rowAutoGrid
 rowblock_APPLY <- function(x, ...) {
     blockApply(x, ..., grid=rowAutoGrid(x))
 }
