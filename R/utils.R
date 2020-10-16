@@ -310,12 +310,17 @@ setMethod("subset_by_Nindex", "SolidRleArraySeed",
 .smart_seed_dispatcher <- function(x, generic, blockfun, ..., force_block_processing = FALSE) {
   if (isPristine(x) && !force_block_processing) {
     S <- seed(x)
-    candidate <- getMethod(generic, class(S)[1], optional=TRUE)
-    if (!is.null(candidate)) {
+    candidate <- selectMethod(generic, class(S)[1], optional=TRUE)
+    if (!is.null(candidate) && !.same_as_ANY_method(candidate, generic)) {
        return(candidate(S, ...))
     }
   }
   blockfun(x, ...)
+}
+
+.same_as_ANY_method <- function(candidate, generic) {
+    ANY_method <- as(getMethod(generic, "ANY"), "function")
+    identical(as(candidate, "function"), ANY_method)
 }
 
 colblock_APPLY <- function(x, ...) {
