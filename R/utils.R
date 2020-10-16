@@ -310,10 +310,18 @@ setMethod("subset_by_Nindex", "SolidRleArraySeed",
 .smart_seed_dispatcher <- function(x, generic, blockfun, ..., force_block_processing = FALSE) {
   if (isPristine(x) && !force_block_processing) {
     S <- seed(x)
-    candidate <- selectMethod(generic, class(S)[1], optional=TRUE)
+    candidate <- getMethod(generic, class(S)[1], optional=TRUE)
     if (!is.null(candidate)) {
        return(candidate(S, ...))
     }
   }
   blockfun(x, ...)
+}
+
+colblock_APPLY <- function(x, ...) {
+    blockApply(x, ..., grid=colAutoGrid(x))
+}
+
+rowblock_APPLY <- function(x, ...) {
+    blockApply(x, ..., grid=rowAutoGrid(x))
 }

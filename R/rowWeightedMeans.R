@@ -21,7 +21,7 @@
 
   # Compute result
   val <- rowblock_APPLY(x = x,
-                        APPLY = matrixStats::rowWeightedMeans,
+                        FUN = matrixStats::rowWeightedMeans,
                         w = w,
                         na.rm = na.rm,
                         ...)
@@ -49,43 +49,13 @@
 setMethod("rowWeightedMeans", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {
-            if (!hasMethod("rowWeightedMeans", seedClass(x)) ||
-                force_block_processing) {
-              message2("Block processing", get_verbose())
-              return(.DelayedMatrix_block_rowWeightedMeans(x = x,
-                                                           w = w,
-                                                           rows = rows,
-                                                           cols = cols,
-                                                           na.rm = na.rm,
-                                                           ...))
-            }
-
-            message2("Has seed-aware method", get_verbose())
-            if (isPristine(x)) {
-              message2("Pristine", get_verbose())
-              simple_seed_x <- seed(x)
-            } else {
-              message2("Coercing to seed class", get_verbose())
-              # TODO: do_transpose trick
-              simple_seed_x <- try(from_DelayedArray_to_simple_seed_class(x),
-                                   silent = TRUE)
-              if (is(simple_seed_x, "try-error")) {
-                message2("Unable to coerce to seed class", get_verbose())
-                return(rowWeightedMeans(x = x,
-                                        w = w,
-                                        rows = rows,
-                                        cols = cols,
-                                        na.rm = na.rm,
-                                        force_block_processing = TRUE,
-                                        ...))
-              }
-            }
-
-            rowWeightedMeans(x = simple_seed_x,
-                             w = w,
-                             rows = rows,
-                             cols = cols,
-                             na.rm = na.rm,
-                             ...)
+              .smart_seed_dispatcher(x, generic="rowWeightedMeans",
+                                     blockfun = .DelayedMatrix_block_rowWeightedMeans,
+                                     force_block_processing = force_block_processing,
+                                     w = w,
+                                     rows = rows,
+                                     cols = cols,
+                                     na.rm = na.rm,
+                                     ...)
           }
 )

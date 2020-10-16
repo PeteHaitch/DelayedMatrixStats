@@ -18,7 +18,7 @@
 
   # Compute result
   val <- rowblock_APPLY(x = lx,
-                        APPLY = matrixStats::rowLogSumExps,
+                        FUN = matrixStats::rowLogSumExps,
                         na.rm = na.rm,
                         ...)
   if (length(val) == 0L) {

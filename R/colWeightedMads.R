@@ -21,13 +21,13 @@
   }
 
   # Compute result
-  val <- DelayedArray:::colblock_APPLY(x = x,
-                                       APPLY = matrixStats::colWeightedMads,
-                                       w = w,
-                                       na.rm = na.rm,
-                                       constant = constant,
-                                       center = center,
-                                       ...)
+  val <- colblock_APPLY(x = x,
+                        FUN = matrixStats::colWeightedMads,
+                        w = w,
+                        na.rm = na.rm,
+                        constant = constant,
+                        center = center,
+                        ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }

@@ -19,11 +19,11 @@
     x <- ..subset(x, rows, cols)
 
     # Compute result
-    val <- DelayedArray:::colblock_APPLY(x = x,
-                                         APPLY = matrixStats::colRanks,
-                                         ties.method = ties.method,
-                                         preserveShape = preserveShape,
-                                         ...)
+    val <- colblock_APPLY(x = x,
+                          FUN = matrixStats::colRanks,
+                          ties.method = ties.method,
+                          preserveShape = preserveShape,
+                          ...)
     if (length(val) == 0L) {
       return(numeric(ncol(x)))
     }
