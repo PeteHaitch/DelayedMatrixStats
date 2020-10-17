@@ -18,7 +18,7 @@
 
   # Compute result
   val <- colblock_APPLY(x = x,
-                        FUN = colVars,
+                        FUN = .colVars_internal,
                         na.rm = na.rm,
                         center = center,
                         ...)
@@ -27,6 +27,19 @@
   }
   # NOTE: Return value of matrixStats::colVars() has no names
   unlist(val, recursive = FALSE, use.names = FALSE)
+}
+
+#' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
+.colVars_internal <- function(x, center, ...) {
+    if (!is.null(center)) {
+        block.env <- parent.frame(2)
+        vp <- currentViewport(block.env)
+        subset <- makeNindexFromArrayViewport(vp)[[2]]
+        if (!is.null(subset)) {
+            center <- center[subset]
+        }
+    }
+    colVars(x, center = center, ...)
 }
 
 ### ----------------------------------------------------------------------------

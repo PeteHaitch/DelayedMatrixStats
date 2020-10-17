@@ -22,7 +22,7 @@
 
   # Compute result
   val <- colblock_APPLY(x = x,
-                        FUN = colWeightedMads,
+                        FUN = .colWeightedMads_internal,
                         w = w,
                         na.rm = na.rm,
                         constant = constant,
@@ -33,6 +33,19 @@
   }
   # NOTE: Return value of matrixStats::colWeightedMads() has names
   unlist(val, recursive = FALSE, use.names = TRUE)
+}
+
+#' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
+.colWeightedMads_internal <- function(x, center, ...) {
+    if (!is.null(center)) {
+        block.env <- parent.frame(2)
+        vp <- currentViewport(block.env)
+        subset <- makeNindexFromArrayViewport(vp)[[2]]
+        if (!is.null(subset)) {
+            center <- center[subset]
+        }
+    }
+    colWeightedMads(x, center = center, ...)
 }
 
 ### ----------------------------------------------------------------------------

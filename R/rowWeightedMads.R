@@ -22,17 +22,30 @@
 
   # Compute result
   val <- rowblock_APPLY(x = x,
-                        FUN = rowWeightedMads,
+                        FUN = .rowWeightedMads_internal,
                         w = w,
                         na.rm = na.rm,
                         constant = constant,
                         center = center,
                         ...)
   if (length(val) == 0L) {
-    return(numeric(ncol(x)))
+    return(numeric(nrow(x)))
   }
   # NOTE: Return value of matrixStats::rowWeightedMads() has names
   unlist(val, recursive = FALSE, use.names = TRUE)
+}
+
+#' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
+.rowWeightedMads_internal <- function(x, center, ...) {
+    if (!is.null(center)) {
+        block.env <- parent.frame(2)
+        vp <- currentViewport(block.env)
+        subset <- makeNindexFromArrayViewport(vp)[[1]]
+        if (!is.null(subset)) {
+            center <- center[subset]
+        }
+    }
+    rowWeightedMads(x, center = center, ...)
 }
 
 ### ----------------------------------------------------------------------------
