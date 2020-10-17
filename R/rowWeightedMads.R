@@ -22,7 +22,7 @@
 
   # Compute result
   val <- rowblock_APPLY(x = x,
-                        FUN = matrixStats::rowWeightedMads,
+                        FUN = rowWeightedMads,
                         w = w,
                         na.rm = na.rm,
                         constant = constant,

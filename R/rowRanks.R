@@ -19,7 +19,7 @@
 
     # Compute result
     val <- rowblock_APPLY(x = x,
-                          FUN = matrixStats::rowRanks,
+                          FUN = rowRanks,
                           ties.method = ties.method,
                           ...)
     if (length(val) == 0L) {

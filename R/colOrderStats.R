@@ -17,7 +17,7 @@
 
   # Compute result
   val <- colblock_APPLY(x = x,
-                        FUN = matrixStats::colOrderStats,
+                        FUN = colOrderStats,
                         which = which,
                         ...)
   if (length(val) == 0L) {

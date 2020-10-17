@@ -307,6 +307,7 @@ setMethod("subset_by_Nindex", "SolidRleArraySeed",
 # TODO: subset_by_Nindex,DelayedOp-method
 #       (see extract_array,DelayedOp-method)?
 
+#' @importFrom DelayedArray isPristine
 .smart_seed_dispatcher <- function(x, generic, blockfun, ..., force_block_processing = FALSE) {
   if (isPristine(x) && !force_block_processing) {
     S <- seed(x)
@@ -324,11 +325,20 @@ setMethod("subset_by_Nindex", "SolidRleArraySeed",
 }
 
 #' @importFrom DelayedArray blockApply colAutoGrid
-colblock_APPLY <- function(x, ...) {
-    blockApply(x, ..., grid=colAutoGrid(x))
+colblock_APPLY <- function(x, FUN, ...) {
+    blockApply(x, FUN=.sparse_handler, FUN, ..., as.sparse=NA, grid=colAutoGrid(x))
 }
 
 #' @importFrom DelayedArray blockApply rowAutoGrid
-rowblock_APPLY <- function(x, ...) {
-    blockApply(x, ..., grid=rowAutoGrid(x))
+rowblock_APPLY <- function(x, FUN, ...) {
+    blockApply(x, FUN=.sparse_handler, FUN, ..., as.sparse=NA, grid=rowAutoGrid(x))
+}
+
+#' @importClassesFrom DelayedArray SparseArraySeed
+#' @importClassesFrom Matrix sparseMatrix
+.sparse_handler <- function(x, FUN, ...) {
+    if (is(x, "SparseArraySeed")) {
+        x <- as(x, "sparseMatrix")
+    }
+    FUN(x, ...)
 }

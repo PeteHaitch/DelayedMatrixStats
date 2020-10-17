@@ -17,7 +17,7 @@
 
   # Compute result
   val <- colblock_APPLY(x = x,
-                        FUN = matrixStats::colCumsums,
+                        FUN = colCumsums,
                         ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))

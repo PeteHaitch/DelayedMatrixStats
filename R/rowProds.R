@@ -20,7 +20,7 @@
 
   # Compute result
   val <- rowblock_APPLY(x = x,
-                        FUN = matrixStats::rowProds,
+                        FUN = rowProds,
                         na.rm = na.rm,
                         method = method,
                         ...)

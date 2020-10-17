@@ -17,7 +17,7 @@
 
   # Compute result
   val <- rowblock_APPLY(x = x,
-                        FUN = matrixStats::rowCummaxs,
+                        FUN = rowCummaxs,
                         ...)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))

@@ -17,7 +17,7 @@
 
   # Compute result
   val <- colblock_APPLY(x = x,
-                        FUN = matrixStats::colIQRs,
+                        FUN = colIQRs,
                         na.rm = na.rm,
                         ...)
   if (length(val) == 0L) {

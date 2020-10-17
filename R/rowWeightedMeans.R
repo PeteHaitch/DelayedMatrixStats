@@ -21,7 +21,7 @@
 
   # Compute result
   val <- rowblock_APPLY(x = x,
-                        FUN = matrixStats::rowWeightedMeans,
+                        FUN = rowWeightedMeans,
                         w = w,
                         na.rm = na.rm,
                         ...)

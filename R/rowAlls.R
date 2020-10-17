@@ -18,7 +18,7 @@
 
   # Compute result
   val <- rowblock_APPLY(x = x,
-                        FUN = matrixStats::rowAlls,
+                        FUN = rowAlls,
                         value = value,
                         na.rm = na.rm,
                         ...)

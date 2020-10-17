@@ -34,7 +34,8 @@
 
 #' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
 .rowCollapse_internal <- function(x, idxs, ...) {
-    vp <- currentViewport()
+    block.env <- parent.frame(2)
+    vp <- currentViewport(block.env)
     subset <- makeNindexFromArrayViewport(vp)[[1]]
     if (!is.null(subset)) {
         idxs <- idxs[subset]

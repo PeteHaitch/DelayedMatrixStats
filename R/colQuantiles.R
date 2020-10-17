@@ -19,7 +19,7 @@
 
     # Compute result
     val <- colblock_APPLY(x = x,
-                          FUN = matrixStats::colQuantiles,
+                          FUN = colQuantiles,
                           probs = probs,
                           na.rm = na.rm,
                           type = type,
