@@ -28,7 +28,7 @@
       na.last = TRUE)
   }
   val <- rowblock_APPLY(x = x,
-                        FUN = matrixStats::rowTabulates,
+                        FUN = rowTabulates,
                         values = values,
                         ...)
   if (length(val) == 0L) {

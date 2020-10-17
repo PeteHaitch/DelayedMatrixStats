@@ -18,7 +18,7 @@
 
   # Compute result
   val <- colblock_APPLY(x = x,
-                        FUN = matrixStats::colAlls,
+                        FUN = colAlls,
                         value = value,
                         na.rm = na.rm,
                         ...)

@@ -21,7 +21,7 @@
 
   # Compute result
   val <- colblock_APPLY(x = x,
-                        FUN = matrixStats::colWeightedMedians,
+                        FUN = colWeightedMedians,
                         w = w,
                         na.rm = na.rm,
                         ...)

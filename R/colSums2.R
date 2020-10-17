@@ -17,7 +17,7 @@
 
   # Compute result
   val <- colblock_APPLY(x = x,
-                        FUN = matrixStats::colSums2,
+                        FUN = colSums2,
                         na.rm = na.rm,
                         ...)
   if (length(val) == 0L) {

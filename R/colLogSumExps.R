@@ -18,7 +18,7 @@
 
   # Compute result
   val <- colblock_APPLY(x = lx,
-                        FUN = matrixStats::colLogSumExps,
+                        FUN = colLogSumExps,
                         na.rm = na.rm,
                         ...)
   if (length(val) == 0L) {
