@@ -18,16 +18,29 @@
 
   # Compute result
   val <- rowblock_APPLY(x = x,
-                        FUN = rowMads,
+                        FUN = .rowMads_internal,
                         center = center,
                         constant = constant,
                         na.rm = na.rm,
                         ...)
   if (length(val) == 0L) {
-    return(numeric(ncol(x)))
+    return(numeric(nrow(x)))
   }
   # NOTE: Return value of matrixStats::rowMads() has no names
   unlist(val, recursive = FALSE, use.names = FALSE)
+}
+
+#' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
+.rowMads_internal <- function(x, center, ...) {
+    if (!is.null(center)) {
+        block.env <- parent.frame(2)
+        vp <- currentViewport(block.env)
+        subset <- makeNindexFromArrayViewport(vp)[[1]]
+        if (!is.null(subset)) {
+            center <- center[subset]
+        }
+    }
+    rowMads(x, center = center, ...)
 }
 
 ### ----------------------------------------------------------------------------

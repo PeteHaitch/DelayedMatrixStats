@@ -18,7 +18,7 @@
 
   # Compute result
   val <- colblock_APPLY(x = x,
-                        FUN = colMads,
+                        FUN = .colMads_internal,
                         center = center,
                         constant = constant,
                         na.rm = na.rm,
@@ -28,6 +28,19 @@
   }
   # NOTE: Return value of matrixStats::colMads() has no names
   unlist(val, recursive = FALSE, use.names = FALSE)
+}
+
+#' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
+.colMads_internal <- function(x, center, ...) {
+    if (!is.null(center)) {
+        block.env <- parent.frame(2)
+        vp <- currentViewport(block.env)
+        subset <- makeNindexFromArrayViewport(vp)[[2]]
+        if (!is.null(subset)) {
+            center <- center[subset]
+        }
+    }
+    colMads(x, center = center, ...)
 }
 
 ### ----------------------------------------------------------------------------
