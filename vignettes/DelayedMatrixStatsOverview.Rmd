@@ -124,32 +124,37 @@ availability of ['seed-aware' methods](#seed_aware_methods) in the current
 version of `r Biocpkg("DelayedMatrixStats")`, where:
 
 - ✔ = Implemented in `r Biocpkg("DelayedMatrixStats")`
-- ☑️ = Implemented in `r Biocpkg("DelayedArray")`
-- ❌ = Not yet impelemented
+- ☑️ = Implemented in [**DelayedArray**](http://bioconductor.org/packages/DelayedArray/) or [**sparseMatrixStats**](http://bioconductor.org/packages/sparseMatrixStats/)
+- ❌ = Not yet implemented
 
 [^api]: Some of the API is covered via inheritance to functionality in `r Biocpkg("DelayedArray")`
 
 
 ```{r API, echo = FALSE}
-matrixStats <- sort(grep("^(col|row)", 
-                         getNamespaceExports("matrixStats"), 
-                         value = TRUE))
+matrixStats <- sort(
+  c("colsum", "rowsum", grep("^(col|row)", 
+                             getNamespaceExports("matrixStats"), 
+                             value = TRUE)))
+sparseMatrixStats <- getNamespaceExports("sparseMatrixStats")
 DelayedMatrixStats <- getNamespaceExports("DelayedMatrixStats")
 DelayedArray <- getNamespaceExports("DelayedArray")
 
 api_df <- data.frame(
   Method = paste0("`", matrixStats, "()`"),
-  `Block processing` = ifelse(matrixStats %in% DelayedMatrixStats,
-                              "✔",
-                              ifelse(matrixStats %in% DelayedArray, 
-                                     "☑️",
-                                     "❌")),
+  `Block processing` = ifelse(
+    matrixStats %in% DelayedMatrixStats,
+    "✔",
+    ifelse(matrixStats %in% c(DelayedArray, sparseMatrixStats), "☑️", "❌")),
   `_base::matrix_ optimized` = 
-    ifelse(sapply(matrixStats, existsMethod, signature = "matrix"), 
+    ifelse(sapply(matrixStats, existsMethod, signature = "matrix_OR_array_OR_table_OR_numeric"), 
            "✔", 
            "❌"),
-  `_Matrix::Matrix_ optimized` = 
-    ifelse(sapply(matrixStats, existsMethod, signature = "Matrix"), 
+  `_Matrix::dgCMatrix_ optimized` = 
+    ifelse(sapply(matrixStats, existsMethod, signature = "xgCMatrix") | sapply(matrixStats, existsMethod, signature = "dgCMatrix"), 
+           "✔", 
+           "❌"),
+  `_Matrix::lgCMatrix_ optimized` = 
+    ifelse(sapply(matrixStats, existsMethod, signature = "xgCMatrix") | sapply(matrixStats, existsMethod, signature = "lgCMatrix"), 
            "✔", 
            "❌"),
   `_DelayedArray::RleArray_ (_SolidRleArraySeed_) optimized` = 
@@ -205,7 +210,7 @@ substantially lower total memory.
 
 ```{r benchmarking, message = FALSE, echo = TRUE, error = TRUE}
 library(DelayedMatrixStats)
-library(Matrix)
+library(sparseMatrixStats)
 library(microbenchmark)
 library(profmem)
 

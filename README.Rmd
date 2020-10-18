@@ -1,7 +1,7 @@
 ---
 output: github_document
 editor_options: 
-chunk_output_type: console
+  chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -58,14 +58,14 @@ object:
 
 ```{r real_pkg_load, message = FALSE, echo = FALSE}
 devtools::load_all()
-library(Matrix)
+library(sparseMatrixStats)
 library(microbenchmark)
 library(profmem)
 ```
 
 ```{r fake_pkg_load, message = FALSE, echo = TRUE, eval = FALSE}
 library(DelayedMatrixStats)
-library(Matrix)
+library(sparseMatrixStats)
 library(microbenchmark)
 library(profmem)
 ```
@@ -81,8 +81,8 @@ dense_matrix
 microbenchmark(DelayedArray::colSums(dense_matrix),
                DelayedMatrixStats::colSums2(dense_matrix),
                times = 10)
-# profmem::total(profmem::profmem(DelayedArray::colSums(dense_matrix)))
-# profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(dense_matrix)))
+profmem::total(profmem::profmem(DelayedArray::colSums(dense_matrix)))
+profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(dense_matrix)))
 
 # Fast, low-memory column sums of DelayedMatrix with sparse matrix seed
 sparse_matrix <- seed(dense_matrix)
@@ -94,8 +94,8 @@ sparse_matrix
 microbenchmark(DelayedArray::colSums(sparse_matrix),
                DelayedMatrixStats::colSums2(sparse_matrix),
                times = 10)
-# profmem::total(profmem::profmem(DelayedArray::colSums(sparse_matrix)))
-# profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(sparse_matrix)))
+profmem::total(profmem::profmem(DelayedArray::colSums(sparse_matrix)))
+profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(sparse_matrix)))
 
 # Fast column sums of DelayedMatrix with Rle-based seed
 rle_matrix <- RleArray(Rle(sample(2L, 200000 * 6 / 10, replace = TRUE), 100),
@@ -105,8 +105,8 @@ rle_matrix
 microbenchmark(DelayedArray::colSums(rle_matrix),
                DelayedMatrixStats::colSums2(rle_matrix),
                times = 10)
-# profmem::total(profmem::profmem(DelayedArray::colSums(rle_matrix)))
-# profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(rle_matrix)))
+profmem::total(profmem::profmem(DelayedArray::colSums(rle_matrix)))
+profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(rle_matrix)))
 ```
 
 ## Benchmarking
@@ -116,37 +116,34 @@ An extensive set of benchmarks is under development at [http://peterhickey.org/B
 ## API coverage
 
 - ✔ = Implemented in **DelayedMatrixStats**
-- ☑️ = Implemented in [**DelayedArray**](http://bioconductor.org/packages/DelayedArray/)
-- ❌: = Not yet impelemented
+- ☑️ = Implemented in [**DelayedArray**](http://bioconductor.org/packages/DelayedArray/) or [**sparseMatrixStats**](http://bioconductor.org/packages/sparseMatrixStats/)
+- ❌: = Not yet implemented
 
 ```{r, echo = FALSE, comment="", results = "asis"}
 matrixStats <- sort(
   c("colsum", "rowsum", grep("^(col|row)", 
                              getNamespaceExports("matrixStats"), 
                              value = TRUE)))
-# TODO: A better way of parsing DelayedMatrixStats NAMESPACE to get exported 
-#       functions (will also need internal functions for api_df)
-DelayedMatrixStats <- readLines("NAMESPACE")
-DelayedMatrixStats <- gsub("exportMethods|\\(|\\)", 
-                           "",
-                           grep("^exportMethods", 
-                                DelayedMatrixStats, 
-                                value = TRUE))
+sparseMatrixStats <- getNamespaceExports("sparseMatrixStats")
+DelayedMatrixStats <- getNamespaceExports("DelayedMatrixStats")
 DelayedArray <- getNamespaceExports("DelayedArray")
 
 api_df <- data.frame(
   Method = paste0("`", matrixStats, "()`"),
-  `Block processing` = ifelse(matrixStats %in% DelayedMatrixStats,
-                              "✔",
-                              ifelse(matrixStats %in% DelayedArray, 
-                                     "☑️",
-                                     "❌")),
+  `Block processing` = ifelse(
+    matrixStats %in% DelayedMatrixStats,
+    "✔",
+    ifelse(matrixStats %in% c(DelayedArray, sparseMatrixStats), "☑️", "❌")),
   `_base::matrix_ optimized` = 
-    ifelse(sapply(matrixStats, existsMethod, signature = "matrix"), 
+    ifelse(sapply(matrixStats, existsMethod, signature = "matrix_OR_array_OR_table_OR_numeric"), 
            "✔", 
            "❌"),
-  `_Matrix::Matrix_ optimized` = 
-    ifelse(sapply(matrixStats, existsMethod, signature = "Matrix"), 
+  `_Matrix::dgCMatrix_ optimized` = 
+    ifelse(sapply(matrixStats, existsMethod, signature = "xgCMatrix") | sapply(matrixStats, existsMethod, signature = "dgCMatrix"), 
+           "✔", 
+           "❌"),
+  `_Matrix::lgCMatrix_ optimized` = 
+    ifelse(sapply(matrixStats, existsMethod, signature = "xgCMatrix") | sapply(matrixStats, existsMethod, signature = "lgCMatrix"), 
            "✔", 
            "❌"),
   `_DelayedArray::RleArray_ (_SolidRleArraySeed_) optimized` = 
