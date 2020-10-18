@@ -3,6 +3,8 @@
 \encoding{UTF-8}
 
 \section{Version 1.12.0}{\itemize{
+  \item Dispatch to \pkg{sparseMatrixStats} for sparse seeds that do not have their own methods (\url{https://github.com/PeteHaitch/DelayedMatrixStats/pull/65}).
+  \item Fix \code{center=} handling for all affected functions (\url{https://github.com/PeteHaitch/DelayedMatrixStats/pull/65}).
   \item \pkg{DelayedMatrixStats} now imports the generics from \pkg{MatrixGenerics}. Thanks to Aaron Lun resolving this (\url{https://github.com/PeteHaitch/DelayedMatrixStats/pull/62}).
 }}
 
