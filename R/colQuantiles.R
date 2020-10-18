@@ -64,7 +64,7 @@ setMethod("colQuantiles", "DelayedMatrix",
                    probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE,
                    type = 7L, force_block_processing = FALSE, ...,
                    drop = TRUE) {
-            .smart_seed_dispatcher(x, generic = "colQuantiles", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colQuantiles, 
                                    blockfun = .DelayedMatrix_block_colQuantiles,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

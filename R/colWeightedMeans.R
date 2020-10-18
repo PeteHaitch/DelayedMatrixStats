@@ -56,7 +56,7 @@
 setMethod("colWeightedMeans", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = "colWeightedMeans", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colWeightedMeans, 
                                    blockfun = .DelayedMatrix_block_colWeightedMeans,
                                    force_block_processing = force_block_processing,
                                    w = w,

@@ -49,7 +49,7 @@
 setMethod("rowMadDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
                    trim = 0, force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = "rowMadDiffs", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::rowMadDiffs, 
                                    blockfun = .DelayedMatrix_block_rowMadDiffs,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

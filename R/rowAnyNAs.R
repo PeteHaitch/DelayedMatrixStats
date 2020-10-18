@@ -21,7 +21,7 @@
 setMethod("rowAnyNAs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, force_block_processing = FALSE,
                    ...) {
-            .smart_seed_dispatcher(x, generic = "rowAnyNAs", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::rowAnyNAs, 
                                    blockfun = .DelayedMatrix_block_rowAnyNAs,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

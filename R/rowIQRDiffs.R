@@ -49,7 +49,7 @@
 setMethod("rowIQRDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
                    trim = 0, force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = "rowIQRDiffs", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::rowIQRDiffs, 
                                    blockfun = .DelayedMatrix_block_rowIQRDiffs,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

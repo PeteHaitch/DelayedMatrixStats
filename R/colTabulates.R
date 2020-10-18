@@ -65,7 +65,7 @@ setMethod("colTabulates", "DelayedMatrix",
               stop("Argument 'x' is not of type integer, logical, or raw",
                    " (type = ", type(x), ")")
             }
-            .smart_seed_dispatcher(x, generic = "colTabulates", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colTabulates, 
                                    blockfun = .DelayedMatrix_block_colTabulates,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

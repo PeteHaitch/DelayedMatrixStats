@@ -51,7 +51,7 @@ setMethod("colProds", "DelayedMatrix",
                    method = c("direct", "expSumLog"),
                    force_block_processing = FALSE, ...) {
             method <- match.arg(method)
-            .smart_seed_dispatcher(x, generic = "colProds", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colProds, 
                                    blockfun = .DelayedMatrix_block_colProds,
                                    force_block_processing = force_block_processing,
                                    rows = rows,
