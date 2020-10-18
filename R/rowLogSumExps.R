@@ -46,7 +46,7 @@
 setMethod("rowLogSumExps", "DelayedMatrix",
           function(lx, rows = NULL, cols = NULL, na.rm = FALSE, 
                    force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(lx, generic = "rowLogSumExps", 
+            .smart_seed_dispatcher(lx, generic = MatrixGenerics::rowLogSumExps, 
                                    blockfun = .DelayedMatrix_block_rowLogSumExps,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

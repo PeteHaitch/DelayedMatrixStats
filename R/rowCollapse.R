@@ -65,7 +65,7 @@
 setMethod("rowCollapse", "DelayedMatrix",
           function(x, idxs, rows = NULL, 
                    force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = "rowCollapse", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::rowCollapse, 
                                    blockfun = .DelayedMatrix_block_rowCollapse,
                                    force_block_processing = force_block_processing,
                                    idxs = idxs,

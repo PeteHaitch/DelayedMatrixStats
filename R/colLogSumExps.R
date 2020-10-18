@@ -49,7 +49,7 @@
 setMethod("colLogSumExps", "DelayedMatrix",
           function(lx, rows = NULL, cols = NULL, na.rm = FALSE, 
                    force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(lx, generic = "colLogSumExps", 
+            .smart_seed_dispatcher(lx, generic = MatrixGenerics::colLogSumExps, 
                                    blockfun = .DelayedMatrix_block_colLogSumExps,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

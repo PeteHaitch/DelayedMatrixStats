@@ -65,7 +65,7 @@
 setMethod("colVars", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, center = NULL,
                    force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = "colVars", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colVars, 
                                    blockfun = .DelayedMatrix_block_colVars,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

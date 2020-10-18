@@ -53,7 +53,7 @@
 setMethod("rowMeans2", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, 
                    force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = "rowMeans2", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::rowMeans2, 
                                    blockfun = .DelayedMatrix_block_rowMeans2,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

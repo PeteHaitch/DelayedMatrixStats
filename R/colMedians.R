@@ -49,7 +49,7 @@
 setMethod("colMedians", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, 
                    force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = "colMedians", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colMedians, 
                                    blockfun = .DelayedMatrix_block_colMedians,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

@@ -45,7 +45,7 @@
 setMethod("colCumprods", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
                    force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = "colCumprods", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colCumprods, 
                                    blockfun = .DelayedMatrix_block_colCumprods,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

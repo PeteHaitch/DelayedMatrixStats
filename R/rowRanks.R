@@ -49,7 +49,7 @@ setMethod("rowRanks", "DelayedMatrix",
                    ties.method = c("max", "average", "first", "last", "random", "max", "min", "dense"),
                    force_block_processing = FALSE, ...) {
             ties.method <- match.arg(ties.method)
-            .smart_seed_dispatcher(x, generic = "rowRanks", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::rowRanks, 
                                    blockfun = .DelayedMatrix_block_rowRanks,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

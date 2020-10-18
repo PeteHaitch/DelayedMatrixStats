@@ -50,7 +50,7 @@
 setMethod("colIQRs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = "colIQRs", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colIQRs, 
                                    blockfun = .DelayedMatrix_block_colIQRs,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

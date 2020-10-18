@@ -49,7 +49,7 @@
 setMethod("rowCounts", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
                    force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = "rowCounts", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::rowCounts, 
                                    blockfun = .DelayedMatrix_block_rowCounts,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

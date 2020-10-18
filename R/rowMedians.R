@@ -45,7 +45,7 @@
 setMethod("rowMedians", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, 
                    force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = "rowMedians", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::rowMedians, 
                                    blockfun = .DelayedMatrix_block_rowMedians,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

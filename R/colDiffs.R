@@ -53,7 +53,7 @@
 setMethod("colDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, lag = 1L, differences = 1L,
                    force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = "colDiffs", 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colDiffs, 
                                    blockfun = .DelayedMatrix_block_colDiffs,
                                    force_block_processing = force_block_processing,
                                    rows = rows,

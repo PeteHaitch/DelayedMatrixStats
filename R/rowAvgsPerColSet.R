@@ -63,7 +63,7 @@
 setMethod("rowAvgsPerColSet", "DelayedMatrix",
           function(X, W = NULL, rows = NULL, S, FUN = rowMeans, ...,
                    force_block_processing = FALSE, tFUN = FALSE) {
-            .smart_seed_dispatcher(X, generic = "rowAvgsPerColSet", 
+            .smart_seed_dispatcher(X, generic = MatrixGenerics::rowAvgsPerColSet, 
                                    blockfun = .DelayedMatrix_block_rowAvgsPerColSet,
                                    force_block_processing = force_block_processing,
                                    W = W,
