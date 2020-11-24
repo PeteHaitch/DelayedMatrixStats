@@ -37,7 +37,7 @@
     vp <- currentViewport(block.env)
     subset <- makeNindexFromArrayViewport(vp)[[2]]
     if (!is.null(subset)) {
-        idxs <- idxs[subset]
+        idxs <- idxs[as.integer(subset)]
     }
     matrixStats::colCollapse(x, idxs, ...)
 }

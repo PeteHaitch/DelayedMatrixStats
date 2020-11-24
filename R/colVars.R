@@ -13,7 +13,18 @@
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
 
-  # Subset
+  # Check and subset 'center' (must be either NULL, or a numeric vector of
+  # length 1 or 'ncol(x)')
+  if (!is.null(center)) {
+    stopifnot(is.numeric(center))
+    if (length(center) != 1L) {
+      stopifnot(length(center) == ncol(x))
+      if (!is.null(cols))
+        center <- center[cols]
+    }
+  }
+
+  # Subset 'x'
   x <- ..subset(x, rows, cols)
 
   # Compute result
@@ -31,12 +42,12 @@
 
 #' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
 .colVars_internal <- function(x, center, ...) {
-    if (!is.null(center)) {
+    if (!is.null(center) && length(center) != 1L) {
         block.env <- parent.frame(2)
         vp <- currentViewport(block.env)
         subset <- makeNindexFromArrayViewport(vp)[[2]]
         if (!is.null(subset)) {
-            center <- center[subset]
+            center <- center[as.integer(subset)]
         }
     }
     colVars(x, center = center, ...)
