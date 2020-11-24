@@ -13,11 +13,19 @@
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
 
-  # Subset
-  x <- ..subset(x, rows, cols)
-  if (!is.null(w) && !is.null(rows)) {
-    w <- w[rows]
+  # Check and subset 'w' (must be either NULL, or a numeric vector of
+  # length 1 or 'nrow(x)')
+  if (!is.null(w)) {
+    stopifnot(is.numeric(w))
+    if (length(w) != 1L) {
+      stopifnot(length(w) == nrow(x))
+      if (!is.null(rows))
+        w <- w[rows]
+    }
   }
+
+  # Subset 'x'
+  x <- ..subset(x, rows, cols)
 
   # Compute result
   val <- colblock_APPLY(x = x,
