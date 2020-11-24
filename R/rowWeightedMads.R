@@ -14,11 +14,30 @@
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
 
-  # Subset
-  x <- ..subset(x, rows, cols)
-  if (!is.null(w) && !is.null(cols)) {
-    w <- w[cols]
+  # Check and subset 'w' (must be either NULL, or a numeric vector of
+  # length 1 or 'ncol(x)')
+  if (!is.null(w)) {
+    stopifnot(is.numeric(w))
+    if (length(w) != 1L) {
+      stopifnot(length(w) == ncol(x))
+      if (!is.null(cols))
+        w <- w[cols]
+    }
   }
+
+  # Check and subset 'center' (must be either NULL, or a numeric vector of
+  # length 1 or 'nrow(x)')
+  if (!is.null(center)) {
+    stopifnot(is.numeric(center))
+    if (length(center) != 1L) {
+      stopifnot(length(center) == nrow(x))
+      if (!is.null(rows))
+        center <- center[rows]
+    }
+  }
+
+  # Subset 'x'
+  x <- ..subset(x, rows, cols)
 
   # Compute result
   val <- rowblock_APPLY(x = x,
@@ -37,12 +56,12 @@
 
 #' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
 .rowWeightedMads_internal <- function(x, center, ...) {
-    if (!is.null(center)) {
+    if (!is.null(center) && length(center) != 1L) {
         block.env <- parent.frame(2)
         vp <- currentViewport(block.env)
         subset <- makeNindexFromArrayViewport(vp)[[1]]
         if (!is.null(subset)) {
-            center <- center[subset]
+            center <- center[as.integer(subset)]
         }
     }
     rowWeightedMads(x, center = center, ...)
