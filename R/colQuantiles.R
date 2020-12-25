@@ -24,18 +24,18 @@
                           na.rm = na.rm,
                           type = type,
                           ...,
-                          drop = drop)
+                          drop = FALSE)
+
     if (length(val) == 0L) {
       return(numeric(ncol(x)))
     }
-    # NOTE: Return value of matrixStats::colQuantiles() is a vector if input is
-    #       a column vector (matrix with 1 column);
-    #       see https://github.com/HenrikBengtsson/matrixStats/issues/123
-    if (ncol(x) == 1L) {
-      return(unlist(val))
-    }
+
     val <- do.call(rbind, val)
     rownames(val) <- colnames(x)
+
+    if (drop && any(dim(val)==1L)) {
+      return(drop(val))
+    }
     val
   }
 
