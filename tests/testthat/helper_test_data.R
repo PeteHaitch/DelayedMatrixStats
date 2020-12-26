@@ -123,7 +123,7 @@ delayed_op_seeds <- c(
   "DelayedAperm",
   "DelayedUnaryIsoOpStack",
   "DelayedUnaryIsoOpWithArgs",
-  "DelayedDimnames",
+  "DelayedSetDimnames",
   "DelayedNaryIsoOp",
   "DelayedAbind")
 seed_classes <- data_seeds
@@ -170,8 +170,8 @@ seedFunFactory <- function(seed_class) {
     "DelayedAperm" = DelayedArray:::new_DelayedAperm,
     "DelayedUnaryIsoOpStack" = DelayedArray:::new_DelayedUnaryIsoOpStack,
     "DelayedUnaryIsoOpWithArgs" = DelayedArray:::new_DelayedUnaryIsoOpWithArgs,
-    "DelayedDimnames" = function(x) {
-      DelayedArray:::new_DelayedDimnames(seed = x, dimnames = dimnames(x))
+    "DelayedSetDimnames" = function(x) {
+      DelayedArray:::new_DelayedSetDimnames(seed = x, dimnames = dimnames(x))
     },
     "DelayedNaryIsoOp" = function(x) DelayedArray:::new_DelayedNaryIsoOp(seed=x),
     "DelayedAbind" = function(x) {
