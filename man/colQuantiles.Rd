@@ -46,9 +46,7 @@ done.}
 are excluded first, otherwise not.}
 
 \item{type}{An integer specifying the type of estimator. See
-\code{stats::\link[stats]{quantile}()}. for more details. Note, that this
-is not a generic argument and not all implementation of this function have
-to provide it.}
+\code{stats::\link[stats]{quantile}()}. for more details.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -59,9 +57,7 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 
 \item{...}{Additional arguments passed to specific methods.}
 
-\item{drop}{If \code{TRUE} a vector is returned if \code{J == 1}.
-Note, that this is not a generic argument and not all implementation of
-this function have to provide it.}
+\item{drop}{If \code{TRUE} a vector is returned if \code{J == 1}.}
 }
 \value{
 a \code{\link{numeric}} \code{NxJ} (\code{KxJ})
