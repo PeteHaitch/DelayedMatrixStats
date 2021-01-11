@@ -2,6 +2,11 @@
 \title{News for Package \pkg{DelayedMatrixStats}}
 \encoding{UTF-8}
 
+\section{Version 1.14.0}{\itemize{
+  \item Correct handling of \code{drop=} by quantile functions (\url{https://github.com/PeteHaitch/DelayedMatrixStats/pull/71}).
+  \item Fix 2 issues with how the \code{center} argument is handled (\url{https://github.com/PeteHaitch/DelayedMatrixStats/pull/69}).
+}}
+
 \section{Version 1.12.0}{\itemize{
   \item Dispatch to \pkg{sparseMatrixStats} for sparse seeds that do not have their own methods (\url{https://github.com/PeteHaitch/DelayedMatrixStats/pull/65}).
   \item Fix \code{center=} handling for all affected functions (\url{https://github.com/PeteHaitch/DelayedMatrixStats/pull/65}).
