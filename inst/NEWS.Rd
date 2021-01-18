@@ -3,6 +3,7 @@
 \encoding{UTF-8}
 
 \section{Version 1.14.0}{\itemize{
+  \item \pkg{DelayedMatrixStats} no longer has a hard requirement on \pkg{HDF5Array} or \pkg{BiocParallel}.
   \item Correct handling of \code{drop=} by quantile functions (\url{https://github.com/PeteHaitch/DelayedMatrixStats/pull/71}).
   \item Fix 2 issues with how the \code{center} argument is handled (\url{https://github.com/PeteHaitch/DelayedMatrixStats/pull/69}).
 }}
