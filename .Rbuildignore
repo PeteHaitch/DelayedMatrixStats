@@ -8,3 +8,5 @@
 ^matter_stuff$
 ^man-roxygen$
 ^buggy$
+.BBSoptions
+longtests/
