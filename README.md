@@ -16,9 +16,8 @@ package.
 
 For a *DelayedMatrix*, `x`, the simplest way to apply a function, `f()`,
 from **matrixStats** is`matrixStats::f(as.matrix(x))`. However, this
-“*realizes*” `x` in memory as a *base::matrix*, which typically
-defeats the entire purpose of using a *DelayedMatrix* for storing the
-data.
+“*realizes*” `x` in memory as a *base::matrix*, which typically defeats
+the entire purpose of using a *DelayedMatrix* for storing the data.
 
 The **DelayedArray** package already implements a clever strategy called
 “block-processing” for certain common “matrix stats” operations (e.g. 
@@ -51,10 +50,6 @@ This example compares two ways of computing column sums of a
     implemented in the **DelayedMatrixStats** package. The seed-aware
     implementation is optimized for both speed and memory but only for
     *DelayedMatrix* objects with certain types of *seed*.
-
-<!-- end list -->
-
-    #> Warning: package 'sparseMatrixStats' was built under R version 4.0.3
 
 ``` r
 library(DelayedMatrixStats)
@@ -90,11 +85,11 @@ microbenchmark(DelayedArray::colSums(dense_matrix),
                times = 10)
 #> Unit: milliseconds
 #>                                        expr      min       lq      mean
-#>         DelayedArray::colSums(dense_matrix) 58.10028 69.00577 143.70237
-#>  DelayedMatrixStats::colSums2(dense_matrix) 13.60972 15.11668  19.23493
-#>    median        uq       max neval cld
-#>  81.08308 100.81742 414.00737    10   b
-#>  16.10312  25.42459  30.91184    10  a
+#>         DelayedArray::colSums(dense_matrix) 56.38951 64.86599 133.35052
+#>  DelayedMatrixStats::colSums2(dense_matrix) 13.17369 13.42267  16.13503
+#>    median       uq       max neval
+#>  69.60622 99.45897 387.84531    10
+#>  13.62974 19.31188  26.88653    10
 profmem::total(profmem::profmem(DelayedArray::colSums(dense_matrix)))
 #> [1] 96105416
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(dense_matrix)))
@@ -127,12 +122,12 @@ microbenchmark(DelayedArray::colSums(sparse_matrix),
                DelayedMatrixStats::colSums2(sparse_matrix),
                times = 10)
 #> Unit: milliseconds
-#>                                         expr       min        lq      mean
-#>         DelayedArray::colSums(sparse_matrix) 250.41540 297.64721 504.14460
-#>  DelayedMatrixStats::colSums2(sparse_matrix)  15.45005  15.52633  17.30676
-#>     median        uq       max neval cld
-#>  489.64900 639.84463 945.35155    10   b
-#>   16.13531  16.41159  26.49614    10  a
+#>                                         expr       min         lq       mean
+#>         DelayedArray::colSums(sparse_matrix) 244.80755 283.351854 462.626259
+#>  DelayedMatrixStats::colSums2(sparse_matrix)   5.88743   6.336195   9.073628
+#>     median        uq       max neval
+#>  447.99469 570.09305 899.81807    10
+#>    6.47515  14.54563  16.28401    10
 profmem::total(profmem::profmem(DelayedArray::colSums(sparse_matrix)))
 #> [1] 249647176
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(sparse_matrix)))
@@ -163,12 +158,12 @@ microbenchmark(DelayedArray::colSums(rle_matrix),
                DelayedMatrixStats::colSums2(rle_matrix),
                times = 10)
 #> Unit: milliseconds
-#>                                      expr        min         lq      mean
-#>         DelayedArray::colSums(rle_matrix) 636.779156 659.794020 700.62470
-#>  DelayedMatrixStats::colSums2(rle_matrix)   4.482569   5.028546  14.81272
-#>      median         uq       max neval cld
-#>  677.413206 699.000029 842.93055    10   b
-#>    5.689509   6.471868  84.09537    10  a
+#>                                      expr        min         lq     mean
+#>         DelayedArray::colSums(rle_matrix) 556.293150 560.138822 586.0082
+#>  DelayedMatrixStats::colSums2(rle_matrix)   4.113903   4.299225  13.5635
+#>     median       uq       max neval
+#>  577.59867 598.8189 639.46499    10
+#>    4.71228  14.2334  72.94384    10
 profmem::total(profmem::profmem(DelayedArray::colSums(rle_matrix)))
 #> [1] 168002536
 profmem::total(profmem::profmem(DelayedMatrixStats::colSums2(rle_matrix)))
@@ -182,15 +177,15 @@ An extensive set of benchmarks is under development at
 
 ## API coverage
 
-  - ✔ = Implemented in **DelayedMatrixStats**
-  - ☑️ = Implemented in
+-   ✔ = Implemented in **DelayedMatrixStats**
+-   ☑️ = Implemented in
     [**DelayedArray**](http://bioconductor.org/packages/DelayedArray/)
     or
     [**sparseMatrixStats**](http://bioconductor.org/packages/sparseMatrixStats/)
-  - ❌: = Not yet implemented
+-   ❌: = Not yet implemented
 
 | Method                 | Block processing | *base::matrix* optimized | *Matrix::dgCMatrix* optimized | *Matrix::lgCMatrix* optimized | *DelayedArray::RleArray* (*SolidRleArraySeed*) optimized | *DelayedArray::RleArray* (*ChunkedRleArraySeed*) optimized | *HDF5Array::HDF5Matrix* optimized | *base::data.frame* optimized | *S4Vectors::DataFrame* optimized |
-| :--------------------- | :--------------- | :----------------------- | :---------------------------- | :---------------------------- | :------------------------------------------------------- | :--------------------------------------------------------- | :-------------------------------- | :--------------------------- | :------------------------------- |
+|:-----------------------|:-----------------|:-------------------------|:------------------------------|:------------------------------|:---------------------------------------------------------|:-----------------------------------------------------------|:----------------------------------|:-----------------------------|:---------------------------------|
 | `colAlls()`            | ✔                | ✔                        | ✔                             | ✔                             | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colAnyMissings()`     | ✔                | ❌                        | ❌                             | ❌                             | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
 | `colAnyNAs()`          | ✔                | ✔                        | ✔                             | ✔                             | ❌                                                        | ❌                                                          | ❌                                 | ❌                            | ❌                                |
