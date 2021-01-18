@@ -27,9 +27,7 @@ Imports:
   sparseMatrixStats,
   Matrix,
   S4Vectors (>= 0.17.5),
-  IRanges,
-  HDF5Array (>= 1.17.2),
-  BiocParallel
+  IRanges
 Suggests:
   testthat,
   knitr,
@@ -37,7 +35,8 @@ Suggests:
   covr,
   BiocStyle,
   microbenchmark,
-  profmem
+  profmem,
+  HDF5Array
 VignetteBuilder: knitr
 URL: https://github.com/PeteHaitch/DelayedMatrixStats
 BugReports: https://github.com/PeteHaitch/DelayedMatrixStats/issues
