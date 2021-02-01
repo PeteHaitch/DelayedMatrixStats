@@ -8,7 +8,7 @@
 
 .DelayedMatrix_block_colAvgsPerRowSet <- function(X, W = NULL, cols = NULL, S,
                                                   FUN = colMeans, ...,
-                                                  tFUN = FALSE) {
+                                                  na.rm = NA, tFUN = FALSE) {
   # Check input type
   stopifnot(is(X, "DelayedMatrix"))
   if (is(W, "DelayedMatrix")) {
@@ -35,6 +35,7 @@
                                   W = W,
                                   S = matrix(seq_len(nrow(S))),
                                   FUN = FUN,
+                                  na.rm = na.rm,
                                   tFUN = tFUN)
   })
   if (length(val) == 0L) {
@@ -64,7 +65,7 @@
 #' colAvgsPerRowSet(dm_DF, S = matrix(1:2, ncol = 2))
 setMethod("colAvgsPerRowSet", "DelayedMatrix",
           function(X, W = NULL, cols = NULL, S, FUN = colMeans, ...,
-                   force_block_processing = FALSE, tFUN = FALSE) {
+                   force_block_processing = FALSE, na.rm = NA, tFUN = FALSE) {
             .smart_seed_dispatcher(X, generic = MatrixGenerics::colAvgsPerRowSet, 
                                    blockfun = .DelayedMatrix_block_colAvgsPerRowSet,
                                    force_block_processing = force_block_processing,
@@ -73,6 +74,7 @@ setMethod("colAvgsPerRowSet", "DelayedMatrix",
                                    S = S,
                                    FUN = FUN,
                                    ...,
+                                   na.rm = na.rm, 
                                    tFUN = tFUN)
           }
 )
