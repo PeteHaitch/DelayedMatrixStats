@@ -14,6 +14,7 @@ subsets of columns (rows)}
   FUN = colMeans,
   ...,
   force_block_processing = FALSE,
+  na.rm = NA,
   tFUN = FALSE
 )
 
@@ -25,6 +26,7 @@ subsets of columns (rows)}
   FUN = rowMeans,
   ...,
   force_block_processing = FALSE,
+  na.rm = NA,
   tFUN = FALSE
 )
 }
@@ -52,6 +54,10 @@ to use the general block-processing strategy by setting this to \code{TRUE}
 (typically not advised). The block-processing strategy loads one or more
 (depending on \verb{\link[DelayedArray]\{getAutoBlockSize\}()}) columns (\code{colFoo()})
 or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::array}.}
+
+\item{na.rm}{(logical) Argument passed to \code{FUN()} as \code{na.rm = na.rm}.
+If \code{NA} (default), then \code{na.rm = TRUE} is used if \code{X} or \code{S} holds missing values,
+otherwise \code{na.rm = FALSE}.}
 
 \item{tFUN}{If \code{TRUE}, \code{X} is transposed before it is passed to \code{FUN}.}
 
