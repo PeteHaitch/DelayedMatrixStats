@@ -1,7 +1,7 @@
 ---
 title: "Overview of DelayedMatrixStats"
 author: "Peter Hickey"
-date: "Modified: 26 Jan 2018. Compiled: `r format(Sys.Date(), '%d %b %Y')`"
+date: "Modified: 06 Feb 2021 Compiled: `r format(Sys.Date(), '%d %b %Y')`"
 output: BiocStyle::html_document
 vignette: >
   %\VignetteIndexEntry{Overview of DelayedMatrixStats}
@@ -14,6 +14,7 @@ editor_options:
 ```{r, include = FALSE, setup}
 knitr::opts_chunk$set(echo = TRUE, comment = "#>", collapse = TRUE,
                       message = FALSE)
+library(BiocStyle)
 ```
 
 # Overview
