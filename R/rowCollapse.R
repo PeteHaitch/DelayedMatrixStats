@@ -8,7 +8,7 @@
 
 #' @importMethodsFrom DelayedArray t
 .DelayedMatrix_block_rowCollapse <- function(x, idxs, rows = NULL,
-                                             ...) {
+                                             ..., useNames = NA) {
   # Check input
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -24,23 +24,25 @@
   val <- rowblock_APPLY(x = x,
                         FUN = .rowCollapse_internal,
                         idxs = IDXS,
-                        ...)
+                        ...,
+                        useNames = useNames)
   if (length(val) == 0L) {
     return(numeric(nrow(x)))
   }
   # NOTE: Return value of matrixStats::rowCollapse() has no names
+  # TODO: Obey top-level `useNames` argument.
   unlist(val, recursive = TRUE, use.names = FALSE)
 }
 
 #' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
-.rowCollapse_internal <- function(x, idxs, ...) {
+.rowCollapse_internal <- function(x, idxs, ..., useNames = NA) {
     block.env <- parent.frame(2)
     vp <- currentViewport(block.env)
     subset <- makeNindexFromArrayViewport(vp)[[1]]
     if (!is.null(subset)) {
         idxs <- idxs[as.integer(subset)]
     }
-    matrixStats::rowCollapse(x, idxs, ...)
+    matrixStats::rowCollapse(x, idxs, ..., useNames = useNames)
 }
 
 ### ----------------------------------------------------------------------------
@@ -63,13 +65,14 @@
 #' rowCollapse(dm_matrix, 2)
 #' rowCollapse(dm_HDF5, 2)
 setMethod("rowCollapse", "DelayedMatrix",
-          function(x, idxs, rows = NULL, 
-                   force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = MatrixGenerics::rowCollapse, 
+          function(x, idxs, rows = NULL,
+                   force_block_processing = FALSE, ..., useNames = NA) {
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::rowCollapse,
                                    blockfun = .DelayedMatrix_block_rowCollapse,
                                    force_block_processing = force_block_processing,
                                    idxs = idxs,
                                    rows = rows,
-                                   ...)
+                                   ...,
+                                   useNames = useNames)
           }
 )

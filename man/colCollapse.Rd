@@ -5,9 +5,23 @@
 \alias{rowCollapse,DelayedMatrix-method}
 \title{Extract one cell from each row (column) of a matrix-like object}
 \usage{
-\S4method{colCollapse}{DelayedMatrix}(x, idxs, cols = NULL, force_block_processing = FALSE, ...)
+\S4method{colCollapse}{DelayedMatrix}(
+  x,
+  idxs,
+  cols = NULL,
+  force_block_processing = FALSE,
+  ...,
+  useNames = NA
+)
 
-\S4method{rowCollapse}{DelayedMatrix}(x, idxs, rows = NULL, force_block_processing = FALSE, ...)
+\S4method{rowCollapse}{DelayedMatrix}(
+  x,
+  idxs,
+  rows = NULL,
+  force_block_processing = FALSE,
+  ...,
+  useNames = NA
+)
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
@@ -27,6 +41,8 @@ to use the general block-processing strategy by setting this to \code{TRUE}
 or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::array}.}
 
 \item{...}{Additional arguments passed to specific methods.}
+
+\item{useNames}{If \code{\link{NA}}, the default behavior of the function about naming support is remained. If \code{\link{FALSE}}, no naming support is done. Else if \code{\link{TRUE}}, names attributes of result are set. \strong{Only \code{useNames = NA} is currently supported, other values are silently ignored.}}
 
 \item{rows}{A \code{\link{vector}} indicating the subset of rows
 (and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is

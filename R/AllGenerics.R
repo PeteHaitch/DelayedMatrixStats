@@ -48,12 +48,12 @@ setGeneric("subset_by_Nindex", signature = "x",
 #' @export
 setGeneric("colAnyMissings", signature = "x",
            function(x, rows = NULL, cols = NULL,
-                    ...) standardGeneric("colAnyMissings")
+                    ..., useNames = NA) standardGeneric("colAnyMissings")
 )
 
 #' @rdname colAnyNAs
 #' @export
 setGeneric("rowAnyMissings", signature = "x",
            function(x, rows = NULL, cols = NULL,
-                    ...) standardGeneric("rowAnyMissings")
+                    ..., useNames = NA) standardGeneric("rowAnyMissings")
 )

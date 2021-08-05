@@ -6,8 +6,8 @@
 ### Exported methods
 ###
 
-.DelayedMatrix_block_colAnyNAs <- function(x, rows, cols, ...) {
-    colAnys(x = x, rows = rows, cols = cols, value = NA, ...)
+.DelayedMatrix_block_colAnyNAs <- function(x, rows, cols, ..., useNames = NA) {
+    colAnys(x = x, rows = rows, cols = cols, value = NA, ..., useNames = useNames)
 }
 
 # ------------------------------------------------------------------------------
@@ -19,6 +19,7 @@
 #' @rdname colAnyNAs
 #' @template common_params
 #' @template lowercase_x
+#' @template useNamesParameter
 #' @export
 #' @template example_dm_matrix
 #' @template example_dm_HDF5
@@ -31,12 +32,13 @@
 #' rowAnyNAs(dm_HDF5)
 setMethod("colAnyNAs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, force_block_processing = FALSE,
-                   ...) {
-            .smart_seed_dispatcher(x, generic = MatrixGenerics::colAnyNAs, 
+                   ..., useNames = NA) {
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colAnyNAs,
                                    blockfun = .DelayedMatrix_block_colAnyNAs,
                                    force_block_processing = force_block_processing,
                                    rows = rows,
                                    cols = cols,
-                                   ...)
+                                   ...,
+                                   useNames = useNames)
           }
 )

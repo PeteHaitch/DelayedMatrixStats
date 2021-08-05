@@ -7,7 +7,7 @@
 ###
 
 .DelayedMatrix_block_colCummins <- function(x, rows = NULL, cols = NULL,
-                                            ...) {
+                                            ..., useNames = NA) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -18,11 +18,13 @@
   # Compute result
   val <- colblock_APPLY(x = x,
                         FUN = colCummins,
-                        ...)
+                        ...,
+                        useNames = useNames)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
   # NOTE: Return value of matrixStats::colCummins() has no names
+  # TODO: Obey top-level `useNames` argument.
   unname(do.call(cbind, val))
 }
 
@@ -44,12 +46,13 @@
 #' colCummins(dm_matrix)
 setMethod("colCummins", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
-                   force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = MatrixGenerics::colCummins, 
+                   force_block_processing = FALSE, ..., useNames = NA) {
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colCummins,
                                    blockfun = .DelayedMatrix_block_colCummins,
                                    force_block_processing = force_block_processing,
                                    rows = rows,
                                    cols = cols,
-                                   ...)
+                                   ...,
+                                   useNames = useNames)
           }
 )

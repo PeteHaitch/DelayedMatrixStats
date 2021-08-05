@@ -8,7 +8,7 @@
 
 .DelayedMatrix_block_colWeightedVars <- function(x, w = NULL, rows = NULL,
                                                     cols = NULL, na.rm = FALSE,
-                                                    ...) {
+                                                    ..., useNames = NA) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -32,11 +32,13 @@
                         FUN = colWeightedVars,
                         w = w,
                         na.rm = na.rm,
-                        ...)
+                        ...,
+                        useNames = useNames)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
   # NOTE: Return value of matrixStats::colWeightedVars() has names
+  # TODO: Obey top-level `useNames` argument.
   unlist(val, recursive = FALSE, use.names = TRUE)
 }
 
@@ -53,6 +55,7 @@
 #' @rdname colWeightedVars
 #' @template common_params
 #' @template lowercase_x
+#' @template useNamesParameter
 #' @export
 #' @author Peter Hickey
 #' @examples
@@ -61,14 +64,15 @@
 #' colWeightedVars(dm_Rle, w = 1 / rowMeans2(dm_Rle))
 setMethod("colWeightedVars", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-                   force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = MatrixGenerics::colWeightedVars, 
+                   force_block_processing = FALSE, ..., useNames = NA) {
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colWeightedVars,
                                    blockfun = .DelayedMatrix_block_colWeightedVars,
                                    force_block_processing = force_block_processing,
                                    w = w,
                                    rows = rows,
                                    cols = cols,
                                    na.rm = na.rm,
-                                   ...)
+                                   ...,
+                                   useNames = useNames)
           }
 )

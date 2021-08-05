@@ -10,42 +10,58 @@
 \alias{rowAnyNAs,DelayedMatrix-method}
 \title{Checks if there are any missing values in an object or not}
 \usage{
-colAnyMissings(x, rows = NULL, cols = NULL, ...)
+colAnyMissings(x, rows = NULL, cols = NULL, ..., useNames = NA)
 
-rowAnyMissings(x, rows = NULL, cols = NULL, ...)
+rowAnyMissings(x, rows = NULL, cols = NULL, ..., useNames = NA)
 
 \S4method{colAnyMissings}{DelayedMatrix}(
   x,
   rows = NULL,
   cols = NULL,
   force_block_processing = FALSE,
-  ...
+  ...,
+  useNames = NA
 )
 
-\S4method{colAnyNAs}{DelayedMatrix}(x, rows = NULL, cols = NULL, force_block_processing = FALSE, ...)
+\S4method{colAnyNAs}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  force_block_processing = FALSE,
+  ...,
+  useNames = NA
+)
 
 \S4method{rowAnyMissings}{DelayedMatrix}(
   x,
   rows = NULL,
   cols = NULL,
   force_block_processing = FALSE,
-  ...
+  ...,
+  useNames = NA
 )
 
-\S4method{rowAnyNAs}{DelayedMatrix}(x, rows = NULL, cols = NULL, force_block_processing = FALSE, ...)
+\S4method{rowAnyNAs}{DelayedMatrix}(
+  x,
+  rows = NULL,
+  cols = NULL,
+  force_block_processing = FALSE,
+  ...,
+  useNames = NA
+)
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link[base]{vector}} indicating subset of
-elements (or rows and/or columns) to operate over. If
-\code{\link[base]{NULL}}, no subsetting is done.}
+\item{rows}{A \code{\link[base]{vector}} indicating subset of rows to
+operate over. If \code{\link[base]{NULL}}, no subsetting is done.}
 
-\item{cols}{A \code{\link[base]{vector}} indicating subset of
-elements (or rows and/or columns) to operate over. If
-\code{\link[base]{NULL}}, no subsetting is done.}
+\item{cols}{A \code{\link[base]{vector}} indicating subset of columns to
+operate over. If \code{\link[base]{NULL}}, no subsetting is done.}
 
 \item{...}{Additional arguments passed to specific methods.}
+
+\item{useNames}{If \code{\link{NA}}, the default behavior of the function about naming support is remained. If \code{\link{FALSE}}, no naming support is done. Else if \code{\link{TRUE}}, names attributes of result are set. \strong{Only \code{useNames = NA} is currently supported, other values are silently ignored.}}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden

@@ -9,7 +9,7 @@
 .DelayedMatrix_block_rowQuantiles <-
   function(x, rows = NULL, cols = NULL,
            probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE, type = 7L,
-           ..., drop = TRUE) {
+           ..., useNames = NA, drop = TRUE) {
     # Check input type
     stopifnot(is(x, "DelayedMatrix"))
     DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -24,12 +24,14 @@
                           na.rm = na.rm,
                           type = type,
                           ...,
+                          useNames = useNames,
                           drop = FALSE)
 
     if (length(val) == 0L) {
       return(numeric(ncol(x)))
     }
 
+    # TODO: Obey top-level `useNames` argument.
     val <- do.call(rbind, val)
     rownames(val) <- rownames(x)
 
@@ -58,9 +60,9 @@
 setMethod("rowQuantiles", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
                    probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE,
-                   type = 7L, force_block_processing = FALSE, ...,
+                   type = 7L, force_block_processing = FALSE, ..., useNames = NA,
                    drop = TRUE) {
-            .smart_seed_dispatcher(x, generic = MatrixGenerics::rowQuantiles, 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::rowQuantiles,
                                    blockfun = .DelayedMatrix_block_rowQuantiles,
                                    force_block_processing = force_block_processing,
                                    rows = rows,
@@ -69,6 +71,7 @@ setMethod("rowQuantiles", "DelayedMatrix",
                                    na.rm = na.rm,
                                    # type = type, TODO: wait for SMS to fix.
                                    ...,
+                                   useNames = useNames,
                                    drop = drop)
           }
 )

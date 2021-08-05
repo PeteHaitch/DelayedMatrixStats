@@ -16,7 +16,8 @@ a value}
   value = TRUE,
   na.rm = FALSE,
   force_block_processing = FALSE,
-  ...
+  ...,
+  useNames = NA
 )
 
 \S4method{colAnys}{DelayedMatrix}(
@@ -26,7 +27,8 @@ a value}
   value = TRUE,
   na.rm = FALSE,
   force_block_processing = FALSE,
-  ...
+  ...,
+  useNames = NA
 )
 
 \S4method{rowAlls}{DelayedMatrix}(
@@ -36,7 +38,8 @@ a value}
   value = TRUE,
   na.rm = FALSE,
   force_block_processing = FALSE,
-  ...
+  ...,
+  useNames = NA
 )
 
 \S4method{rowAnys}{DelayedMatrix}(
@@ -46,7 +49,8 @@ a value}
   value = TRUE,
   na.rm = FALSE,
   force_block_processing = FALSE,
-  ...
+  ...,
+  useNames = NA
 )
 }
 \arguments{
@@ -73,6 +77,8 @@ to use the general block-processing strategy by setting this to \code{TRUE}
 or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::array}.}
 
 \item{...}{Additional arguments passed to specific methods.}
+
+\item{useNames}{If \code{\link{NA}}, the default behavior of the function about naming support is remained. If \code{\link{FALSE}}, no naming support is done. Else if \code{\link{TRUE}}, names attributes of result are set. \strong{Only \code{useNames = NA} is currently supported, other values are silently ignored.}}
 }
 \value{
 Returns a \code{\link{logical}} \code{\link{vector}} of length N (K).
