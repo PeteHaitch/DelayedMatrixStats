@@ -7,7 +7,7 @@
 ###
 
 .DelayedMatrix_block_colOrderStats <- function(x, rows = NULL, cols = NULL,
-                                               which, ...) {
+                                               which, ..., useNames = NA) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -19,11 +19,13 @@
   val <- colblock_APPLY(x = x,
                         FUN = colOrderStats,
                         which = which,
-                        ...)
+                        ...,
+                        useNames = useNames)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
   # NOTE: Return value of matrixStats::colOrderStats() has no names
+  # TODO: Obey top-level `useNames` argument.
   unlist(val, recursive = FALSE, use.names = FALSE)
 }
 
@@ -40,6 +42,7 @@
 #' @rdname colOrderStats
 #' @template common_params
 #' @template lowercase_x
+#' @template useNamesParameter
 #' @export
 #' @template example_dm_MatrixMatrix
 #' @author Peter Hickey
@@ -47,14 +50,15 @@
 #' # Only using columns 2-3
 #' colOrderStats(dm_Matrix, cols = 2:3, which = 1)
 setMethod("colOrderStats", "DelayedMatrix",
-          function(x, rows = NULL, cols = NULL, which, 
-                   force_block_processing = FALSE, ...) {
+          function(x, rows = NULL, cols = NULL, which,
+                   force_block_processing = FALSE, ..., useNames = NA) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::colOrderStats,
                                    blockfun = .DelayedMatrix_block_colOrderStats,
                                    force_block_processing = force_block_processing,
                                    rows = rows,
                                    cols = cols,
                                    which = which,
-                                   ...)
+                                   ...,
+                                   useNames = useNames)
           }
 )

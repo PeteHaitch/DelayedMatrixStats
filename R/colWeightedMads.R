@@ -9,7 +9,7 @@
 .DelayedMatrix_block_colWeightedMads <- function(x, w = NULL, rows = NULL,
                                                  cols = NULL, na.rm = FALSE,
                                                  constant = 1.4826,
-                                                 center = NULL, ...) {
+                                                 center = NULL, ..., useNames = NA) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -46,16 +46,18 @@
                         na.rm = na.rm,
                         constant = constant,
                         center = center,
-                        ...)
+                        ...,
+                        useNames = useNames)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
   # NOTE: Return value of matrixStats::colWeightedMads() has names
+  # TODO: Obey top-level `useNames` argument.
   unlist(val, recursive = FALSE, use.names = TRUE)
 }
 
 #' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
-.colWeightedMads_internal <- function(x, center, ...) {
+.colWeightedMads_internal <- function(x, center, ..., useNames = NA) {
     if (!is.null(center) && length(center) != 1L) {
         block.env <- parent.frame(2)
         vp <- currentViewport(block.env)
@@ -64,7 +66,7 @@
             center <- center[as.integer(subset)]
         }
     }
-    colWeightedMads(x, center = center, ...)
+    colWeightedMads(x, center = center, ..., useNames = useNames)
 }
 
 ### ----------------------------------------------------------------------------
@@ -80,6 +82,7 @@
 #' @rdname colWeightedMads
 #' @template common_params
 #' @template lowercase_x
+#' @template useNamesParameter
 #' @export
 #' @template example_dm_matrix
 #' @author Peter Hickey
@@ -89,8 +92,8 @@
 setMethod("colWeightedMads", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    constant = 1.4826, center = NULL,
-                   force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = MatrixGenerics::colWeightedMads, 
+                   force_block_processing = FALSE, ..., useNames = NA) {
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colWeightedMads,
                                    blockfun = .DelayedMatrix_block_colWeightedMads,
                                    force_block_processing = force_block_processing,
                                    w = w,
@@ -99,6 +102,7 @@ setMethod("colWeightedMads", "DelayedMatrix",
                                    na.rm = na.rm,
                                    constant = constant,
                                    center = center,
-                                   ...)
+                                   ...,
+                                   useNames = useNames)
           }
 )

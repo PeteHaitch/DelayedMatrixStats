@@ -9,7 +9,7 @@
 .DelayedMatrix_block_colQuantiles <-
   function(x, rows = NULL, cols = NULL,
            probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE, type = 7L,
-           ..., drop = TRUE) {
+           ..., useNames = NA, drop = TRUE) {
     # Check input type
     stopifnot(is(x, "DelayedMatrix"))
     DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -24,6 +24,7 @@
                           na.rm = na.rm,
                           type = type,
                           ...,
+                          useNames = useNames,
                           drop = FALSE)
 
     if (length(val) == 0L) {
@@ -31,6 +32,7 @@
     }
 
     val <- do.call(rbind, val)
+    # TODO: Obey top-level `useNames` argument.
     rownames(val) <- colnames(x)
 
     if (drop && any(dim(val)==1L)) {
@@ -52,6 +54,7 @@
 #' @rdname colQuantiles
 #' @template common_params
 #' @template lowercase_x
+#' @template useNamesParameter
 #' @export
 #' @template example_dm_df
 #' @author Peter Hickey
@@ -63,8 +66,8 @@ setMethod("colQuantiles", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
                    probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE,
                    type = 7L, force_block_processing = FALSE, ...,
-                   drop = TRUE) {
-            .smart_seed_dispatcher(x, generic = MatrixGenerics::colQuantiles, 
+                   useNames = NA, drop = TRUE) {
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colQuantiles,
                                    blockfun = .DelayedMatrix_block_colQuantiles,
                                    force_block_processing = force_block_processing,
                                    rows = rows,
@@ -73,6 +76,7 @@ setMethod("colQuantiles", "DelayedMatrix",
                                    na.rm = na.rm,
                                    # type = type, # TODO: wait for SMS to fix.
                                    ...,
+                                   useNames = useNames,
                                    drop = drop)
           }
 )

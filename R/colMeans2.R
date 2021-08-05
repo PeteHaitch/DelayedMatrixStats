@@ -7,7 +7,7 @@
 ###
 
 .DelayedMatrix_block_colMeans2 <- function(x, rows = NULL, cols = NULL,
-                                           na.rm = FALSE, ...) {
+                                           na.rm = FALSE, ..., useNames = NA) {
   # Check input
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -19,11 +19,13 @@
   val <- colblock_APPLY(x = x,
                         FUN = colMeans2,
                         na.rm = na.rm,
-                        ...)
+                        ...,
+                        useNames = useNames)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
   # NOTE: Return value of matrixStats::colMeans2() has no names
+  # TODO: Obey top-level `useNames` argument.
   unlist(val, recursive = FALSE, use.names = FALSE)
 }
 
@@ -40,6 +42,7 @@
 #' @rdname colMeans2
 #' @template common_params
 #' @template lowercase_x
+#' @template useNamesParameter
 #' @export
 #' @template example_dm_matrix
 #' @template example_dm_Rle
@@ -48,15 +51,16 @@
 #'
 #' colMeans2(dm_matrix)
 setMethod("colMeans2", "DelayedMatrix",
-          function(x, rows = NULL, cols = NULL, na.rm = FALSE, 
-                   force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = MatrixGenerics::colMeans2, 
+          function(x, rows = NULL, cols = NULL, na.rm = FALSE,
+                   force_block_processing = FALSE, ..., useNames = NA) {
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colMeans2,
                                    blockfun = .DelayedMatrix_block_colMeans2,
                                    force_block_processing = force_block_processing,
                                    rows = rows,
                                    cols = cols,
                                    na.rm = na.rm,
-                                   ...)
+                                   ...,
+                                   useNames = useNames)
           }
 )
 
@@ -68,11 +72,12 @@ setMethod("colMeans2", "DelayedMatrix",
 #' @rdname colMeans2
 #' @export
 setMethod("colMeans2", "Matrix",
-          function(x, rows = NULL, cols = NULL, na.rm = FALSE, 
-                   ...) {
+          function(x, rows = NULL, cols = NULL, na.rm = FALSE,
+                   ..., useNames = NA) {
             message2(class(x), get_verbose())
             x <- ..subset(x, rows, cols)
             # NOTE: Return value of matrixStats::colMeans2() has no names
+            # TODO: Obey top-level `useNames` argument.
             unname(colMeans(x = x, na.rm = na.rm))
           }
 )
@@ -81,8 +86,8 @@ setMethod("colMeans2", "Matrix",
 #' @rdname colMeans2
 #' @export
 setMethod("colMeans2", "SolidRleArraySeed",
-          function(x, rows = NULL, cols = NULL, na.rm = FALSE, 
-                   ...) {
+          function(x, rows = NULL, cols = NULL, na.rm = FALSE,
+                   ..., useNames = NA) {
             message2(class(x), get_verbose())
             irl <- get_Nindex_as_IRangesList(Nindex = list(rows, cols),
                                              dim = dim(x))
@@ -96,6 +101,7 @@ setMethod("colMeans2", "SolidRleArraySeed",
               return(val)
             }
             IDX <- rep(seq_along(irl), each = n)
+            # TODO: Obey top-level `useNames` argument.
             unlist(lapply(X = split(val, IDX), FUN = mean, na.rm = na.rm),
                    use.names = FALSE)
           }

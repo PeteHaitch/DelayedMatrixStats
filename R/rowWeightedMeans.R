@@ -8,7 +8,7 @@
 
 .DelayedMatrix_block_rowWeightedMeans <- function(x, w = NULL, rows = NULL,
                                                   cols = NULL, na.rm = FALSE,
-                                                  ...) {
+                                                  ..., useNames = NA) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -32,11 +32,13 @@
                         FUN = rowWeightedMeans,
                         w = w,
                         na.rm = na.rm,
-                        ...)
+                        ...,
+                        useNames = useNames)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
   # NOTE: Return value of matrixStats::rowWeightedMeans() has names
+  # TODO: Obey top-level `useNames` argument.
   unlist(val, recursive = FALSE, use.names = TRUE)
 }
 
@@ -56,7 +58,7 @@
 #' rowWeightedMeans(dm_Matrix, w = 1:3)
 setMethod("rowWeightedMeans", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-                   force_block_processing = FALSE, ...) {
+                   force_block_processing = FALSE, ..., useNames = NA) {
               .smart_seed_dispatcher(x, generic="rowWeightedMeans",
                                      blockfun = .DelayedMatrix_block_rowWeightedMeans,
                                      force_block_processing = force_block_processing,
@@ -64,6 +66,7 @@ setMethod("rowWeightedMeans", "DelayedMatrix",
                                      rows = rows,
                                      cols = cols,
                                      na.rm = na.rm,
-                                     ...)
+                                     ...,
+                                     useNames = useNames)
           }
 )

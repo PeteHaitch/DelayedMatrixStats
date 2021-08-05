@@ -22,7 +22,8 @@ a row (column) of a matrix-like object}
   diff = 1L,
   trim = 0,
   force_block_processing = FALSE,
-  ...
+  ...,
+  useNames = NA
 )
 
 \S4method{colMadDiffs}{DelayedMatrix}(
@@ -33,7 +34,8 @@ a row (column) of a matrix-like object}
   diff = 1L,
   trim = 0,
   force_block_processing = FALSE,
-  ...
+  ...,
+  useNames = NA
 )
 
 \S4method{colSdDiffs}{DelayedMatrix}(
@@ -44,7 +46,8 @@ a row (column) of a matrix-like object}
   diff = 1L,
   trim = 0,
   force_block_processing = FALSE,
-  ...
+  ...,
+  useNames = NA
 )
 
 \S4method{colVarDiffs}{DelayedMatrix}(
@@ -55,7 +58,8 @@ a row (column) of a matrix-like object}
   diff = 1L,
   trim = 0,
   force_block_processing = FALSE,
-  ...
+  ...,
+  useNames = NA
 )
 
 \S4method{rowIQRDiffs}{DelayedMatrix}(
@@ -66,7 +70,8 @@ a row (column) of a matrix-like object}
   diff = 1L,
   trim = 0,
   force_block_processing = FALSE,
-  ...
+  ...,
+  useNames = NA
 )
 
 \S4method{rowMadDiffs}{DelayedMatrix}(
@@ -77,7 +82,8 @@ a row (column) of a matrix-like object}
   diff = 1L,
   trim = 0,
   force_block_processing = FALSE,
-  ...
+  ...,
+  useNames = NA
 )
 
 \S4method{rowSdDiffs}{DelayedMatrix}(
@@ -88,7 +94,8 @@ a row (column) of a matrix-like object}
   diff = 1L,
   trim = 0,
   force_block_processing = FALSE,
-  ...
+  ...,
+  useNames = NA
 )
 
 \S4method{rowVarDiffs}{DelayedMatrix}(
@@ -99,7 +106,8 @@ a row (column) of a matrix-like object}
   diff = 1L,
   trim = 0,
   force_block_processing = FALSE,
-  ...
+  ...,
+  useNames = NA
 )
 }
 \arguments{
@@ -129,6 +137,8 @@ to use the general block-processing strategy by setting this to \code{TRUE}
 or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::array}.}
 
 \item{...}{Additional arguments passed to specific methods.}
+
+\item{useNames}{If \code{\link{NA}}, the default behavior of the function about naming support is remained. If \code{\link{FALSE}}, no naming support is done. Else if \code{\link{TRUE}}, names attributes of result are set. \strong{Only \code{useNames = NA} is currently supported, other values are silently ignored.}}
 }
 \value{
 Returns a \code{\link{numeric}} \code{\link{vector}} of length N (K).

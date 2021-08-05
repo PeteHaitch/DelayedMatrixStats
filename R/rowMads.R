@@ -8,7 +8,7 @@
 
 .DelayedMatrix_block_rowMads <- function(x, rows = NULL, cols = NULL,
                                          center = NULL, constant = 1.4826,
-                                         na.rm = FALSE, ...) {
+                                         na.rm = FALSE, ..., useNames = NA) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -33,16 +33,18 @@
                         center = center,
                         constant = constant,
                         na.rm = na.rm,
-                        ...)
+                        ...,
+                        useNames = useNames)
   if (length(val) == 0L) {
     return(numeric(nrow(x)))
   }
   # NOTE: Return value of matrixStats::rowMads() has no names
+  # TODO: Obey top-level `useNames` argument.
   unlist(val, recursive = FALSE, use.names = FALSE)
 }
 
 #' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
-.rowMads_internal <- function(x, center, ...) {
+.rowMads_internal <- function(x, center, ..., useNames = NA) {
     if (!is.null(center) && length(center) != 1L) {
         block.env <- parent.frame(2)
         vp <- currentViewport(block.env)
@@ -51,7 +53,7 @@
             center <- center[as.integer(subset)]
         }
     }
-    rowMads(x, center = center, ...)
+    rowMads(x, center = center, ..., useNames = useNames)
 }
 
 ### ----------------------------------------------------------------------------
@@ -71,9 +73,9 @@
 #' rowMads(dm_DF)
 setMethod("rowMads", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, center = NULL,
-                   constant = 1.4826, na.rm = FALSE, 
-                   force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = MatrixGenerics::rowMads, 
+                   constant = 1.4826, na.rm = FALSE,
+                   force_block_processing = FALSE, ..., useNames = NA) {
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::rowMads,
                                    blockfun = .DelayedMatrix_block_rowMads,
                                    force_block_processing = force_block_processing,
                                    rows = rows,
@@ -81,6 +83,7 @@ setMethod("rowMads", "DelayedMatrix",
                                    center = center,
                                    constant = constant,
                                    na.rm = na.rm,
-                                   ...)
+                                   ...,
+                                   useNames = useNames)
           }
 )

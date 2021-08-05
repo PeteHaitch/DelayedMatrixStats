@@ -8,7 +8,7 @@
 
 .DelayedMatrix_block_colCounts <- function(x, rows = NULL, cols = NULL,
                                            value = TRUE, na.rm = FALSE,
-                                           ...) {
+                                           ..., useNames = NA) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -21,11 +21,13 @@
                         FUN = colCounts,
                         value = value,
                         na.rm = na.rm,
-                        ...)
+                        ...,
+                        useNames = useNames)
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
   # NOTE: Return value of matrixStats::colCounts() has no names
+  # TODO: Obey top-level `useNames` argument.
   unlist(val, recursive = FALSE, use.names = FALSE)
 }
 
@@ -45,6 +47,7 @@
 #' @export
 #' @template example_dm_matrix
 #' @template example_dm_S4VectorsDF
+#' @template useNamesParameter
 #' @author Peter Hickey
 #' @examples
 #'
@@ -53,14 +56,15 @@
 #' colCounts(dm_matrix, rows = 1:4, value = 1)
 setMethod("colCounts", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
-                   force_block_processing = FALSE, ...) {
-            .smart_seed_dispatcher(x, generic = MatrixGenerics::colCounts, 
+                   force_block_processing = FALSE, ..., useNames = NA) {
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colCounts,
                                    blockfun = .DelayedMatrix_block_colCounts,
                                    force_block_processing = force_block_processing,
                                    rows = rows,
                                    cols = cols,
                                    value = value,
                                    na.rm = na.rm,
-                                   ...)
+                                   ...,
+                                   useNames = useNames)
           }
 )

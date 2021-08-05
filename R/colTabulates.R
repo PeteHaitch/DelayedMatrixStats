@@ -7,7 +7,7 @@
 ###
 
 .DelayedMatrix_block_colTabulates <- function(x, rows = NULL, cols = NULL,
-                                              values = NULL, ...) {
+                                              values = NULL, ..., useNames = NA) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -30,11 +30,13 @@
   val <- colblock_APPLY(x = x,
                         FUN = colTabulates,
                         values = values,
-                        ...)
+                        ...,
+                        useNames = useNames)
   if (length(val) == 0L) {
     return(matrix(0L,0,0))
   }
   # NOTE: Return value of matrixStats::colTabulates() has names
+  # TODO: Obey top-level `useNames` argument.
   do.call(rbind, val)
 }
 
@@ -52,6 +54,7 @@
 #' @rdname colTabulates
 #' @template common_params
 #' @template lowercase_x
+#' @template useNamesParameter
 #' @export
 #' @template example_dm_S4VectorsDF
 #' @author Peter Hickey
@@ -60,17 +63,18 @@
 #' colTabulates(dm_DF)
 setMethod("colTabulates", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, values = NULL,
-                   force_block_processing = FALSE, ...) {
+                   force_block_processing = FALSE, ..., useNames = NA) {
             if (!type(x) %in% c("integer", "logical", "raw")) {
               stop("Argument 'x' is not of type integer, logical, or raw",
                    " (type = ", type(x), ")")
             }
-            .smart_seed_dispatcher(x, generic = MatrixGenerics::colTabulates, 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colTabulates,
                                    blockfun = .DelayedMatrix_block_colTabulates,
                                    force_block_processing = force_block_processing,
                                    rows = rows,
                                    cols = cols,
                                    values = values,
-                                   ...)
+                                   ...,
+                                   useNames = useNames)
           }
 )

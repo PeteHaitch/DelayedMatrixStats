@@ -9,7 +9,7 @@
 .DelayedMatrix_block_colRanks <-
   function(x, rows = NULL, cols = NULL,
            ties.method = c("max", "average", "first", "last", "random", "max", "min", "dense"),
-           preserveShape = FALSE, ...) {
+           preserveShape = FALSE, ..., useNames = NA) {
     # Check input type
     ties.method <- match.arg(ties.method)
     stopifnot(is(x, "DelayedMatrix"))
@@ -23,11 +23,13 @@
                           FUN = colRanks,
                           ties.method = ties.method,
                           preserveShape = preserveShape,
-                          ...)
+                          ...,
+                          useNames = useNames)
     if (length(val) == 0L) {
       return(numeric(ncol(x)))
     }
     # NOTE: Return value of matrixStats::colRanks() has no names
+    # TODO: Obey top-level `useNames` argument.
     unname(do.call(rbind, val))
   }
 
@@ -44,6 +46,7 @@
 #' @rdname colRanks
 #' @template common_params
 #' @template lowercase_x
+#' @template useNamesParameter
 #' @export
 #' @template example_dm_MatrixMatrix
 #' @author Peter Hickey
@@ -54,15 +57,16 @@ setMethod("colRanks", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
                    ties.method = c("max", "average", "first", "last", "random", "max", "min", "dense"),
                    preserveShape = FALSE,
-                   force_block_processing = FALSE, ...) {
+                   force_block_processing = FALSE, ..., useNames = useNames) {
             ties.method <- match.arg(ties.method)
-            .smart_seed_dispatcher(x, generic = MatrixGenerics::colRanks, 
+            .smart_seed_dispatcher(x, generic = MatrixGenerics::colRanks,
                                    blockfun = .DelayedMatrix_block_colRanks,
                                    force_block_processing = force_block_processing,
                                    rows = rows,
                                    cols = cols,
                                    ties.method = ties.method,
                                    # preserveShape = preserveShape, # TODO: wait for a fix in SMS.
-                                   ...)
+                                   ...,
+                                   useNames = useNames)
           }
 )
