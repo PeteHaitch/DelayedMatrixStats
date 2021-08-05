@@ -1,7 +1,7 @@
 Package: DelayedMatrixStats
 Type: Package
 Title: Functions that Apply to Rows and Columns of 'DelayedMatrix' Objects
-Version: 1.15.0
+Version: 1.15.1
 Date: 2021-05-17
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"),
@@ -19,11 +19,11 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends:
-  MatrixGenerics,
+  MatrixGenerics (>= 1.5.2),
   DelayedArray (>= 0.17.6)
 Imports:
   methods,
-  matrixStats (>= 0.56.0),
+  matrixStats (>= 0.60.0),
   sparseMatrixStats,
   Matrix,
   S4Vectors (>= 0.17.5),
