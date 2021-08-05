@@ -14,7 +14,7 @@
   type = 7L,
   force_block_processing = FALSE,
   ...,
-  useNames = NA,
+  useNames = TRUE,
   drop = TRUE
 )
 
@@ -27,7 +27,7 @@
   type = 7L,
   force_block_processing = FALSE,
   ...,
-  useNames = NA,
+  useNames = TRUE,
   drop = TRUE
 )
 }
