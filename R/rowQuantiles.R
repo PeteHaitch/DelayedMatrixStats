@@ -9,7 +9,7 @@
 .DelayedMatrix_block_rowQuantiles <-
   function(x, rows = NULL, cols = NULL,
            probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE, type = 7L,
-           ..., useNames = TRUE, drop = TRUE) {
+           ..., useNames = NA, drop = TRUE) {
     # Check input type
     stopifnot(is(x, "DelayedMatrix"))
     DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -60,7 +60,7 @@
 setMethod("rowQuantiles", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
                    probs = seq(from = 0, to = 1, by = 0.25), na.rm = FALSE,
-                   type = 7L, force_block_processing = FALSE, ..., useNames = TRUE,
+                   type = 7L, force_block_processing = FALSE, ..., useNames = NA,
                    drop = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::rowQuantiles,
                                    blockfun = .DelayedMatrix_block_rowQuantiles,
