@@ -1,2 +1,5 @@
 .travis\.yml
 .BBSoptions
+^.*\.Rproj$
+^\.Rproj\.user$
+issue_82.R
