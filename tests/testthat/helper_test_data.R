@@ -137,22 +137,28 @@ seedFunFactory <- function(seed_class) {
     "matrix" = identity,
     "Matrix" = function(x) {
       if (identical(dim(x), c(1L, 1L))) {
-        # NOTE: This is a workaround for a bug in Matrix() that makes all 1x1
-        #       matrices into a symmetric matrix while not preserving dimnames.
+        # NOTE: `Matrix()` called on a 1x1 matrix will return a diagonal
+        #       (`doDiag = TRUE`), symmetric (`doDiag = FALSE`), or triangular
+        #       (`doDiag = FALSE` and non-symmetric dimanems) matrix, but here
+        #       we always want the more-general sparse matrix and so have to
+        #       do some shenanigans to ensure that is achieved.
         if (is.logical(x)) {
-          return(as(x, "lgeMatrix"))
+          return(as(as(as(x, "lMatrix"), "generalMatrix"), "unpackedMatrix"))
         } else {
-          return(as(x, "dgeMatrix"))
+          return(as(as(as(x, "dMatrix"), "generalMatrix"), "unpackedMatrix"))
         }
       }
       Matrix::Matrix(x)
     },
     "sparseMatrix" = function(x) {
       if (identical(dim(x), c(1L, 1L))) {
-        # NOTE: This is a workaround for a bug in Matrix() that makes all 1x1
-        #       matrices into a symmetric matrix while not preserving dimnames.
+        # NOTE: `Matrix()` called on a 1x1 matrix will return a diagonal
+        #       (`doDiag = TRUE`), symmetric (`doDiag = FALSE`), or triangular
+        #       (`doDiag = FALSE` and non-symmetric dimanems) matrix, but here
+        #       we always want the more-general sparse matrix and so have to
+        #       do some shenanigans to ensure that is achieved.
         if (is.logical(x)) {
-          return(as(x, "lgCMatrix"))
+          return(as(as(as(x, "lMatrix"), "generalMatrix"), "CsparseMatrix"))
         } else {
           return(as(x, "dgCMatrix"))
         }
