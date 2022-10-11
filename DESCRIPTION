@@ -25,7 +25,7 @@ Imports:
   methods,
   matrixStats (>= 0.60.0),
   sparseMatrixStats,
-  Matrix (>= 1.5.0),
+  Matrix (>= 1.5-0),
   S4Vectors (>= 0.17.5),
   IRanges (>= 2.25.10)
 Suggests:
