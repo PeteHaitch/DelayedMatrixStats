@@ -32,4 +32,12 @@ setMethod("colAnyMissings", "DelayedMatrix",
 #
 
 #' @export
-setMethod("colAnyMissings", "matrix", matrixStats::colAnyMissings)
+setMethod("colAnyMissings", "matrix",
+          function(x, rows = NULL, cols = NULL, ..., useNames = NA) {
+            colAnyNAs(x = x,
+                      rows = rows,
+                      cols = cols,
+                      ...,
+                      useNames = useNames)
+          }
+)
