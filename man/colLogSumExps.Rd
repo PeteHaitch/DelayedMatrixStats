@@ -29,14 +29,12 @@
 \arguments{
 \item{lx}{A NxK \linkS4class{DelayedMatrix}. Typically, \code{lx} are \eqn{log(x)} values.}
 
-\item{rows}{A \code{\link{vector}} indicating the subset (and/or
+\item{rows, cols}{A \code{\link{vector}} indicating the subset (and/or
 columns) to operate over. If \code{\link{NULL}}, no subsetting is done.}
 
-\item{cols}{A \code{\link{vector}} indicating the subset (and/or
-columns) to operate over. If \code{\link{NULL}}, no subsetting is done.}
-
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
-are excluded first, otherwise not.}
+\item{na.rm}{If \code{\link[base]{TRUE}}, missing values
+(\code{\link[base]{NA}} or \code{\link[base]{NaN}}) are
+omitted from the calculations.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -58,9 +56,9 @@ Accurately calculates the logarithm of the sum of exponentials for each row
 }
 \details{
 The S4 methods for \code{x} of type \code{\link{matrix}},
-\code{\link{array}}, or \code{\link{numeric}} call
-\code{matrixStats::rowLogSumExps}
-/ \code{matrixStats::colLogSumExps}.
+\code{\link{array}}, \code{\link{table}}, or \code{\link{numeric}} call
+\code{matrixStats::\link[matrixStats]{rowLogSumExps}} /
+\code{matrixStats::\link[matrixStats]{colLogSumExps}}.
 }
 \examples{
 x <- DelayedArray(matrix(runif(10), ncol = 2))

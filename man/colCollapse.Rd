@@ -29,10 +29,6 @@
 \item{idxs}{An index \code{\link{vector}} with the position to extract.
 It is recycled to match the number of rows (column)}
 
-\item{cols}{A \code{\link{vector}} indicating the subset of rows
-(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
-done.}
-
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
 to use the general block-processing strategy by setting this to \code{TRUE}
@@ -44,7 +40,7 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 
 \item{useNames}{If \code{\link{NA}}, the default behavior of the function about naming support is remained. If \code{\link{FALSE}}, no naming support is done. Else if \code{\link{TRUE}}, names attributes of result are set. \strong{Only \code{useNames = NA} is currently supported, other values are silently ignored.}}
 
-\item{rows}{A \code{\link{vector}} indicating the subset of rows
+\item{rows, cols}{A \code{\link{vector}} indicating the subset of rows
 (and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
 done.}
 }
@@ -56,9 +52,9 @@ Extract one cell from each row (column) of a matrix-like object.
 }
 \details{
 The S4 methods for \code{x} of type \code{\link{matrix}},
-\code{\link{array}}, or \code{\link{numeric}} call
-\code{matrixStats::rowCollapse}
-/ \code{matrixStats::colCollapse}.
+\code{\link{array}}, \code{\link{table}}, or \code{\link{numeric}} call
+\code{matrixStats::\link[matrixStats]{rowCollapse}} /
+\code{matrixStats::\link[matrixStats]{colCollapse}}.
 }
 \examples{
 # A DelayedMatrix with a 'matrix' seed
