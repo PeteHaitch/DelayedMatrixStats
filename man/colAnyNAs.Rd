@@ -110,6 +110,4 @@ which provides the same functionality as \code{anyMissing()}.
 }
 \author{
 Peter Hickey
-
-Peter Hickey
 }

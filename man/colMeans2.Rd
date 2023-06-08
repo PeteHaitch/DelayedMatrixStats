@@ -37,16 +37,13 @@
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link{vector}} indicating the subset of rows
+\item{rows, cols}{A \code{\link{vector}} indicating the subset of rows
 (and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
 done.}
 
-\item{cols}{A \code{\link{vector}} indicating the subset of rows
-(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
-done.}
-
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
-are excluded first, otherwise not.}
+\item{na.rm}{If \code{\link[base]{TRUE}}, missing values
+(\code{\link[base]{NA}} or \code{\link[base]{NaN}}) are
+omitted from the calculations.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -67,9 +64,9 @@ Calculates the mean for each row (column) of a matrix-like object.
 }
 \details{
 The S4 methods for \code{x} of type \code{\link{matrix}},
-\code{\link{array}}, or \code{\link{numeric}} call
-\code{matrixStats::rowMeans2}
-/ \code{matrixStats::colMeans2}.
+\code{\link{array}}, \code{\link{table}}, or \code{\link{numeric}} call
+\code{matrixStats::\link[matrixStats]{rowMeans2}} /
+\code{matrixStats::\link[matrixStats]{colMeans2}}.
 }
 \examples{
 # A DelayedMatrix with a 'matrix' seed
@@ -103,7 +100,7 @@ used when the input is a \code{matrix} or \code{numeric} vector.
 \item See also \code{\link[base:colSums]{rowMeans}()} for the
 corresponding function in base R.
 \item For variance estimates, see \code{\link[MatrixGenerics]{rowVars}()}.
-\item See also the base R version \code{base::\link{rowMeans}()}.
+\item See also the base R version \code{base::\link[MatrixGenerics]{rowMeans}()}.
 }
 }
 \author{

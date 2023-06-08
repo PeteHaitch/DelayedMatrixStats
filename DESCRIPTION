@@ -1,8 +1,8 @@
 Package: DelayedMatrixStats
 Type: Package
 Title: Functions that Apply to Rows and Columns of 'DelayedMatrix' Objects
-Version: 1.22.0
-Date: 2022-10-12
+Version: 1.22.1
+Date: 2023-06-06
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"),
     person("Hervé", "Pagès", role = "ctb", email = "hpages.on.github@gmail.com"),
@@ -17,13 +17,13 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Depends:
-  MatrixGenerics (>= 1.5.3),
+  MatrixGenerics (>= 1.12.1),
   DelayedArray (>= 0.17.6)
 Imports:
   methods,
-  matrixStats (>= 0.60.0),
+  matrixStats (>= 1.0.0),
   sparseMatrixStats,
   Matrix (>= 1.5-0),
   S4Vectors (>= 0.17.5),

@@ -44,7 +44,7 @@ expect_equal_DA <- function(object, expected, ...) {
 testDefaultArgs <- function(matrix_list, DelayedMatrix_list) {
   test_that("Default arguments", {
     check.attributes <- checkAttributes(DelayedMatrix_list)
-    expecteds <- Map(ms_f, matrix_list)
+    expecteds <- Map(mg_f, matrix_list)
     observeds <- Map(dms_f, DelayedMatrix_list)
     Map(expect_equal, observeds, expecteds, check.attributes = check.attributes)
   })
@@ -60,7 +60,7 @@ testNonNullRowsAndCols <- function(matrix_list, DelayedMatrix_list) {
     rows_list <- list(c(3, 2))
     cols_list <- list(c(1, 3))
     expecteds <- Map(
-      f = ms_f,
+      f = mg_f,
       matrix_list,
       rows = rows_list,
       cols = cols_list)
@@ -85,7 +85,7 @@ testGroup <- function(matrix_list, DelayedMatrix_list) {
     } else {
       group_list <- list(c(1, 1, 2))
     }
-    expecteds <- Map(ms_f, matrix_list, group = group_list)
+    expecteds <- Map(mg_f, matrix_list, group = group_list)
     observeds <- Map(dms_f, DelayedMatrix_list, group = group_list)
     Map(expect_equal_DA, observeds, expecteds,
         check.attributes = check.attributes)
@@ -100,9 +100,19 @@ for (i in seq_len(nrow(test_manifest))) {
 
   # Get the function to be tested
   f <- test_manifest[i, "Function"]
-  # TODO: This is a clunky hack to get matrixStats::f or base::f; what's the
-  #       proper way?
-  ms_f <- get(f, envir = environment(sum2))
+
+  # This hack is to preserve the `useNames = FALSE` behaviour of
+  # colAnyMissings/rowAnyMissings in BioC <= BioC 3.17 and matrixStats < 1.0.0
+  # in BioC == 3.17 with matrixStats == 1.0.0.
+  # colAnyMissings/rowAnyMissings are effectively aliases for
+  # colAnyNAs/rowAnyNAs and will be deprecated in the next release.
+  if (f == "colAnyMissings") {
+    f <- "colAnyNAs"
+  } else if (f == "rowAnyMissings") {
+    f <- "rowAnyNAs"
+  }
+  # A clunky hack to get MatrixGenerics::f
+  mg_f <- get(f, envir = environment(MatrixGenerics::colSums2))
   dms_f <- get(f)
   context(f)
 
