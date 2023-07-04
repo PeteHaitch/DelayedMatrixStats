@@ -23,7 +23,7 @@ a row (column) of a matrix-like object}
   trim = 0,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{colMadDiffs}{DelayedMatrix}(
@@ -35,7 +35,7 @@ a row (column) of a matrix-like object}
   trim = 0,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{colSdDiffs}{DelayedMatrix}(
@@ -47,7 +47,7 @@ a row (column) of a matrix-like object}
   trim = 0,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{colVarDiffs}{DelayedMatrix}(
@@ -59,7 +59,7 @@ a row (column) of a matrix-like object}
   trim = 0,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{rowIQRDiffs}{DelayedMatrix}(
@@ -71,7 +71,7 @@ a row (column) of a matrix-like object}
   trim = 0,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{rowMadDiffs}{DelayedMatrix}(
@@ -83,7 +83,7 @@ a row (column) of a matrix-like object}
   trim = 0,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{rowSdDiffs}{DelayedMatrix}(
@@ -95,7 +95,7 @@ a row (column) of a matrix-like object}
   trim = 0,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{rowVarDiffs}{DelayedMatrix}(
@@ -107,22 +107,19 @@ a row (column) of a matrix-like object}
   trim = 0,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link{vector}} indicating the subset of rows
+\item{rows, cols}{A \code{\link{vector}} indicating the subset of rows
 (and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
 done.}
 
-\item{cols}{A \code{\link{vector}} indicating the subset of rows
-(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
-done.}
-
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
-are excluded first, otherwise not.}
+\item{na.rm}{If \code{\link[base]{TRUE}}, missing values
+(\code{\link[base]{NA}} or \code{\link[base]{NaN}}) are
+omitted from the calculations.}
 
 \item{diff}{An integer specifying the order of difference.}
 
@@ -149,9 +146,9 @@ a row (column) of a matrix-like object.
 }
 \details{
 The S4 methods for \code{x} of type \code{\link{matrix}},
-\code{\link{array}}, or \code{\link{numeric}} call
-\code{matrixStats::rowIQRDiffs}
-/ \code{matrixStats::colIQRDiffs}.
+\code{\link{array}}, \code{\link{table}}, or \code{\link{numeric}} call
+\code{matrixStats::\link[matrixStats]{rowIQRDiffs}} /
+\code{matrixStats::\link[matrixStats]{colIQRDiffs}}.
 }
 \examples{
 # A DelayedMatrix with a 'Matrix' seed
@@ -194,11 +191,5 @@ are used when the input is a \code{matrix} or \code{numeric} vector.
 }
 }
 \author{
-Peter Hickey
-
-Peter Hickey
-
-Peter Hickey
-
 Peter Hickey
 }

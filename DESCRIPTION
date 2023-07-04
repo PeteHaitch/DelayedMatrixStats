@@ -17,14 +17,14 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Depends:
-  MatrixGenerics (>= 1.5.3),
+  MatrixGenerics (>= 1.13.1),
   DelayedArray (>= 0.17.6)
 Imports:
   methods,
-  matrixStats (>= 0.60.0),
-  sparseMatrixStats,
+  matrixStats (>= 1.0.0),
+  sparseMatrixStats (>= 1.13.1),
   Matrix (>= 1.5-0),
   S4Vectors (>= 0.17.5),
   IRanges (>= 2.25.10)

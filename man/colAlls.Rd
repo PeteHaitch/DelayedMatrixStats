@@ -17,7 +17,7 @@ a value}
   na.rm = FALSE,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{colAnys}{DelayedMatrix}(
@@ -28,7 +28,7 @@ a value}
   na.rm = FALSE,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{rowAlls}{DelayedMatrix}(
@@ -39,7 +39,7 @@ a value}
   na.rm = FALSE,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{rowAnys}{DelayedMatrix}(
@@ -50,24 +50,21 @@ a value}
   na.rm = FALSE,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link{vector}} indicating the subset of rows
-(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
-done.}
-
-\item{cols}{A \code{\link{vector}} indicating the subset of rows
+\item{rows, cols}{A \code{\link{vector}} indicating the subset of rows
 (and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
 done.}
 
 \item{value}{The value to search for.}
 
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
-are excluded first, otherwise not.}
+\item{na.rm}{If \code{\link[base]{TRUE}}, missing values
+(\code{\link[base]{NA}} or \code{\link[base]{NaN}}) are
+omitted from the calculations.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -89,9 +86,9 @@ a value.
 }
 \details{
 The S4 methods for \code{x} of type \code{\link{matrix}},
-\code{\link{array}}, or \code{\link{numeric}} call
-\code{matrixStats::rowAlls}
-/ \code{matrixStats::colAlls}.
+\code{\link{array}}, \code{\link{table}}, or \code{\link{numeric}} call
+\code{matrixStats::\link[matrixStats]{rowAlls}} /
+\code{matrixStats::\link[matrixStats]{colAlls}}.
 }
 \examples{
 # A DelayedMatrix with a 'matrix' seed
@@ -121,7 +118,5 @@ used when the input is a \code{matrix} or \code{numeric} vector.
 }
 }
 \author{
-Peter Hickey
-
 Peter Hickey
 }

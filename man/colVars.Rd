@@ -13,7 +13,7 @@
   center = NULL,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{rowVars}{DelayedMatrix}(
@@ -24,22 +24,19 @@
   center = NULL,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link{vector}} indicating the subset of rows
+\item{rows, cols}{A \code{\link{vector}} indicating the subset of rows
 (and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
 done.}
 
-\item{cols}{A \code{\link{vector}} indicating the subset of rows
-(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
-done.}
-
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
-are excluded first, otherwise not.}
+\item{na.rm}{If \code{\link[base]{TRUE}}, missing values
+(\code{\link[base]{NA}} or \code{\link[base]{NaN}}) are
+omitted from the calculations.}
 
 \item{center}{(optional) the center, defaults to the row means.}
 
@@ -62,9 +59,9 @@ Calculates the variance for each row (column) of a matrix-like object.
 }
 \details{
 The S4 methods for \code{x} of type \code{\link{matrix}},
-\code{\link{array}}, or \code{\link{numeric}} call
-\code{matrixStats::rowVars}
-/ \code{matrixStats::colVars}.
+\code{\link{array}}, \code{\link{table}}, or \code{\link{numeric}} call
+\code{matrixStats::\link[matrixStats]{rowVars}} /
+\code{matrixStats::\link[matrixStats]{colVars}}.
 }
 \examples{
 # A DelayedMatrix with a 'matrix' seed

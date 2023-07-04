@@ -17,7 +17,7 @@ matrix-like object}
   na.rm = FALSE,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{colSds}{DelayedMatrix}(
@@ -28,7 +28,7 @@ matrix-like object}
   center = NULL,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{rowMads}{DelayedMatrix}(
@@ -40,7 +40,7 @@ matrix-like object}
   na.rm = FALSE,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{rowSds}{DelayedMatrix}(
@@ -51,17 +51,13 @@ matrix-like object}
   center = NULL,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link{vector}} indicating the subset of rows
-(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
-done.}
-
-\item{cols}{A \code{\link{vector}} indicating the subset of rows
+\item{rows, cols}{A \code{\link{vector}} indicating the subset of rows
 (and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
 done.}
 
@@ -70,8 +66,9 @@ done.}
 \item{constant}{A scale factor. See \code{stats::\link[stats]{mad}()} for
 details.}
 
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
-are excluded first, otherwise not.}
+\item{na.rm}{If \code{\link[base]{TRUE}}, missing values
+(\code{\link[base]{NA}} or \code{\link[base]{NaN}}) are
+omitted from the calculations.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden
@@ -93,9 +90,9 @@ matrix-like object.
 }
 \details{
 The S4 methods for \code{x} of type \code{\link{matrix}},
-\code{\link{array}}, or \code{\link{numeric}} call
-\code{matrixStats::rowMads}
-/ \code{matrixStats::colMads}.
+\code{\link{array}}, \code{\link{table}}, or \code{\link{numeric}} call
+\code{matrixStats::\link[matrixStats]{rowMads}} /
+\code{matrixStats::\link[matrixStats]{colMads}}.
 }
 \examples{
 # A DelayedMatrix with a 'data.frame' seed
@@ -127,7 +124,5 @@ when  the input is a \code{matrix} or \code{numeric} vector.
 }
 }
 \author{
-Peter Hickey
-
 Peter Hickey
 }
