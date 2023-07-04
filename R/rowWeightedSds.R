@@ -20,7 +20,7 @@
 #' rowWeightedSds(dm_Rle, w = 1 / colMeans2(dm_Rle))
 setMethod("rowWeightedSds", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             sqrt(rowWeightedVars(
               x = x,
               w = w,

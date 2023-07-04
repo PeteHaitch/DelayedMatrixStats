@@ -308,7 +308,7 @@ setMethod("subset_by_Nindex", "SolidRleArraySeed",
 #       (see extract_array,DelayedOp-method)?
 
 #' @importFrom DelayedArray isPristine
-.smart_seed_dispatcher <- function(x, generic, blockfun, ..., force_block_processing = FALSE, useNames = NA) {
+.smart_seed_dispatcher <- function(x, generic, blockfun, ..., force_block_processing = FALSE, useNames = TRUE) {
   if (isPristine(x) && !force_block_processing) {
     S <- seed(x)
     candidate <- selectMethod(generic, class(S)[1], optional=TRUE)

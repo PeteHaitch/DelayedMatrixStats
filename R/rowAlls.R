@@ -8,7 +8,7 @@
 
 .DelayedMatrix_block_rowAlls <- function(x, rows = NULL, cols = NULL,
                                          value = TRUE, na.rm = FALSE,
-                                         ..., useNames = NA) {
+                                         ..., useNames = TRUE) {
   # Check input
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -26,9 +26,7 @@
   if (length(val) == 0L) {
     return(logical(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::rowAlls() has no names
-  # TODO: Obey top-level `useNames` argument.
-  unlist(val, recursive = FALSE, use.names = FALSE)
+  unlist(val, recursive = FALSE, use.names = useNames)
 }
 
 ### ----------------------------------------------------------------------------
@@ -47,7 +45,7 @@
 #' rowAlls(dm_Rle, value = 1)
 setMethod("rowAlls", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::rowAlls,
                                    blockfun = .DelayedMatrix_block_rowAlls,
                                    force_block_processing = force_block_processing,

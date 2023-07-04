@@ -9,7 +9,7 @@
 .DelayedMatrix_block_colRanks <-
   function(x, rows = NULL, cols = NULL,
            ties.method = c("max", "average", "first", "last", "random", "max", "min", "dense"),
-           preserveShape = FALSE, ..., useNames = NA) {
+           preserveShape = FALSE, ..., useNames = TRUE) {
     # Check input type
     ties.method <- match.arg(ties.method)
     stopifnot(is(x, "DelayedMatrix"))
@@ -28,9 +28,11 @@
     if (length(val) == 0L) {
       return(numeric(ncol(x)))
     }
-    # NOTE: Return value of matrixStats::colRanks() has no names
-    # TODO: Obey top-level `useNames` argument.
-    unname(do.call(rbind, val))
+    val <- do.call(rbind, val)
+    if (!useNames) {
+      val <- unname(val)
+    }
+    val
   }
 
 ### ----------------------------------------------------------------------------
@@ -57,7 +59,7 @@ setMethod("colRanks", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
                    ties.method = c("max", "average", "first", "last", "random", "max", "min", "dense"),
                    preserveShape = FALSE,
-                   force_block_processing = FALSE, ..., useNames = useNames) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             ties.method <- match.arg(ties.method)
             .smart_seed_dispatcher(x, generic = MatrixGenerics::colRanks,
                                    blockfun = .DelayedMatrix_block_colRanks,

@@ -7,7 +7,7 @@
 ###
 
 .DelayedMatrix_block_rowCumsums <- function(x, rows = NULL, cols = NULL,
-                                            ..., useNames = NA) {
+                                            ..., useNames = TRUE) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -23,9 +23,11 @@
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::rowCumsums() has no names
-  # TODO: Obey top-level `useNames` argument.
-  unname(do.call(rbind, val))
+  val <- do.call(rbind, val)
+  if (!useNames) {
+    val <- unname(val)
+  }
+  val
 }
 
 ### ----------------------------------------------------------------------------
@@ -46,7 +48,7 @@
 #' rowCumsums(dm_Matrix, rows = 2:4)
 setMethod("rowCumsums", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::rowCumsums,
                                    blockfun = .DelayedMatrix_block_rowCumsums,
                                    force_block_processing = force_block_processing,

@@ -7,7 +7,7 @@
 ###
 
 .DelayedMatrix_block_colMedians <- function(x, rows = NULL, cols = NULL,
-                                            na.rm = FALSE, ..., useNames = NA) {
+                                            na.rm = FALSE, ..., useNames = TRUE) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -24,9 +24,7 @@
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::colMedians() has no names
-  # TODO: Obey top-level `useNames` argument.
-  unlist(val, recursive = FALSE, use.names = FALSE)
+  unlist(val, recursive = FALSE, use.names = useNames)
 }
 
 ### ----------------------------------------------------------------------------
@@ -51,7 +49,7 @@
 #' colMedians(dm_Matrix)
 setMethod("colMedians", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::colMedians,
                                    blockfun = .DelayedMatrix_block_colMedians,
                                    force_block_processing = force_block_processing,

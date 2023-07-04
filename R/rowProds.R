@@ -9,7 +9,7 @@
 .DelayedMatrix_block_rowProds <- function(x, rows = NULL, cols = NULL,
                                           na.rm = FALSE,
                                           method = c("direct", "expSumLog"),
-                                          ..., useNames = NA) {
+                                          ..., useNames = TRUE) {
   # Check input
   method <- match.arg(method)
   stopifnot(is(x, "DelayedMatrix"))
@@ -28,9 +28,7 @@
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::rowProds() has no names
-  # TODO: Obey top-level `useNames` argument.
-  unlist(val, recursive = FALSE, use.names = FALSE)
+  unlist(val, recursive = FALSE, use.names = useNames)
 }
 
 ### ----------------------------------------------------------------------------
@@ -51,7 +49,7 @@
 setMethod("rowProds", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
                    method = c("direct", "expSumLog"),
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             method <- match.arg(method)
             .smart_seed_dispatcher(x, generic = MatrixGenerics::rowProds,
                                    blockfun = .DelayedMatrix_block_rowProds,

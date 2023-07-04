@@ -8,7 +8,7 @@
 
 #' @importMethodsFrom DelayedArray t
 .DelayedMatrix_block_rowCollapse <- function(x, idxs, rows = NULL,
-                                             ..., useNames = NA) {
+                                             ..., useNames = TRUE) {
   # Check input
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -29,13 +29,11 @@
   if (length(val) == 0L) {
     return(numeric(nrow(x)))
   }
-  # NOTE: Return value of matrixStats::rowCollapse() has no names
-  # TODO: Obey top-level `useNames` argument.
-  unlist(val, recursive = TRUE, use.names = FALSE)
+  unlist(val, recursive = FALSE, use.names = useNames)
 }
 
 #' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
-.rowCollapse_internal <- function(x, idxs, ..., useNames = NA) {
+.rowCollapse_internal <- function(x, idxs, ..., useNames = TRUE) {
     block.env <- parent.frame(2)
     vp <- currentViewport(block.env)
     subset <- makeNindexFromArrayViewport(vp)[[1]]
@@ -66,7 +64,7 @@
 #' rowCollapse(dm_HDF5, 2)
 setMethod("rowCollapse", "DelayedMatrix",
           function(x, idxs, rows = NULL,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::rowCollapse,
                                    blockfun = .DelayedMatrix_block_rowCollapse,
                                    force_block_processing = force_block_processing,

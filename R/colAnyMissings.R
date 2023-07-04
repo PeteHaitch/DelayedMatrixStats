@@ -17,7 +17,7 @@
 #' @export
 setMethod("colAnyMissings", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, force_block_processing = FALSE,
-                   ..., useNames = NA) {
+                   ..., useNames = TRUE) {
             colAnyNAs(x = x,
                     rows = rows,
                     cols = cols,
@@ -32,4 +32,12 @@ setMethod("colAnyMissings", "DelayedMatrix",
 #
 
 #' @export
-setMethod("colAnyMissings", "matrix", matrixStats::colAnyMissings)
+setMethod("colAnyMissings", "matrix",
+          function(x, rows = NULL, cols = NULL, ..., useNames = TRUE) {
+            colAnyNAs(x = x,
+                      rows = rows,
+                      cols = cols,
+                      ...,
+                      useNames = useNames)
+          }
+)

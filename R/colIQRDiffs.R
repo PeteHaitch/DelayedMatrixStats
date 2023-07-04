@@ -8,7 +8,7 @@
 
 .DelayedMatrix_block_colIQRDiffs <- function(x, rows = NULL, cols = NULL,
                                              na.rm = FALSE, diff = 1L,
-                                             trim = 0, ..., useNames = NA) {
+                                             trim = 0, ..., useNames = TRUE) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -27,9 +27,7 @@
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::colIQRDiffs() has names
-  # TODO: Obey top-level `useNames` argument.
-  unlist(val, recursive = FALSE, use.names = TRUE)
+  unlist(val, recursive = FALSE, use.names = useNames)
 }
 
 ### ----------------------------------------------------------------------------
@@ -55,7 +53,7 @@
 #' colIQRDiffs(dm_Matrix)
 setMethod("colIQRDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
-                   trim = 0, force_block_processing = FALSE, ..., useNames = NA) {
+                   trim = 0, force_block_processing = FALSE, ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::colIQRDiffs,
                                    blockfun = .DelayedMatrix_block_colIQRDiffs,
                                    force_block_processing = force_block_processing,

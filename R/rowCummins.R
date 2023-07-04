@@ -7,7 +7,7 @@
 ###
 
 .DelayedMatrix_block_rowCummins <- function(x, rows = NULL, cols = NULL,
-                                            ..., useNames = NA) {
+                                            ..., useNames = TRUE) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -45,7 +45,7 @@
 #' rowCummins(dm_Matrix, rows = 2:4)
 setMethod("rowCummins", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::rowCummins,
                                    blockfun = .DelayedMatrix_block_rowCummins,
                                    force_block_processing = force_block_processing,
