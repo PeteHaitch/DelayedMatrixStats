@@ -101,7 +101,7 @@ testGroup <- function(matrix_list, DelayedMatrix_list) {
 #       https://github.com/const-ae/sparseMatrixStats/issues/27.
 # TODO  UP TO HERE Fails with colRanges() and rowRanges() due to
 #       https://github.com/Bioconductor/DelayedArray/issues/106
-for (i in seq_len(nrow(test_manifest))[c(1:7, 13:24, 27:44, 50:61, 64:74)]) {
+for (i in seq_len(nrow(test_manifest))[c(1:7, 13:25, 27:44, 50:62, 64:74)]) {
 
   # Get the function to be tested
   f <- test_manifest[i, "Function"]
