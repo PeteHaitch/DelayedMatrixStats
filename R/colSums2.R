@@ -82,7 +82,6 @@ setMethod("colSums2", "Matrix",
           }
 )
 
-#' @importFrom stats setNames
 #' @importMethodsFrom IRanges Views viewSums
 #' @rdname colSums2
 #' @export
@@ -104,7 +103,7 @@ setMethod("colSums2", "SolidRleArraySeed",
                 if (!is.null(cols)) {
                   nms <- nms[cols]
                 }
-                val <- setNames(val, nms)
+                names(val) <- nms
               }
               return(val)
             }
@@ -116,7 +115,7 @@ setMethod("colSums2", "SolidRleArraySeed",
               if (!is.null(cols)) {
                 nms <- nms[cols]
               }
-              val <- setNames(val, nms)
+              names(val) <- nms
             }
             val
           }

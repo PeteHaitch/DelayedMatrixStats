@@ -68,7 +68,6 @@ setMethod("colProds", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @importFrom stats setNames
 #' @importMethodsFrom IRanges Views viewApply
 #' @rdname colProds
 #' @export
@@ -100,7 +99,7 @@ setMethod("colProds", "SolidRleArraySeed",
                 if (!is.null(cols)) {
                   nms <- nms[cols]
                 }
-                val <- setNames(val, nms)
+                names(val) <- nms
               }
               return(val)
             }
@@ -112,7 +111,7 @@ setMethod("colProds", "SolidRleArraySeed",
               if (!is.null(cols)) {
                 nms <- nms[cols]
               }
-              val <- setNames(val, nms)
+              names(val) <- nms
             }
             val
           }
