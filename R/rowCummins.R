@@ -23,8 +23,11 @@
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::rowCummins() has no names
-  unname(do.call(rbind, val))
+  val <- do.call(cbind, val)
+  if (!useNames) {
+    val <- unname(val)
+  }
+  val
 }
 
 ### ----------------------------------------------------------------------------
