@@ -24,7 +24,7 @@ Depends:
 Imports:
   methods,
   matrixStats (>= 1.0.0),
-  sparseMatrixStats (>= 1.13.1),
+  sparseMatrixStats (>= 1.13.2),
   Matrix (>= 1.5-0),
   S4Vectors (>= 0.17.5),
   IRanges (>= 2.25.10)

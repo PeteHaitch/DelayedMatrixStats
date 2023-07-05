@@ -96,26 +96,10 @@ testGroup <- function(matrix_list, DelayedMatrix_list) {
 # Run unit tests
 #
 
-# TODO: UP TO HERE Fails with colCum*(), colDiffs(), rowCum*(), rowDiffs(),
-#       colRanks(), rowRanks(), due to
-#       https://github.com/const-ae/sparseMatrixStats/issues/27.
-# TODO  UP TO HERE Fails with colRanges() and rowRanges() due to
-#       https://github.com/Bioconductor/DelayedArray/issues/106
-for (i in seq_len(nrow(test_manifest))[c(1:7, 13:25, 27:44, 50:62, 64:74)]) {
+for (i in seq_len(nrow(test_manifest))) {
 
   # Get the function to be tested
   f <- test_manifest[i, "Function"]
-  # TODO: Is this hack necessary?
-  # This hack is to preserve the `useNames = FALSE` behaviour of
-  # colAnyMissings/rowAnyMissings in BioC <= BioC 3.17 and matrixStats < 1.0.0
-  # in BioC == 3.17 with matrixStats == 1.0.0.
-  # colAnyMissings/rowAnyMissings are effectively aliases for
-  # colAnyNAs/rowAnyNAs and will be deprecated in the next release.
-  # if (f == "colAnyMissings") {
-  #   f <- "colAnyNAs"
-  # } else if (f == "rowAnyMissings") {
-  #   f <- "rowAnyNAs"
-  # }
   # A clunky hack to get MatrixGenerics::f
   mg_f <- get(f, envir = environment(MatrixGenerics::colSums2))
   dmg_f <- get(f)
