@@ -313,7 +313,7 @@ setMethod("subset_by_Nindex", "SolidRleArraySeed",
     S <- seed(x)
     candidate <- selectMethod(generic, class(S)[1], optional=TRUE)
     if (!is.null(candidate) && !.same_as_ANY_method(candidate, generic)) {
-       return(candidate(S, ...))
+       return(candidate(S, ..., useNames = useNames))
     }
   }
   blockfun(x, ..., useNames = useNames)
