@@ -12,7 +12,7 @@
   values = NULL,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{rowTabulates}{DelayedMatrix}(
@@ -22,17 +22,13 @@
   values = NULL,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link{vector}} indicating the subset of rows
-(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
-done.}
-
-\item{cols}{A \code{\link{vector}} indicating the subset of rows
+\item{rows, cols}{A \code{\link{vector}} indicating the subset of rows
 (and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
 done.}
 
@@ -59,9 +55,9 @@ Tabulates the values in a matrix-like object by row (column).
 }
 \details{
 The S4 methods for \code{x} of type \code{\link{matrix}},
-\code{\link{array}}, or \code{\link{numeric}} call
-\code{matrixStats::rowTabulates}
-/ \code{matrixStats::colTabulates}.
+\code{\link{array}}, \code{\link{table}}, or \code{\link{numeric}} call
+\code{matrixStats::\link[matrixStats]{rowTabulates}} /
+\code{matrixStats::\link[matrixStats]{colTabulates}}.
 }
 \examples{
 # A DelayedMatrix with a 'DataFrame' seed

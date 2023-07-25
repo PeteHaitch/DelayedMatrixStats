@@ -9,7 +9,7 @@
 .DelayedMatrix_block_colProds <- function(x, rows = NULL, cols = NULL,
                                           na.rm = FALSE,
                                           method = c("direct", "expSumLog"),
-                                          ..., useNames = NA) {
+                                          ..., useNames = TRUE) {
   # Check input
   method <- match.arg(method)
   stopifnot(is(x, "DelayedMatrix"))
@@ -28,9 +28,7 @@
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::colProds() has no names
-  # TODO: Obey top-level `useNames` argument.
-  unlist(val, recursive = FALSE, use.names = FALSE)
+  unlist(val, recursive = FALSE, use.names = useNames)
 }
 
 ### ----------------------------------------------------------------------------
@@ -52,7 +50,7 @@
 setMethod("colProds", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
                    method = c("direct", "expSumLog"),
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             method <- match.arg(method)
             .smart_seed_dispatcher(x, generic = MatrixGenerics::colProds,
                                    blockfun = .DelayedMatrix_block_colProds,
@@ -80,7 +78,7 @@ setMethod("colProds", "DelayedMatrix",
 #' colProds(dm_matrix)
 setMethod("colProds", "SolidRleArraySeed",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
-                   method = c("direct", "expSumLog"), ..., useNames = NA) {
+                   method = c("direct", "expSumLog"), ..., useNames = TRUE) {
             method <- match.arg(method)
             if (method != "direct") {
               stop("Only the 'direct' method is currently supported for ",
@@ -92,15 +90,29 @@ setMethod("colProds", "SolidRleArraySeed",
             views <- Views(subject = x@rle, start = unlist(irl))
             val <- viewApply(X = views, FUN = prod, na.rm = na.rm)
             if (length(irl) == 0) {
-              return(numeric(ncol(x)))
+              return(val)
             }
             n <- length(irl[[1]])
             if (n == 1) {
+              if (useNames) {
+                nms <- colnames(x)
+                if (!is.null(cols)) {
+                  nms <- nms[cols]
+                }
+                names(val) <- nms
+              }
               return(val)
             }
             IDX <- rep(seq_along(irl), each = n)
-            # TODO: Obey top-level `useNames` argument.
-            unlist(lapply(X = split(val, IDX), FUN = prod, na.rm = na.rm),
-                   use.names = FALSE)
+            val <- unlist(
+              lapply(X = split(val, IDX), FUN = prod, na.rm = na.rm))
+            if (useNames) {
+              nms <- colnames(x)
+              if (!is.null(cols)) {
+                nms <- nms[cols]
+              }
+              names(val) <- nms
+            }
+            val
           }
 )

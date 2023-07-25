@@ -8,7 +8,7 @@
 
 .DelayedMatrix_block_rowCounts <- function(x, rows = NULL, cols = NULL,
                                            value = TRUE, na.rm = FALSE,
-                                           ..., useNames = NA) {
+                                           ..., useNames = TRUE) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -26,9 +26,7 @@
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::rowCounts() has no names
-  # TODO: Obey top-level `useNames` argument.
-  unlist(val, recursive = FALSE, use.names = FALSE)
+  unlist(val, recursive = FALSE, use.names = useNames)
 }
 
 ### ----------------------------------------------------------------------------
@@ -50,7 +48,7 @@
 #' rowCounts(dm_DF, rows = seq(1, nrow(dm_DF), 2), cols = 2, value = 5)
 setMethod("rowCounts", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, value = TRUE, na.rm = FALSE,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::rowCounts,
                                    blockfun = .DelayedMatrix_block_rowCounts,
                                    force_block_processing = force_block_processing,

@@ -8,7 +8,7 @@
 
 .DelayedMatrix_block_rowWeightedMedians <- function(x, w = NULL, rows = NULL,
                                                     cols = NULL, na.rm = FALSE,
-                                                    ..., useNames = NA) {
+                                                    ..., useNames = TRUE) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -37,9 +37,7 @@
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::rowWeightedMedians() has names
-  # TODO: Obey top-level `useNames` argument.
-  unlist(val, recursive = FALSE, use.names = TRUE)
+  unlist(val, recursive = FALSE, use.names = useNames)
 }
 
 ### ----------------------------------------------------------------------------
@@ -56,7 +54,7 @@
 #' @export
 setMethod("rowWeightedMedians", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::rowWeightedMedians,
                                    blockfun = .DelayedMatrix_block_rowWeightedMedians,
                                    force_block_processing = force_block_processing,

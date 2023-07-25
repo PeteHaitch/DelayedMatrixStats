@@ -9,7 +9,7 @@
 .DelayedMatrix_block_rowWeightedMads <- function(x, w = NULL, rows = NULL,
                                                  cols = NULL, na.rm = FALSE,
                                                  constant = 1.4826,
-                                                 center = NULL, ..., useNames = NA) {
+                                                 center = NULL, ..., useNames = TRUE) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -51,13 +51,11 @@
   if (length(val) == 0L) {
     return(numeric(nrow(x)))
   }
-  # NOTE: Return value of matrixStats::rowWeightedMads() has names
-  # TODO: Obey top-level `useNames` argument.
-  unlist(val, recursive = FALSE, use.names = TRUE)
+  unlist(val, recursive = FALSE, use.names = useNames)
 }
 
 #' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
-.rowWeightedMads_internal <- function(x, center, ..., useNames = useNames) {
+.rowWeightedMads_internal <- function(x, center, ..., useNames = TRUE) {
     if (!is.null(center) && length(center) != 1L) {
         block.env <- parent.frame(2)
         vp <- currentViewport(block.env)
@@ -87,7 +85,7 @@
 setMethod("rowWeightedMads", "DelayedMatrix",
           function(x, w = NULL, rows = NULL, cols = NULL, na.rm = FALSE,
                    constant = 1.4826, center = NULL,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::rowWeightedMads,
                                    blockfun = .DelayedMatrix_block_rowWeightedMads,
                                    force_block_processing = force_block_processing,

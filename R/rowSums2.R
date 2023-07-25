@@ -7,7 +7,7 @@
 ###
 
 .DelayedMatrix_block_rowSums2 <- function(x, rows = NULL, cols = NULL,
-                                          na.rm = FALSE, ..., useNames = NA) {
+                                          na.rm = FALSE, ..., useNames = TRUE) {
   # Check input
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -24,9 +24,7 @@
   if (length(val) == 0L) {
     return(numeric(nrow(x)))
   }
-  # NOTE: Return value of matrixStats::rowSums() has no names
-  # TODO: Obey top-level `useNames` argument.
-  unlist(val, recursive = FALSE, use.names = FALSE)
+  unlist(val, recursive = FALSE, use.names = useNames)
 }
 
 ### ----------------------------------------------------------------------------
@@ -54,7 +52,7 @@
 #' options(DelayedMatrixStats.verbose = FALSE)
 setMethod("rowSums2", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::rowSums2,
                                    blockfun = .DelayedMatrix_block_rowSums2,
                                    force_block_processing = force_block_processing,
@@ -75,11 +73,13 @@ setMethod("rowSums2", "DelayedMatrix",
 #' @export
 setMethod("rowSums2", "Matrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
-                   ..., useNames = useNames) {
+                   ..., useNames = TRUE) {
             message2(class(x), get_verbose())
             x <- ..subset(x, rows, cols)
-            # NOTE: Return value of matrixStats::rowSums2() has no names
-            # TODO: Obey top-level `useNames` argument.
-            unname(rowSums(x = x, na.rm = na.rm))
+            val <- rowSums(x = x, na.rm = na.rm)
+            if (!useNames) {
+              val <- unname(val)
+            }
+            val
           }
 )

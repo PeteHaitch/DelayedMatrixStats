@@ -3,3 +3,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 issue_82.R
+README.Rmd
+codecov.yml
+longtests/
+man-roxygen/

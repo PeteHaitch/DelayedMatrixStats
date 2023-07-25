@@ -7,7 +7,7 @@
 ###
 
 .DelayedMatrix_block_rowMeans2 <- function(x, rows = NULL, cols = NULL,
-                                           na.rm = FALSE, ..., useNames = useNames) {
+                                           na.rm = FALSE, ..., useNames = TRUE) {
   # Check input
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -24,9 +24,7 @@
   if (length(val) == 0L) {
     return(numeric(nrow(x)))
   }
-  # NOTE: Return value of matrixStats::rowMeans() has no names
-  # TODO: Obey top-level `useNames` argument.
-  unlist(val, recursive = FALSE, use.names = FALSE)
+  unlist(val, recursive = FALSE, use.names = useNames)
 }
 
 ### ----------------------------------------------------------------------------
@@ -54,7 +52,7 @@
 #' options(DelayedMatrixStats.verbose = FALSE)
 setMethod("rowMeans2", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::rowMeans2,
                                    blockfun = .DelayedMatrix_block_rowMeans2,
                                    force_block_processing = force_block_processing,
@@ -75,11 +73,15 @@ setMethod("rowMeans2", "DelayedMatrix",
 #' @export
 setMethod("rowMeans2", "Matrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
-                   ..., useNames = NA) {
+                   ..., useNames = TRUE) {
             message2(class(x), get_verbose())
             x <- ..subset(x, rows, cols)
             # NOTE: Return value of matrixStats::rowMeans2() has no names
             # TODO: Obey top-level `useNames` argument.
-            unname(rowMeans(x = x, na.rm = na.rm))
+            val <- rowMeans(x = x, na.rm = na.rm)
+            if (!useNames) {
+              val <- unname(val)
+            }
+            val
           }
 )

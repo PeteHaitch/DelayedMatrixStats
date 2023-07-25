@@ -6,7 +6,7 @@
 ### Exported methods
 ###
 
-.DelayedMatrix_block_colAnyNAs <- function(x, rows, cols, ..., useNames = NA) {
+.DelayedMatrix_block_colAnyNAs <- function(x, rows, cols, ..., useNames = TRUE) {
     colAnys(x = x, rows = rows, cols = cols, value = NA, ..., useNames = useNames)
 }
 
@@ -32,7 +32,7 @@
 #' rowAnyNAs(dm_HDF5)
 setMethod("colAnyNAs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, force_block_processing = FALSE,
-                   ..., useNames = NA) {
+                   ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::colAnyNAs,
                                    blockfun = .DelayedMatrix_block_colAnyNAs,
                                    force_block_processing = force_block_processing,

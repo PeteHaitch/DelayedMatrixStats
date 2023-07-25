@@ -21,7 +21,7 @@
 setMethod("colSds", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, center = NULL,
                    force_block_processing = FALSE,
-                   ..., useNames = NA) {
+                   ..., useNames = TRUE) {
             sqrt(colVars(x = x,
                          rows = rows,
                          cols = cols,

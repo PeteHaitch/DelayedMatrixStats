@@ -14,7 +14,7 @@
   method = c("direct", "expSumLog"),
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{colProds}{SolidRleArraySeed}(
@@ -24,7 +24,7 @@
   na.rm = FALSE,
   method = c("direct", "expSumLog"),
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{rowProds}{DelayedMatrix}(
@@ -35,22 +35,19 @@
   method = c("direct", "expSumLog"),
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 }
 \arguments{
 \item{x}{A NxK \linkS4class{DelayedMatrix}.}
 
-\item{rows}{A \code{\link{vector}} indicating the subset of rows
+\item{rows, cols}{A \code{\link{vector}} indicating the subset of rows
 (and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
 done.}
 
-\item{cols}{A \code{\link{vector}} indicating the subset of rows
-(and/or columns) to operate over. If \code{\link{NULL}}, no subsetting is
-done.}
-
-\item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link{NA}}s
-are excluded first, otherwise not.}
+\item{na.rm}{If \code{\link[base]{TRUE}}, missing values
+(\code{\link[base]{NA}} or \code{\link[base]{NaN}}) are
+omitted from the calculations.}
 
 \item{method}{A character vector of length one that specifies the
 how the product is calculated. Note, that this is not a generic
@@ -75,9 +72,9 @@ Calculates the product for each row (column) of a matrix-like object.
 }
 \details{
 The S4 methods for \code{x} of type \code{\link{matrix}},
-\code{\link{array}}, or \code{\link{numeric}} call
-\code{matrixStats::rowProds}
-/ \code{matrixStats::colProds}.
+\code{\link{array}}, \code{\link{table}}, or \code{\link{numeric}} call
+\code{matrixStats::\link[matrixStats]{rowProds}} /
+\code{matrixStats::\link[matrixStats]{colProds}}.
 }
 \examples{
 # A DelayedMatrix with a 'matrix' seed
@@ -103,7 +100,7 @@ rowProds(dm_matrix)
 \code{matrixStats::\link[matrixStats:rowProds]{colProds}()} which are used
 when the input is a \code{matrix} or \code{numeric} vector.
 \item For sums across rows (columns), see
-\code{\link[MatrixGenerics]{rowSums2}()} (\code{\link[MatrixGenerics:rowSums2]{colSums2()}})
+\code{\link[MatrixGenerics]{rowSums2}()} (\code{\link[MatrixGenerics:colSums2]{colSums2()}})
 \item \code{base::\link{prod}()}.
 }
 }

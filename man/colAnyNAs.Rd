@@ -20,7 +20,7 @@ rowAnyMissings(x, rows = NULL, cols = NULL, ..., useNames = NA)
   cols = NULL,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{colAnyNAs}{DelayedMatrix}(
@@ -29,7 +29,7 @@ rowAnyMissings(x, rows = NULL, cols = NULL, ..., useNames = NA)
   cols = NULL,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{rowAnyMissings}{DelayedMatrix}(
@@ -38,7 +38,7 @@ rowAnyMissings(x, rows = NULL, cols = NULL, ..., useNames = NA)
   cols = NULL,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 
 \S4method{rowAnyNAs}{DelayedMatrix}(
@@ -47,7 +47,7 @@ rowAnyMissings(x, rows = NULL, cols = NULL, ..., useNames = NA)
   cols = NULL,
   force_block_processing = FALSE,
   ...,
-  useNames = NA
+  useNames = TRUE
 )
 }
 \arguments{
@@ -109,7 +109,5 @@ Starting with R v3.1.0, there is \code{anyNA()} in the \pkg{base},
 which provides the same functionality as \code{anyMissing()}.
 }
 \author{
-Peter Hickey
-
 Peter Hickey
 }

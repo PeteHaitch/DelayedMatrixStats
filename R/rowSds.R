@@ -19,7 +19,7 @@
 #' rowSds(dm_DF)
 setMethod("rowSds", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, center = NULL,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             sqrt(rowVars(x = x,
                          rows = rows,
                          cols = cols,

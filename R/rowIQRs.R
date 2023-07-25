@@ -7,7 +7,7 @@
 ###
 
 .DelayedMatrix_block_rowIQRs <- function(x, rows = NULL, cols = NULL,
-                                         na.rm = FALSE, ..., useNames = NA) {
+                                         na.rm = FALSE, ..., useNames = TRUE) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -24,9 +24,7 @@
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::rowIQRs() has no names
-  # TODO: Obey top-level `useNames` argument.
-  unlist(val, recursive = FALSE, use.names = FALSE)
+  unlist(val, recursive = FALSE, use.names = useNames)
 }
 
 ### ----------------------------------------------------------------------------
@@ -47,7 +45,7 @@
 #' rowIQRs(dm_matrix, rows = 2:4)
 setMethod("rowIQRs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::rowIQRs,
                                    blockfun = .DelayedMatrix_block_rowIQRs,
                                    force_block_processing = force_block_processing,

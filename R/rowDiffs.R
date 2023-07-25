@@ -8,7 +8,7 @@
 
 .DelayedMatrix_block_rowDiffs <- function(x, rows = NULL, cols = NULL, lag = 1L,
                                           differences = 1L,
-                                          ..., useNames = NA) {
+                                          ..., useNames = TRUE) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -26,9 +26,11 @@
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::rowDiffs() has no names
-  # TODO: Obey top-level `useNames` argument.
-  unname(do.call(rbind, val))
+  val <- do.call(rbind, val)
+  if (!useNames) {
+    val <- unname(val)
+  }
+  val
 }
 
 
@@ -51,7 +53,7 @@
 #' rowDiffs(dm_HDF5, cols = seq(ncol(dm_HDF5), 1, -1))
 setMethod("rowDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, lag = 1L, differences = 1L,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::rowDiffs,
                                    blockfun = .DelayedMatrix_block_rowDiffs,
                                    force_block_processing = force_block_processing,

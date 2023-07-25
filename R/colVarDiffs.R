@@ -8,7 +8,7 @@
 
 .DelayedMatrix_block_colVarDiffs <- function(x, rows = NULL, cols = NULL,
                                              na.rm = FALSE, diff = 1L,
-                                             trim = 0, ..., useNames = NA) {
+                                             trim = 0, ..., useNames = TRUE) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = TRUE)
@@ -27,9 +27,7 @@
   if (length(val) == 0L) {
     return(numeric(ncol(x)))
   }
-  # NOTE: Return value of matrixStats::colVarDiffs() has names
-  # TODO: Obey top-level `useNames` argument.
-  unlist(val, recursive = FALSE, use.names = TRUE)
+  unlist(val, recursive = FALSE, use.names = useNames)
 }
 
 ### ----------------------------------------------------------------------------
@@ -50,7 +48,7 @@
 #' colVarDiffs(dm_Matrix)
 setMethod("colVarDiffs", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, na.rm = FALSE, diff = 1L,
-                   trim = 0, force_block_processing = FALSE, ..., useNames = NA) {
+                   trim = 0, force_block_processing = FALSE, ..., useNames = TRUE) {
             .smart_seed_dispatcher(x, generic = MatrixGenerics::colVarDiffs,
                                    blockfun = .DelayedMatrix_block_colVarDiffs,
                                    force_block_processing = force_block_processing,

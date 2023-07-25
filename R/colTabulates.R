@@ -7,7 +7,7 @@
 ###
 
 .DelayedMatrix_block_colTabulates <- function(x, rows = NULL, cols = NULL,
-                                              values = NULL, ..., useNames = NA) {
+                                              values = NULL, ..., useNames = TRUE) {
   # Check input type
   stopifnot(is(x, "DelayedMatrix"))
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
@@ -35,9 +35,11 @@
   if (length(val) == 0L) {
     return(matrix(0L,0,0))
   }
-  # NOTE: Return value of matrixStats::colTabulates() has names
-  # TODO: Obey top-level `useNames` argument.
-  do.call(rbind, val)
+  val <- do.call(rbind, val)
+  if (!useNames) {
+    val <- unname(val)
+  }
+  val
 }
 
 ### ----------------------------------------------------------------------------
@@ -63,7 +65,7 @@
 #' colTabulates(dm_DF)
 setMethod("colTabulates", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, values = NULL,
-                   force_block_processing = FALSE, ..., useNames = NA) {
+                   force_block_processing = FALSE, ..., useNames = TRUE) {
             if (!type(x) %in% c("integer", "logical", "raw")) {
               stop("Argument 'x' is not of type integer, logical, or raw",
                    " (type = ", type(x), ")")

@@ -44,8 +44,8 @@ expect_equal_DA <- function(object, expected, ...) {
 testDefaultArgs <- function(matrix_list, DelayedMatrix_list) {
   test_that("Default arguments", {
     check.attributes <- checkAttributes(DelayedMatrix_list)
-    expecteds <- Map(ms_f, matrix_list)
-    observeds <- Map(dms_f, DelayedMatrix_list)
+    expecteds <- Map(mg_f, matrix_list)
+    observeds <- Map(dmg_f, DelayedMatrix_list)
     Map(expect_equal, observeds, expecteds, check.attributes = check.attributes)
   })
 }
@@ -60,12 +60,12 @@ testNonNullRowsAndCols <- function(matrix_list, DelayedMatrix_list) {
     rows_list <- list(c(3, 2))
     cols_list <- list(c(1, 3))
     expecteds <- Map(
-      f = ms_f,
+      f = mg_f,
       matrix_list,
       rows = rows_list,
       cols = cols_list)
     observeds <- Map(
-      f = dms_f,
+      f = dmg_f,
       DelayedMatrix_list,
       rows = rows_list,
       cols = cols_list)
@@ -80,13 +80,13 @@ testGroup <- function(matrix_list, DelayedMatrix_list) {
     DelayedMatrix_list <- DelayedMatrix_list[
       grep("base_case", names(DelayedMatrix_list))]
     check.attributes <- checkAttributes(DelayedMatrix_list)
-    if (any(grepl("col", body(dms_f)))) {
+    if (any(grepl("col", body(dmg_f)))) {
       group_list <- list(c(1, 2, 2, 2))
     } else {
       group_list <- list(c(1, 1, 2))
     }
-    expecteds <- Map(ms_f, matrix_list, group = group_list)
-    observeds <- Map(dms_f, DelayedMatrix_list, group = group_list)
+    expecteds <- Map(mg_f, matrix_list, group = group_list)
+    observeds <- Map(dmg_f, DelayedMatrix_list, group = group_list)
     Map(expect_equal_DA, observeds, expecteds,
         check.attributes = check.attributes)
   })
@@ -100,10 +100,9 @@ for (i in seq_len(nrow(test_manifest))) {
 
   # Get the function to be tested
   f <- test_manifest[i, "Function"]
-  # TODO: This is a clunky hack to get matrixStats::f or base::f; what's the
-  #       proper way?
-  ms_f <- get(f, envir = environment(sum2))
-  dms_f <- get(f)
+  # A clunky hack to get MatrixGenerics::f
+  mg_f <- get(f, envir = environment(MatrixGenerics::colSums2))
+  dmg_f <- get(f)
   context(f)
 
   # Filter out those storage modes not to be tested
