@@ -28,29 +28,11 @@
   x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- rowblock_APPLY(x = x,
-                        FUN = .rowVars_internal,
-                        na.rm = na.rm,
-                        center = center,
-                        ...,
-                        useNames = useNames)
-  if (length(val) == 0L) {
-    return(numeric(nrow(x)))
-  }
-  unlist(val, recursive = FALSE, use.names = useNames)
-}
-
-#' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
-.rowVars_internal <- function(x, center, ..., useNames = TRUE) {
-    if (!is.null(center) && length(center) != 1L) {
-        block.env <- parent.frame(2)
-        vp <- currentViewport(block.env)
-        subset <- makeNindexFromArrayViewport(vp)[[1]]
-        if (!is.null(subset)) {
-            center <- center[as.integer(subset)]
-        }
-    }
-    rowVars(x, center = center, ..., useNames = useNames)
+  DelayedArray:::BLOCK_rowVars(
+    x,
+    na.rm = na.rm,
+    center = center,
+    useNames = isTRUE(useNames))
 }
 
 ### ----------------------------------------------------------------------------
