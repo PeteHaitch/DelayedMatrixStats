@@ -33,7 +33,7 @@
     \item Add explicit arguments to \code{col-/rowSds()}.
     \item Fix dimnames for \code{col-/rowQuantiles()}.
   }
-  \item Sync documentation with pkg{matrixStats} \code{v0.53.1}.
+  \item Sync documentation with \pkg{matrixStats} \code{v0.53.1}.
 }}
 
 \section{Version 1.1.7}{\itemize{
@@ -46,7 +46,7 @@
 
 \section{Version 1.1.5}{\itemize{
   \item Defunct argument \code{centers} for \code{colMads()}/\code{rowMads()} as of \pkg{matrixStats} \code{v0.53.0}.
-  \item Sync documentation with pkg{matrixStats} \code{v0.53.0}.
+  \item Sync documentation with \pkg{matrixStats} \code{v0.53.0}.
 }}
 
 \section{Version 0.99.2}{\itemize{
