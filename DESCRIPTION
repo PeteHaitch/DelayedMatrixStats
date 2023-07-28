@@ -1,8 +1,8 @@
 Package: DelayedMatrixStats
 Type: Package
 Title: Functions that Apply to Rows and Columns of 'DelayedMatrix' Objects
-Version: 1.22.2
-Date: 2023-07-06
+Version: 1.22.3
+Date: 2023-07-29
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"),
     person("Hervé", "Pagès", role = "ctb", email = "hpages.on.github@gmail.com"),

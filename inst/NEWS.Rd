@@ -2,7 +2,7 @@
 \title{News for Package \pkg{DelayedMatrixStats}}
 \encoding{UTF-8}
 
-\section{Version 1.22.1{\itemize{
+\section{Version 1.22.1}{\itemize{
   \item Modify calls to \pkg{matrixStats} functions to mitigate non-backward comptible changes in \pkg{matrixStats} 1.0.0. More precisely: (1) \code{useNames=NA} became deprecated in \pkg{matrixStats} 1.0.0 so we make sure to never pass \code{useNames=NA} when calling a \pkg{matrixStats} function; (2) furthermore, we make sure to pass a \code{useNames} value that preserves the pre-\pkg{matrixStats} 1.0.0 behavior in order to avoid disruption. See https://github.com/Bioconductor/MatrixGenerics/issues/31 for a discussion of these changes.
 }}
 
@@ -37,7 +37,7 @@
     \item Add explicit arguments to \code{col-/rowSds()}.
     \item Fix dimnames for \code{col-/rowQuantiles()}.
   }
-  \item Sync documentation with pkg{matrixStats} \code{v0.53.1}.
+  \item Sync documentation with \pkg{matrixStats} \code{v0.53.1}.
 }}
 
 \section{Version 1.1.7}{\itemize{
@@ -50,7 +50,7 @@
 
 \section{Version 1.1.5}{\itemize{
   \item Defunct argument \code{centers} for \code{colMads()}/\code{rowMads()} as of \pkg{matrixStats} \code{v0.53.0}.
-  \item Sync documentation with pkg{matrixStats} \code{v0.53.0}.
+  \item Sync documentation with \pkg{matrixStats} \code{v0.53.0}.
 }}
 
 \section{Version 0.99.2}{\itemize{
