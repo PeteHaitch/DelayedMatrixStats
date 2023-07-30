@@ -3,11 +3,6 @@
 
 # DelayedMatrixStats
 
-[![Travis-CI Build
-Status](https://travis-ci.org/PeteHaitch/DelayedMatrixStats.svg?branch=master)](https://travis-ci.org/PeteHaitch/DelayedMatrixStats)
-[![Coverage
-Status](https://codecov.io/gh/PeteHaitch/DelayedMatrixStats/branch/master/graph/badge.svg)](https://codecov.io/gh/PeteHaitch/DelayedMatrixStats)
-
 **DelayedMatrixStats** is a port of the
 [**matrixStats**](https://CRAN.R-project.org/package=matrixStats) API to
 work with *DelayedMatrix* objects from the
