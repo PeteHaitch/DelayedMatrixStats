@@ -130,6 +130,21 @@ for (i in seq_len(nrow(test_manifest))) {
     test_integer = test_integer,
     test_double = test_double,
     test_logical = test_logical)
+  # NOTE: Strip dimnames if testing colMaxs/rowMaxs or colMins/rowMins. The
+  #       DelayedArary-methods for these functions are defined in DelayedArray
+  #       rather than DelayedMatrixStats and these have always propagated the
+  #       names. So this is a workaround for a temporary discordance between
+  #       matrixStats::f() and MatrixGenerics::f() [which resolves to
+  #       DelayedArray::f()] for these functions and how they treat names.
+  #       This hack is only applicable for BioC 3.17 because starting with BioC
+  #       3.18 the naming behaviour of these DelayedArray::f() is consistent
+  #       with matrixStats and MatrixGenerics.
+  #       See https://github.com/Bioconductor/DelayedArray/issues/107 for
+  #       further details and discussion.
+  if (f %in% c("colMaxs", "colMins", "rowMaxs", "rowMins")) {
+    filtered_matrix_list <- lapply(filtered_matrix_list, unname)
+    filtered_DelayedMatrix_list <- lapply(filtered_DelayedMatrix_list, unname)
+  }
 
   # Run selected tests
   if (test_manifest[i, "testDefaultArgs"]) {
