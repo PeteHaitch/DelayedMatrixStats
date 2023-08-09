@@ -61,10 +61,3 @@ setMethod("colSdDiffs", "DelayedMatrix",
                                    useNames = useNames)
           }
 )
-
-# ------------------------------------------------------------------------------
-# Seed-aware methods
-#
-
-#' @export
-setMethod("colSdDiffs", "matrix", matrixStats::colSdDiffs)
