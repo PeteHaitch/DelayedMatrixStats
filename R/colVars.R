@@ -28,31 +28,11 @@
   x <- ..subset(x, rows, cols)
 
   # Compute result
-  val <- colblock_APPLY(x = x,
-                        FUN = .colVars_internal,
-                        na.rm = na.rm,
-                        center = center,
-                        ...,
-                        useNames = useNames)
-  if (length(val) == 0L) {
-    return(numeric(ncol(x)))
-  }
-  # NOTE: Return value of matrixStats::colVars() has no names
-  # TODO: Obey top-level `useNames` argument.
-  unlist(val, recursive = FALSE, use.names = FALSE)
-}
-
-#' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
-.colVars_internal <- function(x, center, ..., useNames = NA) {
-    if (!is.null(center) && length(center) != 1L) {
-        block.env <- parent.frame(2)
-        vp <- currentViewport(block.env)
-        subset <- makeNindexFromArrayViewport(vp)[[2]]
-        if (!is.null(subset)) {
-            center <- center[as.integer(subset)]
-        }
-    }
-    colVars(x, center = center, ..., useNames = useNames)
+  DelayedArray:::BLOCK_colVars(
+    x,
+    na.rm = na.rm,
+    center = center,
+    useNames = isTRUE(useNames))
 }
 
 ### ----------------------------------------------------------------------------
