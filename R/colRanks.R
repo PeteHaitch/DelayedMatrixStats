@@ -66,7 +66,7 @@ setMethod("colRanks", "DelayedMatrix",
                                    rows = rows,
                                    cols = cols,
                                    ties.method = ties.method,
-                                   # preserveShape = preserveShape, # TODO: wait for a fix in SMS.
+                                   preserveShape = preserveShape,
                                    ...,
                                    useNames = useNames)
           }
