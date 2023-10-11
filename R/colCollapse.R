@@ -39,7 +39,7 @@
     if (!is.null(subset)) {
         idxs <- idxs[as.integer(subset)]
     }
-    matrixStats::colCollapse(x, idxs, ..., useNames = useNames)
+    colCollapse(x, idxs, ..., useNames = useNames)
 }
 
 ### ----------------------------------------------------------------------------

@@ -32,17 +32,16 @@
     if (!is.null(W)) {
       W <- W[, k]
     }
-    matrixStats::colAvgsPerRowSet(as.matrix(X[S[, k], , drop = FALSE]),
-                                  W = W,
-                                  S = matrix(seq_len(nrow(S))),
-                                  FUN = FUN,
-                                  na.rm = na.rm,
-                                  tFUN = tFUN)
+    colAvgsPerRowSet(as.matrix(X[S[, k], , drop = FALSE]),
+                     W = W,
+                     S = matrix(seq_len(nrow(S))),
+                     FUN = FUN,
+                     na.rm = na.rm,
+                     tFUN = tFUN)
   })
   if (length(val) == 0L) {
     return(matrix(numeric(nrow(X)), nrow = nrow(X)))
   }
-  # NOTE: Return value of matrixStats::colAvgsPerRowSet() has rownames
   do.call(rbind, val)
 }
 
@@ -67,7 +66,7 @@
 setMethod("colAvgsPerRowSet", "DelayedMatrix",
           function(X, W = NULL, cols = NULL, S, FUN = colMeans, ...,
                    force_block_processing = FALSE, na.rm = NA, tFUN = FALSE) {
-            .smart_seed_dispatcher(X, generic = MatrixGenerics::colAvgsPerRowSet, 
+            .smart_seed_dispatcher(X, generic = MatrixGenerics::colAvgsPerRowSet,
                                    blockfun = .DelayedMatrix_block_colAvgsPerRowSet,
                                    force_block_processing = force_block_processing,
                                    W = W,
