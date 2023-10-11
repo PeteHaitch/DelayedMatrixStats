@@ -23,7 +23,6 @@ Depends:
   DelayedArray (>= 0.27.10)
 Imports:
   methods,
-  matrixStats (>= 1.0.0),
   sparseMatrixStats (>= 1.13.2),
   Matrix (>= 1.5-0),
   S4Vectors (>= 0.17.5),
@@ -35,7 +34,8 @@ Suggests:
   BiocStyle,
   microbenchmark,
   profmem,
-  HDF5Array
+  HDF5Array,
+  matrixStats (>= 1.0.0)
 VignetteBuilder: knitr
 URL: https://github.com/PeteHaitch/DelayedMatrixStats
 BugReports: https://github.com/PeteHaitch/DelayedMatrixStats/issues
