@@ -76,8 +76,6 @@ setMethod("rowMeans2", "Matrix",
                    ..., useNames = TRUE) {
             message2(class(x), get_verbose())
             x <- ..subset(x, rows, cols)
-            # NOTE: Return value of matrixStats::rowMeans2() has no names
-            # TODO: Obey top-level `useNames` argument.
             val <- rowMeans(x = x, na.rm = na.rm)
             if (!useNames) {
               val <- unname(val)
