@@ -1,7 +1,7 @@
 Package: DelayedMatrixStats
 Type: Package
 Title: Functions that Apply to Rows and Columns of 'DelayedMatrix' Objects
-Version: 1.23.5
+Version: 1.23.6
 Date: 2023-10-12
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"),
@@ -32,7 +32,6 @@ Suggests:
   testthat,
   knitr,
   rmarkdown,
-  covr,
   BiocStyle,
   microbenchmark,
   profmem,
