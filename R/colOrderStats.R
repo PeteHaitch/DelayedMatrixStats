@@ -40,7 +40,6 @@
 #' @rdname colOrderStats
 #' @template common_params
 #' @template lowercase_x
-#' @template useNamesParameter
 #' @export
 #' @template example_dm_MatrixMatrix
 #' @author Peter Hickey

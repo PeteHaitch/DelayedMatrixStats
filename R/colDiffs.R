@@ -47,7 +47,6 @@
 #' @rdname colDiffs
 #' @template common_params
 #' @template lowercase_x
-#' @template useNamesParameter
 #' @export
 #' @template example_dm_matrix
 #' @template example_dm_HDF5

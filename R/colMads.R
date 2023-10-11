@@ -67,7 +67,6 @@
 #' @rdname colMads
 #' @template common_params
 #' @template lowercase_x
-#' @template useNamesParameter
 #' @export
 #' @template example_dm_df
 #' @template example_dm_S4VectorsDF

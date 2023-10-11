@@ -53,7 +53,6 @@
 #' @rdname colWeightedVars
 #' @template common_params
 #' @template lowercase_x
-#' @template useNamesParameter
 #' @export
 #' @author Peter Hickey
 #' @examples

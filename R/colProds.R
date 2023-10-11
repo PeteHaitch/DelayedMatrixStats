@@ -44,7 +44,6 @@
 #' @rdname colProds
 #' @template common_params
 #' @template lowercase_x
-#' @template useNamesParameter
 #' @author Peter Hickey
 #' @export
 setMethod("colProds", "DelayedMatrix",

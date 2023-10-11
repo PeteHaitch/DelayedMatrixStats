@@ -41,7 +41,6 @@
 #' @rdname colLogSumExps
 #' @template common_params
 #' @template lx
-#' @template useNamesParameter
 #' @export
 #' @author Peter Hickey
 #' @examples

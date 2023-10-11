@@ -55,7 +55,6 @@
 #' @rdname colQuantiles
 #' @template common_params
 #' @template lowercase_x
-#' @template useNamesParameter
 #' @export
 #' @template example_dm_df
 #' @author Peter Hickey

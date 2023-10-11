@@ -52,7 +52,6 @@ setGeneric("subset_by_Nindex", signature = "x",
 #' @inherit MatrixGenerics::colAnyNAs
 #' @template common_params
 #' @template lowercase_x
-#' @template useNamesParameter
 #' @details The following functions are deprecated and will be made defunct;
 #'  use the replacement indicated below:
 #'  \itemize{

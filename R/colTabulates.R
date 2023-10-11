@@ -56,7 +56,6 @@
 #' @rdname colTabulates
 #' @template common_params
 #' @template lowercase_x
-#' @template useNamesParameter
 #' @export
 #' @template example_dm_S4VectorsDF
 #' @author Peter Hickey

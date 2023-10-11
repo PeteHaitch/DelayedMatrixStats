@@ -45,7 +45,6 @@
 #' @export
 #' @template example_dm_matrix
 #' @template example_dm_S4VectorsDF
-#' @template useNamesParameter
 #' @author Peter Hickey
 #' @examples
 #'
