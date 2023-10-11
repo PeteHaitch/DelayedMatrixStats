@@ -10,9 +10,7 @@
 # General method
 #
 
-#' @inherit matrixStats::rowAnyMissings
-#' @importMethodsFrom DelayedArray seed
-#' @rdname colAnyNAs
+#' @rdname DelayedMatrixStats-deprecated
 #' @export
 setMethod("rowAnyMissings", "DelayedMatrix",
           function(x, rows = NULL, cols = NULL, force_block_processing = FALSE,
@@ -30,7 +28,7 @@ setMethod("rowAnyMissings", "DelayedMatrix",
 # Seed-aware methods
 #
 
-#' @rdname colAnyNAs
+#' @rdname DelayedMatrixStats-deprecated
 #' @export
 setMethod("rowAnyMissings", "matrix",
           function(x, rows = NULL, cols = NULL, ..., useNames = TRUE) {

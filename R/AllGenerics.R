@@ -43,17 +43,37 @@ setGeneric("subset_by_Nindex", signature = "x",
            function(x, Nindex) standardGeneric("subset_by_Nindex")
 )
 
-#' @inherit matrixStats::colAnyMissings
-#' @rdname colAnyNAs
+#' @name DelayedMatrixStats-deprecated
+#' @aliases colAnyMissings DelayedMatrixStats-deprecated
+#' @title Deprecated functions in package \sQuote{DelayedMatrixStats}
+#' @description These functions are provided for compatibility with older
+#'  versions of \sQuote{DelayedMatrixStats} only, and will be defunct at the
+#'  next release.
+#' @inherit MatrixGenerics::colAnyNAs
+#' @template common_params
+#' @template lowercase_x
+#' @template useNamesParameter
+#' @details The following functions are deprecated and will be made defunct;
+#'  use the replacement indicated below:
+#'  \itemize{
+#'  \item{colAnyMissings: \code{\link{colAnyNAs}}}
+#'  \item{rowAnyMissings: \code{\link{rowAnyNAs}}}
+#'  }
 #' @export
 setGeneric("colAnyMissings", signature = "x",
            function(x, rows = NULL, cols = NULL,
-                    ..., useNames = NA) standardGeneric("colAnyMissings")
+                    ..., useNames = NA) {
+             .Deprecated("colAnyNAs")
+             standardGeneric("colAnyMissings")
+           }
 )
 
-#' @rdname colAnyNAs
+#' @rdname DelayedMatrixStats-deprecated
 #' @export
 setGeneric("rowAnyMissings", signature = "x",
            function(x, rows = NULL, cols = NULL,
-                    ..., useNames = NA) standardGeneric("rowAnyMissings")
+                    ..., useNames = NA) {
+             .Deprecated("rowAnyNAs")
+             standardGeneric("rowAnyMissings")
+           }
 )

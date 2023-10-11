@@ -2,6 +2,10 @@
 \title{News for Package \pkg{DelayedMatrixStats}}
 \encoding{UTF-8}
 
+\section{Version 1.23}{\itemize{
+  \item \code{colAnyMissings()} and \code{rowAnyMissings()} are deprecated in favour of the long-recommended \code{colAnyNAs()} and \code{rowAnyNAs()}. These deprecated functions will be made defunct in the next release cycle.
+}}
+
 \section{Version 1.14.0}{\itemize{
   \item Fix for missing \code{na.rm=} argument in \code{*AvgsPer*Set} functions.
   \item \pkg{DelayedMatrixStats} no longer has a hard requirement on \pkg{HDF5Array} or \pkg{BiocParallel}.
