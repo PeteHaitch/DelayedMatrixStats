@@ -74,7 +74,7 @@ setMethod("colQuantiles", "DelayedMatrix",
                                    cols = cols,
                                    probs = probs,
                                    na.rm = na.rm,
-                                   # type = type, # TODO: wait for SMS to fix.
+                                   type = type,
                                    ...,
                                    useNames = useNames,
                                    drop = drop)
