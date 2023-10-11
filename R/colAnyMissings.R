@@ -31,6 +31,7 @@ setMethod("colAnyMissings", "DelayedMatrix",
 # Seed-aware methods
 #
 
+#' @rdname colAnyNAs
 #' @export
 setMethod("colAnyMissings", "matrix",
           function(x, rows = NULL, cols = NULL, ..., useNames = TRUE) {

@@ -5,8 +5,10 @@
 \alias{colAnyMissings}
 \alias{rowAnyMissings}
 \alias{colAnyMissings,DelayedMatrix-method}
+\alias{colAnyMissings,matrix-method}
 \alias{colAnyNAs,DelayedMatrix-method}
 \alias{rowAnyMissings,DelayedMatrix-method}
+\alias{rowAnyMissings,matrix-method}
 \alias{rowAnyNAs,DelayedMatrix-method}
 \title{Checks if there are any missing values in an object or not}
 \usage{
@@ -22,6 +24,8 @@ rowAnyMissings(x, rows = NULL, cols = NULL, ..., useNames = NA)
   ...,
   useNames = TRUE
 )
+
+\S4method{colAnyMissings}{matrix}(x, rows = NULL, cols = NULL, ..., useNames = TRUE)
 
 \S4method{colAnyNAs}{DelayedMatrix}(
   x,
@@ -40,6 +44,8 @@ rowAnyMissings(x, rows = NULL, cols = NULL, ..., useNames = NA)
   ...,
   useNames = TRUE
 )
+
+\S4method{rowAnyMissings}{matrix}(x, rows = NULL, cols = NULL, ..., useNames = TRUE)
 
 \S4method{rowAnyNAs}{DelayedMatrix}(
   x,
