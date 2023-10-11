@@ -11,7 +11,6 @@
                                          ..., useNames = TRUE) {
   # Check input
   stopifnot(is(x, "DelayedMatrix"))
-  # TODO: Answer is always logical, so this might not be appropriate
   DelayedArray:::.get_ans_type(x, must.be.numeric = FALSE)
 
   # Subset
