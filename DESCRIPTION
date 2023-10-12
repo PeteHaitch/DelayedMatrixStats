@@ -4,7 +4,7 @@ Title: Functions that Apply to Rows and Columns of 'DelayedMatrix' Objects
 Version: 1.23.8
 Date: 2023-10-12
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
-    email = "peter.hickey@gmail.com"),
+    email = "peter.hickey@gmail.com", comment = c(ORCID = "0000-0002-8153-6258")),
     person("Hervé", "Pagès", role = "ctb", email = "hpages.on.github@gmail.com"),
     person("Aaron", "Lun", role = "ctb", email = "infinite.monkeys.with.keyboards@gmail.com"))
 Description: A port of the 'matrixStats' API for use with DelayedMatrix objects 
@@ -15,7 +15,6 @@ Description: A port of the 'matrixStats' API for use with DelayedMatrix objects
   minimized.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Depends:

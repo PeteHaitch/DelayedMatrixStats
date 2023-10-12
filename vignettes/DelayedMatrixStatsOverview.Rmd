@@ -333,3 +333,9 @@ improvements to these low-level routines. By using
 `r Biocpkg("DelayedMatrixStats")`, package developers will be able to focus on 
 higher level programming tasks and address important scientific questions and 
 technological challenges in high-throughput biology.
+
+# Session info
+
+```{r}
+sessionInfo()
+```
