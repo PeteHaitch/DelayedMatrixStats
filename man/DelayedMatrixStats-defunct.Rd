@@ -5,11 +5,6 @@
 \alias{colAnyMissings}
 \alias{rowAnyMissings}
 \title{Defunct functions in package \sQuote{DelayedMatrixStats}}
-\usage{
-colAnyMissings(x, rows = NULL, cols = NULL, ..., useNames = NA)
-
-rowAnyMissings(x, rows = NULL, cols = NULL, ..., useNames = NA)
-}
 \description{
 These functions are defunct and no longer available.
 }
