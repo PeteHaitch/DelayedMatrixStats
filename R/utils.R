@@ -25,6 +25,15 @@ message2 <- function(msg, verbose = FALSE) {
   }
 }
 
+# Check, normalize, and subset 'center' argument.
+# Supplied 'center' must be either NULL or a numeric vector of length 'n'
+# or 1.
+normarg_center_and_subset <- function(center, n, what, idx=NULL)
+{
+    center <- MatrixGenerics::normarg_center(center, n, what)
+    if (is.null(idx)) center else center[idx]  # 'idx' is trusted
+}
+
 # TODO: Figure out a minimal definition of a "simple seed"; Hervé defines a
 #       "seed contract" as dim(), dimnames(), and extract_array(); see
 #       DelayedArray vignette

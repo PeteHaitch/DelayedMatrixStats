@@ -25,15 +25,8 @@
     }
   }
 
-  # Check and subset 'center' (must be either NULL, or a numeric vector of
-  # length 'nrow(x)')
-  if (!is.null(center)) {
-    stopifnot(is.numeric(center))
-    stopifnot(length(center) == nrow(x))
-    if (!is.null(rows)) {
-      center <- center[rows]
-    }
-  }
+  # Check, normalize, and subset 'center'
+  center <- normarg_center_and_subset(center, nrow(x), "nrow(x)", rows)
 
   # Subset 'x'
   x <- ..subset(x, rows, cols)

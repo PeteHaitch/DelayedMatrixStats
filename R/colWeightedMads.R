@@ -25,15 +25,8 @@
     }
   }
 
-  # Check and subset 'center' (must be either NULL, or a numeric vector of
-  # length 'ncol(x)')
-  if (!is.null(center)) {
-    stopifnot(is.numeric(center))
-    stopifnot(length(center) == ncol(x))
-    if (!is.null(cols)) {
-      center <- center[cols]
-    }
-  }
+  # Check, normalize, and subset 'center'
+  center <- normarg_center_and_subset(center, ncol(x), "ncol(x)", cols)
 
   # Subset 'x'
   x <- ..subset(x, rows, cols)
@@ -54,7 +47,7 @@
 }
 
 #' @importFrom DelayedArray currentViewport makeNindexFromArrayViewport
-.colWeightedMads_internal <- function(x, center, ..., useNames = NA) {
+.colWeightedMads_internal <- function(x, center, ..., useNames = TRUE) {
     if (!is.null(center) && length(center) != 1L) {
         block.env <- parent.frame(2)
         vp <- currentViewport(block.env)

@@ -1,7 +1,7 @@
 Package: DelayedMatrixStats
 Type: Package
 Title: Functions that Apply to Rows and Columns of 'DelayedMatrix' Objects
-Version: 1.25.2
+Version: 1.25.3
 Date: 2024-04-11
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com", comment = c(ORCID = "0000-0002-8153-6258")),
@@ -18,7 +18,7 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Depends:
-  MatrixGenerics (>= 1.13.1),
+  MatrixGenerics (>= 1.15.1),
   DelayedArray (>= 0.27.10)
 Imports:
   methods,
