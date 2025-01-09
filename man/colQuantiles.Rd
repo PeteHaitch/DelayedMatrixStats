@@ -45,7 +45,7 @@ done.}
 omitted from the calculations.}
 
 \item{type}{An integer specifying the type of estimator. See
-\code{stats::\link[stats]{quantile}()}. for more details.}
+\code{stats::\link[stats]{quantile}()} for more details.}
 
 \item{force_block_processing}{\code{FALSE} (the default) means that a
 seed-aware, optimised method is used (if available). This can be overridden

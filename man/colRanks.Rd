@@ -54,10 +54,19 @@ or rows (\code{rowFoo()}) into memory as an ordinary \link[base:array]{base::arr
 \item{useNames}{If \code{\link{TRUE}} (default), names attributes of result are set. Else if \code{\link{FALSE}}, no naming support is done.}
 }
 \value{
-a matrix of type \code{\link{integer}} is returned unless
-\code{ties.method = "average"}. Ithas dimensions` \code{NxJ} (\code{KxJ})
-\code{\link{matrix}}, where N (K) is the number of rows (columns) of the
-input x.
+A \code{\link[base]{matrix}} of type \code{\link[base]{integer}} is
+returned, unless \code{ties.method = "average"} when it is of type
+\code{\link[base]{numeric}}.
+
+The \code{rowRanks()} function always returns an NxK
+\code{\link[base]{matrix}}, where N (K) is the number of rows (columns)
+whose ranks are calculated.
+
+The \code{colRanks()} function returns an NxK \code{\link[base]{matrix}}, if
+\code{preserveShape = TRUE}, otherwise a KxN \code{\link[base]{matrix}}.
+
+Any \code{\link[base]{names}} of \code{x} are ignored and absent in the
+result.
 }
 \description{
 Calculates the rank of the elements for each row (column) of a matrix-like
